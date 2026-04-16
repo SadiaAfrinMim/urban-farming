@@ -1,0 +1,49 @@
+npm init -y
+🚀 🧱 STEP 1 — Project init
+npm init -y
+⚙️ STEP 2 — TypeScript setup
+npm install -D typescript@latest
+npx tsc --init
+🧠 STEP 3 — Core dev tools
+npm install -D ts-node-dev@latest
+npm install -D prisma@latest
+npm install -D @types/node@latest
+🗄️ STEP 4 — Database (PostgreSQL + Prisma)
+npm install @prisma/client@latest
+npm install @prisma/adapter-pg@latest
+npm install pg@latest
+npm install -D @types/pg@latest
+🌐 STEP 5 — Express + Middleware
+npm install express@latest
+npm install cors@latest
+npm install cookie-parser@latest
+npm install express-rate-limit@latest
+🧾 STEP 6 — Types for Express ecosystem
+npm install -D @types/express@latest
+npm install -D @types/cors@latest
+npm install -D @types/cookie-parser@latest
+🔐 STEP 7 — Auth system
+npm install bcryptjs@latest
+npm install jsonwebtoken@latest
+npm install -D @types/jsonwebtoken@latest
+📁 STEP 8 — File upload
+npm install multer@latest
+npm install -D @types/multer@latest
+☁️ STEP 9 — Cloudinary (image upload)
+npm install cloudinary@latest
+📧 STEP 10 — Email service
+npm install nodemailer@latest
+npm install -D @types/nodemailer@latest
+💳 STEP 11 — Payment (Stripe)
+npm install stripe@latest
+🔄 STEP 12 — Utility packages
+npm install axios@latest
+npm install dotenv@latest
+npm install uuid@latest
+npm install zod@latest
+npm install date-fns@latest
+npm install http-status@latest
+npm install node-cron@latest
+⚡ STEP 13 — Prisma init
+npx prisma init
+npx prisma generate

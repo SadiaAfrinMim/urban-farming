@@ -1,0 +1,13 @@
+model User {
+  id             String            @id @default(uuid())
+  name           String?
+  email          String            @unique
+  password       String
+  role           UserRole          @default(Customer)
+  status         UserStatus        @default(Active)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  vendorProfile  VendorProfile?
+  orders         Order[]
+  communityPosts CommunityPost[]
+}

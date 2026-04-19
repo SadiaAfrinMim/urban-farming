@@ -1,3 +1,49 @@
+model CommunityPost {
+  id          String   @id @default(uuid())
+  userId      String
+  postContent String
+  postDate    DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+enum UserRole {
+  Admin
+  Vendor
+  Customer
+}
+
+enum UserStatus {
+  Active
+  Pending
+  Suspended
+}
+
+enum CertificationStatus {
+  Pending
+  Approved
+  Rejected
+}
+
+enum OrderStatus {
+  Pending
+  Confirmed
+  Shipped
+  Delivered
+  Cancelled
+}
+
+model Order {
+  id        String        @id @default(uuid())
+  userId    String
+  produceId String
+  vendorId  String
+  status    OrderStatus   @default(Pending)
+  orderDate DateTime      @default(now())
+  user      User          @relation(fields: [userId], references: [id])
+  produce   Produce       @relation(fields: [produceId], references: [id])
+  vendor    VendorProfile @relation(fields: [vendorId], references: [id])
+}
+
 generator client {
   provider = "prisma-client-js"
   output   = "../../.prisma/client"
@@ -5,4 +51,64 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id             String          @id @default(uuid())
+  name           String?
+  email          String          @unique
+  password       String
+  role           UserRole        @default(Customer)
+  status         UserStatus      @default(Active)
+  profilePhoto   String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  vendorProfile  VendorProfile?
+  orders         Order[]
+  communityPosts CommunityPost[]
+}
+
+model VendorProfile {
+  id                  String               @id @default(uuid())
+  userId              String               @unique
+  farmName            String
+  certificationStatus CertificationStatus  @default(Pending)
+  farmLocation        String
+  profilePhoto        String?
+  user                User                 @relation(fields: [userId], references: [id])
+  produces            Produce[]
+  rentalSpaces        RentalSpace[]
+  sustainabilityCerts SustainabilityCert[]
+  orders              Order[]
+}
+
+model Produce {
+  id                  String              @id @default(uuid())
+  vendorId            String
+  name                String
+  description         String?
+  price               Float
+  category            String
+  certificationStatus CertificationStatus @default(Pending)
+  availableQuantity   Int                 @default(0)
+  vendor              VendorProfile       @relation(fields: [vendorId], references: [id])
+  orders              Order[]
+}
+
+model RentalSpace {
+  id           String        @id @default(uuid())
+  vendorId     String
+  location     String
+  size         String // e.g., "10x10 sq ft"
+  price        Float
+  availability Boolean       @default(true)
+  vendor       VendorProfile @relation(fields: [vendorId], references: [id])
+}
+
+model SustainabilityCert {
+  id                String        @id @default(uuid())
+  vendorId          String
+  certifyingAgency  String
+  certificationDate DateTime
+  vendor            VendorProfile @relation(fields: [vendorId], references: [id])
 }

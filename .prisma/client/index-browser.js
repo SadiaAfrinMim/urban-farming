@@ -120,9 +120,118 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.CommunityPostScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postContent: 'postContent',
+  postDate: 'postDate'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  produceId: 'produceId',
+  vendorId: 'vendorId',
+  status: 'status',
+  orderDate: 'orderDate'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  status: 'status',
+  profilePhoto: 'profilePhoto',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VendorProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  farmName: 'farmName',
+  certificationStatus: 'certificationStatus',
+  farmLocation: 'farmLocation',
+  profilePhoto: 'profilePhoto'
+};
+
+exports.Prisma.ProduceScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  category: 'category',
+  certificationStatus: 'certificationStatus',
+  availableQuantity: 'availableQuantity'
+};
+
+exports.Prisma.RentalSpaceScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  location: 'location',
+  size: 'size',
+  price: 'price',
+  availability: 'availability'
+};
+
+exports.Prisma.SustainabilityCertScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  certifyingAgency: 'certifyingAgency',
+  certificationDate: 'certificationDate'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.OrderStatus = exports.$Enums.OrderStatus = {
+  Pending: 'Pending',
+  Confirmed: 'Confirmed',
+  Shipped: 'Shipped',
+  Delivered: 'Delivered',
+  Cancelled: 'Cancelled'
+};
+
+exports.UserRole = exports.$Enums.UserRole = {
+  Admin: 'Admin',
+  Vendor: 'Vendor',
+  Customer: 'Customer'
+};
+
+exports.UserStatus = exports.$Enums.UserStatus = {
+  Active: 'Active',
+  Pending: 'Pending',
+  Suspended: 'Suspended'
+};
+
+exports.CertificationStatus = exports.$Enums.CertificationStatus = {
+  Pending: 'Pending',
+  Approved: 'Approved',
+  Rejected: 'Rejected'
+};
 
 exports.Prisma.ModelName = {
-
+  CommunityPost: 'CommunityPost',
+  Order: 'Order',
+  User: 'User',
+  VendorProfile: 'VendorProfile',
+  Produce: 'Produce',
+  RentalSpace: 'RentalSpace',
+  SustainabilityCert: 'SustainabilityCert'
 };
 
 /**

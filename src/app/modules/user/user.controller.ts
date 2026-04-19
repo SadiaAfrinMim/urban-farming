@@ -83,11 +83,11 @@ const changeProfileStatus = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
-const updateMyProfie = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+const updateMyProfile = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
 
     const user = req.user;
 
-    const result = await UserService.updateMyProfie(user as IJWTPayload, req);
+    const result = await UserService.updateMyProfile(user as IJWTPayload, req);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -104,5 +104,5 @@ export const UserController = {
     getAllFromDB,
     getMyProfile,
     changeProfileStatus,
-    updateMyProfie
+    updateMyProfile
 }

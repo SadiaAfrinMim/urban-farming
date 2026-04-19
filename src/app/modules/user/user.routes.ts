@@ -75,7 +75,7 @@ router.get(
 router.post(
     "/create-customer",
     (req: Request, res: Response, next: NextFunction) => {
-        req.body = UserValidation.createUserZodSchema.parse(req.body)
+        req.body = UserValidation.createUserZodSchema.parse({ body: req.body }).body
         return UserController.createCustomer(req, res, next)
     }
 )
@@ -113,7 +113,7 @@ router.post(
     "/create-admin",
     auth(UserRole.Admin),
     (req: Request, res: Response, next: NextFunction) => {
-        req.body = UserValidation.createUserZodSchema.parse(req.body)
+        req.body = UserValidation.createUserZodSchema.parse({ body: req.body }).body
         return UserController.createAdmin(req, res, next)
     }
 );
@@ -205,6 +205,7 @@ router.patch(
  *               file:
  *                 type: string
  *                 format: binary
+ *                 description: Profile photo file (optional)
  *               data:
  *                 type: string
  *                 description: JSON string with profile data
@@ -217,8 +218,9 @@ router.patch(
     auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer),
     fileUploader.upload.single('file'),
     (req: Request, res: Response, next: NextFunction) => {
-        req.body = JSON.parse(req.body.data)
-        return UserController.updateMyProfie(req, res, next)
+        const parsedData = JSON.parse(req.body.data || '{}');
+        req.body = UserValidation.updateProfileZodSchema.parse({ body: parsedData }).body;
+        return UserController.updateMyProfile(req, res, next)
     }
 );
 

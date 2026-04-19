@@ -5,6 +5,7 @@ model User {
   password       String
   role           UserRole          @default(Customer)
   status         UserStatus        @default(Active)
+  profilePhoto   String?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
   vendorProfile  VendorProfile?

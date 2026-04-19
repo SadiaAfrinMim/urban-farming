@@ -53,9 +53,9 @@ const router = express.Router();
  *       200:
  *         description: Rental space details
  */
-router.get('/spaces', RentalController.getAllRentalSpaces);
-router.get('/spaces/search', RentalController.searchRentalSpaces);
-router.get('/spaces/:id', RentalController.getRentalSpaceById);
+router.get('/', RentalController.getAllRentalSpaces);
+router.get('/search', RentalController.searchRentalSpaces);
+router.get('/:id', RentalController.getRentalSpaceById);
 
 /**
  * @swagger
@@ -129,9 +129,9 @@ router.get('/spaces/:id', RentalController.getRentalSpaceById);
  *       200:
  *         description: Rental space deleted
  */
-router.post('/spaces', auth(UserRole.Vendor), RentalController.createRentalSpace);
-router.patch('/spaces/:id', auth(UserRole.Vendor), RentalController.updateRentalSpace);
-router.delete('/spaces/:id', auth(UserRole.Vendor), RentalController.deleteRentalSpace);
+router.post('/', auth(UserRole.Vendor), RentalController.createRentalSpace);
+router.patch('/:id', auth(UserRole.Vendor), RentalController.updateRentalSpace);
+router.delete('/:id', auth(UserRole.Vendor), RentalController.deleteRentalSpace);
 
 // Booking APIs (assuming we add booking later, but for now, toggle availability)
 /**
@@ -152,6 +152,6 @@ router.delete('/spaces/:id', auth(UserRole.Vendor), RentalController.deleteRenta
  *       200:
  *         description: Availability toggled
  */
-router.patch('/spaces/:id/availability', auth(UserRole.Vendor), RentalController.toggleAvailability);
+router.patch('/:id/availability', auth(UserRole.Vendor), RentalController.toggleAvailability);
 
 export const rentalRoutes = router;

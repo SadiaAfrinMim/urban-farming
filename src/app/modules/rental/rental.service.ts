@@ -64,6 +64,7 @@ const createRentalSpace = async (vendorId: string, payload: {
   const vendorProfile = await prisma.vendorProfile.findUnique({
     where: { userId: vendorId },
   });
+
   if (!vendorProfile) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');
   }

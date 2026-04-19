@@ -55,14 +55,14 @@ const loginUser = async (payload: { email: string; password: string }) => {
 
   const accessToken = jwt.sign(
     { id: user.id, role: user.role, email: user.email },
-    config.jwt.jwt_secret as string,
-    { expiresIn: config.jwt.expires_in as string }
+    config.jwt.jwt_secret!,
+    { expiresIn: config.jwt.expires_in! }
   );
 
   const refreshToken = jwt.sign(
     { id: user.id, role: user.role, email: user.email },
-    config.jwt.refresh_token_secret as string,
-    { expiresIn: config.jwt.refresh_token_expires_in as string }
+    config.jwt.refresh_token_secret!,
+    { expiresIn: config.jwt.refresh_token_expires_in! }
   );
 
   return {
@@ -97,8 +97,8 @@ const refreshToken = async (token: string) => {
 
   const accessToken = jwt.sign(
     { id: user.id, role: user.role, email: user.email },
-    config.jwt.jwt_secret as string,
-    { expiresIn: config.jwt.expires_in as string }
+    config.jwt.jwt_secret!,
+    { expiresIn: config.jwt.expires_in! }
   );
 
   return {

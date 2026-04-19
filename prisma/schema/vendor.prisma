@@ -4,6 +4,7 @@ model VendorProfile {
   farmName           String
   certificationStatus CertificationStatus @default(Pending)
   farmLocation       String
+  profilePhoto       String?
   user               User               @relation(fields: [userId], references: [id])
   produces           Produce[]
   rentalSpaces       RentalSpace[]

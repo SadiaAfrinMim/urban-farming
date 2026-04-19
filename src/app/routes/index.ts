@@ -6,6 +6,7 @@ import { produceRoutes } from '../modules/produce/produce.routes';
 import { orderRoutes } from '../modules/order/order.routes';
 import { communityRoutes } from '../modules/community/community.routes';
 import { sustainabilityRoutes } from '../modules/sustainability/sustainability.routes';
+import { userRoutes } from '../modules/user/user.routes';
 
 const router = express.Router();
 
@@ -27,6 +28,10 @@ const moduleRoutes = [
         route: orderRoutes
     },
     {
+  path: '/produces',
+        route: produceRoutes
+    },
+    {
         path: '/community',
         route: communityRoutes
     },
@@ -34,6 +39,13 @@ const moduleRoutes = [
         path: '/sustainability',
         route: sustainabilityRoutes
     },
+    {
+       path: '/user',
+        route: userRoutes 
+    },{
+        path:'/spaces',
+        route: rentalRoutes
+    }
 ];
 
 moduleRoutes.forEach(route => router.use(route.path, route.route))

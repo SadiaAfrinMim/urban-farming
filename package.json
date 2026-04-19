@@ -24,7 +24,6 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.1.0",
     "@types/node": "^25.6.0",
-    "@types/pg": "^8.20.0",
     "@types/stripe": "^8.0.417",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
@@ -34,7 +33,6 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.7.0",
     "@prisma/client": "^7.7.0",
     "axios": "^1.15.0",
     "bcryptjs": "^3.0.3",
@@ -50,7 +48,6 @@
     "multer": "^2.1.1",
     "node-cron": "^4.2.1",
     "openai": "^4.52.7",
-    "pg": "^8.20.0",
     "stripe": "^16.9.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

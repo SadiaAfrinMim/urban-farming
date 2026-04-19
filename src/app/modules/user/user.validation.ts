@@ -29,9 +29,21 @@ const changePasswordZodSchema = z.object({
   }),
 });
 
+const updateProfileZodSchema = z.object({
+  body: z.object({
+    name: z.string().min(1, "Name is required").optional(),
+    email: z.string().email("Invalid email address").optional(),
+    profilePhoto: z.string().url("Invalid profile photo URL").optional(),
+    farmName: z.string().min(1, "Farm name is required").optional(),
+    certificationStatus: z.enum(["Pending", "Approved", "Rejected"]).optional(),
+    farmLocation: z.string().min(1, "Farm location is required").optional(),
+  }),
+});
+
 export const UserValidation = {
   createUserZodSchema,
   loginZodSchema,
   refreshTokenZodSchema,
   changePasswordZodSchema,
+  updateProfileZodSchema,
 };

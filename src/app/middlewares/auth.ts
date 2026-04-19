@@ -10,7 +10,8 @@ import { IJWTPayload } from "../types/common";
 const auth = (...roles: string[]) => {
     return async (req: Request & { user?: IJWTPayload }, res: Response, next: NextFunction) => {
         try {
-            const token = req.headers.authorization || req.cookies.accessToken;
+            const authHeader = req.headers.authorization;
+            const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : req.cookies.accessToken;
             console.log({ token }, "from auth guard");
 
             if (!token) {

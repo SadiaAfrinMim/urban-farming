@@ -22,7 +22,7 @@ const router = express.Router();
  *       200:
  *         description: List of produces
  */
-router.get('/produces', ProduceController.getAllProduces);
+router.get('/', ProduceController.getAllProduces);
 /**
  * @swagger
  * /produces/search:
@@ -38,7 +38,7 @@ router.get('/produces', ProduceController.getAllProduces);
  *       200:
  *         description: Search results
  */
-router.get('/produces/search', ProduceController.searchProduces);
+router.get('/search', ProduceController.searchProduces);
 /**
  * @swagger
  * /produces/{id}:
@@ -55,7 +55,7 @@ router.get('/produces/search', ProduceController.searchProduces);
  *       200:
  *         description: Produce details
  */
-router.get('/produces/:id', ProduceController.getProduceById);
+router.get('/:id', ProduceController.getProduceById);
 
 /**
  * @swagger
@@ -82,7 +82,7 @@ router.get('/produces/:id', ProduceController.getProduceById);
  *       201:
  *         description: Produce created
  */
-router.post('/produces', auth(UserRole.Vendor), ProduceController.createProduce);
+router.post('/', auth(UserRole.Vendor), ProduceController.createProduce);
 /**
  * @swagger
  * /produces/{id}:
@@ -112,7 +112,7 @@ router.post('/produces', auth(UserRole.Vendor), ProduceController.createProduce)
  *       200:
  *         description: Produce updated
  */
-router.patch('/produces/:id', auth(UserRole.Vendor), ProduceController.updateProduce);
+router.patch('/:id', auth(UserRole.Vendor), ProduceController.updateProduce);
 /**
  * @swagger
  * /produces/{id}:
@@ -131,6 +131,6 @@ router.patch('/produces/:id', auth(UserRole.Vendor), ProduceController.updatePro
  *       200:
  *         description: Produce deleted
  */
-router.delete('/produces/:id', auth(UserRole.Vendor), ProduceController.deleteProduce);
+router.delete('/:id', auth(UserRole.Vendor), ProduceController.deleteProduce);
 
 export const produceRoutes = router;

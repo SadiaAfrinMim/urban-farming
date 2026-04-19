@@ -60,36 +60,45 @@ const createAdmin = async (req: Request) => {
 const createVendor = async (req: Request) => {
 
     const file = req.file;
+    let uploadedImage = null;
 
-    if (file) {
-        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
-        req.body.vendorProfile.profilePhoto = uploadToCloudinary?.secure_url
-    }
-    const hashedPassword: string = await bcrypt.hash(req.body.password, 10)
+    try {
+        if (file) {
+            uploadedImage = await fileUploader.uploadToCloudinary(file);
+            req.body.vendorProfile.profilePhoto = uploadedImage?.secure_url;
+        }
+        const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
 
-    const userData = {
-        name: req.body.name,
-        email: req.body.email,
-        password: hashedPassword,
-        role: UserRole.Vendor
-    }
+        const userData = {
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+            role: UserRole.Vendor
+        };
 
-    const result = await prisma.$transaction(async (transactionClient) => {
-        const createdUser = await transactionClient.user.create({
-            data: userData
+        const result = await prisma.$transaction(async (transactionClient) => {
+            const createdUser = await transactionClient.user.create({
+                data: userData
+            });
+
+            const createdVendorProfile = await transactionClient.vendorProfile.create({
+                data: {
+                    ...req.body.vendorProfile,
+                    userId: createdUser.id
+                }
+            });
+
+            return { user: createdUser, vendorProfile: createdVendorProfile };
         });
 
-        const createdVendorProfile = await transactionClient.vendorProfile.create({
-            data: {
-                ...req.body.vendorProfile,
-                userId: createdUser.id
-            }
-        });
-
-        return { user: createdUser, vendorProfile: createdVendorProfile };
-    });
-
-    return result;
+        return result;
+    } catch (error) {
+        // If transaction failed and image was uploaded, delete it
+        if (uploadedImage) {
+            await fileUploader.deleteFromCloudinary(uploadedImage.public_id);
+        }
+        throw error;
+    }
 };
 
 
@@ -195,7 +204,7 @@ const changeProfileStatus = async (id: string, payload: { status: UserStatus }) 
     return updateUserStatus;
 };
 
-const updateMyProfie = async (user: IJWTPayload, req: Request) => {
+const updateMyProfile = async (user: IJWTPayload, req: Request) => {
     const userInfo = await prisma.user.findFirstOrThrow({
         where: {
             email: user?.email!,
@@ -204,22 +213,61 @@ const updateMyProfie = async (user: IJWTPayload, req: Request) => {
     });
 
     const file = req.file;
-    if (file) {
-        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
-        req.body.profilePhoto = uploadToCloudinary?.secure_url;
-    }
+    let uploadedImage = null;
 
-    if (userInfo.role === UserRole.Vendor) {
-        const profileInfo = await prisma.vendorProfile.update({
-            where: {
-                userId: userInfo.id
-            },
-            data: req.body
-        })
-        return { ...profileInfo };
-    }
+    try {
+        if (file) {
+            uploadedImage = await fileUploader.uploadToCloudinary(file);
+            req.body.profilePhoto = uploadedImage?.secure_url;
+        }
 
-    return { message: 'Profile updated' };
+        const { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = req.body;
+
+        // Use transaction for all updates
+        await prisma.$transaction(async (transactionClient) => {
+            // Update User table for all roles
+            if (Object.keys(userUpdateData).length > 0) {
+                await transactionClient.user.update({
+                    where: {
+                        id: userInfo.id
+                    },
+                    data: userUpdateData
+                });
+            }
+
+            if (userInfo.role === UserRole.Vendor) {
+                const vendorUpdateData = {
+                    farmName,
+                    certificationStatus,
+                    farmLocation,
+                    profilePhoto
+                };
+                // Filter out undefined values
+                Object.keys(vendorUpdateData).forEach(key => {
+                    if (vendorUpdateData[key as keyof typeof vendorUpdateData] === undefined) {
+                        delete vendorUpdateData[key as keyof typeof vendorUpdateData];
+                    }
+                });
+
+                if (Object.keys(vendorUpdateData).length > 0) {
+                    await transactionClient.vendorProfile.update({
+                        where: {
+                            userId: userInfo.id
+                        },
+                        data: vendorUpdateData
+                    });
+                }
+            }
+        });
+
+        return { message: 'Profile updated' };
+    } catch (error) {
+        // If transaction failed and image was uploaded, delete it
+        if (uploadedImage) {
+            await fileUploader.deleteFromCloudinary(uploadedImage.public_id);
+        }
+        throw error;
+    }
 }
 
 export const UserService = {
@@ -229,5 +277,5 @@ export const UserService = {
     getAllFromDB,
     getMyProfile,
     changeProfileStatus,
-    updateMyProfie
+    updateMyProfile
 }

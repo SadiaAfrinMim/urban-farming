@@ -58,16 +58,19 @@ const createAdmin = async (req: Request) => {
 };
 
 const createVendor = async (req: Request) => {
-
     const file = req.file;
     let uploadedImage = null;
 
+    req.body.vendorProfile = req.body.vendorProfile || {};
+
     try {
+        // 1. Upload outside transaction (OK)
         if (file) {
             uploadedImage = await fileUploader.uploadToCloudinary(file);
             req.body.vendorProfile.profilePhoto = uploadedImage?.secure_url;
         }
-        const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
+
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         const userData = {
             name: req.body.name,
@@ -76,12 +79,13 @@ const createVendor = async (req: Request) => {
             role: UserRole.Vendor
         };
 
-        const result = await prisma.$transaction(async (transactionClient) => {
-            const createdUser = await transactionClient.user.create({
+        // 2. Keep transaction ONLY for DB ops
+        const result = await prisma.$transaction(async (tx) => {
+            const createdUser = await tx.user.create({
                 data: userData
             });
 
-            const createdVendorProfile = await transactionClient.vendorProfile.create({
+            const createdVendorProfile = await tx.vendorProfile.create({
                 data: {
                     ...req.body.vendorProfile,
                     userId: createdUser.id
@@ -89,11 +93,13 @@ const createVendor = async (req: Request) => {
             });
 
             return { user: createdUser, vendorProfile: createdVendorProfile };
+        }, {
+            timeout: 200000 // ✅ 20s (safe limit)
         });
 
         return result;
+
     } catch (error) {
-        // If transaction failed and image was uploaded, delete it
         if (uploadedImage) {
             await fileUploader.deleteFromCloudinary(uploadedImage.public_id);
         }
@@ -216,6 +222,7 @@ const updateMyProfile = async (user: IJWTPayload, req: Request) => {
     let uploadedImage = null;
 
     try {
+        // ✅ Cloudinary আপলোড ট্রানজাকশনের বাইরে করা
         if (file) {
             uploadedImage = await fileUploader.uploadToCloudinary(file);
             req.body.profilePhoto = uploadedImage?.secure_url;
@@ -223,7 +230,7 @@ const updateMyProfile = async (user: IJWTPayload, req: Request) => {
 
         const { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = req.body;
 
-        // Use transaction for all updates
+        // ✅ শুধুমাত্র ডাটাবেস অপারেশন ট্রানজাকশনের ভিতর
         await prisma.$transaction(async (transactionClient) => {
             // Update User table for all roles
             if (Object.keys(userUpdateData).length > 0) {
@@ -258,11 +265,13 @@ const updateMyProfile = async (user: IJWTPayload, req: Request) => {
                     });
                 }
             }
+        }, {
+            timeout: 10000 // ✅ 10 সেকেন্ড টাইমআউট যোগ করা
         });
 
         return { message: 'Profile updated' };
     } catch (error) {
-        // If transaction failed and image was uploaded, delete it
+        // ট্রানজাকশন ফেইল হলে আপলোড করা ইমেজ ডিলিট করা
         if (uploadedImage) {
             await fileUploader.deleteFromCloudinary(uploadedImage.public_id);
         }

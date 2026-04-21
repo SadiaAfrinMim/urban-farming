@@ -1,6 +1,7 @@
 import { prisma } from '../src/app/shared/prisma';
-import { UserRole } from '../../prisma/generated/prisma/enums';
+
 import bcrypt from 'bcryptjs';
+import { UserRole } from './generated/prisma/enums';
 
 async function main() {
   // Create 3 roles: Admin, Vendor, Customer (enums)
@@ -19,6 +20,7 @@ async function main() {
       name: 'Admin User',
     },
   });
+  console.log('Seeded Admin:', admin);
 
   // Vendors
   const vendors = [];
@@ -34,9 +36,10 @@ async function main() {
       },
     });
     vendors.push(vendor);
+    console.log(`Seeded Vendor ${i}:`, vendor);
 
     // Create VendorProfile
-    await prisma.vendorProfile.upsert({
+    const vendorProfile = await prisma.vendorProfile.upsert({
       where: { userId: vendor.id },
       update: {},
       create: {
@@ -45,6 +48,7 @@ async function main() {
         farmLocation: `Location ${i}`,
       },
     });
+    console.log(`Seeded VendorProfile for Vendor ${i}:`, vendorProfile);
   }
 
   // Customers
@@ -61,6 +65,7 @@ async function main() {
       },
     });
     customers.push(customer);
+    console.log(`Seeded Customer ${i}:`, customer);
   }
 
   // Produces: 100
@@ -70,7 +75,7 @@ async function main() {
       where: { userId: vendors[(i % vendors.length)].id },
     });
     if (vendorProfile) {
-      await prisma.produce.upsert({
+      const produce = await prisma.produce.upsert({
         where: { id: `produce-${i}` }, // Assuming id is string
         update: {},
         create: {
@@ -83,6 +88,7 @@ async function main() {
           availableQuantity: Math.floor(Math.random() * 100) + 1,
         },
       });
+      console.log(`Seeded Produce ${i}:`, produce);
     }
   }
 

@@ -1,7 +1,0 @@
-model CommunityPost {
-  id          String   @id @default(uuid())
-  userId      String
-  postContent String
-  postDate    DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
-}

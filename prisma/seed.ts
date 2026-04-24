@@ -1,7 +1,7 @@
 import { prisma } from '../src/app/shared/prisma';
 
 import bcrypt from 'bcryptjs';
-import { UserRole } from './generated/prisma/enums';
+import { UserRole } from '../.prisma/client/enums';
 
 async function main() {
   // Create 3 roles: Admin, Vendor, Customer (enums)

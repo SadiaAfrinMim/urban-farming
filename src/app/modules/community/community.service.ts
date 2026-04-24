@@ -8,6 +8,7 @@ const getAllPosts = async () => {
   const posts = await prisma.communityPost.findMany({
     include: {
       user: true,
+      reports: true,
     },
     orderBy: {
       postDate: 'desc',

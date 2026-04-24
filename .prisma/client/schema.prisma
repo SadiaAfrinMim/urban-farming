@@ -1,9 +1,12 @@
-model CommunityPost {
-  id          String   @id @default(uuid())
-  userId      String
-  postContent String
-  postDate    DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
+// Prisma schema file for Interactive Urban Farming Platform
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
 }
 
 enum UserRole {
@@ -32,6 +35,95 @@ enum OrderStatus {
   Cancelled
 }
 
+model User {
+  id             String          @id @default(uuid())
+  name           String?
+  email          String          @unique
+  password       String
+  role           UserRole        @default(Customer)
+  status         UserStatus      @default(Active)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  vendorProfile  VendorProfile?
+  orders         Order[]
+  communityPosts CommunityPost[]
+  reportsMade    Report[]        @relation("Reporter")
+  reportsAgainst Report[]        @relation("Reported")
+  announcements  Announcement[]
+}
+
+model VendorProfile {
+  id                  String              @id @default(uuid())
+  userId              String              @unique
+  farmName            String
+  farmLocation        String
+  certificationStatus CertificationStatus @default(Pending)
+  profilePhoto        String?
+  certifications      String[]            @default([])
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  user                User                @relation(fields: [userId], references: [id])
+  produces            Produce[]
+  rentalSpaces        RentalSpace[]
+  orders              Order[]
+}
+
+model Produce {
+  id                  String              @id @default(uuid())
+  vendorId            String
+  name                String
+  description         String?
+  price               Float
+  image               String?
+  category            String
+  availableQuantity   Int                 @default(0)
+  certificationStatus CertificationStatus @default(Pending)
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  vendor              VendorProfile       @relation(fields: [vendorId], references: [id])
+  orders              Order[]
+}
+
+model RentalSpace {
+  id          String        @id @default(uuid())
+  vendorId    String
+  name        String
+  description String?
+  price       Float
+  location    String
+  size        String
+  image       String?
+  available   Boolean       @default(true)
+  rentedBy    String?
+  rentalStart DateTime?
+  rentalEnd   DateTime?
+  plantStatus String?
+  lastWatered DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  vendor      VendorProfile @relation(fields: [vendorId], references: [id])
+}
+
+model CommunityPost {
+  id          String    @id @default(uuid())
+  userId      String
+  postContent String
+  postDate    DateTime  @default(now())
+  isApproved  Boolean   @default(false)
+  moderatedBy String?
+  moderatedAt DateTime?
+  user        User      @relation(fields: [userId], references: [id])
+  reports     Report[]
+}
+
+model SustainabilityTip {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  category    String
+  createdAt   DateTime @default(now())
+}
+
 model Order {
   id        String        @id @default(uuid())
   userId    String
@@ -44,71 +136,40 @@ model Order {
   vendor    VendorProfile @relation(fields: [vendorId], references: [id])
 }
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../../.prisma/client"
+model Report {
+  id          String         @id @default(uuid())
+  reporterId  String
+  reportedId  String? // for user reports
+  postId      String? // for post reports
+  reason      String
+  description String?
+  status      String         @default("Pending") // Pending, Reviewed, Resolved
+  adminId     String? // admin who handled it
+  resolvedAt  DateTime?
+  createdAt   DateTime       @default(now())
+  reporter    User           @relation("Reporter", fields: [reporterId], references: [id])
+  reported    User?          @relation("Reported", fields: [reportedId], references: [id])
+  post        CommunityPost? @relation(fields: [postId], references: [id])
 }
 
-datasource db {
-  provider = "postgresql"
+model Announcement {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  target    String   @default("all") // all, vendors, customers
+  adminId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  admin     User     @relation(fields: [adminId], references: [id])
 }
 
-model User {
-  id             String          @id @default(uuid())
-  name           String?
-  email          String          @unique
-  password       String
-  role           UserRole        @default(Customer)
-  status         UserStatus      @default(Active)
-  profilePhoto   String?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  vendorProfile  VendorProfile?
-  orders         Order[]
-  communityPosts CommunityPost[]
-}
-
-model VendorProfile {
-  id                  String               @id @default(uuid())
-  userId              String               @unique
-  farmName            String
-  certificationStatus CertificationStatus  @default(Pending)
-  farmLocation        String
-  profilePhoto        String?
-  user                User                 @relation(fields: [userId], references: [id])
-  produces            Produce[]
-  rentalSpaces        RentalSpace[]
-  sustainabilityCerts SustainabilityCert[]
-  orders              Order[]
-}
-
-model Produce {
-  id                  String              @id @default(uuid())
-  vendorId            String
-  name                String
-  description         String?
-  price               Float
-  category            String
-  certificationStatus CertificationStatus @default(Pending)
-  availableQuantity   Int                 @default(0)
-  vendor              VendorProfile       @relation(fields: [vendorId], references: [id])
-  orders              Order[]
-}
-
-model RentalSpace {
-  id           String        @id @default(uuid())
-  vendorId     String
-  location     String
-  size         String // e.g., "10x10 sq ft"
-  price        Float
-  availability Boolean       @default(true)
-  vendor       VendorProfile @relation(fields: [vendorId], references: [id])
-}
-
-model SustainabilityCert {
-  id                String        @id @default(uuid())
-  vendorId          String
-  certifyingAgency  String
-  certificationDate DateTime
-  vendor            VendorProfile @relation(fields: [vendorId], references: [id])
+model RateLimitLog {
+  id          String   @id @default(uuid())
+  ip          String
+  endpoint    String
+  method      String
+  userId      String?
+  count       Int      @default(1)
+  windowStart DateTime
+  createdAt   DateTime @default(now())
 }

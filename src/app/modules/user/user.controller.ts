@@ -41,6 +41,17 @@ const createVendor = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+const createVendorPublic = catchAsync(async (req: Request, res: Response) => {
+
+    const result = await UserService.createVendorPublic(req);
+    sendResponse(res, {
+        statusCode: 201,
+        success: true,
+        message: "Vendor created successfully!",
+        data: result
+    })
+});
+
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     const filters = pick(req.query, userFilterableFields) // searching , filtering
     const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]) // pagination and sorting
@@ -101,6 +112,7 @@ export const UserController = {
     createCustomer,
     createAdmin,
     createVendor,
+    createVendorPublic,
     getAllFromDB,
     getMyProfile,
     changeProfileStatus,

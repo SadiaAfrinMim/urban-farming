@@ -1,7 +1,9 @@
 import express from 'express';
 import { ProduceController } from './produce.controller';
 import auth from '../../middlewares/auth';
+import validateRequest from '../../middlewares/ValidateRequest';
 import { UserRole } from '../../../../prisma/generated/prisma/enums';
+import { ProduceValidation } from './produce.validation';
 
 /**
  * @swagger
@@ -82,7 +84,7 @@ router.get('/:id', ProduceController.getProduceById);
  *       201:
  *         description: Produce created
  */
-router.post('/', auth(UserRole.Vendor), ProduceController.createProduce);
+router.post('/', validateRequest(ProduceValidation.createProduce), auth(UserRole.Vendor), ProduceController.createProduce);
 /**
  * @swagger
  * /produces/{id}:
@@ -112,7 +114,7 @@ router.post('/', auth(UserRole.Vendor), ProduceController.createProduce);
  *       200:
  *         description: Produce updated
  */
-router.patch('/:id', auth(UserRole.Vendor), ProduceController.updateProduce);
+router.patch('/:id', validateRequest(ProduceValidation.updateProduce), auth(UserRole.Vendor), ProduceController.updateProduce);
 /**
  * @swagger
  * /produces/{id}:

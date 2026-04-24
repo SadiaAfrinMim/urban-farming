@@ -2,11 +2,11 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { AuthController } from './auth.controller';
 
-import { UserValidation } from '../user/user.validation';
 import auth from '../../middlewares/auth';
-
 import validateRequest from '../../middlewares/ValidateRequest';
-import { UserRole } from '../../../../prisma/generated/prisma/enums';
+
+
+import { UserRole } from '../../../../.prisma/client/enums';
 
 /**
  * @swagger
@@ -44,7 +44,6 @@ const authLimiter = rateLimit({
 router.post(
   '/register',
   authLimiter,
-  validateRequest(UserValidation.createUserZodSchema),
   AuthController.registerUser
 );
 
@@ -78,7 +77,6 @@ router.post(
 router.post(
   '/login',
   authLimiter,
-  validateRequest(UserValidation.loginZodSchema),
   AuthController.loginUser
 );
 
@@ -107,7 +105,6 @@ router.post(
  */
 router.post(
   '/refresh-token',
-  validateRequest(UserValidation.refreshTokenZodSchema),
   AuthController.refreshToken
 );
 
@@ -141,7 +138,7 @@ router.post(
  */
 router.post(
   '/change-password',
-  validateRequest(UserValidation.changePasswordZodSchema),
+  
   auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer),
   AuthController.changePassword
 );

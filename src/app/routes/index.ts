@@ -7,6 +7,8 @@ import { orderRoutes } from '../modules/order/order.routes';
 import { communityRoutes } from '../modules/community/community.routes';
 import { sustainabilityRoutes } from '../modules/sustainability/sustainability.routes';
 import { userRoutes } from '../modules/user/user.routes';
+import { VendorRoutes } from '../modules/vendor/vendor.routes';
+import { AdminRoutes } from '../modules/admin/admin.routes';
 
 const router = express.Router();
 
@@ -41,10 +43,19 @@ const moduleRoutes = [
     },
     {
        path: '/user',
-        route: userRoutes 
-    },{
+        route: userRoutes
+    },
+    {
+        path: '/vendor',
+        route: VendorRoutes
+    },
+    {
         path:'/spaces',
         route: rentalRoutes
+    },
+    {
+        path: '/admin',
+        route: AdminRoutes
     }
 ];
 

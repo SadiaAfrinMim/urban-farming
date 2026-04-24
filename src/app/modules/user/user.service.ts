@@ -94,17 +94,55 @@ const createVendor = async (req: Request) => {
 
             return { user: createdUser, vendorProfile: createdVendorProfile };
         }, {
-            timeout: 200000 // ✅ 20s (safe limit)
+            timeout: 20000 // 20 second timeout
         });
 
         return result;
-
     } catch (error) {
         if (uploadedImage) {
             await fileUploader.deleteFromCloudinary(uploadedImage.public_id);
         }
         throw error;
     }
+};
+
+const createVendorPublic = async (req: Request) => {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    const userData = {
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+        role: UserRole.Vendor
+    };
+
+    const result = await prisma.$transaction(async (tx) => {
+        const createdUser = await tx.user.create({
+            data: userData
+        });
+
+        const createdVendorProfile = await tx.vendorProfile.create({
+            data: {
+                farmName: req.body.farmName,
+                farmLocation: req.body.farmLocation,
+                userId: createdUser.id,
+                certificationStatus: "Pending" // Default status for new vendors
+            }
+        });
+
+        return {
+            user: {
+                id: createdUser.id,
+                name: createdUser.name,
+                email: createdUser.email,
+                role: createdUser.role,
+                createdAt: createdUser.createdAt
+            },
+            vendorProfile: createdVendorProfile
+        };
+    });
+
+    return result;
 };
 
 
@@ -283,6 +321,7 @@ export const UserService = {
     createCustomer,
     createAdmin,
     createVendor,
+    createVendorPublic,
     getAllFromDB,
     getMyProfile,
     changeProfileStatus,

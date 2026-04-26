@@ -451,4 +451,166 @@ router.patch('/plant-update', auth(UserRole.Vendor), VendorController.updatePlan
  */
 router.get('/orders', auth(UserRole.Vendor), VendorController.getOrders);
 
+// Vendor posts routes
+/**
+ * @swagger
+ * /vendor/posts:
+ *   post:
+ *     summary: Create vendor post
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         description: Vendor post created
+ */
+router.post('/posts', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+  // Check if request has multipart data
+  if (req.headers['content-type']?.includes('multipart/form-data')) {
+    // Use multer to parse multipart data
+    uploadSingle(req, res, (err) => {
+      if (err) return next(err);
+      uploadToCloudinary(req, res, next);
+    });
+  } else {
+    // Regular JSON request, proceed directly
+    next();
+  }
+}, VendorController.createVendorPost);
+
+/**
+ * @swagger
+ * /vendor/posts:
+ *   get:
+ *     summary: Get vendor posts
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Vendor posts retrieved
+ */
+router.get('/posts', auth(UserRole.Vendor), VendorController.getVendorPosts);
+
+/**
+ * @swagger
+ * /vendor/posts/{id}:
+ *   patch:
+ *     summary: Update vendor post
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Vendor post updated
+ */
+router.patch('/posts/:id', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+  // Check if request has multipart data
+  if (req.headers['content-type']?.includes('multipart/form-data')) {
+    // Use multer to parse multipart data
+    uploadSingle(req, res, (err) => {
+      if (err) return next(err);
+      uploadToCloudinary(req, res, next);
+    });
+  } else {
+    // Regular JSON request, proceed directly
+    next();
+  }
+}, VendorController.updateVendorPost);
+
+/**
+ * @swagger
+ * /vendor/posts/{id}:
+ *   delete:
+ *     summary: Delete vendor post
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Vendor post deleted
+ */
+router.delete('/posts/:id', auth(UserRole.Vendor), VendorController.deleteVendorPost);
+
+/**
+ * @swagger
+ * /vendor/posts/{postId}/like:
+ *   post:
+ *     summary: Toggle like on vendor post
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Like toggled
+ */
+router.post('/posts/:postId/like', auth(UserRole.Vendor), VendorController.toggleVendorPostLike);
+
+/**
+ * @swagger
+ * /vendor/posts/{postId}/comments:
+ *   post:
+ *     summary: Add comment to vendor post
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               content:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Comment added
+ */
+router.post('/posts/:postId/comments', auth(UserRole.Vendor), VendorController.addVendorPostComment);
+
 export const VendorRoutes = router;

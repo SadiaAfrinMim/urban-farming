@@ -44,6 +44,51 @@ export type Order = $Result.DefaultSelection<Prisma.$OrderPayload>
  */
 export type CommunityPost = $Result.DefaultSelection<Prisma.$CommunityPostPayload>
 /**
+ * Model PostLike
+ * 
+ */
+export type PostLike = $Result.DefaultSelection<Prisma.$PostLikePayload>
+/**
+ * Model PostComment
+ * 
+ */
+export type PostComment = $Result.DefaultSelection<Prisma.$PostCommentPayload>
+/**
+ * Model CustomerPost
+ * 
+ */
+export type CustomerPost = $Result.DefaultSelection<Prisma.$CustomerPostPayload>
+/**
+ * Model CustomerPostLike
+ * 
+ */
+export type CustomerPostLike = $Result.DefaultSelection<Prisma.$CustomerPostLikePayload>
+/**
+ * Model CustomerPostComment
+ * 
+ */
+export type CustomerPostComment = $Result.DefaultSelection<Prisma.$CustomerPostCommentPayload>
+/**
+ * Model VendorPost
+ * 
+ */
+export type VendorPost = $Result.DefaultSelection<Prisma.$VendorPostPayload>
+/**
+ * Model VendorPostLike
+ * 
+ */
+export type VendorPostLike = $Result.DefaultSelection<Prisma.$VendorPostLikePayload>
+/**
+ * Model VendorPostComment
+ * 
+ */
+export type VendorPostComment = $Result.DefaultSelection<Prisma.$VendorPostCommentPayload>
+/**
+ * Model UserCommand
+ * 
+ */
+export type UserCommand = $Result.DefaultSelection<Prisma.$UserCommandPayload>
+/**
  * Model SustainabilityCert
  * 
  */
@@ -109,6 +154,35 @@ export const PlantHealth: {
 
 export type PlantHealth = (typeof PlantHealth)[keyof typeof PlantHealth]
 
+
+export const PostCategory: {
+  Question: 'Question',
+  Discussion: 'Discussion',
+  Review: 'Review',
+  Suggestion: 'Suggestion'
+};
+
+export type PostCategory = (typeof PostCategory)[keyof typeof PostCategory]
+
+
+export const VendorPostCategory: {
+  FarmUpdate: 'FarmUpdate',
+  ProductShowcase: 'ProductShowcase',
+  Sustainability: 'Sustainability',
+  Community: 'Community'
+};
+
+export type VendorPostCategory = (typeof VendorPostCategory)[keyof typeof VendorPostCategory]
+
+
+export const CommandType: {
+  SCRIPT: 'SCRIPT',
+  QUERY: 'QUERY',
+  ACTION: 'ACTION'
+};
+
+export type CommandType = (typeof CommandType)[keyof typeof CommandType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -134,6 +208,18 @@ export const OrderStatus: typeof $Enums.OrderStatus
 export type PlantHealth = $Enums.PlantHealth
 
 export const PlantHealth: typeof $Enums.PlantHealth
+
+export type PostCategory = $Enums.PostCategory
+
+export const PostCategory: typeof $Enums.PostCategory
+
+export type VendorPostCategory = $Enums.VendorPostCategory
+
+export const VendorPostCategory: typeof $Enums.VendorPostCategory
+
+export type CommandType = $Enums.CommandType
+
+export const CommandType: typeof $Enums.CommandType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -315,6 +401,96 @@ export class PrismaClient<
     * ```
     */
   get communityPost(): Prisma.CommunityPostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postLike`: Exposes CRUD operations for the **PostLike** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostLikes
+    * const postLikes = await prisma.postLike.findMany()
+    * ```
+    */
+  get postLike(): Prisma.PostLikeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postComment`: Exposes CRUD operations for the **PostComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostComments
+    * const postComments = await prisma.postComment.findMany()
+    * ```
+    */
+  get postComment(): Prisma.PostCommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.customerPost`: Exposes CRUD operations for the **CustomerPost** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerPosts
+    * const customerPosts = await prisma.customerPost.findMany()
+    * ```
+    */
+  get customerPost(): Prisma.CustomerPostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.customerPostLike`: Exposes CRUD operations for the **CustomerPostLike** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerPostLikes
+    * const customerPostLikes = await prisma.customerPostLike.findMany()
+    * ```
+    */
+  get customerPostLike(): Prisma.CustomerPostLikeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.customerPostComment`: Exposes CRUD operations for the **CustomerPostComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerPostComments
+    * const customerPostComments = await prisma.customerPostComment.findMany()
+    * ```
+    */
+  get customerPostComment(): Prisma.CustomerPostCommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vendorPost`: Exposes CRUD operations for the **VendorPost** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VendorPosts
+    * const vendorPosts = await prisma.vendorPost.findMany()
+    * ```
+    */
+  get vendorPost(): Prisma.VendorPostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vendorPostLike`: Exposes CRUD operations for the **VendorPostLike** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VendorPostLikes
+    * const vendorPostLikes = await prisma.vendorPostLike.findMany()
+    * ```
+    */
+  get vendorPostLike(): Prisma.VendorPostLikeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vendorPostComment`: Exposes CRUD operations for the **VendorPostComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VendorPostComments
+    * const vendorPostComments = await prisma.vendorPostComment.findMany()
+    * ```
+    */
+  get vendorPostComment(): Prisma.VendorPostCommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userCommand`: Exposes CRUD operations for the **UserCommand** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserCommands
+    * const userCommands = await prisma.userCommand.findMany()
+    * ```
+    */
+  get userCommand(): Prisma.UserCommandDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.sustainabilityCert`: Exposes CRUD operations for the **SustainabilityCert** model.
@@ -765,6 +941,15 @@ export namespace Prisma {
     RentalSpace: 'RentalSpace',
     Order: 'Order',
     CommunityPost: 'CommunityPost',
+    PostLike: 'PostLike',
+    PostComment: 'PostComment',
+    CustomerPost: 'CustomerPost',
+    CustomerPostLike: 'CustomerPostLike',
+    CustomerPostComment: 'CustomerPostComment',
+    VendorPost: 'VendorPost',
+    VendorPostLike: 'VendorPostLike',
+    VendorPostComment: 'VendorPostComment',
+    UserCommand: 'UserCommand',
     SustainabilityCert: 'SustainabilityCert'
   };
 
@@ -781,7 +966,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "vendorProfile" | "produce" | "rentalSpace" | "order" | "communityPost" | "sustainabilityCert"
+      modelProps: "user" | "vendorProfile" | "produce" | "rentalSpace" | "order" | "communityPost" | "postLike" | "postComment" | "customerPost" | "customerPostLike" | "customerPostComment" | "vendorPost" | "vendorPostLike" | "vendorPostComment" | "userCommand" | "sustainabilityCert"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1229,6 +1414,672 @@ export namespace Prisma {
           }
         }
       }
+      PostLike: {
+        payload: Prisma.$PostLikePayload<ExtArgs>
+        fields: Prisma.PostLikeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostLikeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostLikeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>
+          }
+          findFirst: {
+            args: Prisma.PostLikeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostLikeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>
+          }
+          findMany: {
+            args: Prisma.PostLikeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>[]
+          }
+          create: {
+            args: Prisma.PostLikeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>
+          }
+          createMany: {
+            args: Prisma.PostLikeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PostLikeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>[]
+          }
+          delete: {
+            args: Prisma.PostLikeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>
+          }
+          update: {
+            args: Prisma.PostLikeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>
+          }
+          deleteMany: {
+            args: Prisma.PostLikeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostLikeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PostLikeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>[]
+          }
+          upsert: {
+            args: Prisma.PostLikeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostLikePayload>
+          }
+          aggregate: {
+            args: Prisma.PostLikeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostLike>
+          }
+          groupBy: {
+            args: Prisma.PostLikeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostLikeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostLikeCountArgs<ExtArgs>
+            result: $Utils.Optional<PostLikeCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostComment: {
+        payload: Prisma.$PostCommentPayload<ExtArgs>
+        fields: Prisma.PostCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.PostCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>
+          }
+          findMany: {
+            args: Prisma.PostCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>[]
+          }
+          create: {
+            args: Prisma.PostCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>
+          }
+          createMany: {
+            args: Prisma.PostCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PostCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.PostCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>
+          }
+          update: {
+            args: Prisma.PostCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.PostCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PostCommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.PostCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.PostCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostComment>
+          }
+          groupBy: {
+            args: Prisma.PostCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<PostCommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerPost: {
+        payload: Prisma.$CustomerPostPayload<ExtArgs>
+        fields: Prisma.CustomerPostFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerPostFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerPostFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerPostFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerPostFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>
+          }
+          findMany: {
+            args: Prisma.CustomerPostFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>[]
+          }
+          create: {
+            args: Prisma.CustomerPostCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>
+          }
+          createMany: {
+            args: Prisma.CustomerPostCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerPostCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerPostDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>
+          }
+          update: {
+            args: Prisma.CustomerPostUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerPostDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerPostUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomerPostUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomerPostUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostPayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerPostAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerPost>
+          }
+          groupBy: {
+            args: Prisma.CustomerPostGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPostGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerPostCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPostCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerPostLike: {
+        payload: Prisma.$CustomerPostLikePayload<ExtArgs>
+        fields: Prisma.CustomerPostLikeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerPostLikeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerPostLikeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerPostLikeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerPostLikeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>
+          }
+          findMany: {
+            args: Prisma.CustomerPostLikeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>[]
+          }
+          create: {
+            args: Prisma.CustomerPostLikeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>
+          }
+          createMany: {
+            args: Prisma.CustomerPostLikeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerPostLikeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerPostLikeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>
+          }
+          update: {
+            args: Prisma.CustomerPostLikeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerPostLikeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerPostLikeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomerPostLikeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomerPostLikeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostLikePayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerPostLikeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerPostLike>
+          }
+          groupBy: {
+            args: Prisma.CustomerPostLikeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPostLikeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerPostLikeCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPostLikeCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerPostComment: {
+        payload: Prisma.$CustomerPostCommentPayload<ExtArgs>
+        fields: Prisma.CustomerPostCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerPostCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerPostCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerPostCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerPostCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>
+          }
+          findMany: {
+            args: Prisma.CustomerPostCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>[]
+          }
+          create: {
+            args: Prisma.CustomerPostCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>
+          }
+          createMany: {
+            args: Prisma.CustomerPostCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerPostCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerPostCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>
+          }
+          update: {
+            args: Prisma.CustomerPostCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerPostCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerPostCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomerPostCommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomerPostCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPostCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerPostCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerPostComment>
+          }
+          groupBy: {
+            args: Prisma.CustomerPostCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPostCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerPostCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPostCommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      VendorPost: {
+        payload: Prisma.$VendorPostPayload<ExtArgs>
+        fields: Prisma.VendorPostFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VendorPostFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VendorPostFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>
+          }
+          findFirst: {
+            args: Prisma.VendorPostFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VendorPostFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>
+          }
+          findMany: {
+            args: Prisma.VendorPostFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>[]
+          }
+          create: {
+            args: Prisma.VendorPostCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>
+          }
+          createMany: {
+            args: Prisma.VendorPostCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VendorPostCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>[]
+          }
+          delete: {
+            args: Prisma.VendorPostDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>
+          }
+          update: {
+            args: Prisma.VendorPostUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>
+          }
+          deleteMany: {
+            args: Prisma.VendorPostDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VendorPostUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VendorPostUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>[]
+          }
+          upsert: {
+            args: Prisma.VendorPostUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostPayload>
+          }
+          aggregate: {
+            args: Prisma.VendorPostAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVendorPost>
+          }
+          groupBy: {
+            args: Prisma.VendorPostGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VendorPostGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VendorPostCountArgs<ExtArgs>
+            result: $Utils.Optional<VendorPostCountAggregateOutputType> | number
+          }
+        }
+      }
+      VendorPostLike: {
+        payload: Prisma.$VendorPostLikePayload<ExtArgs>
+        fields: Prisma.VendorPostLikeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VendorPostLikeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VendorPostLikeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>
+          }
+          findFirst: {
+            args: Prisma.VendorPostLikeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VendorPostLikeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>
+          }
+          findMany: {
+            args: Prisma.VendorPostLikeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>[]
+          }
+          create: {
+            args: Prisma.VendorPostLikeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>
+          }
+          createMany: {
+            args: Prisma.VendorPostLikeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VendorPostLikeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>[]
+          }
+          delete: {
+            args: Prisma.VendorPostLikeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>
+          }
+          update: {
+            args: Prisma.VendorPostLikeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>
+          }
+          deleteMany: {
+            args: Prisma.VendorPostLikeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VendorPostLikeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VendorPostLikeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>[]
+          }
+          upsert: {
+            args: Prisma.VendorPostLikeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostLikePayload>
+          }
+          aggregate: {
+            args: Prisma.VendorPostLikeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVendorPostLike>
+          }
+          groupBy: {
+            args: Prisma.VendorPostLikeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VendorPostLikeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VendorPostLikeCountArgs<ExtArgs>
+            result: $Utils.Optional<VendorPostLikeCountAggregateOutputType> | number
+          }
+        }
+      }
+      VendorPostComment: {
+        payload: Prisma.$VendorPostCommentPayload<ExtArgs>
+        fields: Prisma.VendorPostCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VendorPostCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VendorPostCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.VendorPostCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VendorPostCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>
+          }
+          findMany: {
+            args: Prisma.VendorPostCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>[]
+          }
+          create: {
+            args: Prisma.VendorPostCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>
+          }
+          createMany: {
+            args: Prisma.VendorPostCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VendorPostCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.VendorPostCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>
+          }
+          update: {
+            args: Prisma.VendorPostCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.VendorPostCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VendorPostCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VendorPostCommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.VendorPostCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VendorPostCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.VendorPostCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVendorPostComment>
+          }
+          groupBy: {
+            args: Prisma.VendorPostCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VendorPostCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VendorPostCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<VendorPostCommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserCommand: {
+        payload: Prisma.$UserCommandPayload<ExtArgs>
+        fields: Prisma.UserCommandFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserCommandFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserCommandFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>
+          }
+          findFirst: {
+            args: Prisma.UserCommandFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserCommandFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>
+          }
+          findMany: {
+            args: Prisma.UserCommandFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>[]
+          }
+          create: {
+            args: Prisma.UserCommandCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>
+          }
+          createMany: {
+            args: Prisma.UserCommandCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserCommandCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>[]
+          }
+          delete: {
+            args: Prisma.UserCommandDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>
+          }
+          update: {
+            args: Prisma.UserCommandUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserCommandDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserCommandUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserCommandUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserCommandUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCommandPayload>
+          }
+          aggregate: {
+            args: Prisma.UserCommandAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserCommand>
+          }
+          groupBy: {
+            args: Prisma.UserCommandGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserCommandGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserCommandCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCommandCountAggregateOutputType> | number
+          }
+        }
+      }
       SustainabilityCert: {
         payload: Prisma.$SustainabilityCertPayload<ExtArgs>
         fields: Prisma.SustainabilityCertFieldRefs
@@ -1417,6 +2268,15 @@ export namespace Prisma {
     rentalSpace?: RentalSpaceOmit
     order?: OrderOmit
     communityPost?: CommunityPostOmit
+    postLike?: PostLikeOmit
+    postComment?: PostCommentOmit
+    customerPost?: CustomerPostOmit
+    customerPostLike?: CustomerPostLikeOmit
+    customerPostComment?: CustomerPostCommentOmit
+    vendorPost?: VendorPostOmit
+    vendorPostLike?: VendorPostLikeOmit
+    vendorPostComment?: VendorPostCommentOmit
+    userCommand?: UserCommandOmit
     sustainabilityCert?: SustainabilityCertOmit
   }
 
@@ -1500,11 +2360,27 @@ export namespace Prisma {
   export type UserCountOutputType = {
     orders: number
     communityPosts: number
+    customerPosts: number
+    postLikes: number
+    postComments: number
+    customerPostLikes: number
+    customerPostComments: number
+    vendorPostLikes: number
+    vendorPostComments: number
+    userCommands: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orders?: boolean | UserCountOutputTypeCountOrdersArgs
     communityPosts?: boolean | UserCountOutputTypeCountCommunityPostsArgs
+    customerPosts?: boolean | UserCountOutputTypeCountCustomerPostsArgs
+    postLikes?: boolean | UserCountOutputTypeCountPostLikesArgs
+    postComments?: boolean | UserCountOutputTypeCountPostCommentsArgs
+    customerPostLikes?: boolean | UserCountOutputTypeCountCustomerPostLikesArgs
+    customerPostComments?: boolean | UserCountOutputTypeCountCustomerPostCommentsArgs
+    vendorPostLikes?: boolean | UserCountOutputTypeCountVendorPostLikesArgs
+    vendorPostComments?: boolean | UserCountOutputTypeCountVendorPostCommentsArgs
+    userCommands?: boolean | UserCountOutputTypeCountUserCommandsArgs
   }
 
   // Custom InputTypes
@@ -1532,6 +2408,62 @@ export namespace Prisma {
     where?: CommunityPostWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCustomerPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPostLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostLikeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPostCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostCommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCustomerPostLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostLikeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCustomerPostCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostCommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountVendorPostLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostLikeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountVendorPostCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostCommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserCommandsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserCommandWhereInput
+  }
+
 
   /**
    * Count Type VendorProfileCountOutputType
@@ -1542,6 +2474,7 @@ export namespace Prisma {
     rentalSpaces: number
     orders: number
     sustainabilityCerts: number
+    vendorPosts: number
   }
 
   export type VendorProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1549,6 +2482,7 @@ export namespace Prisma {
     rentalSpaces?: boolean | VendorProfileCountOutputTypeCountRentalSpacesArgs
     orders?: boolean | VendorProfileCountOutputTypeCountOrdersArgs
     sustainabilityCerts?: boolean | VendorProfileCountOutputTypeCountSustainabilityCertsArgs
+    vendorPosts?: boolean | VendorProfileCountOutputTypeCountVendorPostsArgs
   }
 
   // Custom InputTypes
@@ -1590,6 +2524,13 @@ export namespace Prisma {
     where?: SustainabilityCertWhereInput
   }
 
+  /**
+   * VendorProfileCountOutputType without action
+   */
+  export type VendorProfileCountOutputTypeCountVendorPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostWhereInput
+  }
+
 
   /**
    * Count Type ProduceCountOutputType
@@ -1619,6 +2560,126 @@ export namespace Prisma {
    */
   export type ProduceCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderWhereInput
+  }
+
+
+  /**
+   * Count Type CommunityPostCountOutputType
+   */
+
+  export type CommunityPostCountOutputType = {
+    likes: number
+    comments: number
+  }
+
+  export type CommunityPostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    likes?: boolean | CommunityPostCountOutputTypeCountLikesArgs
+    comments?: boolean | CommunityPostCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityPostCountOutputType without action
+   */
+  export type CommunityPostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityPostCountOutputType
+     */
+    select?: CommunityPostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityPostCountOutputType without action
+   */
+  export type CommunityPostCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostLikeWhereInput
+  }
+
+  /**
+   * CommunityPostCountOutputType without action
+   */
+  export type CommunityPostCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostCommentWhereInput
+  }
+
+
+  /**
+   * Count Type CustomerPostCountOutputType
+   */
+
+  export type CustomerPostCountOutputType = {
+    likes: number
+    comments: number
+  }
+
+  export type CustomerPostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    likes?: boolean | CustomerPostCountOutputTypeCountLikesArgs
+    comments?: boolean | CustomerPostCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CustomerPostCountOutputType without action
+   */
+  export type CustomerPostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostCountOutputType
+     */
+    select?: CustomerPostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPostCountOutputType without action
+   */
+  export type CustomerPostCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostLikeWhereInput
+  }
+
+  /**
+   * CustomerPostCountOutputType without action
+   */
+  export type CustomerPostCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostCommentWhereInput
+  }
+
+
+  /**
+   * Count Type VendorPostCountOutputType
+   */
+
+  export type VendorPostCountOutputType = {
+    likes: number
+    comments: number
+  }
+
+  export type VendorPostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    likes?: boolean | VendorPostCountOutputTypeCountLikesArgs
+    comments?: boolean | VendorPostCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * VendorPostCountOutputType without action
+   */
+  export type VendorPostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostCountOutputType
+     */
+    select?: VendorPostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * VendorPostCountOutputType without action
+   */
+  export type VendorPostCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostLikeWhereInput
+  }
+
+  /**
+   * VendorPostCountOutputType without action
+   */
+  export type VendorPostCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostCommentWhereInput
   }
 
 
@@ -1851,6 +2912,14 @@ export namespace Prisma {
     vendorProfile?: boolean | User$vendorProfileArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
+    customerPosts?: boolean | User$customerPostsArgs<ExtArgs>
+    postLikes?: boolean | User$postLikesArgs<ExtArgs>
+    postComments?: boolean | User$postCommentsArgs<ExtArgs>
+    customerPostLikes?: boolean | User$customerPostLikesArgs<ExtArgs>
+    customerPostComments?: boolean | User$customerPostCommentsArgs<ExtArgs>
+    vendorPostLikes?: boolean | User$vendorPostLikesArgs<ExtArgs>
+    vendorPostComments?: boolean | User$vendorPostCommentsArgs<ExtArgs>
+    userCommands?: boolean | User$userCommandsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1892,6 +2961,14 @@ export namespace Prisma {
     vendorProfile?: boolean | User$vendorProfileArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
+    customerPosts?: boolean | User$customerPostsArgs<ExtArgs>
+    postLikes?: boolean | User$postLikesArgs<ExtArgs>
+    postComments?: boolean | User$postCommentsArgs<ExtArgs>
+    customerPostLikes?: boolean | User$customerPostLikesArgs<ExtArgs>
+    customerPostComments?: boolean | User$customerPostCommentsArgs<ExtArgs>
+    vendorPostLikes?: boolean | User$vendorPostLikesArgs<ExtArgs>
+    vendorPostComments?: boolean | User$vendorPostCommentsArgs<ExtArgs>
+    userCommands?: boolean | User$userCommandsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1903,6 +2980,14 @@ export namespace Prisma {
       vendorProfile: Prisma.$VendorProfilePayload<ExtArgs> | null
       orders: Prisma.$OrderPayload<ExtArgs>[]
       communityPosts: Prisma.$CommunityPostPayload<ExtArgs>[]
+      customerPosts: Prisma.$CustomerPostPayload<ExtArgs>[]
+      postLikes: Prisma.$PostLikePayload<ExtArgs>[]
+      postComments: Prisma.$PostCommentPayload<ExtArgs>[]
+      customerPostLikes: Prisma.$CustomerPostLikePayload<ExtArgs>[]
+      customerPostComments: Prisma.$CustomerPostCommentPayload<ExtArgs>[]
+      vendorPostLikes: Prisma.$VendorPostLikePayload<ExtArgs>[]
+      vendorPostComments: Prisma.$VendorPostCommentPayload<ExtArgs>[]
+      userCommands: Prisma.$UserCommandPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2310,6 +3395,14 @@ export namespace Prisma {
     vendorProfile<T extends User$vendorProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$vendorProfileArgs<ExtArgs>>): Prisma__VendorProfileClient<$Result.GetResult<Prisma.$VendorProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     orders<T extends User$ordersArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityPosts<T extends User$communityPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customerPosts<T extends User$customerPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$customerPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    postLikes<T extends User$postLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$postLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    postComments<T extends User$postCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$postCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customerPostLikes<T extends User$customerPostLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$customerPostLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customerPostComments<T extends User$customerPostCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$customerPostCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vendorPostLikes<T extends User$vendorPostLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$vendorPostLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vendorPostComments<T extends User$vendorPostCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$vendorPostCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userCommands<T extends User$userCommandsArgs<ExtArgs> = {}>(args?: Subset<T, User$userCommandsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2807,6 +3900,198 @@ export namespace Prisma {
   }
 
   /**
+   * User.customerPosts
+   */
+  export type User$customerPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    where?: CustomerPostWhereInput
+    orderBy?: CustomerPostOrderByWithRelationInput | CustomerPostOrderByWithRelationInput[]
+    cursor?: CustomerPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerPostScalarFieldEnum | CustomerPostScalarFieldEnum[]
+  }
+
+  /**
+   * User.postLikes
+   */
+  export type User$postLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    where?: PostLikeWhereInput
+    orderBy?: PostLikeOrderByWithRelationInput | PostLikeOrderByWithRelationInput[]
+    cursor?: PostLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostLikeScalarFieldEnum | PostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * User.postComments
+   */
+  export type User$postCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    where?: PostCommentWhereInput
+    orderBy?: PostCommentOrderByWithRelationInput | PostCommentOrderByWithRelationInput[]
+    cursor?: PostCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostCommentScalarFieldEnum | PostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.customerPostLikes
+   */
+  export type User$customerPostLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    where?: CustomerPostLikeWhereInput
+    orderBy?: CustomerPostLikeOrderByWithRelationInput | CustomerPostLikeOrderByWithRelationInput[]
+    cursor?: CustomerPostLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerPostLikeScalarFieldEnum | CustomerPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * User.customerPostComments
+   */
+  export type User$customerPostCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    where?: CustomerPostCommentWhereInput
+    orderBy?: CustomerPostCommentOrderByWithRelationInput | CustomerPostCommentOrderByWithRelationInput[]
+    cursor?: CustomerPostCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerPostCommentScalarFieldEnum | CustomerPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.vendorPostLikes
+   */
+  export type User$vendorPostLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    where?: VendorPostLikeWhereInput
+    orderBy?: VendorPostLikeOrderByWithRelationInput | VendorPostLikeOrderByWithRelationInput[]
+    cursor?: VendorPostLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VendorPostLikeScalarFieldEnum | VendorPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * User.vendorPostComments
+   */
+  export type User$vendorPostCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    where?: VendorPostCommentWhereInput
+    orderBy?: VendorPostCommentOrderByWithRelationInput | VendorPostCommentOrderByWithRelationInput[]
+    cursor?: VendorPostCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VendorPostCommentScalarFieldEnum | VendorPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.userCommands
+   */
+  export type User$userCommandsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    where?: UserCommandWhereInput
+    orderBy?: UserCommandOrderByWithRelationInput | UserCommandOrderByWithRelationInput[]
+    cursor?: UserCommandWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserCommandScalarFieldEnum | UserCommandScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3052,6 +4337,7 @@ export namespace Prisma {
     rentalSpaces?: boolean | VendorProfile$rentalSpacesArgs<ExtArgs>
     orders?: boolean | VendorProfile$ordersArgs<ExtArgs>
     sustainabilityCerts?: boolean | VendorProfile$sustainabilityCertsArgs<ExtArgs>
+    vendorPosts?: boolean | VendorProfile$vendorPostsArgs<ExtArgs>
     _count?: boolean | VendorProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vendorProfile"]>
 
@@ -3097,6 +4383,7 @@ export namespace Prisma {
     rentalSpaces?: boolean | VendorProfile$rentalSpacesArgs<ExtArgs>
     orders?: boolean | VendorProfile$ordersArgs<ExtArgs>
     sustainabilityCerts?: boolean | VendorProfile$sustainabilityCertsArgs<ExtArgs>
+    vendorPosts?: boolean | VendorProfile$vendorPostsArgs<ExtArgs>
     _count?: boolean | VendorProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VendorProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3114,6 +4401,7 @@ export namespace Prisma {
       rentalSpaces: Prisma.$RentalSpacePayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
       sustainabilityCerts: Prisma.$SustainabilityCertPayload<ExtArgs>[]
+      vendorPosts: Prisma.$VendorPostPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3523,6 +4811,7 @@ export namespace Prisma {
     rentalSpaces<T extends VendorProfile$rentalSpacesArgs<ExtArgs> = {}>(args?: Subset<T, VendorProfile$rentalSpacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalSpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends VendorProfile$ordersArgs<ExtArgs> = {}>(args?: Subset<T, VendorProfile$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sustainabilityCerts<T extends VendorProfile$sustainabilityCertsArgs<ExtArgs> = {}>(args?: Subset<T, VendorProfile$sustainabilityCertsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SustainabilityCertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vendorPosts<T extends VendorProfile$vendorPostsArgs<ExtArgs> = {}>(args?: Subset<T, VendorProfile$vendorPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4054,6 +5343,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SustainabilityCertScalarFieldEnum | SustainabilityCertScalarFieldEnum[]
+  }
+
+  /**
+   * VendorProfile.vendorPosts
+   */
+  export type VendorProfile$vendorPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    where?: VendorPostWhereInput
+    orderBy?: VendorPostOrderByWithRelationInput | VendorPostOrderByWithRelationInput[]
+    cursor?: VendorPostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VendorPostScalarFieldEnum | VendorPostScalarFieldEnum[]
   }
 
   /**
@@ -7842,6 +9155,9 @@ export namespace Prisma {
     postContent?: boolean
     postDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    likes?: boolean | CommunityPost$likesArgs<ExtArgs>
+    comments?: boolean | CommunityPost$commentsArgs<ExtArgs>
+    _count?: boolean | CommunityPostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["communityPost"]>
 
   export type CommunityPostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7870,6 +9186,9 @@ export namespace Prisma {
   export type CommunityPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postContent" | "postDate", ExtArgs["result"]["communityPost"]>
   export type CommunityPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    likes?: boolean | CommunityPost$likesArgs<ExtArgs>
+    comments?: boolean | CommunityPost$commentsArgs<ExtArgs>
+    _count?: boolean | CommunityPostCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CommunityPostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7882,6 +9201,8 @@ export namespace Prisma {
     name: "CommunityPost"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      likes: Prisma.$PostLikePayload<ExtArgs>[]
+      comments: Prisma.$PostCommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -8283,6 +9604,8 @@ export namespace Prisma {
   export interface Prisma__CommunityPostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    likes<T extends CommunityPost$likesArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPost$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends CommunityPost$commentsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPost$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8717,6 +10040,54 @@ export namespace Prisma {
   }
 
   /**
+   * CommunityPost.likes
+   */
+  export type CommunityPost$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    where?: PostLikeWhereInput
+    orderBy?: PostLikeOrderByWithRelationInput | PostLikeOrderByWithRelationInput[]
+    cursor?: PostLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostLikeScalarFieldEnum | PostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityPost.comments
+   */
+  export type CommunityPost$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    where?: PostCommentWhereInput
+    orderBy?: PostCommentOrderByWithRelationInput | PostCommentOrderByWithRelationInput[]
+    cursor?: PostCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostCommentScalarFieldEnum | PostCommentScalarFieldEnum[]
+  }
+
+  /**
    * CommunityPost without action
    */
   export type CommunityPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8732,6 +10103,10246 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CommunityPostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PostLike
+   */
+
+  export type AggregatePostLike = {
+    _count: PostLikeCountAggregateOutputType | null
+    _avg: PostLikeAvgAggregateOutputType | null
+    _sum: PostLikeSumAggregateOutputType | null
+    _min: PostLikeMinAggregateOutputType | null
+    _max: PostLikeMaxAggregateOutputType | null
+  }
+
+  export type PostLikeAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type PostLikeSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type PostLikeMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    createdAt: Date | null
+  }
+
+  export type PostLikeMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    createdAt: Date | null
+  }
+
+  export type PostLikeCountAggregateOutputType = {
+    id: number
+    userId: number
+    postId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PostLikeAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type PostLikeSumAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type PostLikeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+  }
+
+  export type PostLikeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+  }
+
+  export type PostLikeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PostLikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostLike to aggregate.
+     */
+    where?: PostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostLikes to fetch.
+     */
+    orderBy?: PostLikeOrderByWithRelationInput | PostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostLikes
+    **/
+    _count?: true | PostLikeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PostLikeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostLikeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostLikeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostLikeMaxAggregateInputType
+  }
+
+  export type GetPostLikeAggregateType<T extends PostLikeAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostLike]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostLike[P]>
+      : GetScalarType<T[P], AggregatePostLike[P]>
+  }
+
+
+
+
+  export type PostLikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostLikeWhereInput
+    orderBy?: PostLikeOrderByWithAggregationInput | PostLikeOrderByWithAggregationInput[]
+    by: PostLikeScalarFieldEnum[] | PostLikeScalarFieldEnum
+    having?: PostLikeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostLikeCountAggregateInputType | true
+    _avg?: PostLikeAvgAggregateInputType
+    _sum?: PostLikeSumAggregateInputType
+    _min?: PostLikeMinAggregateInputType
+    _max?: PostLikeMaxAggregateInputType
+  }
+
+  export type PostLikeGroupByOutputType = {
+    id: number
+    userId: number
+    postId: number
+    createdAt: Date
+    _count: PostLikeCountAggregateOutputType | null
+    _avg: PostLikeAvgAggregateOutputType | null
+    _sum: PostLikeSumAggregateOutputType | null
+    _min: PostLikeMinAggregateOutputType | null
+    _max: PostLikeMaxAggregateOutputType | null
+  }
+
+  type GetPostLikeGroupByPayload<T extends PostLikeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostLikeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostLikeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostLikeGroupByOutputType[P]>
+            : GetScalarType<T[P], PostLikeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostLikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postLike"]>
+
+  export type PostLikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postLike"]>
+
+  export type PostLikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postLike"]>
+
+  export type PostLikeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+  }
+
+  export type PostLikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postId" | "createdAt", ExtArgs["result"]["postLike"]>
+  export type PostLikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }
+  export type PostLikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }
+  export type PostLikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }
+
+  export type $PostLikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostLike"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$CommunityPostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      postId: number
+      createdAt: Date
+    }, ExtArgs["result"]["postLike"]>
+    composites: {}
+  }
+
+  type PostLikeGetPayload<S extends boolean | null | undefined | PostLikeDefaultArgs> = $Result.GetResult<Prisma.$PostLikePayload, S>
+
+  type PostLikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostLikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostLikeCountAggregateInputType | true
+    }
+
+  export interface PostLikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostLike'], meta: { name: 'PostLike' } }
+    /**
+     * Find zero or one PostLike that matches the filter.
+     * @param {PostLikeFindUniqueArgs} args - Arguments to find a PostLike
+     * @example
+     * // Get one PostLike
+     * const postLike = await prisma.postLike.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostLikeFindUniqueArgs>(args: SelectSubset<T, PostLikeFindUniqueArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PostLike that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostLikeFindUniqueOrThrowArgs} args - Arguments to find a PostLike
+     * @example
+     * // Get one PostLike
+     * const postLike = await prisma.postLike.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostLikeFindUniqueOrThrowArgs>(args: SelectSubset<T, PostLikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostLike that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostLikeFindFirstArgs} args - Arguments to find a PostLike
+     * @example
+     * // Get one PostLike
+     * const postLike = await prisma.postLike.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostLikeFindFirstArgs>(args?: SelectSubset<T, PostLikeFindFirstArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostLike that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostLikeFindFirstOrThrowArgs} args - Arguments to find a PostLike
+     * @example
+     * // Get one PostLike
+     * const postLike = await prisma.postLike.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostLikeFindFirstOrThrowArgs>(args?: SelectSubset<T, PostLikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostLikes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostLikeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostLikes
+     * const postLikes = await prisma.postLike.findMany()
+     * 
+     * // Get first 10 PostLikes
+     * const postLikes = await prisma.postLike.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postLikeWithIdOnly = await prisma.postLike.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostLikeFindManyArgs>(args?: SelectSubset<T, PostLikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PostLike.
+     * @param {PostLikeCreateArgs} args - Arguments to create a PostLike.
+     * @example
+     * // Create one PostLike
+     * const PostLike = await prisma.postLike.create({
+     *   data: {
+     *     // ... data to create a PostLike
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostLikeCreateArgs>(args: SelectSubset<T, PostLikeCreateArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PostLikes.
+     * @param {PostLikeCreateManyArgs} args - Arguments to create many PostLikes.
+     * @example
+     * // Create many PostLikes
+     * const postLike = await prisma.postLike.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostLikeCreateManyArgs>(args?: SelectSubset<T, PostLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PostLikes and returns the data saved in the database.
+     * @param {PostLikeCreateManyAndReturnArgs} args - Arguments to create many PostLikes.
+     * @example
+     * // Create many PostLikes
+     * const postLike = await prisma.postLike.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PostLikes and only return the `id`
+     * const postLikeWithIdOnly = await prisma.postLike.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PostLikeCreateManyAndReturnArgs>(args?: SelectSubset<T, PostLikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PostLike.
+     * @param {PostLikeDeleteArgs} args - Arguments to delete one PostLike.
+     * @example
+     * // Delete one PostLike
+     * const PostLike = await prisma.postLike.delete({
+     *   where: {
+     *     // ... filter to delete one PostLike
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostLikeDeleteArgs>(args: SelectSubset<T, PostLikeDeleteArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PostLike.
+     * @param {PostLikeUpdateArgs} args - Arguments to update one PostLike.
+     * @example
+     * // Update one PostLike
+     * const postLike = await prisma.postLike.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostLikeUpdateArgs>(args: SelectSubset<T, PostLikeUpdateArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PostLikes.
+     * @param {PostLikeDeleteManyArgs} args - Arguments to filter PostLikes to delete.
+     * @example
+     * // Delete a few PostLikes
+     * const { count } = await prisma.postLike.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostLikeDeleteManyArgs>(args?: SelectSubset<T, PostLikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostLikeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostLikes
+     * const postLike = await prisma.postLike.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostLikeUpdateManyArgs>(args: SelectSubset<T, PostLikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostLikes and returns the data updated in the database.
+     * @param {PostLikeUpdateManyAndReturnArgs} args - Arguments to update many PostLikes.
+     * @example
+     * // Update many PostLikes
+     * const postLike = await prisma.postLike.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PostLikes and only return the `id`
+     * const postLikeWithIdOnly = await prisma.postLike.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PostLikeUpdateManyAndReturnArgs>(args: SelectSubset<T, PostLikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PostLike.
+     * @param {PostLikeUpsertArgs} args - Arguments to update or create a PostLike.
+     * @example
+     * // Update or create a PostLike
+     * const postLike = await prisma.postLike.upsert({
+     *   create: {
+     *     // ... data to create a PostLike
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostLike we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostLikeUpsertArgs>(args: SelectSubset<T, PostLikeUpsertArgs<ExtArgs>>): Prisma__PostLikeClient<$Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PostLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostLikeCountArgs} args - Arguments to filter PostLikes to count.
+     * @example
+     * // Count the number of PostLikes
+     * const count = await prisma.postLike.count({
+     *   where: {
+     *     // ... the filter for the PostLikes we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostLikeCountArgs>(
+      args?: Subset<T, PostLikeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostLikeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostLikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostLikeAggregateArgs>(args: Subset<T, PostLikeAggregateArgs>): Prisma.PrismaPromise<GetPostLikeAggregateType<T>>
+
+    /**
+     * Group by PostLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostLikeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostLikeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostLikeGroupByArgs['orderBy'] }
+        : { orderBy?: PostLikeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostLikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostLike model
+   */
+  readonly fields: PostLikeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostLike.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostLikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends CommunityPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPostDefaultArgs<ExtArgs>>): Prisma__CommunityPostClient<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostLike model
+   */
+  interface PostLikeFieldRefs {
+    readonly id: FieldRef<"PostLike", 'Int'>
+    readonly userId: FieldRef<"PostLike", 'Int'>
+    readonly postId: FieldRef<"PostLike", 'Int'>
+    readonly createdAt: FieldRef<"PostLike", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostLike findUnique
+   */
+  export type PostLikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which PostLike to fetch.
+     */
+    where: PostLikeWhereUniqueInput
+  }
+
+  /**
+   * PostLike findUniqueOrThrow
+   */
+  export type PostLikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which PostLike to fetch.
+     */
+    where: PostLikeWhereUniqueInput
+  }
+
+  /**
+   * PostLike findFirst
+   */
+  export type PostLikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which PostLike to fetch.
+     */
+    where?: PostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostLikes to fetch.
+     */
+    orderBy?: PostLikeOrderByWithRelationInput | PostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostLikes.
+     */
+    cursor?: PostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostLikes.
+     */
+    distinct?: PostLikeScalarFieldEnum | PostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * PostLike findFirstOrThrow
+   */
+  export type PostLikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which PostLike to fetch.
+     */
+    where?: PostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostLikes to fetch.
+     */
+    orderBy?: PostLikeOrderByWithRelationInput | PostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostLikes.
+     */
+    cursor?: PostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostLikes.
+     */
+    distinct?: PostLikeScalarFieldEnum | PostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * PostLike findMany
+   */
+  export type PostLikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which PostLikes to fetch.
+     */
+    where?: PostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostLikes to fetch.
+     */
+    orderBy?: PostLikeOrderByWithRelationInput | PostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostLikes.
+     */
+    cursor?: PostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostLikes.
+     */
+    distinct?: PostLikeScalarFieldEnum | PostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * PostLike create
+   */
+  export type PostLikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostLike.
+     */
+    data: XOR<PostLikeCreateInput, PostLikeUncheckedCreateInput>
+  }
+
+  /**
+   * PostLike createMany
+   */
+  export type PostLikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostLikes.
+     */
+    data: PostLikeCreateManyInput | PostLikeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PostLike createManyAndReturn
+   */
+  export type PostLikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * The data used to create many PostLikes.
+     */
+    data: PostLikeCreateManyInput | PostLikeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostLike update
+   */
+  export type PostLikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostLike.
+     */
+    data: XOR<PostLikeUpdateInput, PostLikeUncheckedUpdateInput>
+    /**
+     * Choose, which PostLike to update.
+     */
+    where: PostLikeWhereUniqueInput
+  }
+
+  /**
+   * PostLike updateMany
+   */
+  export type PostLikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostLikes.
+     */
+    data: XOR<PostLikeUpdateManyMutationInput, PostLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which PostLikes to update
+     */
+    where?: PostLikeWhereInput
+    /**
+     * Limit how many PostLikes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostLike updateManyAndReturn
+   */
+  export type PostLikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * The data used to update PostLikes.
+     */
+    data: XOR<PostLikeUpdateManyMutationInput, PostLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which PostLikes to update
+     */
+    where?: PostLikeWhereInput
+    /**
+     * Limit how many PostLikes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostLike upsert
+   */
+  export type PostLikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostLike to update in case it exists.
+     */
+    where: PostLikeWhereUniqueInput
+    /**
+     * In case the PostLike found by the `where` argument doesn't exist, create a new PostLike with this data.
+     */
+    create: XOR<PostLikeCreateInput, PostLikeUncheckedCreateInput>
+    /**
+     * In case the PostLike was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostLikeUpdateInput, PostLikeUncheckedUpdateInput>
+  }
+
+  /**
+   * PostLike delete
+   */
+  export type PostLikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+    /**
+     * Filter which PostLike to delete.
+     */
+    where: PostLikeWhereUniqueInput
+  }
+
+  /**
+   * PostLike deleteMany
+   */
+  export type PostLikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostLikes to delete
+     */
+    where?: PostLikeWhereInput
+    /**
+     * Limit how many PostLikes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostLike without action
+   */
+  export type PostLikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostLike
+     */
+    select?: PostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostLike
+     */
+    omit?: PostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostLikeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PostComment
+   */
+
+  export type AggregatePostComment = {
+    _count: PostCommentCountAggregateOutputType | null
+    _avg: PostCommentAvgAggregateOutputType | null
+    _sum: PostCommentSumAggregateOutputType | null
+    _min: PostCommentMinAggregateOutputType | null
+    _max: PostCommentMaxAggregateOutputType | null
+  }
+
+  export type PostCommentAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type PostCommentSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type PostCommentMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PostCommentMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PostCommentCountAggregateOutputType = {
+    id: number
+    userId: number
+    postId: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PostCommentAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type PostCommentSumAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type PostCommentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PostCommentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PostCommentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PostCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostComment to aggregate.
+     */
+    where?: PostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostComments to fetch.
+     */
+    orderBy?: PostCommentOrderByWithRelationInput | PostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostComments
+    **/
+    _count?: true | PostCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PostCommentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostCommentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostCommentMaxAggregateInputType
+  }
+
+  export type GetPostCommentAggregateType<T extends PostCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostComment[P]>
+      : GetScalarType<T[P], AggregatePostComment[P]>
+  }
+
+
+
+
+  export type PostCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostCommentWhereInput
+    orderBy?: PostCommentOrderByWithAggregationInput | PostCommentOrderByWithAggregationInput[]
+    by: PostCommentScalarFieldEnum[] | PostCommentScalarFieldEnum
+    having?: PostCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostCommentCountAggregateInputType | true
+    _avg?: PostCommentAvgAggregateInputType
+    _sum?: PostCommentSumAggregateInputType
+    _min?: PostCommentMinAggregateInputType
+    _max?: PostCommentMaxAggregateInputType
+  }
+
+  export type PostCommentGroupByOutputType = {
+    id: number
+    userId: number
+    postId: number
+    content: string
+    createdAt: Date
+    updatedAt: Date
+    _count: PostCommentCountAggregateOutputType | null
+    _avg: PostCommentAvgAggregateOutputType | null
+    _sum: PostCommentSumAggregateOutputType | null
+    _min: PostCommentMinAggregateOutputType | null
+    _max: PostCommentMaxAggregateOutputType | null
+  }
+
+  type GetPostCommentGroupByPayload<T extends PostCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], PostCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postComment"]>
+
+  export type PostCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postComment"]>
+
+  export type PostCommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postComment"]>
+
+  export type PostCommentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PostCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postId" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["postComment"]>
+  export type PostCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }
+  export type PostCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }
+  export type PostCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CommunityPostDefaultArgs<ExtArgs>
+  }
+
+  export type $PostCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostComment"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$CommunityPostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      postId: number
+      content: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["postComment"]>
+    composites: {}
+  }
+
+  type PostCommentGetPayload<S extends boolean | null | undefined | PostCommentDefaultArgs> = $Result.GetResult<Prisma.$PostCommentPayload, S>
+
+  type PostCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostCommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostCommentCountAggregateInputType | true
+    }
+
+  export interface PostCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostComment'], meta: { name: 'PostComment' } }
+    /**
+     * Find zero or one PostComment that matches the filter.
+     * @param {PostCommentFindUniqueArgs} args - Arguments to find a PostComment
+     * @example
+     * // Get one PostComment
+     * const postComment = await prisma.postComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostCommentFindUniqueArgs>(args: SelectSubset<T, PostCommentFindUniqueArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PostComment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostCommentFindUniqueOrThrowArgs} args - Arguments to find a PostComment
+     * @example
+     * // Get one PostComment
+     * const postComment = await prisma.postComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, PostCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCommentFindFirstArgs} args - Arguments to find a PostComment
+     * @example
+     * // Get one PostComment
+     * const postComment = await prisma.postComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostCommentFindFirstArgs>(args?: SelectSubset<T, PostCommentFindFirstArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCommentFindFirstOrThrowArgs} args - Arguments to find a PostComment
+     * @example
+     * // Get one PostComment
+     * const postComment = await prisma.postComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, PostCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostComments
+     * const postComments = await prisma.postComment.findMany()
+     * 
+     * // Get first 10 PostComments
+     * const postComments = await prisma.postComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postCommentWithIdOnly = await prisma.postComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostCommentFindManyArgs>(args?: SelectSubset<T, PostCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PostComment.
+     * @param {PostCommentCreateArgs} args - Arguments to create a PostComment.
+     * @example
+     * // Create one PostComment
+     * const PostComment = await prisma.postComment.create({
+     *   data: {
+     *     // ... data to create a PostComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostCommentCreateArgs>(args: SelectSubset<T, PostCommentCreateArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PostComments.
+     * @param {PostCommentCreateManyArgs} args - Arguments to create many PostComments.
+     * @example
+     * // Create many PostComments
+     * const postComment = await prisma.postComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostCommentCreateManyArgs>(args?: SelectSubset<T, PostCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PostComments and returns the data saved in the database.
+     * @param {PostCommentCreateManyAndReturnArgs} args - Arguments to create many PostComments.
+     * @example
+     * // Create many PostComments
+     * const postComment = await prisma.postComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PostComments and only return the `id`
+     * const postCommentWithIdOnly = await prisma.postComment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PostCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, PostCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PostComment.
+     * @param {PostCommentDeleteArgs} args - Arguments to delete one PostComment.
+     * @example
+     * // Delete one PostComment
+     * const PostComment = await prisma.postComment.delete({
+     *   where: {
+     *     // ... filter to delete one PostComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostCommentDeleteArgs>(args: SelectSubset<T, PostCommentDeleteArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PostComment.
+     * @param {PostCommentUpdateArgs} args - Arguments to update one PostComment.
+     * @example
+     * // Update one PostComment
+     * const postComment = await prisma.postComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostCommentUpdateArgs>(args: SelectSubset<T, PostCommentUpdateArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PostComments.
+     * @param {PostCommentDeleteManyArgs} args - Arguments to filter PostComments to delete.
+     * @example
+     * // Delete a few PostComments
+     * const { count } = await prisma.postComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostCommentDeleteManyArgs>(args?: SelectSubset<T, PostCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostComments
+     * const postComment = await prisma.postComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostCommentUpdateManyArgs>(args: SelectSubset<T, PostCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostComments and returns the data updated in the database.
+     * @param {PostCommentUpdateManyAndReturnArgs} args - Arguments to update many PostComments.
+     * @example
+     * // Update many PostComments
+     * const postComment = await prisma.postComment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PostComments and only return the `id`
+     * const postCommentWithIdOnly = await prisma.postComment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PostCommentUpdateManyAndReturnArgs>(args: SelectSubset<T, PostCommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PostComment.
+     * @param {PostCommentUpsertArgs} args - Arguments to update or create a PostComment.
+     * @example
+     * // Update or create a PostComment
+     * const postComment = await prisma.postComment.upsert({
+     *   create: {
+     *     // ... data to create a PostComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostCommentUpsertArgs>(args: SelectSubset<T, PostCommentUpsertArgs<ExtArgs>>): Prisma__PostCommentClient<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PostComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCommentCountArgs} args - Arguments to filter PostComments to count.
+     * @example
+     * // Count the number of PostComments
+     * const count = await prisma.postComment.count({
+     *   where: {
+     *     // ... the filter for the PostComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostCommentCountArgs>(
+      args?: Subset<T, PostCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostCommentAggregateArgs>(args: Subset<T, PostCommentAggregateArgs>): Prisma.PrismaPromise<GetPostCommentAggregateType<T>>
+
+    /**
+     * Group by PostComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostCommentGroupByArgs['orderBy'] }
+        : { orderBy?: PostCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostComment model
+   */
+  readonly fields: PostCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends CommunityPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPostDefaultArgs<ExtArgs>>): Prisma__CommunityPostClient<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostComment model
+   */
+  interface PostCommentFieldRefs {
+    readonly id: FieldRef<"PostComment", 'Int'>
+    readonly userId: FieldRef<"PostComment", 'Int'>
+    readonly postId: FieldRef<"PostComment", 'Int'>
+    readonly content: FieldRef<"PostComment", 'String'>
+    readonly createdAt: FieldRef<"PostComment", 'DateTime'>
+    readonly updatedAt: FieldRef<"PostComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostComment findUnique
+   */
+  export type PostCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which PostComment to fetch.
+     */
+    where: PostCommentWhereUniqueInput
+  }
+
+  /**
+   * PostComment findUniqueOrThrow
+   */
+  export type PostCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which PostComment to fetch.
+     */
+    where: PostCommentWhereUniqueInput
+  }
+
+  /**
+   * PostComment findFirst
+   */
+  export type PostCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which PostComment to fetch.
+     */
+    where?: PostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostComments to fetch.
+     */
+    orderBy?: PostCommentOrderByWithRelationInput | PostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostComments.
+     */
+    cursor?: PostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostComments.
+     */
+    distinct?: PostCommentScalarFieldEnum | PostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * PostComment findFirstOrThrow
+   */
+  export type PostCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which PostComment to fetch.
+     */
+    where?: PostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostComments to fetch.
+     */
+    orderBy?: PostCommentOrderByWithRelationInput | PostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostComments.
+     */
+    cursor?: PostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostComments.
+     */
+    distinct?: PostCommentScalarFieldEnum | PostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * PostComment findMany
+   */
+  export type PostCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which PostComments to fetch.
+     */
+    where?: PostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostComments to fetch.
+     */
+    orderBy?: PostCommentOrderByWithRelationInput | PostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostComments.
+     */
+    cursor?: PostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostComments.
+     */
+    distinct?: PostCommentScalarFieldEnum | PostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * PostComment create
+   */
+  export type PostCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostComment.
+     */
+    data: XOR<PostCommentCreateInput, PostCommentUncheckedCreateInput>
+  }
+
+  /**
+   * PostComment createMany
+   */
+  export type PostCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostComments.
+     */
+    data: PostCommentCreateManyInput | PostCommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PostComment createManyAndReturn
+   */
+  export type PostCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many PostComments.
+     */
+    data: PostCommentCreateManyInput | PostCommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostComment update
+   */
+  export type PostCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostComment.
+     */
+    data: XOR<PostCommentUpdateInput, PostCommentUncheckedUpdateInput>
+    /**
+     * Choose, which PostComment to update.
+     */
+    where: PostCommentWhereUniqueInput
+  }
+
+  /**
+   * PostComment updateMany
+   */
+  export type PostCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostComments.
+     */
+    data: XOR<PostCommentUpdateManyMutationInput, PostCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which PostComments to update
+     */
+    where?: PostCommentWhereInput
+    /**
+     * Limit how many PostComments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostComment updateManyAndReturn
+   */
+  export type PostCommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * The data used to update PostComments.
+     */
+    data: XOR<PostCommentUpdateManyMutationInput, PostCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which PostComments to update
+     */
+    where?: PostCommentWhereInput
+    /**
+     * Limit how many PostComments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostComment upsert
+   */
+  export type PostCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostComment to update in case it exists.
+     */
+    where: PostCommentWhereUniqueInput
+    /**
+     * In case the PostComment found by the `where` argument doesn't exist, create a new PostComment with this data.
+     */
+    create: XOR<PostCommentCreateInput, PostCommentUncheckedCreateInput>
+    /**
+     * In case the PostComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostCommentUpdateInput, PostCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * PostComment delete
+   */
+  export type PostCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+    /**
+     * Filter which PostComment to delete.
+     */
+    where: PostCommentWhereUniqueInput
+  }
+
+  /**
+   * PostComment deleteMany
+   */
+  export type PostCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostComments to delete
+     */
+    where?: PostCommentWhereInput
+    /**
+     * Limit how many PostComments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostComment without action
+   */
+  export type PostCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostComment
+     */
+    select?: PostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostComment
+     */
+    omit?: PostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerPost
+   */
+
+  export type AggregateCustomerPost = {
+    _count: CustomerPostCountAggregateOutputType | null
+    _avg: CustomerPostAvgAggregateOutputType | null
+    _sum: CustomerPostSumAggregateOutputType | null
+    _min: CustomerPostMinAggregateOutputType | null
+    _max: CustomerPostMaxAggregateOutputType | null
+  }
+
+  export type CustomerPostAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type CustomerPostSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type CustomerPostMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    title: string | null
+    content: string | null
+    category: $Enums.PostCategory | null
+    isApproved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerPostMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    title: string | null
+    content: string | null
+    category: $Enums.PostCategory | null
+    isApproved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerPostCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    content: number
+    category: number
+    isApproved: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CustomerPostAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type CustomerPostSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type CustomerPostMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    content?: true
+    category?: true
+    isApproved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerPostMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    content?: true
+    category?: true
+    isApproved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerPostCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    content?: true
+    category?: true
+    isApproved?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CustomerPostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPost to aggregate.
+     */
+    where?: CustomerPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPosts to fetch.
+     */
+    orderBy?: CustomerPostOrderByWithRelationInput | CustomerPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerPosts
+    **/
+    _count?: true | CustomerPostCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerPostAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerPostSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerPostMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerPostMaxAggregateInputType
+  }
+
+  export type GetCustomerPostAggregateType<T extends CustomerPostAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerPost]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerPost[P]>
+      : GetScalarType<T[P], AggregateCustomerPost[P]>
+  }
+
+
+
+
+  export type CustomerPostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostWhereInput
+    orderBy?: CustomerPostOrderByWithAggregationInput | CustomerPostOrderByWithAggregationInput[]
+    by: CustomerPostScalarFieldEnum[] | CustomerPostScalarFieldEnum
+    having?: CustomerPostScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerPostCountAggregateInputType | true
+    _avg?: CustomerPostAvgAggregateInputType
+    _sum?: CustomerPostSumAggregateInputType
+    _min?: CustomerPostMinAggregateInputType
+    _max?: CustomerPostMaxAggregateInputType
+  }
+
+  export type CustomerPostGroupByOutputType = {
+    id: number
+    userId: number
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: CustomerPostCountAggregateOutputType | null
+    _avg: CustomerPostAvgAggregateOutputType | null
+    _sum: CustomerPostSumAggregateOutputType | null
+    _min: CustomerPostMinAggregateOutputType | null
+    _max: CustomerPostMaxAggregateOutputType | null
+  }
+
+  type GetCustomerPostGroupByPayload<T extends CustomerPostGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerPostGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerPostGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerPostGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerPostGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerPostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    likes?: boolean | CustomerPost$likesArgs<ExtArgs>
+    comments?: boolean | CustomerPost$commentsArgs<ExtArgs>
+    _count?: boolean | CustomerPostCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPost"]>
+
+  export type CustomerPostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPost"]>
+
+  export type CustomerPostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPost"]>
+
+  export type CustomerPostSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CustomerPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "content" | "category" | "isApproved" | "createdAt" | "updatedAt", ExtArgs["result"]["customerPost"]>
+  export type CustomerPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    likes?: boolean | CustomerPost$likesArgs<ExtArgs>
+    comments?: boolean | CustomerPost$commentsArgs<ExtArgs>
+    _count?: boolean | CustomerPostCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CustomerPostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CustomerPostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerPost"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      likes: Prisma.$CustomerPostLikePayload<ExtArgs>[]
+      comments: Prisma.$CustomerPostCommentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      title: string
+      content: string
+      category: $Enums.PostCategory
+      isApproved: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["customerPost"]>
+    composites: {}
+  }
+
+  type CustomerPostGetPayload<S extends boolean | null | undefined | CustomerPostDefaultArgs> = $Result.GetResult<Prisma.$CustomerPostPayload, S>
+
+  type CustomerPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomerPostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomerPostCountAggregateInputType | true
+    }
+
+  export interface CustomerPostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerPost'], meta: { name: 'CustomerPost' } }
+    /**
+     * Find zero or one CustomerPost that matches the filter.
+     * @param {CustomerPostFindUniqueArgs} args - Arguments to find a CustomerPost
+     * @example
+     * // Get one CustomerPost
+     * const customerPost = await prisma.customerPost.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerPostFindUniqueArgs>(args: SelectSubset<T, CustomerPostFindUniqueArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomerPost that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomerPostFindUniqueOrThrowArgs} args - Arguments to find a CustomerPost
+     * @example
+     * // Get one CustomerPost
+     * const customerPost = await prisma.customerPost.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerPostFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerPostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerPost that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostFindFirstArgs} args - Arguments to find a CustomerPost
+     * @example
+     * // Get one CustomerPost
+     * const customerPost = await prisma.customerPost.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerPostFindFirstArgs>(args?: SelectSubset<T, CustomerPostFindFirstArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerPost that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostFindFirstOrThrowArgs} args - Arguments to find a CustomerPost
+     * @example
+     * // Get one CustomerPost
+     * const customerPost = await prisma.customerPost.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerPostFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerPostFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomerPosts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerPosts
+     * const customerPosts = await prisma.customerPost.findMany()
+     * 
+     * // Get first 10 CustomerPosts
+     * const customerPosts = await prisma.customerPost.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerPostWithIdOnly = await prisma.customerPost.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerPostFindManyArgs>(args?: SelectSubset<T, CustomerPostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomerPost.
+     * @param {CustomerPostCreateArgs} args - Arguments to create a CustomerPost.
+     * @example
+     * // Create one CustomerPost
+     * const CustomerPost = await prisma.customerPost.create({
+     *   data: {
+     *     // ... data to create a CustomerPost
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerPostCreateArgs>(args: SelectSubset<T, CustomerPostCreateArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomerPosts.
+     * @param {CustomerPostCreateManyArgs} args - Arguments to create many CustomerPosts.
+     * @example
+     * // Create many CustomerPosts
+     * const customerPost = await prisma.customerPost.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerPostCreateManyArgs>(args?: SelectSubset<T, CustomerPostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerPosts and returns the data saved in the database.
+     * @param {CustomerPostCreateManyAndReturnArgs} args - Arguments to create many CustomerPosts.
+     * @example
+     * // Create many CustomerPosts
+     * const customerPost = await prisma.customerPost.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerPosts and only return the `id`
+     * const customerPostWithIdOnly = await prisma.customerPost.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerPostCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerPostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomerPost.
+     * @param {CustomerPostDeleteArgs} args - Arguments to delete one CustomerPost.
+     * @example
+     * // Delete one CustomerPost
+     * const CustomerPost = await prisma.customerPost.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerPost
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerPostDeleteArgs>(args: SelectSubset<T, CustomerPostDeleteArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomerPost.
+     * @param {CustomerPostUpdateArgs} args - Arguments to update one CustomerPost.
+     * @example
+     * // Update one CustomerPost
+     * const customerPost = await prisma.customerPost.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerPostUpdateArgs>(args: SelectSubset<T, CustomerPostUpdateArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomerPosts.
+     * @param {CustomerPostDeleteManyArgs} args - Arguments to filter CustomerPosts to delete.
+     * @example
+     * // Delete a few CustomerPosts
+     * const { count } = await prisma.customerPost.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerPostDeleteManyArgs>(args?: SelectSubset<T, CustomerPostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerPosts
+     * const customerPost = await prisma.customerPost.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerPostUpdateManyArgs>(args: SelectSubset<T, CustomerPostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerPosts and returns the data updated in the database.
+     * @param {CustomerPostUpdateManyAndReturnArgs} args - Arguments to update many CustomerPosts.
+     * @example
+     * // Update many CustomerPosts
+     * const customerPost = await prisma.customerPost.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomerPosts and only return the `id`
+     * const customerPostWithIdOnly = await prisma.customerPost.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomerPostUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomerPostUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomerPost.
+     * @param {CustomerPostUpsertArgs} args - Arguments to update or create a CustomerPost.
+     * @example
+     * // Update or create a CustomerPost
+     * const customerPost = await prisma.customerPost.upsert({
+     *   create: {
+     *     // ... data to create a CustomerPost
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerPost we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerPostUpsertArgs>(args: SelectSubset<T, CustomerPostUpsertArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomerPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCountArgs} args - Arguments to filter CustomerPosts to count.
+     * @example
+     * // Count the number of CustomerPosts
+     * const count = await prisma.customerPost.count({
+     *   where: {
+     *     // ... the filter for the CustomerPosts we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerPostCountArgs>(
+      args?: Subset<T, CustomerPostCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerPostCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerPostAggregateArgs>(args: Subset<T, CustomerPostAggregateArgs>): Prisma.PrismaPromise<GetCustomerPostAggregateType<T>>
+
+    /**
+     * Group by CustomerPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerPostGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerPostGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerPostGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerPostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerPost model
+   */
+  readonly fields: CustomerPostFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerPost.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerPostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    likes<T extends CustomerPost$likesArgs<ExtArgs> = {}>(args?: Subset<T, CustomerPost$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends CustomerPost$commentsArgs<ExtArgs> = {}>(args?: Subset<T, CustomerPost$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerPost model
+   */
+  interface CustomerPostFieldRefs {
+    readonly id: FieldRef<"CustomerPost", 'Int'>
+    readonly userId: FieldRef<"CustomerPost", 'Int'>
+    readonly title: FieldRef<"CustomerPost", 'String'>
+    readonly content: FieldRef<"CustomerPost", 'String'>
+    readonly category: FieldRef<"CustomerPost", 'PostCategory'>
+    readonly isApproved: FieldRef<"CustomerPost", 'Boolean'>
+    readonly createdAt: FieldRef<"CustomerPost", 'DateTime'>
+    readonly updatedAt: FieldRef<"CustomerPost", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerPost findUnique
+   */
+  export type CustomerPostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPost to fetch.
+     */
+    where: CustomerPostWhereUniqueInput
+  }
+
+  /**
+   * CustomerPost findUniqueOrThrow
+   */
+  export type CustomerPostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPost to fetch.
+     */
+    where: CustomerPostWhereUniqueInput
+  }
+
+  /**
+   * CustomerPost findFirst
+   */
+  export type CustomerPostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPost to fetch.
+     */
+    where?: CustomerPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPosts to fetch.
+     */
+    orderBy?: CustomerPostOrderByWithRelationInput | CustomerPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPosts.
+     */
+    cursor?: CustomerPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPosts.
+     */
+    distinct?: CustomerPostScalarFieldEnum | CustomerPostScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPost findFirstOrThrow
+   */
+  export type CustomerPostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPost to fetch.
+     */
+    where?: CustomerPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPosts to fetch.
+     */
+    orderBy?: CustomerPostOrderByWithRelationInput | CustomerPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPosts.
+     */
+    cursor?: CustomerPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPosts.
+     */
+    distinct?: CustomerPostScalarFieldEnum | CustomerPostScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPost findMany
+   */
+  export type CustomerPostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPosts to fetch.
+     */
+    where?: CustomerPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPosts to fetch.
+     */
+    orderBy?: CustomerPostOrderByWithRelationInput | CustomerPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerPosts.
+     */
+    cursor?: CustomerPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPosts.
+     */
+    distinct?: CustomerPostScalarFieldEnum | CustomerPostScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPost create
+   */
+  export type CustomerPostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerPost.
+     */
+    data: XOR<CustomerPostCreateInput, CustomerPostUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerPost createMany
+   */
+  export type CustomerPostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerPosts.
+     */
+    data: CustomerPostCreateManyInput | CustomerPostCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerPost createManyAndReturn
+   */
+  export type CustomerPostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomerPosts.
+     */
+    data: CustomerPostCreateManyInput | CustomerPostCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPost update
+   */
+  export type CustomerPostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerPost.
+     */
+    data: XOR<CustomerPostUpdateInput, CustomerPostUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerPost to update.
+     */
+    where: CustomerPostWhereUniqueInput
+  }
+
+  /**
+   * CustomerPost updateMany
+   */
+  export type CustomerPostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerPosts.
+     */
+    data: XOR<CustomerPostUpdateManyMutationInput, CustomerPostUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerPosts to update
+     */
+    where?: CustomerPostWhereInput
+    /**
+     * Limit how many CustomerPosts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerPost updateManyAndReturn
+   */
+  export type CustomerPostUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomerPosts.
+     */
+    data: XOR<CustomerPostUpdateManyMutationInput, CustomerPostUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerPosts to update
+     */
+    where?: CustomerPostWhereInput
+    /**
+     * Limit how many CustomerPosts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPost upsert
+   */
+  export type CustomerPostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerPost to update in case it exists.
+     */
+    where: CustomerPostWhereUniqueInput
+    /**
+     * In case the CustomerPost found by the `where` argument doesn't exist, create a new CustomerPost with this data.
+     */
+    create: XOR<CustomerPostCreateInput, CustomerPostUncheckedCreateInput>
+    /**
+     * In case the CustomerPost was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerPostUpdateInput, CustomerPostUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerPost delete
+   */
+  export type CustomerPostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerPost to delete.
+     */
+    where: CustomerPostWhereUniqueInput
+  }
+
+  /**
+   * CustomerPost deleteMany
+   */
+  export type CustomerPostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPosts to delete
+     */
+    where?: CustomerPostWhereInput
+    /**
+     * Limit how many CustomerPosts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerPost.likes
+   */
+  export type CustomerPost$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    where?: CustomerPostLikeWhereInput
+    orderBy?: CustomerPostLikeOrderByWithRelationInput | CustomerPostLikeOrderByWithRelationInput[]
+    cursor?: CustomerPostLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerPostLikeScalarFieldEnum | CustomerPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPost.comments
+   */
+  export type CustomerPost$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    where?: CustomerPostCommentWhereInput
+    orderBy?: CustomerPostCommentOrderByWithRelationInput | CustomerPostCommentOrderByWithRelationInput[]
+    cursor?: CustomerPostCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerPostCommentScalarFieldEnum | CustomerPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPost without action
+   */
+  export type CustomerPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPost
+     */
+    select?: CustomerPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPost
+     */
+    omit?: CustomerPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerPostLike
+   */
+
+  export type AggregateCustomerPostLike = {
+    _count: CustomerPostLikeCountAggregateOutputType | null
+    _avg: CustomerPostLikeAvgAggregateOutputType | null
+    _sum: CustomerPostLikeSumAggregateOutputType | null
+    _min: CustomerPostLikeMinAggregateOutputType | null
+    _max: CustomerPostLikeMaxAggregateOutputType | null
+  }
+
+  export type CustomerPostLikeAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type CustomerPostLikeSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type CustomerPostLikeMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    createdAt: Date | null
+  }
+
+  export type CustomerPostLikeMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    createdAt: Date | null
+  }
+
+  export type CustomerPostLikeCountAggregateOutputType = {
+    id: number
+    userId: number
+    postId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CustomerPostLikeAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type CustomerPostLikeSumAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type CustomerPostLikeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+  }
+
+  export type CustomerPostLikeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+  }
+
+  export type CustomerPostLikeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CustomerPostLikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPostLike to aggregate.
+     */
+    where?: CustomerPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostLikes to fetch.
+     */
+    orderBy?: CustomerPostLikeOrderByWithRelationInput | CustomerPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerPostLikes
+    **/
+    _count?: true | CustomerPostLikeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerPostLikeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerPostLikeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerPostLikeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerPostLikeMaxAggregateInputType
+  }
+
+  export type GetCustomerPostLikeAggregateType<T extends CustomerPostLikeAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerPostLike]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerPostLike[P]>
+      : GetScalarType<T[P], AggregateCustomerPostLike[P]>
+  }
+
+
+
+
+  export type CustomerPostLikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostLikeWhereInput
+    orderBy?: CustomerPostLikeOrderByWithAggregationInput | CustomerPostLikeOrderByWithAggregationInput[]
+    by: CustomerPostLikeScalarFieldEnum[] | CustomerPostLikeScalarFieldEnum
+    having?: CustomerPostLikeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerPostLikeCountAggregateInputType | true
+    _avg?: CustomerPostLikeAvgAggregateInputType
+    _sum?: CustomerPostLikeSumAggregateInputType
+    _min?: CustomerPostLikeMinAggregateInputType
+    _max?: CustomerPostLikeMaxAggregateInputType
+  }
+
+  export type CustomerPostLikeGroupByOutputType = {
+    id: number
+    userId: number
+    postId: number
+    createdAt: Date
+    _count: CustomerPostLikeCountAggregateOutputType | null
+    _avg: CustomerPostLikeAvgAggregateOutputType | null
+    _sum: CustomerPostLikeSumAggregateOutputType | null
+    _min: CustomerPostLikeMinAggregateOutputType | null
+    _max: CustomerPostLikeMaxAggregateOutputType | null
+  }
+
+  type GetCustomerPostLikeGroupByPayload<T extends CustomerPostLikeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerPostLikeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerPostLikeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerPostLikeGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerPostLikeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerPostLikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPostLike"]>
+
+  export type CustomerPostLikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPostLike"]>
+
+  export type CustomerPostLikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPostLike"]>
+
+  export type CustomerPostLikeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+  }
+
+  export type CustomerPostLikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postId" | "createdAt", ExtArgs["result"]["customerPostLike"]>
+  export type CustomerPostLikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }
+  export type CustomerPostLikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }
+  export type CustomerPostLikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerPostLikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerPostLike"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$CustomerPostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      postId: number
+      createdAt: Date
+    }, ExtArgs["result"]["customerPostLike"]>
+    composites: {}
+  }
+
+  type CustomerPostLikeGetPayload<S extends boolean | null | undefined | CustomerPostLikeDefaultArgs> = $Result.GetResult<Prisma.$CustomerPostLikePayload, S>
+
+  type CustomerPostLikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomerPostLikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomerPostLikeCountAggregateInputType | true
+    }
+
+  export interface CustomerPostLikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerPostLike'], meta: { name: 'CustomerPostLike' } }
+    /**
+     * Find zero or one CustomerPostLike that matches the filter.
+     * @param {CustomerPostLikeFindUniqueArgs} args - Arguments to find a CustomerPostLike
+     * @example
+     * // Get one CustomerPostLike
+     * const customerPostLike = await prisma.customerPostLike.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerPostLikeFindUniqueArgs>(args: SelectSubset<T, CustomerPostLikeFindUniqueArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomerPostLike that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomerPostLikeFindUniqueOrThrowArgs} args - Arguments to find a CustomerPostLike
+     * @example
+     * // Get one CustomerPostLike
+     * const customerPostLike = await prisma.customerPostLike.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerPostLikeFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerPostLikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerPostLike that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostLikeFindFirstArgs} args - Arguments to find a CustomerPostLike
+     * @example
+     * // Get one CustomerPostLike
+     * const customerPostLike = await prisma.customerPostLike.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerPostLikeFindFirstArgs>(args?: SelectSubset<T, CustomerPostLikeFindFirstArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerPostLike that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostLikeFindFirstOrThrowArgs} args - Arguments to find a CustomerPostLike
+     * @example
+     * // Get one CustomerPostLike
+     * const customerPostLike = await prisma.customerPostLike.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerPostLikeFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerPostLikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomerPostLikes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostLikeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerPostLikes
+     * const customerPostLikes = await prisma.customerPostLike.findMany()
+     * 
+     * // Get first 10 CustomerPostLikes
+     * const customerPostLikes = await prisma.customerPostLike.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerPostLikeWithIdOnly = await prisma.customerPostLike.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerPostLikeFindManyArgs>(args?: SelectSubset<T, CustomerPostLikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomerPostLike.
+     * @param {CustomerPostLikeCreateArgs} args - Arguments to create a CustomerPostLike.
+     * @example
+     * // Create one CustomerPostLike
+     * const CustomerPostLike = await prisma.customerPostLike.create({
+     *   data: {
+     *     // ... data to create a CustomerPostLike
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerPostLikeCreateArgs>(args: SelectSubset<T, CustomerPostLikeCreateArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomerPostLikes.
+     * @param {CustomerPostLikeCreateManyArgs} args - Arguments to create many CustomerPostLikes.
+     * @example
+     * // Create many CustomerPostLikes
+     * const customerPostLike = await prisma.customerPostLike.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerPostLikeCreateManyArgs>(args?: SelectSubset<T, CustomerPostLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerPostLikes and returns the data saved in the database.
+     * @param {CustomerPostLikeCreateManyAndReturnArgs} args - Arguments to create many CustomerPostLikes.
+     * @example
+     * // Create many CustomerPostLikes
+     * const customerPostLike = await prisma.customerPostLike.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerPostLikes and only return the `id`
+     * const customerPostLikeWithIdOnly = await prisma.customerPostLike.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerPostLikeCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerPostLikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomerPostLike.
+     * @param {CustomerPostLikeDeleteArgs} args - Arguments to delete one CustomerPostLike.
+     * @example
+     * // Delete one CustomerPostLike
+     * const CustomerPostLike = await prisma.customerPostLike.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerPostLike
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerPostLikeDeleteArgs>(args: SelectSubset<T, CustomerPostLikeDeleteArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomerPostLike.
+     * @param {CustomerPostLikeUpdateArgs} args - Arguments to update one CustomerPostLike.
+     * @example
+     * // Update one CustomerPostLike
+     * const customerPostLike = await prisma.customerPostLike.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerPostLikeUpdateArgs>(args: SelectSubset<T, CustomerPostLikeUpdateArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomerPostLikes.
+     * @param {CustomerPostLikeDeleteManyArgs} args - Arguments to filter CustomerPostLikes to delete.
+     * @example
+     * // Delete a few CustomerPostLikes
+     * const { count } = await prisma.customerPostLike.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerPostLikeDeleteManyArgs>(args?: SelectSubset<T, CustomerPostLikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerPostLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostLikeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerPostLikes
+     * const customerPostLike = await prisma.customerPostLike.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerPostLikeUpdateManyArgs>(args: SelectSubset<T, CustomerPostLikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerPostLikes and returns the data updated in the database.
+     * @param {CustomerPostLikeUpdateManyAndReturnArgs} args - Arguments to update many CustomerPostLikes.
+     * @example
+     * // Update many CustomerPostLikes
+     * const customerPostLike = await prisma.customerPostLike.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomerPostLikes and only return the `id`
+     * const customerPostLikeWithIdOnly = await prisma.customerPostLike.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomerPostLikeUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomerPostLikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomerPostLike.
+     * @param {CustomerPostLikeUpsertArgs} args - Arguments to update or create a CustomerPostLike.
+     * @example
+     * // Update or create a CustomerPostLike
+     * const customerPostLike = await prisma.customerPostLike.upsert({
+     *   create: {
+     *     // ... data to create a CustomerPostLike
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerPostLike we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerPostLikeUpsertArgs>(args: SelectSubset<T, CustomerPostLikeUpsertArgs<ExtArgs>>): Prisma__CustomerPostLikeClient<$Result.GetResult<Prisma.$CustomerPostLikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomerPostLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostLikeCountArgs} args - Arguments to filter CustomerPostLikes to count.
+     * @example
+     * // Count the number of CustomerPostLikes
+     * const count = await prisma.customerPostLike.count({
+     *   where: {
+     *     // ... the filter for the CustomerPostLikes we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerPostLikeCountArgs>(
+      args?: Subset<T, CustomerPostLikeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerPostLikeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerPostLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostLikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerPostLikeAggregateArgs>(args: Subset<T, CustomerPostLikeAggregateArgs>): Prisma.PrismaPromise<GetCustomerPostLikeAggregateType<T>>
+
+    /**
+     * Group by CustomerPostLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostLikeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerPostLikeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerPostLikeGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerPostLikeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerPostLikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerPostLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerPostLike model
+   */
+  readonly fields: CustomerPostLikeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerPostLike.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerPostLikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends CustomerPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerPostDefaultArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerPostLike model
+   */
+  interface CustomerPostLikeFieldRefs {
+    readonly id: FieldRef<"CustomerPostLike", 'Int'>
+    readonly userId: FieldRef<"CustomerPostLike", 'Int'>
+    readonly postId: FieldRef<"CustomerPostLike", 'Int'>
+    readonly createdAt: FieldRef<"CustomerPostLike", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerPostLike findUnique
+   */
+  export type CustomerPostLikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostLike to fetch.
+     */
+    where: CustomerPostLikeWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostLike findUniqueOrThrow
+   */
+  export type CustomerPostLikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostLike to fetch.
+     */
+    where: CustomerPostLikeWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostLike findFirst
+   */
+  export type CustomerPostLikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostLike to fetch.
+     */
+    where?: CustomerPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostLikes to fetch.
+     */
+    orderBy?: CustomerPostLikeOrderByWithRelationInput | CustomerPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPostLikes.
+     */
+    cursor?: CustomerPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPostLikes.
+     */
+    distinct?: CustomerPostLikeScalarFieldEnum | CustomerPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPostLike findFirstOrThrow
+   */
+  export type CustomerPostLikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostLike to fetch.
+     */
+    where?: CustomerPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostLikes to fetch.
+     */
+    orderBy?: CustomerPostLikeOrderByWithRelationInput | CustomerPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPostLikes.
+     */
+    cursor?: CustomerPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPostLikes.
+     */
+    distinct?: CustomerPostLikeScalarFieldEnum | CustomerPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPostLike findMany
+   */
+  export type CustomerPostLikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostLikes to fetch.
+     */
+    where?: CustomerPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostLikes to fetch.
+     */
+    orderBy?: CustomerPostLikeOrderByWithRelationInput | CustomerPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerPostLikes.
+     */
+    cursor?: CustomerPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPostLikes.
+     */
+    distinct?: CustomerPostLikeScalarFieldEnum | CustomerPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPostLike create
+   */
+  export type CustomerPostLikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerPostLike.
+     */
+    data: XOR<CustomerPostLikeCreateInput, CustomerPostLikeUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerPostLike createMany
+   */
+  export type CustomerPostLikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerPostLikes.
+     */
+    data: CustomerPostLikeCreateManyInput | CustomerPostLikeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerPostLike createManyAndReturn
+   */
+  export type CustomerPostLikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomerPostLikes.
+     */
+    data: CustomerPostLikeCreateManyInput | CustomerPostLikeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPostLike update
+   */
+  export type CustomerPostLikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerPostLike.
+     */
+    data: XOR<CustomerPostLikeUpdateInput, CustomerPostLikeUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerPostLike to update.
+     */
+    where: CustomerPostLikeWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostLike updateMany
+   */
+  export type CustomerPostLikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerPostLikes.
+     */
+    data: XOR<CustomerPostLikeUpdateManyMutationInput, CustomerPostLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerPostLikes to update
+     */
+    where?: CustomerPostLikeWhereInput
+    /**
+     * Limit how many CustomerPostLikes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerPostLike updateManyAndReturn
+   */
+  export type CustomerPostLikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomerPostLikes.
+     */
+    data: XOR<CustomerPostLikeUpdateManyMutationInput, CustomerPostLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerPostLikes to update
+     */
+    where?: CustomerPostLikeWhereInput
+    /**
+     * Limit how many CustomerPostLikes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPostLike upsert
+   */
+  export type CustomerPostLikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerPostLike to update in case it exists.
+     */
+    where: CustomerPostLikeWhereUniqueInput
+    /**
+     * In case the CustomerPostLike found by the `where` argument doesn't exist, create a new CustomerPostLike with this data.
+     */
+    create: XOR<CustomerPostLikeCreateInput, CustomerPostLikeUncheckedCreateInput>
+    /**
+     * In case the CustomerPostLike was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerPostLikeUpdateInput, CustomerPostLikeUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerPostLike delete
+   */
+  export type CustomerPostLikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerPostLike to delete.
+     */
+    where: CustomerPostLikeWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostLike deleteMany
+   */
+  export type CustomerPostLikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPostLikes to delete
+     */
+    where?: CustomerPostLikeWhereInput
+    /**
+     * Limit how many CustomerPostLikes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerPostLike without action
+   */
+  export type CustomerPostLikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostLike
+     */
+    select?: CustomerPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostLike
+     */
+    omit?: CustomerPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostLikeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerPostComment
+   */
+
+  export type AggregateCustomerPostComment = {
+    _count: CustomerPostCommentCountAggregateOutputType | null
+    _avg: CustomerPostCommentAvgAggregateOutputType | null
+    _sum: CustomerPostCommentSumAggregateOutputType | null
+    _min: CustomerPostCommentMinAggregateOutputType | null
+    _max: CustomerPostCommentMaxAggregateOutputType | null
+  }
+
+  export type CustomerPostCommentAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type CustomerPostCommentSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type CustomerPostCommentMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerPostCommentMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerPostCommentCountAggregateOutputType = {
+    id: number
+    userId: number
+    postId: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CustomerPostCommentAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type CustomerPostCommentSumAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type CustomerPostCommentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerPostCommentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerPostCommentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CustomerPostCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPostComment to aggregate.
+     */
+    where?: CustomerPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostComments to fetch.
+     */
+    orderBy?: CustomerPostCommentOrderByWithRelationInput | CustomerPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerPostComments
+    **/
+    _count?: true | CustomerPostCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerPostCommentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerPostCommentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerPostCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerPostCommentMaxAggregateInputType
+  }
+
+  export type GetCustomerPostCommentAggregateType<T extends CustomerPostCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerPostComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerPostComment[P]>
+      : GetScalarType<T[P], AggregateCustomerPostComment[P]>
+  }
+
+
+
+
+  export type CustomerPostCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPostCommentWhereInput
+    orderBy?: CustomerPostCommentOrderByWithAggregationInput | CustomerPostCommentOrderByWithAggregationInput[]
+    by: CustomerPostCommentScalarFieldEnum[] | CustomerPostCommentScalarFieldEnum
+    having?: CustomerPostCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerPostCommentCountAggregateInputType | true
+    _avg?: CustomerPostCommentAvgAggregateInputType
+    _sum?: CustomerPostCommentSumAggregateInputType
+    _min?: CustomerPostCommentMinAggregateInputType
+    _max?: CustomerPostCommentMaxAggregateInputType
+  }
+
+  export type CustomerPostCommentGroupByOutputType = {
+    id: number
+    userId: number
+    postId: number
+    content: string
+    createdAt: Date
+    updatedAt: Date
+    _count: CustomerPostCommentCountAggregateOutputType | null
+    _avg: CustomerPostCommentAvgAggregateOutputType | null
+    _sum: CustomerPostCommentSumAggregateOutputType | null
+    _min: CustomerPostCommentMinAggregateOutputType | null
+    _max: CustomerPostCommentMaxAggregateOutputType | null
+  }
+
+  type GetCustomerPostCommentGroupByPayload<T extends CustomerPostCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerPostCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerPostCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerPostCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerPostCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerPostCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPostComment"]>
+
+  export type CustomerPostCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPostComment"]>
+
+  export type CustomerPostCommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPostComment"]>
+
+  export type CustomerPostCommentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CustomerPostCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postId" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["customerPostComment"]>
+  export type CustomerPostCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }
+  export type CustomerPostCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }
+  export type CustomerPostCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | CustomerPostDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerPostCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerPostComment"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$CustomerPostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      postId: number
+      content: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["customerPostComment"]>
+    composites: {}
+  }
+
+  type CustomerPostCommentGetPayload<S extends boolean | null | undefined | CustomerPostCommentDefaultArgs> = $Result.GetResult<Prisma.$CustomerPostCommentPayload, S>
+
+  type CustomerPostCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomerPostCommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomerPostCommentCountAggregateInputType | true
+    }
+
+  export interface CustomerPostCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerPostComment'], meta: { name: 'CustomerPostComment' } }
+    /**
+     * Find zero or one CustomerPostComment that matches the filter.
+     * @param {CustomerPostCommentFindUniqueArgs} args - Arguments to find a CustomerPostComment
+     * @example
+     * // Get one CustomerPostComment
+     * const customerPostComment = await prisma.customerPostComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerPostCommentFindUniqueArgs>(args: SelectSubset<T, CustomerPostCommentFindUniqueArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomerPostComment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomerPostCommentFindUniqueOrThrowArgs} args - Arguments to find a CustomerPostComment
+     * @example
+     * // Get one CustomerPostComment
+     * const customerPostComment = await prisma.customerPostComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerPostCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerPostCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerPostComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCommentFindFirstArgs} args - Arguments to find a CustomerPostComment
+     * @example
+     * // Get one CustomerPostComment
+     * const customerPostComment = await prisma.customerPostComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerPostCommentFindFirstArgs>(args?: SelectSubset<T, CustomerPostCommentFindFirstArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerPostComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCommentFindFirstOrThrowArgs} args - Arguments to find a CustomerPostComment
+     * @example
+     * // Get one CustomerPostComment
+     * const customerPostComment = await prisma.customerPostComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerPostCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerPostCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomerPostComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerPostComments
+     * const customerPostComments = await prisma.customerPostComment.findMany()
+     * 
+     * // Get first 10 CustomerPostComments
+     * const customerPostComments = await prisma.customerPostComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerPostCommentWithIdOnly = await prisma.customerPostComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerPostCommentFindManyArgs>(args?: SelectSubset<T, CustomerPostCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomerPostComment.
+     * @param {CustomerPostCommentCreateArgs} args - Arguments to create a CustomerPostComment.
+     * @example
+     * // Create one CustomerPostComment
+     * const CustomerPostComment = await prisma.customerPostComment.create({
+     *   data: {
+     *     // ... data to create a CustomerPostComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerPostCommentCreateArgs>(args: SelectSubset<T, CustomerPostCommentCreateArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomerPostComments.
+     * @param {CustomerPostCommentCreateManyArgs} args - Arguments to create many CustomerPostComments.
+     * @example
+     * // Create many CustomerPostComments
+     * const customerPostComment = await prisma.customerPostComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerPostCommentCreateManyArgs>(args?: SelectSubset<T, CustomerPostCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerPostComments and returns the data saved in the database.
+     * @param {CustomerPostCommentCreateManyAndReturnArgs} args - Arguments to create many CustomerPostComments.
+     * @example
+     * // Create many CustomerPostComments
+     * const customerPostComment = await prisma.customerPostComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerPostComments and only return the `id`
+     * const customerPostCommentWithIdOnly = await prisma.customerPostComment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerPostCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerPostCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomerPostComment.
+     * @param {CustomerPostCommentDeleteArgs} args - Arguments to delete one CustomerPostComment.
+     * @example
+     * // Delete one CustomerPostComment
+     * const CustomerPostComment = await prisma.customerPostComment.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerPostComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerPostCommentDeleteArgs>(args: SelectSubset<T, CustomerPostCommentDeleteArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomerPostComment.
+     * @param {CustomerPostCommentUpdateArgs} args - Arguments to update one CustomerPostComment.
+     * @example
+     * // Update one CustomerPostComment
+     * const customerPostComment = await prisma.customerPostComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerPostCommentUpdateArgs>(args: SelectSubset<T, CustomerPostCommentUpdateArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomerPostComments.
+     * @param {CustomerPostCommentDeleteManyArgs} args - Arguments to filter CustomerPostComments to delete.
+     * @example
+     * // Delete a few CustomerPostComments
+     * const { count } = await prisma.customerPostComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerPostCommentDeleteManyArgs>(args?: SelectSubset<T, CustomerPostCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerPostComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerPostComments
+     * const customerPostComment = await prisma.customerPostComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerPostCommentUpdateManyArgs>(args: SelectSubset<T, CustomerPostCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerPostComments and returns the data updated in the database.
+     * @param {CustomerPostCommentUpdateManyAndReturnArgs} args - Arguments to update many CustomerPostComments.
+     * @example
+     * // Update many CustomerPostComments
+     * const customerPostComment = await prisma.customerPostComment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomerPostComments and only return the `id`
+     * const customerPostCommentWithIdOnly = await prisma.customerPostComment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomerPostCommentUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomerPostCommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomerPostComment.
+     * @param {CustomerPostCommentUpsertArgs} args - Arguments to update or create a CustomerPostComment.
+     * @example
+     * // Update or create a CustomerPostComment
+     * const customerPostComment = await prisma.customerPostComment.upsert({
+     *   create: {
+     *     // ... data to create a CustomerPostComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerPostComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerPostCommentUpsertArgs>(args: SelectSubset<T, CustomerPostCommentUpsertArgs<ExtArgs>>): Prisma__CustomerPostCommentClient<$Result.GetResult<Prisma.$CustomerPostCommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomerPostComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCommentCountArgs} args - Arguments to filter CustomerPostComments to count.
+     * @example
+     * // Count the number of CustomerPostComments
+     * const count = await prisma.customerPostComment.count({
+     *   where: {
+     *     // ... the filter for the CustomerPostComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerPostCommentCountArgs>(
+      args?: Subset<T, CustomerPostCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerPostCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerPostComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerPostCommentAggregateArgs>(args: Subset<T, CustomerPostCommentAggregateArgs>): Prisma.PrismaPromise<GetCustomerPostCommentAggregateType<T>>
+
+    /**
+     * Group by CustomerPostComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPostCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerPostCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerPostCommentGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerPostCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerPostCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerPostCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerPostComment model
+   */
+  readonly fields: CustomerPostCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerPostComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerPostCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends CustomerPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerPostDefaultArgs<ExtArgs>>): Prisma__CustomerPostClient<$Result.GetResult<Prisma.$CustomerPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerPostComment model
+   */
+  interface CustomerPostCommentFieldRefs {
+    readonly id: FieldRef<"CustomerPostComment", 'Int'>
+    readonly userId: FieldRef<"CustomerPostComment", 'Int'>
+    readonly postId: FieldRef<"CustomerPostComment", 'Int'>
+    readonly content: FieldRef<"CustomerPostComment", 'String'>
+    readonly createdAt: FieldRef<"CustomerPostComment", 'DateTime'>
+    readonly updatedAt: FieldRef<"CustomerPostComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerPostComment findUnique
+   */
+  export type CustomerPostCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostComment to fetch.
+     */
+    where: CustomerPostCommentWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostComment findUniqueOrThrow
+   */
+  export type CustomerPostCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostComment to fetch.
+     */
+    where: CustomerPostCommentWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostComment findFirst
+   */
+  export type CustomerPostCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostComment to fetch.
+     */
+    where?: CustomerPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostComments to fetch.
+     */
+    orderBy?: CustomerPostCommentOrderByWithRelationInput | CustomerPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPostComments.
+     */
+    cursor?: CustomerPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPostComments.
+     */
+    distinct?: CustomerPostCommentScalarFieldEnum | CustomerPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPostComment findFirstOrThrow
+   */
+  export type CustomerPostCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostComment to fetch.
+     */
+    where?: CustomerPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostComments to fetch.
+     */
+    orderBy?: CustomerPostCommentOrderByWithRelationInput | CustomerPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPostComments.
+     */
+    cursor?: CustomerPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPostComments.
+     */
+    distinct?: CustomerPostCommentScalarFieldEnum | CustomerPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPostComment findMany
+   */
+  export type CustomerPostCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPostComments to fetch.
+     */
+    where?: CustomerPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPostComments to fetch.
+     */
+    orderBy?: CustomerPostCommentOrderByWithRelationInput | CustomerPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerPostComments.
+     */
+    cursor?: CustomerPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPostComments.
+     */
+    distinct?: CustomerPostCommentScalarFieldEnum | CustomerPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPostComment create
+   */
+  export type CustomerPostCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerPostComment.
+     */
+    data: XOR<CustomerPostCommentCreateInput, CustomerPostCommentUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerPostComment createMany
+   */
+  export type CustomerPostCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerPostComments.
+     */
+    data: CustomerPostCommentCreateManyInput | CustomerPostCommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerPostComment createManyAndReturn
+   */
+  export type CustomerPostCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomerPostComments.
+     */
+    data: CustomerPostCommentCreateManyInput | CustomerPostCommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPostComment update
+   */
+  export type CustomerPostCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerPostComment.
+     */
+    data: XOR<CustomerPostCommentUpdateInput, CustomerPostCommentUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerPostComment to update.
+     */
+    where: CustomerPostCommentWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostComment updateMany
+   */
+  export type CustomerPostCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerPostComments.
+     */
+    data: XOR<CustomerPostCommentUpdateManyMutationInput, CustomerPostCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerPostComments to update
+     */
+    where?: CustomerPostCommentWhereInput
+    /**
+     * Limit how many CustomerPostComments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerPostComment updateManyAndReturn
+   */
+  export type CustomerPostCommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomerPostComments.
+     */
+    data: XOR<CustomerPostCommentUpdateManyMutationInput, CustomerPostCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerPostComments to update
+     */
+    where?: CustomerPostCommentWhereInput
+    /**
+     * Limit how many CustomerPostComments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPostComment upsert
+   */
+  export type CustomerPostCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerPostComment to update in case it exists.
+     */
+    where: CustomerPostCommentWhereUniqueInput
+    /**
+     * In case the CustomerPostComment found by the `where` argument doesn't exist, create a new CustomerPostComment with this data.
+     */
+    create: XOR<CustomerPostCommentCreateInput, CustomerPostCommentUncheckedCreateInput>
+    /**
+     * In case the CustomerPostComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerPostCommentUpdateInput, CustomerPostCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerPostComment delete
+   */
+  export type CustomerPostCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerPostComment to delete.
+     */
+    where: CustomerPostCommentWhereUniqueInput
+  }
+
+  /**
+   * CustomerPostComment deleteMany
+   */
+  export type CustomerPostCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPostComments to delete
+     */
+    where?: CustomerPostCommentWhereInput
+    /**
+     * Limit how many CustomerPostComments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerPostComment without action
+   */
+  export type CustomerPostCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPostComment
+     */
+    select?: CustomerPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerPostComment
+     */
+    omit?: CustomerPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPostCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VendorPost
+   */
+
+  export type AggregateVendorPost = {
+    _count: VendorPostCountAggregateOutputType | null
+    _avg: VendorPostAvgAggregateOutputType | null
+    _sum: VendorPostSumAggregateOutputType | null
+    _min: VendorPostMinAggregateOutputType | null
+    _max: VendorPostMaxAggregateOutputType | null
+  }
+
+  export type VendorPostAvgAggregateOutputType = {
+    id: number | null
+    vendorId: number | null
+  }
+
+  export type VendorPostSumAggregateOutputType = {
+    id: number | null
+    vendorId: number | null
+  }
+
+  export type VendorPostMinAggregateOutputType = {
+    id: number | null
+    vendorId: number | null
+    title: string | null
+    content: string | null
+    category: $Enums.VendorPostCategory | null
+    image: string | null
+    isApproved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VendorPostMaxAggregateOutputType = {
+    id: number | null
+    vendorId: number | null
+    title: string | null
+    content: string | null
+    category: $Enums.VendorPostCategory | null
+    image: string | null
+    isApproved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VendorPostCountAggregateOutputType = {
+    id: number
+    vendorId: number
+    title: number
+    content: number
+    category: number
+    image: number
+    isApproved: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type VendorPostAvgAggregateInputType = {
+    id?: true
+    vendorId?: true
+  }
+
+  export type VendorPostSumAggregateInputType = {
+    id?: true
+    vendorId?: true
+  }
+
+  export type VendorPostMinAggregateInputType = {
+    id?: true
+    vendorId?: true
+    title?: true
+    content?: true
+    category?: true
+    image?: true
+    isApproved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VendorPostMaxAggregateInputType = {
+    id?: true
+    vendorId?: true
+    title?: true
+    content?: true
+    category?: true
+    image?: true
+    isApproved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VendorPostCountAggregateInputType = {
+    id?: true
+    vendorId?: true
+    title?: true
+    content?: true
+    category?: true
+    image?: true
+    isApproved?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type VendorPostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorPost to aggregate.
+     */
+    where?: VendorPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPosts to fetch.
+     */
+    orderBy?: VendorPostOrderByWithRelationInput | VendorPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VendorPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VendorPosts
+    **/
+    _count?: true | VendorPostCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VendorPostAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VendorPostSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VendorPostMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VendorPostMaxAggregateInputType
+  }
+
+  export type GetVendorPostAggregateType<T extends VendorPostAggregateArgs> = {
+        [P in keyof T & keyof AggregateVendorPost]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVendorPost[P]>
+      : GetScalarType<T[P], AggregateVendorPost[P]>
+  }
+
+
+
+
+  export type VendorPostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostWhereInput
+    orderBy?: VendorPostOrderByWithAggregationInput | VendorPostOrderByWithAggregationInput[]
+    by: VendorPostScalarFieldEnum[] | VendorPostScalarFieldEnum
+    having?: VendorPostScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VendorPostCountAggregateInputType | true
+    _avg?: VendorPostAvgAggregateInputType
+    _sum?: VendorPostSumAggregateInputType
+    _min?: VendorPostMinAggregateInputType
+    _max?: VendorPostMaxAggregateInputType
+  }
+
+  export type VendorPostGroupByOutputType = {
+    id: number
+    vendorId: number
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image: string | null
+    isApproved: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: VendorPostCountAggregateOutputType | null
+    _avg: VendorPostAvgAggregateOutputType | null
+    _sum: VendorPostSumAggregateOutputType | null
+    _min: VendorPostMinAggregateOutputType | null
+    _max: VendorPostMaxAggregateOutputType | null
+  }
+
+  type GetVendorPostGroupByPayload<T extends VendorPostGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VendorPostGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VendorPostGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VendorPostGroupByOutputType[P]>
+            : GetScalarType<T[P], VendorPostGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VendorPostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    image?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    likes?: boolean | VendorPost$likesArgs<ExtArgs>
+    comments?: boolean | VendorPost$commentsArgs<ExtArgs>
+    _count?: boolean | VendorPostCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPost"]>
+
+  export type VendorPostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    image?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPost"]>
+
+  export type VendorPostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vendorId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    image?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPost"]>
+
+  export type VendorPostSelectScalar = {
+    id?: boolean
+    vendorId?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    image?: boolean
+    isApproved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type VendorPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "title" | "content" | "category" | "image" | "isApproved" | "createdAt" | "updatedAt", ExtArgs["result"]["vendorPost"]>
+  export type VendorPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    likes?: boolean | VendorPost$likesArgs<ExtArgs>
+    comments?: boolean | VendorPost$commentsArgs<ExtArgs>
+    _count?: boolean | VendorPostCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type VendorPostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+  }
+  export type VendorPostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+  }
+
+  export type $VendorPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VendorPost"
+    objects: {
+      vendor: Prisma.$VendorProfilePayload<ExtArgs>
+      likes: Prisma.$VendorPostLikePayload<ExtArgs>[]
+      comments: Prisma.$VendorPostCommentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      vendorId: number
+      title: string
+      content: string
+      category: $Enums.VendorPostCategory
+      image: string | null
+      isApproved: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["vendorPost"]>
+    composites: {}
+  }
+
+  type VendorPostGetPayload<S extends boolean | null | undefined | VendorPostDefaultArgs> = $Result.GetResult<Prisma.$VendorPostPayload, S>
+
+  type VendorPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VendorPostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VendorPostCountAggregateInputType | true
+    }
+
+  export interface VendorPostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VendorPost'], meta: { name: 'VendorPost' } }
+    /**
+     * Find zero or one VendorPost that matches the filter.
+     * @param {VendorPostFindUniqueArgs} args - Arguments to find a VendorPost
+     * @example
+     * // Get one VendorPost
+     * const vendorPost = await prisma.vendorPost.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VendorPostFindUniqueArgs>(args: SelectSubset<T, VendorPostFindUniqueArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VendorPost that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VendorPostFindUniqueOrThrowArgs} args - Arguments to find a VendorPost
+     * @example
+     * // Get one VendorPost
+     * const vendorPost = await prisma.vendorPost.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VendorPostFindUniqueOrThrowArgs>(args: SelectSubset<T, VendorPostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorPost that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostFindFirstArgs} args - Arguments to find a VendorPost
+     * @example
+     * // Get one VendorPost
+     * const vendorPost = await prisma.vendorPost.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VendorPostFindFirstArgs>(args?: SelectSubset<T, VendorPostFindFirstArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorPost that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostFindFirstOrThrowArgs} args - Arguments to find a VendorPost
+     * @example
+     * // Get one VendorPost
+     * const vendorPost = await prisma.vendorPost.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VendorPostFindFirstOrThrowArgs>(args?: SelectSubset<T, VendorPostFindFirstOrThrowArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VendorPosts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VendorPosts
+     * const vendorPosts = await prisma.vendorPost.findMany()
+     * 
+     * // Get first 10 VendorPosts
+     * const vendorPosts = await prisma.vendorPost.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vendorPostWithIdOnly = await prisma.vendorPost.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VendorPostFindManyArgs>(args?: SelectSubset<T, VendorPostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VendorPost.
+     * @param {VendorPostCreateArgs} args - Arguments to create a VendorPost.
+     * @example
+     * // Create one VendorPost
+     * const VendorPost = await prisma.vendorPost.create({
+     *   data: {
+     *     // ... data to create a VendorPost
+     *   }
+     * })
+     * 
+     */
+    create<T extends VendorPostCreateArgs>(args: SelectSubset<T, VendorPostCreateArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VendorPosts.
+     * @param {VendorPostCreateManyArgs} args - Arguments to create many VendorPosts.
+     * @example
+     * // Create many VendorPosts
+     * const vendorPost = await prisma.vendorPost.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VendorPostCreateManyArgs>(args?: SelectSubset<T, VendorPostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VendorPosts and returns the data saved in the database.
+     * @param {VendorPostCreateManyAndReturnArgs} args - Arguments to create many VendorPosts.
+     * @example
+     * // Create many VendorPosts
+     * const vendorPost = await prisma.vendorPost.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VendorPosts and only return the `id`
+     * const vendorPostWithIdOnly = await prisma.vendorPost.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VendorPostCreateManyAndReturnArgs>(args?: SelectSubset<T, VendorPostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VendorPost.
+     * @param {VendorPostDeleteArgs} args - Arguments to delete one VendorPost.
+     * @example
+     * // Delete one VendorPost
+     * const VendorPost = await prisma.vendorPost.delete({
+     *   where: {
+     *     // ... filter to delete one VendorPost
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VendorPostDeleteArgs>(args: SelectSubset<T, VendorPostDeleteArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VendorPost.
+     * @param {VendorPostUpdateArgs} args - Arguments to update one VendorPost.
+     * @example
+     * // Update one VendorPost
+     * const vendorPost = await prisma.vendorPost.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VendorPostUpdateArgs>(args: SelectSubset<T, VendorPostUpdateArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VendorPosts.
+     * @param {VendorPostDeleteManyArgs} args - Arguments to filter VendorPosts to delete.
+     * @example
+     * // Delete a few VendorPosts
+     * const { count } = await prisma.vendorPost.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VendorPostDeleteManyArgs>(args?: SelectSubset<T, VendorPostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VendorPosts
+     * const vendorPost = await prisma.vendorPost.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VendorPostUpdateManyArgs>(args: SelectSubset<T, VendorPostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorPosts and returns the data updated in the database.
+     * @param {VendorPostUpdateManyAndReturnArgs} args - Arguments to update many VendorPosts.
+     * @example
+     * // Update many VendorPosts
+     * const vendorPost = await prisma.vendorPost.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VendorPosts and only return the `id`
+     * const vendorPostWithIdOnly = await prisma.vendorPost.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VendorPostUpdateManyAndReturnArgs>(args: SelectSubset<T, VendorPostUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VendorPost.
+     * @param {VendorPostUpsertArgs} args - Arguments to update or create a VendorPost.
+     * @example
+     * // Update or create a VendorPost
+     * const vendorPost = await prisma.vendorPost.upsert({
+     *   create: {
+     *     // ... data to create a VendorPost
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VendorPost we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VendorPostUpsertArgs>(args: SelectSubset<T, VendorPostUpsertArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VendorPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCountArgs} args - Arguments to filter VendorPosts to count.
+     * @example
+     * // Count the number of VendorPosts
+     * const count = await prisma.vendorPost.count({
+     *   where: {
+     *     // ... the filter for the VendorPosts we want to count
+     *   }
+     * })
+    **/
+    count<T extends VendorPostCountArgs>(
+      args?: Subset<T, VendorPostCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VendorPostCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VendorPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VendorPostAggregateArgs>(args: Subset<T, VendorPostAggregateArgs>): Prisma.PrismaPromise<GetVendorPostAggregateType<T>>
+
+    /**
+     * Group by VendorPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VendorPostGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VendorPostGroupByArgs['orderBy'] }
+        : { orderBy?: VendorPostGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VendorPostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVendorPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VendorPost model
+   */
+  readonly fields: VendorPostFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VendorPost.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VendorPostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    vendor<T extends VendorProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorProfileDefaultArgs<ExtArgs>>): Prisma__VendorProfileClient<$Result.GetResult<Prisma.$VendorProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    likes<T extends VendorPost$likesArgs<ExtArgs> = {}>(args?: Subset<T, VendorPost$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends VendorPost$commentsArgs<ExtArgs> = {}>(args?: Subset<T, VendorPost$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VendorPost model
+   */
+  interface VendorPostFieldRefs {
+    readonly id: FieldRef<"VendorPost", 'Int'>
+    readonly vendorId: FieldRef<"VendorPost", 'Int'>
+    readonly title: FieldRef<"VendorPost", 'String'>
+    readonly content: FieldRef<"VendorPost", 'String'>
+    readonly category: FieldRef<"VendorPost", 'VendorPostCategory'>
+    readonly image: FieldRef<"VendorPost", 'String'>
+    readonly isApproved: FieldRef<"VendorPost", 'Boolean'>
+    readonly createdAt: FieldRef<"VendorPost", 'DateTime'>
+    readonly updatedAt: FieldRef<"VendorPost", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VendorPost findUnique
+   */
+  export type VendorPostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPost to fetch.
+     */
+    where: VendorPostWhereUniqueInput
+  }
+
+  /**
+   * VendorPost findUniqueOrThrow
+   */
+  export type VendorPostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPost to fetch.
+     */
+    where: VendorPostWhereUniqueInput
+  }
+
+  /**
+   * VendorPost findFirst
+   */
+  export type VendorPostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPost to fetch.
+     */
+    where?: VendorPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPosts to fetch.
+     */
+    orderBy?: VendorPostOrderByWithRelationInput | VendorPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorPosts.
+     */
+    cursor?: VendorPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPosts.
+     */
+    distinct?: VendorPostScalarFieldEnum | VendorPostScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPost findFirstOrThrow
+   */
+  export type VendorPostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPost to fetch.
+     */
+    where?: VendorPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPosts to fetch.
+     */
+    orderBy?: VendorPostOrderByWithRelationInput | VendorPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorPosts.
+     */
+    cursor?: VendorPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPosts.
+     */
+    distinct?: VendorPostScalarFieldEnum | VendorPostScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPost findMany
+   */
+  export type VendorPostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPosts to fetch.
+     */
+    where?: VendorPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPosts to fetch.
+     */
+    orderBy?: VendorPostOrderByWithRelationInput | VendorPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VendorPosts.
+     */
+    cursor?: VendorPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPosts.
+     */
+    distinct?: VendorPostScalarFieldEnum | VendorPostScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPost create
+   */
+  export type VendorPostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VendorPost.
+     */
+    data: XOR<VendorPostCreateInput, VendorPostUncheckedCreateInput>
+  }
+
+  /**
+   * VendorPost createMany
+   */
+  export type VendorPostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VendorPosts.
+     */
+    data: VendorPostCreateManyInput | VendorPostCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VendorPost createManyAndReturn
+   */
+  export type VendorPostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * The data used to create many VendorPosts.
+     */
+    data: VendorPostCreateManyInput | VendorPostCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorPost update
+   */
+  export type VendorPostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VendorPost.
+     */
+    data: XOR<VendorPostUpdateInput, VendorPostUncheckedUpdateInput>
+    /**
+     * Choose, which VendorPost to update.
+     */
+    where: VendorPostWhereUniqueInput
+  }
+
+  /**
+   * VendorPost updateMany
+   */
+  export type VendorPostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VendorPosts.
+     */
+    data: XOR<VendorPostUpdateManyMutationInput, VendorPostUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorPosts to update
+     */
+    where?: VendorPostWhereInput
+    /**
+     * Limit how many VendorPosts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorPost updateManyAndReturn
+   */
+  export type VendorPostUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * The data used to update VendorPosts.
+     */
+    data: XOR<VendorPostUpdateManyMutationInput, VendorPostUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorPosts to update
+     */
+    where?: VendorPostWhereInput
+    /**
+     * Limit how many VendorPosts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorPost upsert
+   */
+  export type VendorPostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VendorPost to update in case it exists.
+     */
+    where: VendorPostWhereUniqueInput
+    /**
+     * In case the VendorPost found by the `where` argument doesn't exist, create a new VendorPost with this data.
+     */
+    create: XOR<VendorPostCreateInput, VendorPostUncheckedCreateInput>
+    /**
+     * In case the VendorPost was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VendorPostUpdateInput, VendorPostUncheckedUpdateInput>
+  }
+
+  /**
+   * VendorPost delete
+   */
+  export type VendorPostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+    /**
+     * Filter which VendorPost to delete.
+     */
+    where: VendorPostWhereUniqueInput
+  }
+
+  /**
+   * VendorPost deleteMany
+   */
+  export type VendorPostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorPosts to delete
+     */
+    where?: VendorPostWhereInput
+    /**
+     * Limit how many VendorPosts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorPost.likes
+   */
+  export type VendorPost$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    where?: VendorPostLikeWhereInput
+    orderBy?: VendorPostLikeOrderByWithRelationInput | VendorPostLikeOrderByWithRelationInput[]
+    cursor?: VendorPostLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VendorPostLikeScalarFieldEnum | VendorPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPost.comments
+   */
+  export type VendorPost$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    where?: VendorPostCommentWhereInput
+    orderBy?: VendorPostCommentOrderByWithRelationInput | VendorPostCommentOrderByWithRelationInput[]
+    cursor?: VendorPostCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VendorPostCommentScalarFieldEnum | VendorPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPost without action
+   */
+  export type VendorPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPost
+     */
+    select?: VendorPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPost
+     */
+    omit?: VendorPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VendorPostLike
+   */
+
+  export type AggregateVendorPostLike = {
+    _count: VendorPostLikeCountAggregateOutputType | null
+    _avg: VendorPostLikeAvgAggregateOutputType | null
+    _sum: VendorPostLikeSumAggregateOutputType | null
+    _min: VendorPostLikeMinAggregateOutputType | null
+    _max: VendorPostLikeMaxAggregateOutputType | null
+  }
+
+  export type VendorPostLikeAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type VendorPostLikeSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type VendorPostLikeMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    createdAt: Date | null
+  }
+
+  export type VendorPostLikeMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    createdAt: Date | null
+  }
+
+  export type VendorPostLikeCountAggregateOutputType = {
+    id: number
+    userId: number
+    postId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type VendorPostLikeAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type VendorPostLikeSumAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type VendorPostLikeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+  }
+
+  export type VendorPostLikeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+  }
+
+  export type VendorPostLikeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type VendorPostLikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorPostLike to aggregate.
+     */
+    where?: VendorPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostLikes to fetch.
+     */
+    orderBy?: VendorPostLikeOrderByWithRelationInput | VendorPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VendorPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VendorPostLikes
+    **/
+    _count?: true | VendorPostLikeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VendorPostLikeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VendorPostLikeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VendorPostLikeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VendorPostLikeMaxAggregateInputType
+  }
+
+  export type GetVendorPostLikeAggregateType<T extends VendorPostLikeAggregateArgs> = {
+        [P in keyof T & keyof AggregateVendorPostLike]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVendorPostLike[P]>
+      : GetScalarType<T[P], AggregateVendorPostLike[P]>
+  }
+
+
+
+
+  export type VendorPostLikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostLikeWhereInput
+    orderBy?: VendorPostLikeOrderByWithAggregationInput | VendorPostLikeOrderByWithAggregationInput[]
+    by: VendorPostLikeScalarFieldEnum[] | VendorPostLikeScalarFieldEnum
+    having?: VendorPostLikeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VendorPostLikeCountAggregateInputType | true
+    _avg?: VendorPostLikeAvgAggregateInputType
+    _sum?: VendorPostLikeSumAggregateInputType
+    _min?: VendorPostLikeMinAggregateInputType
+    _max?: VendorPostLikeMaxAggregateInputType
+  }
+
+  export type VendorPostLikeGroupByOutputType = {
+    id: number
+    userId: number
+    postId: number
+    createdAt: Date
+    _count: VendorPostLikeCountAggregateOutputType | null
+    _avg: VendorPostLikeAvgAggregateOutputType | null
+    _sum: VendorPostLikeSumAggregateOutputType | null
+    _min: VendorPostLikeMinAggregateOutputType | null
+    _max: VendorPostLikeMaxAggregateOutputType | null
+  }
+
+  type GetVendorPostLikeGroupByPayload<T extends VendorPostLikeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VendorPostLikeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VendorPostLikeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VendorPostLikeGroupByOutputType[P]>
+            : GetScalarType<T[P], VendorPostLikeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VendorPostLikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPostLike"]>
+
+  export type VendorPostLikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPostLike"]>
+
+  export type VendorPostLikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPostLike"]>
+
+  export type VendorPostLikeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    createdAt?: boolean
+  }
+
+  export type VendorPostLikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postId" | "createdAt", ExtArgs["result"]["vendorPostLike"]>
+  export type VendorPostLikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }
+  export type VendorPostLikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }
+  export type VendorPostLikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }
+
+  export type $VendorPostLikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VendorPostLike"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$VendorPostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      postId: number
+      createdAt: Date
+    }, ExtArgs["result"]["vendorPostLike"]>
+    composites: {}
+  }
+
+  type VendorPostLikeGetPayload<S extends boolean | null | undefined | VendorPostLikeDefaultArgs> = $Result.GetResult<Prisma.$VendorPostLikePayload, S>
+
+  type VendorPostLikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VendorPostLikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VendorPostLikeCountAggregateInputType | true
+    }
+
+  export interface VendorPostLikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VendorPostLike'], meta: { name: 'VendorPostLike' } }
+    /**
+     * Find zero or one VendorPostLike that matches the filter.
+     * @param {VendorPostLikeFindUniqueArgs} args - Arguments to find a VendorPostLike
+     * @example
+     * // Get one VendorPostLike
+     * const vendorPostLike = await prisma.vendorPostLike.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VendorPostLikeFindUniqueArgs>(args: SelectSubset<T, VendorPostLikeFindUniqueArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VendorPostLike that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VendorPostLikeFindUniqueOrThrowArgs} args - Arguments to find a VendorPostLike
+     * @example
+     * // Get one VendorPostLike
+     * const vendorPostLike = await prisma.vendorPostLike.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VendorPostLikeFindUniqueOrThrowArgs>(args: SelectSubset<T, VendorPostLikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorPostLike that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostLikeFindFirstArgs} args - Arguments to find a VendorPostLike
+     * @example
+     * // Get one VendorPostLike
+     * const vendorPostLike = await prisma.vendorPostLike.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VendorPostLikeFindFirstArgs>(args?: SelectSubset<T, VendorPostLikeFindFirstArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorPostLike that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostLikeFindFirstOrThrowArgs} args - Arguments to find a VendorPostLike
+     * @example
+     * // Get one VendorPostLike
+     * const vendorPostLike = await prisma.vendorPostLike.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VendorPostLikeFindFirstOrThrowArgs>(args?: SelectSubset<T, VendorPostLikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VendorPostLikes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostLikeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VendorPostLikes
+     * const vendorPostLikes = await prisma.vendorPostLike.findMany()
+     * 
+     * // Get first 10 VendorPostLikes
+     * const vendorPostLikes = await prisma.vendorPostLike.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vendorPostLikeWithIdOnly = await prisma.vendorPostLike.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VendorPostLikeFindManyArgs>(args?: SelectSubset<T, VendorPostLikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VendorPostLike.
+     * @param {VendorPostLikeCreateArgs} args - Arguments to create a VendorPostLike.
+     * @example
+     * // Create one VendorPostLike
+     * const VendorPostLike = await prisma.vendorPostLike.create({
+     *   data: {
+     *     // ... data to create a VendorPostLike
+     *   }
+     * })
+     * 
+     */
+    create<T extends VendorPostLikeCreateArgs>(args: SelectSubset<T, VendorPostLikeCreateArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VendorPostLikes.
+     * @param {VendorPostLikeCreateManyArgs} args - Arguments to create many VendorPostLikes.
+     * @example
+     * // Create many VendorPostLikes
+     * const vendorPostLike = await prisma.vendorPostLike.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VendorPostLikeCreateManyArgs>(args?: SelectSubset<T, VendorPostLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VendorPostLikes and returns the data saved in the database.
+     * @param {VendorPostLikeCreateManyAndReturnArgs} args - Arguments to create many VendorPostLikes.
+     * @example
+     * // Create many VendorPostLikes
+     * const vendorPostLike = await prisma.vendorPostLike.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VendorPostLikes and only return the `id`
+     * const vendorPostLikeWithIdOnly = await prisma.vendorPostLike.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VendorPostLikeCreateManyAndReturnArgs>(args?: SelectSubset<T, VendorPostLikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VendorPostLike.
+     * @param {VendorPostLikeDeleteArgs} args - Arguments to delete one VendorPostLike.
+     * @example
+     * // Delete one VendorPostLike
+     * const VendorPostLike = await prisma.vendorPostLike.delete({
+     *   where: {
+     *     // ... filter to delete one VendorPostLike
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VendorPostLikeDeleteArgs>(args: SelectSubset<T, VendorPostLikeDeleteArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VendorPostLike.
+     * @param {VendorPostLikeUpdateArgs} args - Arguments to update one VendorPostLike.
+     * @example
+     * // Update one VendorPostLike
+     * const vendorPostLike = await prisma.vendorPostLike.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VendorPostLikeUpdateArgs>(args: SelectSubset<T, VendorPostLikeUpdateArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VendorPostLikes.
+     * @param {VendorPostLikeDeleteManyArgs} args - Arguments to filter VendorPostLikes to delete.
+     * @example
+     * // Delete a few VendorPostLikes
+     * const { count } = await prisma.vendorPostLike.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VendorPostLikeDeleteManyArgs>(args?: SelectSubset<T, VendorPostLikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorPostLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostLikeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VendorPostLikes
+     * const vendorPostLike = await prisma.vendorPostLike.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VendorPostLikeUpdateManyArgs>(args: SelectSubset<T, VendorPostLikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorPostLikes and returns the data updated in the database.
+     * @param {VendorPostLikeUpdateManyAndReturnArgs} args - Arguments to update many VendorPostLikes.
+     * @example
+     * // Update many VendorPostLikes
+     * const vendorPostLike = await prisma.vendorPostLike.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VendorPostLikes and only return the `id`
+     * const vendorPostLikeWithIdOnly = await prisma.vendorPostLike.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VendorPostLikeUpdateManyAndReturnArgs>(args: SelectSubset<T, VendorPostLikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VendorPostLike.
+     * @param {VendorPostLikeUpsertArgs} args - Arguments to update or create a VendorPostLike.
+     * @example
+     * // Update or create a VendorPostLike
+     * const vendorPostLike = await prisma.vendorPostLike.upsert({
+     *   create: {
+     *     // ... data to create a VendorPostLike
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VendorPostLike we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VendorPostLikeUpsertArgs>(args: SelectSubset<T, VendorPostLikeUpsertArgs<ExtArgs>>): Prisma__VendorPostLikeClient<$Result.GetResult<Prisma.$VendorPostLikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VendorPostLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostLikeCountArgs} args - Arguments to filter VendorPostLikes to count.
+     * @example
+     * // Count the number of VendorPostLikes
+     * const count = await prisma.vendorPostLike.count({
+     *   where: {
+     *     // ... the filter for the VendorPostLikes we want to count
+     *   }
+     * })
+    **/
+    count<T extends VendorPostLikeCountArgs>(
+      args?: Subset<T, VendorPostLikeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VendorPostLikeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VendorPostLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostLikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VendorPostLikeAggregateArgs>(args: Subset<T, VendorPostLikeAggregateArgs>): Prisma.PrismaPromise<GetVendorPostLikeAggregateType<T>>
+
+    /**
+     * Group by VendorPostLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostLikeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VendorPostLikeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VendorPostLikeGroupByArgs['orderBy'] }
+        : { orderBy?: VendorPostLikeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VendorPostLikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVendorPostLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VendorPostLike model
+   */
+  readonly fields: VendorPostLikeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VendorPostLike.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VendorPostLikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends VendorPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorPostDefaultArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VendorPostLike model
+   */
+  interface VendorPostLikeFieldRefs {
+    readonly id: FieldRef<"VendorPostLike", 'Int'>
+    readonly userId: FieldRef<"VendorPostLike", 'Int'>
+    readonly postId: FieldRef<"VendorPostLike", 'Int'>
+    readonly createdAt: FieldRef<"VendorPostLike", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VendorPostLike findUnique
+   */
+  export type VendorPostLikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostLike to fetch.
+     */
+    where: VendorPostLikeWhereUniqueInput
+  }
+
+  /**
+   * VendorPostLike findUniqueOrThrow
+   */
+  export type VendorPostLikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostLike to fetch.
+     */
+    where: VendorPostLikeWhereUniqueInput
+  }
+
+  /**
+   * VendorPostLike findFirst
+   */
+  export type VendorPostLikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostLike to fetch.
+     */
+    where?: VendorPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostLikes to fetch.
+     */
+    orderBy?: VendorPostLikeOrderByWithRelationInput | VendorPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorPostLikes.
+     */
+    cursor?: VendorPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPostLikes.
+     */
+    distinct?: VendorPostLikeScalarFieldEnum | VendorPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPostLike findFirstOrThrow
+   */
+  export type VendorPostLikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostLike to fetch.
+     */
+    where?: VendorPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostLikes to fetch.
+     */
+    orderBy?: VendorPostLikeOrderByWithRelationInput | VendorPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorPostLikes.
+     */
+    cursor?: VendorPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPostLikes.
+     */
+    distinct?: VendorPostLikeScalarFieldEnum | VendorPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPostLike findMany
+   */
+  export type VendorPostLikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostLikes to fetch.
+     */
+    where?: VendorPostLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostLikes to fetch.
+     */
+    orderBy?: VendorPostLikeOrderByWithRelationInput | VendorPostLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VendorPostLikes.
+     */
+    cursor?: VendorPostLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPostLikes.
+     */
+    distinct?: VendorPostLikeScalarFieldEnum | VendorPostLikeScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPostLike create
+   */
+  export type VendorPostLikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VendorPostLike.
+     */
+    data: XOR<VendorPostLikeCreateInput, VendorPostLikeUncheckedCreateInput>
+  }
+
+  /**
+   * VendorPostLike createMany
+   */
+  export type VendorPostLikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VendorPostLikes.
+     */
+    data: VendorPostLikeCreateManyInput | VendorPostLikeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VendorPostLike createManyAndReturn
+   */
+  export type VendorPostLikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * The data used to create many VendorPostLikes.
+     */
+    data: VendorPostLikeCreateManyInput | VendorPostLikeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorPostLike update
+   */
+  export type VendorPostLikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VendorPostLike.
+     */
+    data: XOR<VendorPostLikeUpdateInput, VendorPostLikeUncheckedUpdateInput>
+    /**
+     * Choose, which VendorPostLike to update.
+     */
+    where: VendorPostLikeWhereUniqueInput
+  }
+
+  /**
+   * VendorPostLike updateMany
+   */
+  export type VendorPostLikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VendorPostLikes.
+     */
+    data: XOR<VendorPostLikeUpdateManyMutationInput, VendorPostLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorPostLikes to update
+     */
+    where?: VendorPostLikeWhereInput
+    /**
+     * Limit how many VendorPostLikes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorPostLike updateManyAndReturn
+   */
+  export type VendorPostLikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * The data used to update VendorPostLikes.
+     */
+    data: XOR<VendorPostLikeUpdateManyMutationInput, VendorPostLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorPostLikes to update
+     */
+    where?: VendorPostLikeWhereInput
+    /**
+     * Limit how many VendorPostLikes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorPostLike upsert
+   */
+  export type VendorPostLikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VendorPostLike to update in case it exists.
+     */
+    where: VendorPostLikeWhereUniqueInput
+    /**
+     * In case the VendorPostLike found by the `where` argument doesn't exist, create a new VendorPostLike with this data.
+     */
+    create: XOR<VendorPostLikeCreateInput, VendorPostLikeUncheckedCreateInput>
+    /**
+     * In case the VendorPostLike was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VendorPostLikeUpdateInput, VendorPostLikeUncheckedUpdateInput>
+  }
+
+  /**
+   * VendorPostLike delete
+   */
+  export type VendorPostLikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+    /**
+     * Filter which VendorPostLike to delete.
+     */
+    where: VendorPostLikeWhereUniqueInput
+  }
+
+  /**
+   * VendorPostLike deleteMany
+   */
+  export type VendorPostLikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorPostLikes to delete
+     */
+    where?: VendorPostLikeWhereInput
+    /**
+     * Limit how many VendorPostLikes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorPostLike without action
+   */
+  export type VendorPostLikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostLike
+     */
+    select?: VendorPostLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostLike
+     */
+    omit?: VendorPostLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostLikeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VendorPostComment
+   */
+
+  export type AggregateVendorPostComment = {
+    _count: VendorPostCommentCountAggregateOutputType | null
+    _avg: VendorPostCommentAvgAggregateOutputType | null
+    _sum: VendorPostCommentSumAggregateOutputType | null
+    _min: VendorPostCommentMinAggregateOutputType | null
+    _max: VendorPostCommentMaxAggregateOutputType | null
+  }
+
+  export type VendorPostCommentAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type VendorPostCommentSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+  }
+
+  export type VendorPostCommentMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VendorPostCommentMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    postId: number | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VendorPostCommentCountAggregateOutputType = {
+    id: number
+    userId: number
+    postId: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type VendorPostCommentAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type VendorPostCommentSumAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+  }
+
+  export type VendorPostCommentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VendorPostCommentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VendorPostCommentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    postId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type VendorPostCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorPostComment to aggregate.
+     */
+    where?: VendorPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostComments to fetch.
+     */
+    orderBy?: VendorPostCommentOrderByWithRelationInput | VendorPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VendorPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VendorPostComments
+    **/
+    _count?: true | VendorPostCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VendorPostCommentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VendorPostCommentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VendorPostCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VendorPostCommentMaxAggregateInputType
+  }
+
+  export type GetVendorPostCommentAggregateType<T extends VendorPostCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateVendorPostComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVendorPostComment[P]>
+      : GetScalarType<T[P], AggregateVendorPostComment[P]>
+  }
+
+
+
+
+  export type VendorPostCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VendorPostCommentWhereInput
+    orderBy?: VendorPostCommentOrderByWithAggregationInput | VendorPostCommentOrderByWithAggregationInput[]
+    by: VendorPostCommentScalarFieldEnum[] | VendorPostCommentScalarFieldEnum
+    having?: VendorPostCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VendorPostCommentCountAggregateInputType | true
+    _avg?: VendorPostCommentAvgAggregateInputType
+    _sum?: VendorPostCommentSumAggregateInputType
+    _min?: VendorPostCommentMinAggregateInputType
+    _max?: VendorPostCommentMaxAggregateInputType
+  }
+
+  export type VendorPostCommentGroupByOutputType = {
+    id: number
+    userId: number
+    postId: number
+    content: string
+    createdAt: Date
+    updatedAt: Date
+    _count: VendorPostCommentCountAggregateOutputType | null
+    _avg: VendorPostCommentAvgAggregateOutputType | null
+    _sum: VendorPostCommentSumAggregateOutputType | null
+    _min: VendorPostCommentMinAggregateOutputType | null
+    _max: VendorPostCommentMaxAggregateOutputType | null
+  }
+
+  type GetVendorPostCommentGroupByPayload<T extends VendorPostCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VendorPostCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VendorPostCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VendorPostCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], VendorPostCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VendorPostCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPostComment"]>
+
+  export type VendorPostCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPostComment"]>
+
+  export type VendorPostCommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendorPostComment"]>
+
+  export type VendorPostCommentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    postId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type VendorPostCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postId" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["vendorPostComment"]>
+  export type VendorPostCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }
+  export type VendorPostCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }
+  export type VendorPostCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | VendorPostDefaultArgs<ExtArgs>
+  }
+
+  export type $VendorPostCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VendorPostComment"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$VendorPostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      postId: number
+      content: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["vendorPostComment"]>
+    composites: {}
+  }
+
+  type VendorPostCommentGetPayload<S extends boolean | null | undefined | VendorPostCommentDefaultArgs> = $Result.GetResult<Prisma.$VendorPostCommentPayload, S>
+
+  type VendorPostCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VendorPostCommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VendorPostCommentCountAggregateInputType | true
+    }
+
+  export interface VendorPostCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VendorPostComment'], meta: { name: 'VendorPostComment' } }
+    /**
+     * Find zero or one VendorPostComment that matches the filter.
+     * @param {VendorPostCommentFindUniqueArgs} args - Arguments to find a VendorPostComment
+     * @example
+     * // Get one VendorPostComment
+     * const vendorPostComment = await prisma.vendorPostComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VendorPostCommentFindUniqueArgs>(args: SelectSubset<T, VendorPostCommentFindUniqueArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VendorPostComment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VendorPostCommentFindUniqueOrThrowArgs} args - Arguments to find a VendorPostComment
+     * @example
+     * // Get one VendorPostComment
+     * const vendorPostComment = await prisma.vendorPostComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VendorPostCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, VendorPostCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorPostComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCommentFindFirstArgs} args - Arguments to find a VendorPostComment
+     * @example
+     * // Get one VendorPostComment
+     * const vendorPostComment = await prisma.vendorPostComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VendorPostCommentFindFirstArgs>(args?: SelectSubset<T, VendorPostCommentFindFirstArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VendorPostComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCommentFindFirstOrThrowArgs} args - Arguments to find a VendorPostComment
+     * @example
+     * // Get one VendorPostComment
+     * const vendorPostComment = await prisma.vendorPostComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VendorPostCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, VendorPostCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VendorPostComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VendorPostComments
+     * const vendorPostComments = await prisma.vendorPostComment.findMany()
+     * 
+     * // Get first 10 VendorPostComments
+     * const vendorPostComments = await prisma.vendorPostComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vendorPostCommentWithIdOnly = await prisma.vendorPostComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VendorPostCommentFindManyArgs>(args?: SelectSubset<T, VendorPostCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VendorPostComment.
+     * @param {VendorPostCommentCreateArgs} args - Arguments to create a VendorPostComment.
+     * @example
+     * // Create one VendorPostComment
+     * const VendorPostComment = await prisma.vendorPostComment.create({
+     *   data: {
+     *     // ... data to create a VendorPostComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends VendorPostCommentCreateArgs>(args: SelectSubset<T, VendorPostCommentCreateArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VendorPostComments.
+     * @param {VendorPostCommentCreateManyArgs} args - Arguments to create many VendorPostComments.
+     * @example
+     * // Create many VendorPostComments
+     * const vendorPostComment = await prisma.vendorPostComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VendorPostCommentCreateManyArgs>(args?: SelectSubset<T, VendorPostCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VendorPostComments and returns the data saved in the database.
+     * @param {VendorPostCommentCreateManyAndReturnArgs} args - Arguments to create many VendorPostComments.
+     * @example
+     * // Create many VendorPostComments
+     * const vendorPostComment = await prisma.vendorPostComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VendorPostComments and only return the `id`
+     * const vendorPostCommentWithIdOnly = await prisma.vendorPostComment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VendorPostCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, VendorPostCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VendorPostComment.
+     * @param {VendorPostCommentDeleteArgs} args - Arguments to delete one VendorPostComment.
+     * @example
+     * // Delete one VendorPostComment
+     * const VendorPostComment = await prisma.vendorPostComment.delete({
+     *   where: {
+     *     // ... filter to delete one VendorPostComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VendorPostCommentDeleteArgs>(args: SelectSubset<T, VendorPostCommentDeleteArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VendorPostComment.
+     * @param {VendorPostCommentUpdateArgs} args - Arguments to update one VendorPostComment.
+     * @example
+     * // Update one VendorPostComment
+     * const vendorPostComment = await prisma.vendorPostComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VendorPostCommentUpdateArgs>(args: SelectSubset<T, VendorPostCommentUpdateArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VendorPostComments.
+     * @param {VendorPostCommentDeleteManyArgs} args - Arguments to filter VendorPostComments to delete.
+     * @example
+     * // Delete a few VendorPostComments
+     * const { count } = await prisma.vendorPostComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VendorPostCommentDeleteManyArgs>(args?: SelectSubset<T, VendorPostCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorPostComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VendorPostComments
+     * const vendorPostComment = await prisma.vendorPostComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VendorPostCommentUpdateManyArgs>(args: SelectSubset<T, VendorPostCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VendorPostComments and returns the data updated in the database.
+     * @param {VendorPostCommentUpdateManyAndReturnArgs} args - Arguments to update many VendorPostComments.
+     * @example
+     * // Update many VendorPostComments
+     * const vendorPostComment = await prisma.vendorPostComment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VendorPostComments and only return the `id`
+     * const vendorPostCommentWithIdOnly = await prisma.vendorPostComment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VendorPostCommentUpdateManyAndReturnArgs>(args: SelectSubset<T, VendorPostCommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VendorPostComment.
+     * @param {VendorPostCommentUpsertArgs} args - Arguments to update or create a VendorPostComment.
+     * @example
+     * // Update or create a VendorPostComment
+     * const vendorPostComment = await prisma.vendorPostComment.upsert({
+     *   create: {
+     *     // ... data to create a VendorPostComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VendorPostComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VendorPostCommentUpsertArgs>(args: SelectSubset<T, VendorPostCommentUpsertArgs<ExtArgs>>): Prisma__VendorPostCommentClient<$Result.GetResult<Prisma.$VendorPostCommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VendorPostComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCommentCountArgs} args - Arguments to filter VendorPostComments to count.
+     * @example
+     * // Count the number of VendorPostComments
+     * const count = await prisma.vendorPostComment.count({
+     *   where: {
+     *     // ... the filter for the VendorPostComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends VendorPostCommentCountArgs>(
+      args?: Subset<T, VendorPostCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VendorPostCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VendorPostComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VendorPostCommentAggregateArgs>(args: Subset<T, VendorPostCommentAggregateArgs>): Prisma.PrismaPromise<GetVendorPostCommentAggregateType<T>>
+
+    /**
+     * Group by VendorPostComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendorPostCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VendorPostCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VendorPostCommentGroupByArgs['orderBy'] }
+        : { orderBy?: VendorPostCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VendorPostCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVendorPostCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VendorPostComment model
+   */
+  readonly fields: VendorPostCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VendorPostComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VendorPostCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends VendorPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorPostDefaultArgs<ExtArgs>>): Prisma__VendorPostClient<$Result.GetResult<Prisma.$VendorPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VendorPostComment model
+   */
+  interface VendorPostCommentFieldRefs {
+    readonly id: FieldRef<"VendorPostComment", 'Int'>
+    readonly userId: FieldRef<"VendorPostComment", 'Int'>
+    readonly postId: FieldRef<"VendorPostComment", 'Int'>
+    readonly content: FieldRef<"VendorPostComment", 'String'>
+    readonly createdAt: FieldRef<"VendorPostComment", 'DateTime'>
+    readonly updatedAt: FieldRef<"VendorPostComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VendorPostComment findUnique
+   */
+  export type VendorPostCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostComment to fetch.
+     */
+    where: VendorPostCommentWhereUniqueInput
+  }
+
+  /**
+   * VendorPostComment findUniqueOrThrow
+   */
+  export type VendorPostCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostComment to fetch.
+     */
+    where: VendorPostCommentWhereUniqueInput
+  }
+
+  /**
+   * VendorPostComment findFirst
+   */
+  export type VendorPostCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostComment to fetch.
+     */
+    where?: VendorPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostComments to fetch.
+     */
+    orderBy?: VendorPostCommentOrderByWithRelationInput | VendorPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorPostComments.
+     */
+    cursor?: VendorPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPostComments.
+     */
+    distinct?: VendorPostCommentScalarFieldEnum | VendorPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPostComment findFirstOrThrow
+   */
+  export type VendorPostCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostComment to fetch.
+     */
+    where?: VendorPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostComments to fetch.
+     */
+    orderBy?: VendorPostCommentOrderByWithRelationInput | VendorPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VendorPostComments.
+     */
+    cursor?: VendorPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPostComments.
+     */
+    distinct?: VendorPostCommentScalarFieldEnum | VendorPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPostComment findMany
+   */
+  export type VendorPostCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which VendorPostComments to fetch.
+     */
+    where?: VendorPostCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VendorPostComments to fetch.
+     */
+    orderBy?: VendorPostCommentOrderByWithRelationInput | VendorPostCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VendorPostComments.
+     */
+    cursor?: VendorPostCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VendorPostComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VendorPostComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VendorPostComments.
+     */
+    distinct?: VendorPostCommentScalarFieldEnum | VendorPostCommentScalarFieldEnum[]
+  }
+
+  /**
+   * VendorPostComment create
+   */
+  export type VendorPostCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VendorPostComment.
+     */
+    data: XOR<VendorPostCommentCreateInput, VendorPostCommentUncheckedCreateInput>
+  }
+
+  /**
+   * VendorPostComment createMany
+   */
+  export type VendorPostCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VendorPostComments.
+     */
+    data: VendorPostCommentCreateManyInput | VendorPostCommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VendorPostComment createManyAndReturn
+   */
+  export type VendorPostCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many VendorPostComments.
+     */
+    data: VendorPostCommentCreateManyInput | VendorPostCommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorPostComment update
+   */
+  export type VendorPostCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VendorPostComment.
+     */
+    data: XOR<VendorPostCommentUpdateInput, VendorPostCommentUncheckedUpdateInput>
+    /**
+     * Choose, which VendorPostComment to update.
+     */
+    where: VendorPostCommentWhereUniqueInput
+  }
+
+  /**
+   * VendorPostComment updateMany
+   */
+  export type VendorPostCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VendorPostComments.
+     */
+    data: XOR<VendorPostCommentUpdateManyMutationInput, VendorPostCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorPostComments to update
+     */
+    where?: VendorPostCommentWhereInput
+    /**
+     * Limit how many VendorPostComments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorPostComment updateManyAndReturn
+   */
+  export type VendorPostCommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * The data used to update VendorPostComments.
+     */
+    data: XOR<VendorPostCommentUpdateManyMutationInput, VendorPostCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which VendorPostComments to update
+     */
+    where?: VendorPostCommentWhereInput
+    /**
+     * Limit how many VendorPostComments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VendorPostComment upsert
+   */
+  export type VendorPostCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VendorPostComment to update in case it exists.
+     */
+    where: VendorPostCommentWhereUniqueInput
+    /**
+     * In case the VendorPostComment found by the `where` argument doesn't exist, create a new VendorPostComment with this data.
+     */
+    create: XOR<VendorPostCommentCreateInput, VendorPostCommentUncheckedCreateInput>
+    /**
+     * In case the VendorPostComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VendorPostCommentUpdateInput, VendorPostCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * VendorPostComment delete
+   */
+  export type VendorPostCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+    /**
+     * Filter which VendorPostComment to delete.
+     */
+    where: VendorPostCommentWhereUniqueInput
+  }
+
+  /**
+   * VendorPostComment deleteMany
+   */
+  export type VendorPostCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VendorPostComments to delete
+     */
+    where?: VendorPostCommentWhereInput
+    /**
+     * Limit how many VendorPostComments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VendorPostComment without action
+   */
+  export type VendorPostCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendorPostComment
+     */
+    select?: VendorPostCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VendorPostComment
+     */
+    omit?: VendorPostCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorPostCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserCommand
+   */
+
+  export type AggregateUserCommand = {
+    _count: UserCommandCountAggregateOutputType | null
+    _avg: UserCommandAvgAggregateOutputType | null
+    _sum: UserCommandSumAggregateOutputType | null
+    _min: UserCommandMinAggregateOutputType | null
+    _max: UserCommandMaxAggregateOutputType | null
+  }
+
+  export type UserCommandAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type UserCommandSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type UserCommandMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    name: string | null
+    description: string | null
+    command: string | null
+    type: $Enums.CommandType | null
+    isPublic: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserCommandMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    name: string | null
+    description: string | null
+    command: string | null
+    type: $Enums.CommandType | null
+    isPublic: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserCommandCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    description: number
+    command: number
+    type: number
+    isPublic: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserCommandAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type UserCommandSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type UserCommandMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    description?: true
+    command?: true
+    type?: true
+    isPublic?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserCommandMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    description?: true
+    command?: true
+    type?: true
+    isPublic?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserCommandCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    description?: true
+    command?: true
+    type?: true
+    isPublic?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserCommandAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserCommand to aggregate.
+     */
+    where?: UserCommandWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserCommands to fetch.
+     */
+    orderBy?: UserCommandOrderByWithRelationInput | UserCommandOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserCommandWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserCommands from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserCommands.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserCommands
+    **/
+    _count?: true | UserCommandCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserCommandAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserCommandSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserCommandMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserCommandMaxAggregateInputType
+  }
+
+  export type GetUserCommandAggregateType<T extends UserCommandAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserCommand]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserCommand[P]>
+      : GetScalarType<T[P], AggregateUserCommand[P]>
+  }
+
+
+
+
+  export type UserCommandGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserCommandWhereInput
+    orderBy?: UserCommandOrderByWithAggregationInput | UserCommandOrderByWithAggregationInput[]
+    by: UserCommandScalarFieldEnum[] | UserCommandScalarFieldEnum
+    having?: UserCommandScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCommandCountAggregateInputType | true
+    _avg?: UserCommandAvgAggregateInputType
+    _sum?: UserCommandSumAggregateInputType
+    _min?: UserCommandMinAggregateInputType
+    _max?: UserCommandMaxAggregateInputType
+  }
+
+  export type UserCommandGroupByOutputType = {
+    id: number
+    userId: number
+    name: string
+    description: string | null
+    command: string
+    type: $Enums.CommandType
+    isPublic: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: UserCommandCountAggregateOutputType | null
+    _avg: UserCommandAvgAggregateOutputType | null
+    _sum: UserCommandSumAggregateOutputType | null
+    _min: UserCommandMinAggregateOutputType | null
+    _max: UserCommandMaxAggregateOutputType | null
+  }
+
+  type GetUserCommandGroupByPayload<T extends UserCommandGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserCommandGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserCommandGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserCommandGroupByOutputType[P]>
+            : GetScalarType<T[P], UserCommandGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserCommandSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    command?: boolean
+    type?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userCommand"]>
+
+  export type UserCommandSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    command?: boolean
+    type?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userCommand"]>
+
+  export type UserCommandSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    command?: boolean
+    type?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userCommand"]>
+
+  export type UserCommandSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    command?: boolean
+    type?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserCommandOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "description" | "command" | "type" | "isPublic" | "createdAt" | "updatedAt", ExtArgs["result"]["userCommand"]>
+  export type UserCommandInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserCommandIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserCommandIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserCommandPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserCommand"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      name: string
+      description: string | null
+      command: string
+      type: $Enums.CommandType
+      isPublic: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userCommand"]>
+    composites: {}
+  }
+
+  type UserCommandGetPayload<S extends boolean | null | undefined | UserCommandDefaultArgs> = $Result.GetResult<Prisma.$UserCommandPayload, S>
+
+  type UserCommandCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserCommandFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserCommandCountAggregateInputType | true
+    }
+
+  export interface UserCommandDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserCommand'], meta: { name: 'UserCommand' } }
+    /**
+     * Find zero or one UserCommand that matches the filter.
+     * @param {UserCommandFindUniqueArgs} args - Arguments to find a UserCommand
+     * @example
+     * // Get one UserCommand
+     * const userCommand = await prisma.userCommand.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserCommandFindUniqueArgs>(args: SelectSubset<T, UserCommandFindUniqueArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserCommand that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserCommandFindUniqueOrThrowArgs} args - Arguments to find a UserCommand
+     * @example
+     * // Get one UserCommand
+     * const userCommand = await prisma.userCommand.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserCommandFindUniqueOrThrowArgs>(args: SelectSubset<T, UserCommandFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserCommand that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCommandFindFirstArgs} args - Arguments to find a UserCommand
+     * @example
+     * // Get one UserCommand
+     * const userCommand = await prisma.userCommand.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserCommandFindFirstArgs>(args?: SelectSubset<T, UserCommandFindFirstArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserCommand that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCommandFindFirstOrThrowArgs} args - Arguments to find a UserCommand
+     * @example
+     * // Get one UserCommand
+     * const userCommand = await prisma.userCommand.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserCommandFindFirstOrThrowArgs>(args?: SelectSubset<T, UserCommandFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserCommands that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCommandFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserCommands
+     * const userCommands = await prisma.userCommand.findMany()
+     * 
+     * // Get first 10 UserCommands
+     * const userCommands = await prisma.userCommand.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userCommandWithIdOnly = await prisma.userCommand.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserCommandFindManyArgs>(args?: SelectSubset<T, UserCommandFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserCommand.
+     * @param {UserCommandCreateArgs} args - Arguments to create a UserCommand.
+     * @example
+     * // Create one UserCommand
+     * const UserCommand = await prisma.userCommand.create({
+     *   data: {
+     *     // ... data to create a UserCommand
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserCommandCreateArgs>(args: SelectSubset<T, UserCommandCreateArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserCommands.
+     * @param {UserCommandCreateManyArgs} args - Arguments to create many UserCommands.
+     * @example
+     * // Create many UserCommands
+     * const userCommand = await prisma.userCommand.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserCommandCreateManyArgs>(args?: SelectSubset<T, UserCommandCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserCommands and returns the data saved in the database.
+     * @param {UserCommandCreateManyAndReturnArgs} args - Arguments to create many UserCommands.
+     * @example
+     * // Create many UserCommands
+     * const userCommand = await prisma.userCommand.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserCommands and only return the `id`
+     * const userCommandWithIdOnly = await prisma.userCommand.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserCommandCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCommandCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserCommand.
+     * @param {UserCommandDeleteArgs} args - Arguments to delete one UserCommand.
+     * @example
+     * // Delete one UserCommand
+     * const UserCommand = await prisma.userCommand.delete({
+     *   where: {
+     *     // ... filter to delete one UserCommand
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserCommandDeleteArgs>(args: SelectSubset<T, UserCommandDeleteArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserCommand.
+     * @param {UserCommandUpdateArgs} args - Arguments to update one UserCommand.
+     * @example
+     * // Update one UserCommand
+     * const userCommand = await prisma.userCommand.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserCommandUpdateArgs>(args: SelectSubset<T, UserCommandUpdateArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserCommands.
+     * @param {UserCommandDeleteManyArgs} args - Arguments to filter UserCommands to delete.
+     * @example
+     * // Delete a few UserCommands
+     * const { count } = await prisma.userCommand.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserCommandDeleteManyArgs>(args?: SelectSubset<T, UserCommandDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserCommands.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCommandUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserCommands
+     * const userCommand = await prisma.userCommand.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserCommandUpdateManyArgs>(args: SelectSubset<T, UserCommandUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserCommands and returns the data updated in the database.
+     * @param {UserCommandUpdateManyAndReturnArgs} args - Arguments to update many UserCommands.
+     * @example
+     * // Update many UserCommands
+     * const userCommand = await prisma.userCommand.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserCommands and only return the `id`
+     * const userCommandWithIdOnly = await prisma.userCommand.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserCommandUpdateManyAndReturnArgs>(args: SelectSubset<T, UserCommandUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserCommand.
+     * @param {UserCommandUpsertArgs} args - Arguments to update or create a UserCommand.
+     * @example
+     * // Update or create a UserCommand
+     * const userCommand = await prisma.userCommand.upsert({
+     *   create: {
+     *     // ... data to create a UserCommand
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserCommand we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserCommandUpsertArgs>(args: SelectSubset<T, UserCommandUpsertArgs<ExtArgs>>): Prisma__UserCommandClient<$Result.GetResult<Prisma.$UserCommandPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserCommands.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCommandCountArgs} args - Arguments to filter UserCommands to count.
+     * @example
+     * // Count the number of UserCommands
+     * const count = await prisma.userCommand.count({
+     *   where: {
+     *     // ... the filter for the UserCommands we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCommandCountArgs>(
+      args?: Subset<T, UserCommandCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCommandCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserCommand.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCommandAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserCommandAggregateArgs>(args: Subset<T, UserCommandAggregateArgs>): Prisma.PrismaPromise<GetUserCommandAggregateType<T>>
+
+    /**
+     * Group by UserCommand.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCommandGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserCommandGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserCommandGroupByArgs['orderBy'] }
+        : { orderBy?: UserCommandGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserCommandGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserCommandGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserCommand model
+   */
+  readonly fields: UserCommandFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserCommand.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserCommandClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserCommand model
+   */
+  interface UserCommandFieldRefs {
+    readonly id: FieldRef<"UserCommand", 'Int'>
+    readonly userId: FieldRef<"UserCommand", 'Int'>
+    readonly name: FieldRef<"UserCommand", 'String'>
+    readonly description: FieldRef<"UserCommand", 'String'>
+    readonly command: FieldRef<"UserCommand", 'String'>
+    readonly type: FieldRef<"UserCommand", 'CommandType'>
+    readonly isPublic: FieldRef<"UserCommand", 'Boolean'>
+    readonly createdAt: FieldRef<"UserCommand", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserCommand", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserCommand findUnique
+   */
+  export type UserCommandFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * Filter, which UserCommand to fetch.
+     */
+    where: UserCommandWhereUniqueInput
+  }
+
+  /**
+   * UserCommand findUniqueOrThrow
+   */
+  export type UserCommandFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * Filter, which UserCommand to fetch.
+     */
+    where: UserCommandWhereUniqueInput
+  }
+
+  /**
+   * UserCommand findFirst
+   */
+  export type UserCommandFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * Filter, which UserCommand to fetch.
+     */
+    where?: UserCommandWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserCommands to fetch.
+     */
+    orderBy?: UserCommandOrderByWithRelationInput | UserCommandOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserCommands.
+     */
+    cursor?: UserCommandWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserCommands from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserCommands.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserCommands.
+     */
+    distinct?: UserCommandScalarFieldEnum | UserCommandScalarFieldEnum[]
+  }
+
+  /**
+   * UserCommand findFirstOrThrow
+   */
+  export type UserCommandFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * Filter, which UserCommand to fetch.
+     */
+    where?: UserCommandWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserCommands to fetch.
+     */
+    orderBy?: UserCommandOrderByWithRelationInput | UserCommandOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserCommands.
+     */
+    cursor?: UserCommandWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserCommands from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserCommands.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserCommands.
+     */
+    distinct?: UserCommandScalarFieldEnum | UserCommandScalarFieldEnum[]
+  }
+
+  /**
+   * UserCommand findMany
+   */
+  export type UserCommandFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * Filter, which UserCommands to fetch.
+     */
+    where?: UserCommandWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserCommands to fetch.
+     */
+    orderBy?: UserCommandOrderByWithRelationInput | UserCommandOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserCommands.
+     */
+    cursor?: UserCommandWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserCommands from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserCommands.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserCommands.
+     */
+    distinct?: UserCommandScalarFieldEnum | UserCommandScalarFieldEnum[]
+  }
+
+  /**
+   * UserCommand create
+   */
+  export type UserCommandCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserCommand.
+     */
+    data: XOR<UserCommandCreateInput, UserCommandUncheckedCreateInput>
+  }
+
+  /**
+   * UserCommand createMany
+   */
+  export type UserCommandCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserCommands.
+     */
+    data: UserCommandCreateManyInput | UserCommandCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserCommand createManyAndReturn
+   */
+  export type UserCommandCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserCommands.
+     */
+    data: UserCommandCreateManyInput | UserCommandCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserCommand update
+   */
+  export type UserCommandUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserCommand.
+     */
+    data: XOR<UserCommandUpdateInput, UserCommandUncheckedUpdateInput>
+    /**
+     * Choose, which UserCommand to update.
+     */
+    where: UserCommandWhereUniqueInput
+  }
+
+  /**
+   * UserCommand updateMany
+   */
+  export type UserCommandUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserCommands.
+     */
+    data: XOR<UserCommandUpdateManyMutationInput, UserCommandUncheckedUpdateManyInput>
+    /**
+     * Filter which UserCommands to update
+     */
+    where?: UserCommandWhereInput
+    /**
+     * Limit how many UserCommands to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserCommand updateManyAndReturn
+   */
+  export type UserCommandUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * The data used to update UserCommands.
+     */
+    data: XOR<UserCommandUpdateManyMutationInput, UserCommandUncheckedUpdateManyInput>
+    /**
+     * Filter which UserCommands to update
+     */
+    where?: UserCommandWhereInput
+    /**
+     * Limit how many UserCommands to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserCommand upsert
+   */
+  export type UserCommandUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserCommand to update in case it exists.
+     */
+    where: UserCommandWhereUniqueInput
+    /**
+     * In case the UserCommand found by the `where` argument doesn't exist, create a new UserCommand with this data.
+     */
+    create: XOR<UserCommandCreateInput, UserCommandUncheckedCreateInput>
+    /**
+     * In case the UserCommand was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserCommandUpdateInput, UserCommandUncheckedUpdateInput>
+  }
+
+  /**
+   * UserCommand delete
+   */
+  export type UserCommandDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
+    /**
+     * Filter which UserCommand to delete.
+     */
+    where: UserCommandWhereUniqueInput
+  }
+
+  /**
+   * UserCommand deleteMany
+   */
+  export type UserCommandDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserCommands to delete
+     */
+    where?: UserCommandWhereInput
+    /**
+     * Limit how many UserCommands to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserCommand without action
+   */
+  export type UserCommandDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCommand
+     */
+    select?: UserCommandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCommand
+     */
+    omit?: UserCommandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCommandInclude<ExtArgs> | null
   }
 
 
@@ -9923,6 +21534,116 @@ export namespace Prisma {
   export type CommunityPostScalarFieldEnum = (typeof CommunityPostScalarFieldEnum)[keyof typeof CommunityPostScalarFieldEnum]
 
 
+  export const PostLikeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    postId: 'postId',
+    createdAt: 'createdAt'
+  };
+
+  export type PostLikeScalarFieldEnum = (typeof PostLikeScalarFieldEnum)[keyof typeof PostLikeScalarFieldEnum]
+
+
+  export const PostCommentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    postId: 'postId',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PostCommentScalarFieldEnum = (typeof PostCommentScalarFieldEnum)[keyof typeof PostCommentScalarFieldEnum]
+
+
+  export const CustomerPostScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    content: 'content',
+    category: 'category',
+    isApproved: 'isApproved',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CustomerPostScalarFieldEnum = (typeof CustomerPostScalarFieldEnum)[keyof typeof CustomerPostScalarFieldEnum]
+
+
+  export const CustomerPostLikeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    postId: 'postId',
+    createdAt: 'createdAt'
+  };
+
+  export type CustomerPostLikeScalarFieldEnum = (typeof CustomerPostLikeScalarFieldEnum)[keyof typeof CustomerPostLikeScalarFieldEnum]
+
+
+  export const CustomerPostCommentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    postId: 'postId',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CustomerPostCommentScalarFieldEnum = (typeof CustomerPostCommentScalarFieldEnum)[keyof typeof CustomerPostCommentScalarFieldEnum]
+
+
+  export const VendorPostScalarFieldEnum: {
+    id: 'id',
+    vendorId: 'vendorId',
+    title: 'title',
+    content: 'content',
+    category: 'category',
+    image: 'image',
+    isApproved: 'isApproved',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type VendorPostScalarFieldEnum = (typeof VendorPostScalarFieldEnum)[keyof typeof VendorPostScalarFieldEnum]
+
+
+  export const VendorPostLikeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    postId: 'postId',
+    createdAt: 'createdAt'
+  };
+
+  export type VendorPostLikeScalarFieldEnum = (typeof VendorPostLikeScalarFieldEnum)[keyof typeof VendorPostLikeScalarFieldEnum]
+
+
+  export const VendorPostCommentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    postId: 'postId',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type VendorPostCommentScalarFieldEnum = (typeof VendorPostCommentScalarFieldEnum)[keyof typeof VendorPostCommentScalarFieldEnum]
+
+
+  export const UserCommandScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    description: 'description',
+    command: 'command',
+    type: 'type',
+    isPublic: 'isPublic',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserCommandScalarFieldEnum = (typeof UserCommandScalarFieldEnum)[keyof typeof UserCommandScalarFieldEnum]
+
+
   export const SustainabilityCertScalarFieldEnum: {
     id: 'id',
     vendorId: 'vendorId',
@@ -10107,6 +21828,48 @@ export namespace Prisma {
    */
   export type ListEnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'PostCategory'
+   */
+  export type EnumPostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'PostCategory[]'
+   */
+  export type ListEnumPostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'VendorPostCategory'
+   */
+  export type EnumVendorPostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VendorPostCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'VendorPostCategory[]'
+   */
+  export type ListEnumVendorPostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VendorPostCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommandType'
+   */
+  export type EnumCommandTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommandType'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommandType[]'
+   */
+  export type ListEnumCommandTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommandType[]'>
+    
   /**
    * Deep Input Types
    */
@@ -10127,6 +21890,14 @@ export namespace Prisma {
     vendorProfile?: XOR<VendorProfileNullableScalarRelationFilter, VendorProfileWhereInput> | null
     orders?: OrderListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
+    customerPosts?: CustomerPostListRelationFilter
+    postLikes?: PostLikeListRelationFilter
+    postComments?: PostCommentListRelationFilter
+    customerPostLikes?: CustomerPostLikeListRelationFilter
+    customerPostComments?: CustomerPostCommentListRelationFilter
+    vendorPostLikes?: VendorPostLikeListRelationFilter
+    vendorPostComments?: VendorPostCommentListRelationFilter
+    userCommands?: UserCommandListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10141,6 +21912,14 @@ export namespace Prisma {
     vendorProfile?: VendorProfileOrderByWithRelationInput
     orders?: OrderOrderByRelationAggregateInput
     communityPosts?: CommunityPostOrderByRelationAggregateInput
+    customerPosts?: CustomerPostOrderByRelationAggregateInput
+    postLikes?: PostLikeOrderByRelationAggregateInput
+    postComments?: PostCommentOrderByRelationAggregateInput
+    customerPostLikes?: CustomerPostLikeOrderByRelationAggregateInput
+    customerPostComments?: CustomerPostCommentOrderByRelationAggregateInput
+    vendorPostLikes?: VendorPostLikeOrderByRelationAggregateInput
+    vendorPostComments?: VendorPostCommentOrderByRelationAggregateInput
+    userCommands?: UserCommandOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10158,6 +21937,14 @@ export namespace Prisma {
     vendorProfile?: XOR<VendorProfileNullableScalarRelationFilter, VendorProfileWhereInput> | null
     orders?: OrderListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
+    customerPosts?: CustomerPostListRelationFilter
+    postLikes?: PostLikeListRelationFilter
+    postComments?: PostCommentListRelationFilter
+    customerPostLikes?: CustomerPostLikeListRelationFilter
+    customerPostComments?: CustomerPostCommentListRelationFilter
+    vendorPostLikes?: VendorPostLikeListRelationFilter
+    vendorPostComments?: VendorPostCommentListRelationFilter
+    userCommands?: UserCommandListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10207,6 +21994,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceListRelationFilter
     orders?: OrderListRelationFilter
     sustainabilityCerts?: SustainabilityCertListRelationFilter
+    vendorPosts?: VendorPostListRelationFilter
   }
 
   export type VendorProfileOrderByWithRelationInput = {
@@ -10223,6 +22011,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
     sustainabilityCerts?: SustainabilityCertOrderByRelationAggregateInput
+    vendorPosts?: VendorPostOrderByRelationAggregateInput
   }
 
   export type VendorProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -10242,6 +22031,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceListRelationFilter
     orders?: OrderListRelationFilter
     sustainabilityCerts?: SustainabilityCertListRelationFilter
+    vendorPosts?: VendorPostListRelationFilter
   }, "id" | "userId">
 
   export type VendorProfileOrderByWithAggregationInput = {
@@ -10538,6 +22328,8 @@ export namespace Prisma {
     postContent?: StringFilter<"CommunityPost"> | string
     postDate?: DateTimeFilter<"CommunityPost"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    likes?: PostLikeListRelationFilter
+    comments?: PostCommentListRelationFilter
   }
 
   export type CommunityPostOrderByWithRelationInput = {
@@ -10546,6 +22338,8 @@ export namespace Prisma {
     postContent?: SortOrder
     postDate?: SortOrder
     user?: UserOrderByWithRelationInput
+    likes?: PostLikeOrderByRelationAggregateInput
+    comments?: PostCommentOrderByRelationAggregateInput
   }
 
   export type CommunityPostWhereUniqueInput = Prisma.AtLeast<{
@@ -10557,6 +22351,8 @@ export namespace Prisma {
     postContent?: StringFilter<"CommunityPost"> | string
     postDate?: DateTimeFilter<"CommunityPost"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    likes?: PostLikeListRelationFilter
+    comments?: PostCommentListRelationFilter
   }, "id">
 
   export type CommunityPostOrderByWithAggregationInput = {
@@ -10579,6 +22375,607 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter<"CommunityPost"> | number
     postContent?: StringWithAggregatesFilter<"CommunityPost"> | string
     postDate?: DateTimeWithAggregatesFilter<"CommunityPost"> | Date | string
+  }
+
+  export type PostLikeWhereInput = {
+    AND?: PostLikeWhereInput | PostLikeWhereInput[]
+    OR?: PostLikeWhereInput[]
+    NOT?: PostLikeWhereInput | PostLikeWhereInput[]
+    id?: IntFilter<"PostLike"> | number
+    userId?: IntFilter<"PostLike"> | number
+    postId?: IntFilter<"PostLike"> | number
+    createdAt?: DateTimeFilter<"PostLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CommunityPostScalarRelationFilter, CommunityPostWhereInput>
+  }
+
+  export type PostLikeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    post?: CommunityPostOrderByWithRelationInput
+  }
+
+  export type PostLikeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId_postId?: PostLikeUserIdPostIdCompoundUniqueInput
+    AND?: PostLikeWhereInput | PostLikeWhereInput[]
+    OR?: PostLikeWhereInput[]
+    NOT?: PostLikeWhereInput | PostLikeWhereInput[]
+    userId?: IntFilter<"PostLike"> | number
+    postId?: IntFilter<"PostLike"> | number
+    createdAt?: DateTimeFilter<"PostLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CommunityPostScalarRelationFilter, CommunityPostWhereInput>
+  }, "id" | "userId_postId">
+
+  export type PostLikeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+    _count?: PostLikeCountOrderByAggregateInput
+    _avg?: PostLikeAvgOrderByAggregateInput
+    _max?: PostLikeMaxOrderByAggregateInput
+    _min?: PostLikeMinOrderByAggregateInput
+    _sum?: PostLikeSumOrderByAggregateInput
+  }
+
+  export type PostLikeScalarWhereWithAggregatesInput = {
+    AND?: PostLikeScalarWhereWithAggregatesInput | PostLikeScalarWhereWithAggregatesInput[]
+    OR?: PostLikeScalarWhereWithAggregatesInput[]
+    NOT?: PostLikeScalarWhereWithAggregatesInput | PostLikeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PostLike"> | number
+    userId?: IntWithAggregatesFilter<"PostLike"> | number
+    postId?: IntWithAggregatesFilter<"PostLike"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"PostLike"> | Date | string
+  }
+
+  export type PostCommentWhereInput = {
+    AND?: PostCommentWhereInput | PostCommentWhereInput[]
+    OR?: PostCommentWhereInput[]
+    NOT?: PostCommentWhereInput | PostCommentWhereInput[]
+    id?: IntFilter<"PostComment"> | number
+    userId?: IntFilter<"PostComment"> | number
+    postId?: IntFilter<"PostComment"> | number
+    content?: StringFilter<"PostComment"> | string
+    createdAt?: DateTimeFilter<"PostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"PostComment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CommunityPostScalarRelationFilter, CommunityPostWhereInput>
+  }
+
+  export type PostCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    post?: CommunityPostOrderByWithRelationInput
+  }
+
+  export type PostCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PostCommentWhereInput | PostCommentWhereInput[]
+    OR?: PostCommentWhereInput[]
+    NOT?: PostCommentWhereInput | PostCommentWhereInput[]
+    userId?: IntFilter<"PostComment"> | number
+    postId?: IntFilter<"PostComment"> | number
+    content?: StringFilter<"PostComment"> | string
+    createdAt?: DateTimeFilter<"PostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"PostComment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CommunityPostScalarRelationFilter, CommunityPostWhereInput>
+  }, "id">
+
+  export type PostCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PostCommentCountOrderByAggregateInput
+    _avg?: PostCommentAvgOrderByAggregateInput
+    _max?: PostCommentMaxOrderByAggregateInput
+    _min?: PostCommentMinOrderByAggregateInput
+    _sum?: PostCommentSumOrderByAggregateInput
+  }
+
+  export type PostCommentScalarWhereWithAggregatesInput = {
+    AND?: PostCommentScalarWhereWithAggregatesInput | PostCommentScalarWhereWithAggregatesInput[]
+    OR?: PostCommentScalarWhereWithAggregatesInput[]
+    NOT?: PostCommentScalarWhereWithAggregatesInput | PostCommentScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PostComment"> | number
+    userId?: IntWithAggregatesFilter<"PostComment"> | number
+    postId?: IntWithAggregatesFilter<"PostComment"> | number
+    content?: StringWithAggregatesFilter<"PostComment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PostComment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PostComment"> | Date | string
+  }
+
+  export type CustomerPostWhereInput = {
+    AND?: CustomerPostWhereInput | CustomerPostWhereInput[]
+    OR?: CustomerPostWhereInput[]
+    NOT?: CustomerPostWhereInput | CustomerPostWhereInput[]
+    id?: IntFilter<"CustomerPost"> | number
+    userId?: IntFilter<"CustomerPost"> | number
+    title?: StringFilter<"CustomerPost"> | string
+    content?: StringFilter<"CustomerPost"> | string
+    category?: EnumPostCategoryFilter<"CustomerPost"> | $Enums.PostCategory
+    isApproved?: BoolFilter<"CustomerPost"> | boolean
+    createdAt?: DateTimeFilter<"CustomerPost"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerPost"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    likes?: CustomerPostLikeListRelationFilter
+    comments?: CustomerPostCommentListRelationFilter
+  }
+
+  export type CustomerPostOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    likes?: CustomerPostLikeOrderByRelationAggregateInput
+    comments?: CustomerPostCommentOrderByRelationAggregateInput
+  }
+
+  export type CustomerPostWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: CustomerPostWhereInput | CustomerPostWhereInput[]
+    OR?: CustomerPostWhereInput[]
+    NOT?: CustomerPostWhereInput | CustomerPostWhereInput[]
+    userId?: IntFilter<"CustomerPost"> | number
+    title?: StringFilter<"CustomerPost"> | string
+    content?: StringFilter<"CustomerPost"> | string
+    category?: EnumPostCategoryFilter<"CustomerPost"> | $Enums.PostCategory
+    isApproved?: BoolFilter<"CustomerPost"> | boolean
+    createdAt?: DateTimeFilter<"CustomerPost"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerPost"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    likes?: CustomerPostLikeListRelationFilter
+    comments?: CustomerPostCommentListRelationFilter
+  }, "id">
+
+  export type CustomerPostOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CustomerPostCountOrderByAggregateInput
+    _avg?: CustomerPostAvgOrderByAggregateInput
+    _max?: CustomerPostMaxOrderByAggregateInput
+    _min?: CustomerPostMinOrderByAggregateInput
+    _sum?: CustomerPostSumOrderByAggregateInput
+  }
+
+  export type CustomerPostScalarWhereWithAggregatesInput = {
+    AND?: CustomerPostScalarWhereWithAggregatesInput | CustomerPostScalarWhereWithAggregatesInput[]
+    OR?: CustomerPostScalarWhereWithAggregatesInput[]
+    NOT?: CustomerPostScalarWhereWithAggregatesInput | CustomerPostScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"CustomerPost"> | number
+    userId?: IntWithAggregatesFilter<"CustomerPost"> | number
+    title?: StringWithAggregatesFilter<"CustomerPost"> | string
+    content?: StringWithAggregatesFilter<"CustomerPost"> | string
+    category?: EnumPostCategoryWithAggregatesFilter<"CustomerPost"> | $Enums.PostCategory
+    isApproved?: BoolWithAggregatesFilter<"CustomerPost"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"CustomerPost"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomerPost"> | Date | string
+  }
+
+  export type CustomerPostLikeWhereInput = {
+    AND?: CustomerPostLikeWhereInput | CustomerPostLikeWhereInput[]
+    OR?: CustomerPostLikeWhereInput[]
+    NOT?: CustomerPostLikeWhereInput | CustomerPostLikeWhereInput[]
+    id?: IntFilter<"CustomerPostLike"> | number
+    userId?: IntFilter<"CustomerPostLike"> | number
+    postId?: IntFilter<"CustomerPostLike"> | number
+    createdAt?: DateTimeFilter<"CustomerPostLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CustomerPostScalarRelationFilter, CustomerPostWhereInput>
+  }
+
+  export type CustomerPostLikeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    post?: CustomerPostOrderByWithRelationInput
+  }
+
+  export type CustomerPostLikeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId_postId?: CustomerPostLikeUserIdPostIdCompoundUniqueInput
+    AND?: CustomerPostLikeWhereInput | CustomerPostLikeWhereInput[]
+    OR?: CustomerPostLikeWhereInput[]
+    NOT?: CustomerPostLikeWhereInput | CustomerPostLikeWhereInput[]
+    userId?: IntFilter<"CustomerPostLike"> | number
+    postId?: IntFilter<"CustomerPostLike"> | number
+    createdAt?: DateTimeFilter<"CustomerPostLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CustomerPostScalarRelationFilter, CustomerPostWhereInput>
+  }, "id" | "userId_postId">
+
+  export type CustomerPostLikeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+    _count?: CustomerPostLikeCountOrderByAggregateInput
+    _avg?: CustomerPostLikeAvgOrderByAggregateInput
+    _max?: CustomerPostLikeMaxOrderByAggregateInput
+    _min?: CustomerPostLikeMinOrderByAggregateInput
+    _sum?: CustomerPostLikeSumOrderByAggregateInput
+  }
+
+  export type CustomerPostLikeScalarWhereWithAggregatesInput = {
+    AND?: CustomerPostLikeScalarWhereWithAggregatesInput | CustomerPostLikeScalarWhereWithAggregatesInput[]
+    OR?: CustomerPostLikeScalarWhereWithAggregatesInput[]
+    NOT?: CustomerPostLikeScalarWhereWithAggregatesInput | CustomerPostLikeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"CustomerPostLike"> | number
+    userId?: IntWithAggregatesFilter<"CustomerPostLike"> | number
+    postId?: IntWithAggregatesFilter<"CustomerPostLike"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"CustomerPostLike"> | Date | string
+  }
+
+  export type CustomerPostCommentWhereInput = {
+    AND?: CustomerPostCommentWhereInput | CustomerPostCommentWhereInput[]
+    OR?: CustomerPostCommentWhereInput[]
+    NOT?: CustomerPostCommentWhereInput | CustomerPostCommentWhereInput[]
+    id?: IntFilter<"CustomerPostComment"> | number
+    userId?: IntFilter<"CustomerPostComment"> | number
+    postId?: IntFilter<"CustomerPostComment"> | number
+    content?: StringFilter<"CustomerPostComment"> | string
+    createdAt?: DateTimeFilter<"CustomerPostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerPostComment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CustomerPostScalarRelationFilter, CustomerPostWhereInput>
+  }
+
+  export type CustomerPostCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    post?: CustomerPostOrderByWithRelationInput
+  }
+
+  export type CustomerPostCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: CustomerPostCommentWhereInput | CustomerPostCommentWhereInput[]
+    OR?: CustomerPostCommentWhereInput[]
+    NOT?: CustomerPostCommentWhereInput | CustomerPostCommentWhereInput[]
+    userId?: IntFilter<"CustomerPostComment"> | number
+    postId?: IntFilter<"CustomerPostComment"> | number
+    content?: StringFilter<"CustomerPostComment"> | string
+    createdAt?: DateTimeFilter<"CustomerPostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerPostComment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<CustomerPostScalarRelationFilter, CustomerPostWhereInput>
+  }, "id">
+
+  export type CustomerPostCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CustomerPostCommentCountOrderByAggregateInput
+    _avg?: CustomerPostCommentAvgOrderByAggregateInput
+    _max?: CustomerPostCommentMaxOrderByAggregateInput
+    _min?: CustomerPostCommentMinOrderByAggregateInput
+    _sum?: CustomerPostCommentSumOrderByAggregateInput
+  }
+
+  export type CustomerPostCommentScalarWhereWithAggregatesInput = {
+    AND?: CustomerPostCommentScalarWhereWithAggregatesInput | CustomerPostCommentScalarWhereWithAggregatesInput[]
+    OR?: CustomerPostCommentScalarWhereWithAggregatesInput[]
+    NOT?: CustomerPostCommentScalarWhereWithAggregatesInput | CustomerPostCommentScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"CustomerPostComment"> | number
+    userId?: IntWithAggregatesFilter<"CustomerPostComment"> | number
+    postId?: IntWithAggregatesFilter<"CustomerPostComment"> | number
+    content?: StringWithAggregatesFilter<"CustomerPostComment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CustomerPostComment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomerPostComment"> | Date | string
+  }
+
+  export type VendorPostWhereInput = {
+    AND?: VendorPostWhereInput | VendorPostWhereInput[]
+    OR?: VendorPostWhereInput[]
+    NOT?: VendorPostWhereInput | VendorPostWhereInput[]
+    id?: IntFilter<"VendorPost"> | number
+    vendorId?: IntFilter<"VendorPost"> | number
+    title?: StringFilter<"VendorPost"> | string
+    content?: StringFilter<"VendorPost"> | string
+    category?: EnumVendorPostCategoryFilter<"VendorPost"> | $Enums.VendorPostCategory
+    image?: StringNullableFilter<"VendorPost"> | string | null
+    isApproved?: BoolFilter<"VendorPost"> | boolean
+    createdAt?: DateTimeFilter<"VendorPost"> | Date | string
+    updatedAt?: DateTimeFilter<"VendorPost"> | Date | string
+    vendor?: XOR<VendorProfileScalarRelationFilter, VendorProfileWhereInput>
+    likes?: VendorPostLikeListRelationFilter
+    comments?: VendorPostCommentListRelationFilter
+  }
+
+  export type VendorPostOrderByWithRelationInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    image?: SortOrderInput | SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    vendor?: VendorProfileOrderByWithRelationInput
+    likes?: VendorPostLikeOrderByRelationAggregateInput
+    comments?: VendorPostCommentOrderByRelationAggregateInput
+  }
+
+  export type VendorPostWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: VendorPostWhereInput | VendorPostWhereInput[]
+    OR?: VendorPostWhereInput[]
+    NOT?: VendorPostWhereInput | VendorPostWhereInput[]
+    vendorId?: IntFilter<"VendorPost"> | number
+    title?: StringFilter<"VendorPost"> | string
+    content?: StringFilter<"VendorPost"> | string
+    category?: EnumVendorPostCategoryFilter<"VendorPost"> | $Enums.VendorPostCategory
+    image?: StringNullableFilter<"VendorPost"> | string | null
+    isApproved?: BoolFilter<"VendorPost"> | boolean
+    createdAt?: DateTimeFilter<"VendorPost"> | Date | string
+    updatedAt?: DateTimeFilter<"VendorPost"> | Date | string
+    vendor?: XOR<VendorProfileScalarRelationFilter, VendorProfileWhereInput>
+    likes?: VendorPostLikeListRelationFilter
+    comments?: VendorPostCommentListRelationFilter
+  }, "id">
+
+  export type VendorPostOrderByWithAggregationInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    image?: SortOrderInput | SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: VendorPostCountOrderByAggregateInput
+    _avg?: VendorPostAvgOrderByAggregateInput
+    _max?: VendorPostMaxOrderByAggregateInput
+    _min?: VendorPostMinOrderByAggregateInput
+    _sum?: VendorPostSumOrderByAggregateInput
+  }
+
+  export type VendorPostScalarWhereWithAggregatesInput = {
+    AND?: VendorPostScalarWhereWithAggregatesInput | VendorPostScalarWhereWithAggregatesInput[]
+    OR?: VendorPostScalarWhereWithAggregatesInput[]
+    NOT?: VendorPostScalarWhereWithAggregatesInput | VendorPostScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"VendorPost"> | number
+    vendorId?: IntWithAggregatesFilter<"VendorPost"> | number
+    title?: StringWithAggregatesFilter<"VendorPost"> | string
+    content?: StringWithAggregatesFilter<"VendorPost"> | string
+    category?: EnumVendorPostCategoryWithAggregatesFilter<"VendorPost"> | $Enums.VendorPostCategory
+    image?: StringNullableWithAggregatesFilter<"VendorPost"> | string | null
+    isApproved?: BoolWithAggregatesFilter<"VendorPost"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"VendorPost"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"VendorPost"> | Date | string
+  }
+
+  export type VendorPostLikeWhereInput = {
+    AND?: VendorPostLikeWhereInput | VendorPostLikeWhereInput[]
+    OR?: VendorPostLikeWhereInput[]
+    NOT?: VendorPostLikeWhereInput | VendorPostLikeWhereInput[]
+    id?: IntFilter<"VendorPostLike"> | number
+    userId?: IntFilter<"VendorPostLike"> | number
+    postId?: IntFilter<"VendorPostLike"> | number
+    createdAt?: DateTimeFilter<"VendorPostLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<VendorPostScalarRelationFilter, VendorPostWhereInput>
+  }
+
+  export type VendorPostLikeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    post?: VendorPostOrderByWithRelationInput
+  }
+
+  export type VendorPostLikeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId_postId?: VendorPostLikeUserIdPostIdCompoundUniqueInput
+    AND?: VendorPostLikeWhereInput | VendorPostLikeWhereInput[]
+    OR?: VendorPostLikeWhereInput[]
+    NOT?: VendorPostLikeWhereInput | VendorPostLikeWhereInput[]
+    userId?: IntFilter<"VendorPostLike"> | number
+    postId?: IntFilter<"VendorPostLike"> | number
+    createdAt?: DateTimeFilter<"VendorPostLike"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<VendorPostScalarRelationFilter, VendorPostWhereInput>
+  }, "id" | "userId_postId">
+
+  export type VendorPostLikeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+    _count?: VendorPostLikeCountOrderByAggregateInput
+    _avg?: VendorPostLikeAvgOrderByAggregateInput
+    _max?: VendorPostLikeMaxOrderByAggregateInput
+    _min?: VendorPostLikeMinOrderByAggregateInput
+    _sum?: VendorPostLikeSumOrderByAggregateInput
+  }
+
+  export type VendorPostLikeScalarWhereWithAggregatesInput = {
+    AND?: VendorPostLikeScalarWhereWithAggregatesInput | VendorPostLikeScalarWhereWithAggregatesInput[]
+    OR?: VendorPostLikeScalarWhereWithAggregatesInput[]
+    NOT?: VendorPostLikeScalarWhereWithAggregatesInput | VendorPostLikeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"VendorPostLike"> | number
+    userId?: IntWithAggregatesFilter<"VendorPostLike"> | number
+    postId?: IntWithAggregatesFilter<"VendorPostLike"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"VendorPostLike"> | Date | string
+  }
+
+  export type VendorPostCommentWhereInput = {
+    AND?: VendorPostCommentWhereInput | VendorPostCommentWhereInput[]
+    OR?: VendorPostCommentWhereInput[]
+    NOT?: VendorPostCommentWhereInput | VendorPostCommentWhereInput[]
+    id?: IntFilter<"VendorPostComment"> | number
+    userId?: IntFilter<"VendorPostComment"> | number
+    postId?: IntFilter<"VendorPostComment"> | number
+    content?: StringFilter<"VendorPostComment"> | string
+    createdAt?: DateTimeFilter<"VendorPostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"VendorPostComment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<VendorPostScalarRelationFilter, VendorPostWhereInput>
+  }
+
+  export type VendorPostCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    post?: VendorPostOrderByWithRelationInput
+  }
+
+  export type VendorPostCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: VendorPostCommentWhereInput | VendorPostCommentWhereInput[]
+    OR?: VendorPostCommentWhereInput[]
+    NOT?: VendorPostCommentWhereInput | VendorPostCommentWhereInput[]
+    userId?: IntFilter<"VendorPostComment"> | number
+    postId?: IntFilter<"VendorPostComment"> | number
+    content?: StringFilter<"VendorPostComment"> | string
+    createdAt?: DateTimeFilter<"VendorPostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"VendorPostComment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<VendorPostScalarRelationFilter, VendorPostWhereInput>
+  }, "id">
+
+  export type VendorPostCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: VendorPostCommentCountOrderByAggregateInput
+    _avg?: VendorPostCommentAvgOrderByAggregateInput
+    _max?: VendorPostCommentMaxOrderByAggregateInput
+    _min?: VendorPostCommentMinOrderByAggregateInput
+    _sum?: VendorPostCommentSumOrderByAggregateInput
+  }
+
+  export type VendorPostCommentScalarWhereWithAggregatesInput = {
+    AND?: VendorPostCommentScalarWhereWithAggregatesInput | VendorPostCommentScalarWhereWithAggregatesInput[]
+    OR?: VendorPostCommentScalarWhereWithAggregatesInput[]
+    NOT?: VendorPostCommentScalarWhereWithAggregatesInput | VendorPostCommentScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"VendorPostComment"> | number
+    userId?: IntWithAggregatesFilter<"VendorPostComment"> | number
+    postId?: IntWithAggregatesFilter<"VendorPostComment"> | number
+    content?: StringWithAggregatesFilter<"VendorPostComment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"VendorPostComment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"VendorPostComment"> | Date | string
+  }
+
+  export type UserCommandWhereInput = {
+    AND?: UserCommandWhereInput | UserCommandWhereInput[]
+    OR?: UserCommandWhereInput[]
+    NOT?: UserCommandWhereInput | UserCommandWhereInput[]
+    id?: IntFilter<"UserCommand"> | number
+    userId?: IntFilter<"UserCommand"> | number
+    name?: StringFilter<"UserCommand"> | string
+    description?: StringNullableFilter<"UserCommand"> | string | null
+    command?: StringFilter<"UserCommand"> | string
+    type?: EnumCommandTypeFilter<"UserCommand"> | $Enums.CommandType
+    isPublic?: BoolFilter<"UserCommand"> | boolean
+    createdAt?: DateTimeFilter<"UserCommand"> | Date | string
+    updatedAt?: DateTimeFilter<"UserCommand"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserCommandOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    command?: SortOrder
+    type?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserCommandWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: UserCommandWhereInput | UserCommandWhereInput[]
+    OR?: UserCommandWhereInput[]
+    NOT?: UserCommandWhereInput | UserCommandWhereInput[]
+    userId?: IntFilter<"UserCommand"> | number
+    name?: StringFilter<"UserCommand"> | string
+    description?: StringNullableFilter<"UserCommand"> | string | null
+    command?: StringFilter<"UserCommand"> | string
+    type?: EnumCommandTypeFilter<"UserCommand"> | $Enums.CommandType
+    isPublic?: BoolFilter<"UserCommand"> | boolean
+    createdAt?: DateTimeFilter<"UserCommand"> | Date | string
+    updatedAt?: DateTimeFilter<"UserCommand"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type UserCommandOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    command?: SortOrder
+    type?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserCommandCountOrderByAggregateInput
+    _avg?: UserCommandAvgOrderByAggregateInput
+    _max?: UserCommandMaxOrderByAggregateInput
+    _min?: UserCommandMinOrderByAggregateInput
+    _sum?: UserCommandSumOrderByAggregateInput
+  }
+
+  export type UserCommandScalarWhereWithAggregatesInput = {
+    AND?: UserCommandScalarWhereWithAggregatesInput | UserCommandScalarWhereWithAggregatesInput[]
+    OR?: UserCommandScalarWhereWithAggregatesInput[]
+    NOT?: UserCommandScalarWhereWithAggregatesInput | UserCommandScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"UserCommand"> | number
+    userId?: IntWithAggregatesFilter<"UserCommand"> | number
+    name?: StringWithAggregatesFilter<"UserCommand"> | string
+    description?: StringNullableWithAggregatesFilter<"UserCommand"> | string | null
+    command?: StringWithAggregatesFilter<"UserCommand"> | string
+    type?: EnumCommandTypeWithAggregatesFilter<"UserCommand"> | $Enums.CommandType
+    isPublic?: BoolWithAggregatesFilter<"UserCommand"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"UserCommand"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserCommand"> | Date | string
   }
 
   export type SustainabilityCertWhereInput = {
@@ -10644,6 +23041,14 @@ export namespace Prisma {
     vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10658,6 +23063,14 @@ export namespace Prisma {
     vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10671,6 +23084,14 @@ export namespace Prisma {
     vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10685,6 +23106,14 @@ export namespace Prisma {
     vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10731,6 +23160,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceCreateNestedManyWithoutVendorInput
     orders?: OrderCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileUncheckedCreateInput = {
@@ -10746,6 +23176,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUncheckedCreateNestedManyWithoutVendorInput
     orders?: OrderUncheckedCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertUncheckedCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileUpdateInput = {
@@ -10760,6 +23191,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUpdateManyWithoutVendorNestedInput
     orders?: OrderUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorProfileUncheckedUpdateInput = {
@@ -10775,6 +23207,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUncheckedUpdateManyWithoutVendorNestedInput
     orders?: OrderUncheckedUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorProfileCreateManyInput = {
@@ -11075,6 +23508,8 @@ export namespace Prisma {
     postContent: string
     postDate?: Date | string
     user: UserCreateNestedOneWithoutCommunityPostsInput
+    likes?: PostLikeCreateNestedManyWithoutPostInput
+    comments?: PostCommentCreateNestedManyWithoutPostInput
   }
 
   export type CommunityPostUncheckedCreateInput = {
@@ -11082,12 +23517,16 @@ export namespace Prisma {
     userId: number
     postContent: string
     postDate?: Date | string
+    likes?: PostLikeUncheckedCreateNestedManyWithoutPostInput
+    comments?: PostCommentUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type CommunityPostUpdateInput = {
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCommunityPostsNestedInput
+    likes?: PostLikeUpdateManyWithoutPostNestedInput
+    comments?: PostCommentUpdateManyWithoutPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateInput = {
@@ -11095,6 +23534,8 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: PostLikeUncheckedUpdateManyWithoutPostNestedInput
+    comments?: PostCommentUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type CommunityPostCreateManyInput = {
@@ -11114,6 +23555,561 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostLikeCreateInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPostLikesInput
+    post: CommunityPostCreateNestedOneWithoutLikesInput
+  }
+
+  export type PostLikeUncheckedCreateInput = {
+    id?: number
+    userId: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type PostLikeUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPostLikesNestedInput
+    post?: CommunityPostUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type PostLikeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostLikeCreateManyInput = {
+    id?: number
+    userId: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type PostLikeUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostLikeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCommentCreateInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPostCommentsInput
+    post: CommunityPostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type PostCommentUncheckedCreateInput = {
+    id?: number
+    userId: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostCommentUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPostCommentsNestedInput
+    post?: CommunityPostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type PostCommentUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCommentCreateManyInput = {
+    id?: number
+    userId: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostCommentUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCommentUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCreateInput = {
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCustomerPostsInput
+    likes?: CustomerPostLikeCreateNestedManyWithoutPostInput
+    comments?: CustomerPostCommentCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostUncheckedCreateInput = {
+    id?: number
+    userId: number
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: CustomerPostLikeUncheckedCreateNestedManyWithoutPostInput
+    comments?: CustomerPostCommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCustomerPostsNestedInput
+    likes?: CustomerPostLikeUpdateManyWithoutPostNestedInput
+    comments?: CustomerPostCommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type CustomerPostUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: CustomerPostLikeUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CustomerPostCommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type CustomerPostCreateManyInput = {
+    id?: number
+    userId: number
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerPostUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostLikeCreateInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutCustomerPostLikesInput
+    post: CustomerPostCreateNestedOneWithoutLikesInput
+  }
+
+  export type CustomerPostLikeUncheckedCreateInput = {
+    id?: number
+    userId: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type CustomerPostLikeUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCustomerPostLikesNestedInput
+    post?: CustomerPostUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type CustomerPostLikeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostLikeCreateManyInput = {
+    id?: number
+    userId: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type CustomerPostLikeUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostLikeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCommentCreateInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCustomerPostCommentsInput
+    post: CustomerPostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CustomerPostCommentUncheckedCreateInput = {
+    id?: number
+    userId: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerPostCommentUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCustomerPostCommentsNestedInput
+    post?: CustomerPostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CustomerPostCommentUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCommentCreateManyInput = {
+    id?: number
+    userId: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerPostCommentUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCommentUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCreateInput = {
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vendor: VendorProfileCreateNestedOneWithoutVendorPostsInput
+    likes?: VendorPostLikeCreateNestedManyWithoutPostInput
+    comments?: VendorPostCommentCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostUncheckedCreateInput = {
+    id?: number
+    vendorId: number
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: VendorPostLikeUncheckedCreateNestedManyWithoutPostInput
+    comments?: VendorPostCommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorProfileUpdateOneRequiredWithoutVendorPostsNestedInput
+    likes?: VendorPostLikeUpdateManyWithoutPostNestedInput
+    comments?: VendorPostCommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type VendorPostUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    vendorId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: VendorPostLikeUncheckedUpdateManyWithoutPostNestedInput
+    comments?: VendorPostCommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type VendorPostCreateManyInput = {
+    id?: number
+    vendorId: number
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VendorPostUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    vendorId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostLikeCreateInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutVendorPostLikesInput
+    post: VendorPostCreateNestedOneWithoutLikesInput
+  }
+
+  export type VendorPostLikeUncheckedCreateInput = {
+    id?: number
+    userId: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type VendorPostLikeUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVendorPostLikesNestedInput
+    post?: VendorPostUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type VendorPostLikeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostLikeCreateManyInput = {
+    id?: number
+    userId: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type VendorPostLikeUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostLikeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCommentCreateInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutVendorPostCommentsInput
+    post: VendorPostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type VendorPostCommentUncheckedCreateInput = {
+    id?: number
+    userId: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VendorPostCommentUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVendorPostCommentsNestedInput
+    post?: VendorPostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type VendorPostCommentUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCommentCreateManyInput = {
+    id?: number
+    userId: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VendorPostCommentUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCommentUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCommandCreateInput = {
+    name: string
+    description?: string | null
+    command: string
+    type?: $Enums.CommandType
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserCommandsInput
+  }
+
+  export type UserCommandUncheckedCreateInput = {
+    id?: number
+    userId: number
+    name: string
+    description?: string | null
+    command: string
+    type?: $Enums.CommandType
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCommandUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    command?: StringFieldUpdateOperationsInput | string
+    type?: EnumCommandTypeFieldUpdateOperationsInput | $Enums.CommandType
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserCommandsNestedInput
+  }
+
+  export type UserCommandUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    command?: StringFieldUpdateOperationsInput | string
+    type?: EnumCommandTypeFieldUpdateOperationsInput | $Enums.CommandType
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCommandCreateManyInput = {
+    id?: number
+    userId: number
+    name: string
+    description?: string | null
+    command: string
+    type?: $Enums.CommandType
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCommandUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    command?: StringFieldUpdateOperationsInput | string
+    type?: EnumCommandTypeFieldUpdateOperationsInput | $Enums.CommandType
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCommandUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    command?: StringFieldUpdateOperationsInput | string
+    type?: EnumCommandTypeFieldUpdateOperationsInput | $Enums.CommandType
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SustainabilityCertCreateInput = {
@@ -11244,6 +24240,54 @@ export namespace Prisma {
     none?: CommunityPostWhereInput
   }
 
+  export type CustomerPostListRelationFilter = {
+    every?: CustomerPostWhereInput
+    some?: CustomerPostWhereInput
+    none?: CustomerPostWhereInput
+  }
+
+  export type PostLikeListRelationFilter = {
+    every?: PostLikeWhereInput
+    some?: PostLikeWhereInput
+    none?: PostLikeWhereInput
+  }
+
+  export type PostCommentListRelationFilter = {
+    every?: PostCommentWhereInput
+    some?: PostCommentWhereInput
+    none?: PostCommentWhereInput
+  }
+
+  export type CustomerPostLikeListRelationFilter = {
+    every?: CustomerPostLikeWhereInput
+    some?: CustomerPostLikeWhereInput
+    none?: CustomerPostLikeWhereInput
+  }
+
+  export type CustomerPostCommentListRelationFilter = {
+    every?: CustomerPostCommentWhereInput
+    some?: CustomerPostCommentWhereInput
+    none?: CustomerPostCommentWhereInput
+  }
+
+  export type VendorPostLikeListRelationFilter = {
+    every?: VendorPostLikeWhereInput
+    some?: VendorPostLikeWhereInput
+    none?: VendorPostLikeWhereInput
+  }
+
+  export type VendorPostCommentListRelationFilter = {
+    every?: VendorPostCommentWhereInput
+    some?: VendorPostCommentWhereInput
+    none?: VendorPostCommentWhereInput
+  }
+
+  export type UserCommandListRelationFilter = {
+    every?: UserCommandWhereInput
+    some?: UserCommandWhereInput
+    none?: UserCommandWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11254,6 +24298,38 @@ export namespace Prisma {
   }
 
   export type CommunityPostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerPostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PostLikeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PostCommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerPostLikeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerPostCommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VendorPostLikeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VendorPostCommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserCommandOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11422,6 +24498,12 @@ export namespace Prisma {
     none?: SustainabilityCertWhereInput
   }
 
+  export type VendorPostListRelationFilter = {
+    every?: VendorPostWhereInput
+    some?: VendorPostWhereInput
+    none?: VendorPostWhereInput
+  }
+
   export type ProduceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -11431,6 +24513,10 @@ export namespace Prisma {
   }
 
   export type SustainabilityCertOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VendorPostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11816,6 +24902,438 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type CommunityPostScalarRelationFilter = {
+    is?: CommunityPostWhereInput
+    isNot?: CommunityPostWhereInput
+  }
+
+  export type PostLikeUserIdPostIdCompoundUniqueInput = {
+    userId: number
+    postId: number
+  }
+
+  export type PostLikeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostLikeAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type PostLikeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostLikeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostLikeSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type PostCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostCommentAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type PostCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PostCommentSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type EnumPostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryFilter<$PrismaModel> | $Enums.PostCategory
+  }
+
+  export type CustomerPostCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerPostAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type CustomerPostMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerPostMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerPostSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type EnumPostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPostCategoryFilter<$PrismaModel>
+  }
+
+  export type CustomerPostScalarRelationFilter = {
+    is?: CustomerPostWhereInput
+    isNot?: CustomerPostWhereInput
+  }
+
+  export type CustomerPostLikeUserIdPostIdCompoundUniqueInput = {
+    userId: number
+    postId: number
+  }
+
+  export type CustomerPostLikeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CustomerPostLikeAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type CustomerPostLikeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CustomerPostLikeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CustomerPostLikeSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type CustomerPostCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerPostCommentAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type CustomerPostCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerPostCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerPostCommentSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type EnumVendorPostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.VendorPostCategory | EnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumVendorPostCategoryFilter<$PrismaModel> | $Enums.VendorPostCategory
+  }
+
+  export type VendorPostCountOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    image?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VendorPostAvgOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+  }
+
+  export type VendorPostMaxOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    image?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VendorPostMinOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    image?: SortOrder
+    isApproved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VendorPostSumOrderByAggregateInput = {
+    id?: SortOrder
+    vendorId?: SortOrder
+  }
+
+  export type EnumVendorPostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VendorPostCategory | EnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumVendorPostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.VendorPostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVendorPostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumVendorPostCategoryFilter<$PrismaModel>
+  }
+
+  export type VendorPostScalarRelationFilter = {
+    is?: VendorPostWhereInput
+    isNot?: VendorPostWhereInput
+  }
+
+  export type VendorPostLikeUserIdPostIdCompoundUniqueInput = {
+    userId: number
+    postId: number
+  }
+
+  export type VendorPostLikeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VendorPostLikeAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type VendorPostLikeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VendorPostLikeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VendorPostLikeSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type VendorPostCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VendorPostCommentAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type VendorPostCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VendorPostCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VendorPostCommentSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type EnumCommandTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommandType | EnumCommandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommandTypeFilter<$PrismaModel> | $Enums.CommandType
+  }
+
+  export type UserCommandCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    command?: SortOrder
+    type?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserCommandAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type UserCommandMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    command?: SortOrder
+    type?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserCommandMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    command?: SortOrder
+    type?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserCommandSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type EnumCommandTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommandType | EnumCommandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommandTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommandType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommandTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommandTypeFilter<$PrismaModel>
+  }
+
   export type SustainabilityCertCountOrderByAggregateInput = {
     id?: SortOrder
     vendorId?: SortOrder
@@ -11867,6 +25385,62 @@ export namespace Prisma {
     connect?: CommunityPostWhereUniqueInput | CommunityPostWhereUniqueInput[]
   }
 
+  export type CustomerPostCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPostCreateWithoutUserInput, CustomerPostUncheckedCreateWithoutUserInput> | CustomerPostCreateWithoutUserInput[] | CustomerPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutUserInput | CustomerPostCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPostCreateManyUserInputEnvelope
+    connect?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+  }
+
+  export type PostLikeCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostLikeCreateWithoutUserInput, PostLikeUncheckedCreateWithoutUserInput> | PostLikeCreateWithoutUserInput[] | PostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutUserInput | PostLikeCreateOrConnectWithoutUserInput[]
+    createMany?: PostLikeCreateManyUserInputEnvelope
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+  }
+
+  export type PostCommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostCommentCreateWithoutUserInput, PostCommentUncheckedCreateWithoutUserInput> | PostCommentCreateWithoutUserInput[] | PostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutUserInput | PostCommentCreateOrConnectWithoutUserInput[]
+    createMany?: PostCommentCreateManyUserInputEnvelope
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+  }
+
+  export type CustomerPostLikeCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutUserInput, CustomerPostLikeUncheckedCreateWithoutUserInput> | CustomerPostLikeCreateWithoutUserInput[] | CustomerPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutUserInput | CustomerPostLikeCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPostLikeCreateManyUserInputEnvelope
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+  }
+
+  export type CustomerPostCommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutUserInput, CustomerPostCommentUncheckedCreateWithoutUserInput> | CustomerPostCommentCreateWithoutUserInput[] | CustomerPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutUserInput | CustomerPostCommentCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPostCommentCreateManyUserInputEnvelope
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+  }
+
+  export type VendorPostLikeCreateNestedManyWithoutUserInput = {
+    create?: XOR<VendorPostLikeCreateWithoutUserInput, VendorPostLikeUncheckedCreateWithoutUserInput> | VendorPostLikeCreateWithoutUserInput[] | VendorPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutUserInput | VendorPostLikeCreateOrConnectWithoutUserInput[]
+    createMany?: VendorPostLikeCreateManyUserInputEnvelope
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+  }
+
+  export type VendorPostCommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<VendorPostCommentCreateWithoutUserInput, VendorPostCommentUncheckedCreateWithoutUserInput> | VendorPostCommentCreateWithoutUserInput[] | VendorPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutUserInput | VendorPostCommentCreateOrConnectWithoutUserInput[]
+    createMany?: VendorPostCommentCreateManyUserInputEnvelope
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+  }
+
+  export type UserCommandCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserCommandCreateWithoutUserInput, UserCommandUncheckedCreateWithoutUserInput> | UserCommandCreateWithoutUserInput[] | UserCommandUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserCommandCreateOrConnectWithoutUserInput | UserCommandCreateOrConnectWithoutUserInput[]
+    createMany?: UserCommandCreateManyUserInputEnvelope
+    connect?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+  }
+
   export type VendorProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<VendorProfileCreateWithoutUserInput, VendorProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: VendorProfileCreateOrConnectWithoutUserInput
@@ -11885,6 +25459,62 @@ export namespace Prisma {
     connectOrCreate?: CommunityPostCreateOrConnectWithoutUserInput | CommunityPostCreateOrConnectWithoutUserInput[]
     createMany?: CommunityPostCreateManyUserInputEnvelope
     connect?: CommunityPostWhereUniqueInput | CommunityPostWhereUniqueInput[]
+  }
+
+  export type CustomerPostUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPostCreateWithoutUserInput, CustomerPostUncheckedCreateWithoutUserInput> | CustomerPostCreateWithoutUserInput[] | CustomerPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutUserInput | CustomerPostCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPostCreateManyUserInputEnvelope
+    connect?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+  }
+
+  export type PostLikeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostLikeCreateWithoutUserInput, PostLikeUncheckedCreateWithoutUserInput> | PostLikeCreateWithoutUserInput[] | PostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutUserInput | PostLikeCreateOrConnectWithoutUserInput[]
+    createMany?: PostLikeCreateManyUserInputEnvelope
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+  }
+
+  export type PostCommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostCommentCreateWithoutUserInput, PostCommentUncheckedCreateWithoutUserInput> | PostCommentCreateWithoutUserInput[] | PostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutUserInput | PostCommentCreateOrConnectWithoutUserInput[]
+    createMany?: PostCommentCreateManyUserInputEnvelope
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+  }
+
+  export type CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutUserInput, CustomerPostLikeUncheckedCreateWithoutUserInput> | CustomerPostLikeCreateWithoutUserInput[] | CustomerPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutUserInput | CustomerPostLikeCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPostLikeCreateManyUserInputEnvelope
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+  }
+
+  export type CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutUserInput, CustomerPostCommentUncheckedCreateWithoutUserInput> | CustomerPostCommentCreateWithoutUserInput[] | CustomerPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutUserInput | CustomerPostCommentCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPostCommentCreateManyUserInputEnvelope
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+  }
+
+  export type VendorPostLikeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<VendorPostLikeCreateWithoutUserInput, VendorPostLikeUncheckedCreateWithoutUserInput> | VendorPostLikeCreateWithoutUserInput[] | VendorPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutUserInput | VendorPostLikeCreateOrConnectWithoutUserInput[]
+    createMany?: VendorPostLikeCreateManyUserInputEnvelope
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+  }
+
+  export type VendorPostCommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<VendorPostCommentCreateWithoutUserInput, VendorPostCommentUncheckedCreateWithoutUserInput> | VendorPostCommentCreateWithoutUserInput[] | VendorPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutUserInput | VendorPostCommentCreateOrConnectWithoutUserInput[]
+    createMany?: VendorPostCommentCreateManyUserInputEnvelope
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+  }
+
+  export type UserCommandUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserCommandCreateWithoutUserInput, UserCommandUncheckedCreateWithoutUserInput> | UserCommandCreateWithoutUserInput[] | UserCommandUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserCommandCreateOrConnectWithoutUserInput | UserCommandCreateOrConnectWithoutUserInput[]
+    createMany?: UserCommandCreateManyUserInputEnvelope
+    connect?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11945,6 +25575,118 @@ export namespace Prisma {
     deleteMany?: CommunityPostScalarWhereInput | CommunityPostScalarWhereInput[]
   }
 
+  export type CustomerPostUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPostCreateWithoutUserInput, CustomerPostUncheckedCreateWithoutUserInput> | CustomerPostCreateWithoutUserInput[] | CustomerPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutUserInput | CustomerPostCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPostUpsertWithWhereUniqueWithoutUserInput | CustomerPostUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPostCreateManyUserInputEnvelope
+    set?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    disconnect?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    delete?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    connect?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    update?: CustomerPostUpdateWithWhereUniqueWithoutUserInput | CustomerPostUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPostUpdateManyWithWhereWithoutUserInput | CustomerPostUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPostScalarWhereInput | CustomerPostScalarWhereInput[]
+  }
+
+  export type PostLikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostLikeCreateWithoutUserInput, PostLikeUncheckedCreateWithoutUserInput> | PostLikeCreateWithoutUserInput[] | PostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutUserInput | PostLikeCreateOrConnectWithoutUserInput[]
+    upsert?: PostLikeUpsertWithWhereUniqueWithoutUserInput | PostLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostLikeCreateManyUserInputEnvelope
+    set?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    disconnect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    delete?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    update?: PostLikeUpdateWithWhereUniqueWithoutUserInput | PostLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostLikeUpdateManyWithWhereWithoutUserInput | PostLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostLikeScalarWhereInput | PostLikeScalarWhereInput[]
+  }
+
+  export type PostCommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostCommentCreateWithoutUserInput, PostCommentUncheckedCreateWithoutUserInput> | PostCommentCreateWithoutUserInput[] | PostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutUserInput | PostCommentCreateOrConnectWithoutUserInput[]
+    upsert?: PostCommentUpsertWithWhereUniqueWithoutUserInput | PostCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostCommentCreateManyUserInputEnvelope
+    set?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    disconnect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    delete?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    update?: PostCommentUpdateWithWhereUniqueWithoutUserInput | PostCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostCommentUpdateManyWithWhereWithoutUserInput | PostCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostCommentScalarWhereInput | PostCommentScalarWhereInput[]
+  }
+
+  export type CustomerPostLikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutUserInput, CustomerPostLikeUncheckedCreateWithoutUserInput> | CustomerPostLikeCreateWithoutUserInput[] | CustomerPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutUserInput | CustomerPostLikeCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPostLikeUpsertWithWhereUniqueWithoutUserInput | CustomerPostLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPostLikeCreateManyUserInputEnvelope
+    set?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    disconnect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    delete?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    update?: CustomerPostLikeUpdateWithWhereUniqueWithoutUserInput | CustomerPostLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPostLikeUpdateManyWithWhereWithoutUserInput | CustomerPostLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPostLikeScalarWhereInput | CustomerPostLikeScalarWhereInput[]
+  }
+
+  export type CustomerPostCommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutUserInput, CustomerPostCommentUncheckedCreateWithoutUserInput> | CustomerPostCommentCreateWithoutUserInput[] | CustomerPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutUserInput | CustomerPostCommentCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPostCommentUpsertWithWhereUniqueWithoutUserInput | CustomerPostCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPostCommentCreateManyUserInputEnvelope
+    set?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    disconnect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    delete?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    update?: CustomerPostCommentUpdateWithWhereUniqueWithoutUserInput | CustomerPostCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPostCommentUpdateManyWithWhereWithoutUserInput | CustomerPostCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPostCommentScalarWhereInput | CustomerPostCommentScalarWhereInput[]
+  }
+
+  export type VendorPostLikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VendorPostLikeCreateWithoutUserInput, VendorPostLikeUncheckedCreateWithoutUserInput> | VendorPostLikeCreateWithoutUserInput[] | VendorPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutUserInput | VendorPostLikeCreateOrConnectWithoutUserInput[]
+    upsert?: VendorPostLikeUpsertWithWhereUniqueWithoutUserInput | VendorPostLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VendorPostLikeCreateManyUserInputEnvelope
+    set?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    disconnect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    delete?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    update?: VendorPostLikeUpdateWithWhereUniqueWithoutUserInput | VendorPostLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VendorPostLikeUpdateManyWithWhereWithoutUserInput | VendorPostLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VendorPostLikeScalarWhereInput | VendorPostLikeScalarWhereInput[]
+  }
+
+  export type VendorPostCommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VendorPostCommentCreateWithoutUserInput, VendorPostCommentUncheckedCreateWithoutUserInput> | VendorPostCommentCreateWithoutUserInput[] | VendorPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutUserInput | VendorPostCommentCreateOrConnectWithoutUserInput[]
+    upsert?: VendorPostCommentUpsertWithWhereUniqueWithoutUserInput | VendorPostCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VendorPostCommentCreateManyUserInputEnvelope
+    set?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    disconnect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    delete?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    update?: VendorPostCommentUpdateWithWhereUniqueWithoutUserInput | VendorPostCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VendorPostCommentUpdateManyWithWhereWithoutUserInput | VendorPostCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VendorPostCommentScalarWhereInput | VendorPostCommentScalarWhereInput[]
+  }
+
+  export type UserCommandUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserCommandCreateWithoutUserInput, UserCommandUncheckedCreateWithoutUserInput> | UserCommandCreateWithoutUserInput[] | UserCommandUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserCommandCreateOrConnectWithoutUserInput | UserCommandCreateOrConnectWithoutUserInput[]
+    upsert?: UserCommandUpsertWithWhereUniqueWithoutUserInput | UserCommandUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserCommandCreateManyUserInputEnvelope
+    set?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    disconnect?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    delete?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    connect?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    update?: UserCommandUpdateWithWhereUniqueWithoutUserInput | UserCommandUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserCommandUpdateManyWithWhereWithoutUserInput | UserCommandUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserCommandScalarWhereInput | UserCommandScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -11991,6 +25733,118 @@ export namespace Prisma {
     deleteMany?: CommunityPostScalarWhereInput | CommunityPostScalarWhereInput[]
   }
 
+  export type CustomerPostUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPostCreateWithoutUserInput, CustomerPostUncheckedCreateWithoutUserInput> | CustomerPostCreateWithoutUserInput[] | CustomerPostUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutUserInput | CustomerPostCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPostUpsertWithWhereUniqueWithoutUserInput | CustomerPostUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPostCreateManyUserInputEnvelope
+    set?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    disconnect?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    delete?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    connect?: CustomerPostWhereUniqueInput | CustomerPostWhereUniqueInput[]
+    update?: CustomerPostUpdateWithWhereUniqueWithoutUserInput | CustomerPostUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPostUpdateManyWithWhereWithoutUserInput | CustomerPostUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPostScalarWhereInput | CustomerPostScalarWhereInput[]
+  }
+
+  export type PostLikeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostLikeCreateWithoutUserInput, PostLikeUncheckedCreateWithoutUserInput> | PostLikeCreateWithoutUserInput[] | PostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutUserInput | PostLikeCreateOrConnectWithoutUserInput[]
+    upsert?: PostLikeUpsertWithWhereUniqueWithoutUserInput | PostLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostLikeCreateManyUserInputEnvelope
+    set?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    disconnect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    delete?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    update?: PostLikeUpdateWithWhereUniqueWithoutUserInput | PostLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostLikeUpdateManyWithWhereWithoutUserInput | PostLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostLikeScalarWhereInput | PostLikeScalarWhereInput[]
+  }
+
+  export type PostCommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostCommentCreateWithoutUserInput, PostCommentUncheckedCreateWithoutUserInput> | PostCommentCreateWithoutUserInput[] | PostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutUserInput | PostCommentCreateOrConnectWithoutUserInput[]
+    upsert?: PostCommentUpsertWithWhereUniqueWithoutUserInput | PostCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostCommentCreateManyUserInputEnvelope
+    set?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    disconnect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    delete?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    update?: PostCommentUpdateWithWhereUniqueWithoutUserInput | PostCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostCommentUpdateManyWithWhereWithoutUserInput | PostCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostCommentScalarWhereInput | PostCommentScalarWhereInput[]
+  }
+
+  export type CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutUserInput, CustomerPostLikeUncheckedCreateWithoutUserInput> | CustomerPostLikeCreateWithoutUserInput[] | CustomerPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutUserInput | CustomerPostLikeCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPostLikeUpsertWithWhereUniqueWithoutUserInput | CustomerPostLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPostLikeCreateManyUserInputEnvelope
+    set?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    disconnect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    delete?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    update?: CustomerPostLikeUpdateWithWhereUniqueWithoutUserInput | CustomerPostLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPostLikeUpdateManyWithWhereWithoutUserInput | CustomerPostLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPostLikeScalarWhereInput | CustomerPostLikeScalarWhereInput[]
+  }
+
+  export type CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutUserInput, CustomerPostCommentUncheckedCreateWithoutUserInput> | CustomerPostCommentCreateWithoutUserInput[] | CustomerPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutUserInput | CustomerPostCommentCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPostCommentUpsertWithWhereUniqueWithoutUserInput | CustomerPostCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPostCommentCreateManyUserInputEnvelope
+    set?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    disconnect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    delete?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    update?: CustomerPostCommentUpdateWithWhereUniqueWithoutUserInput | CustomerPostCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPostCommentUpdateManyWithWhereWithoutUserInput | CustomerPostCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPostCommentScalarWhereInput | CustomerPostCommentScalarWhereInput[]
+  }
+
+  export type VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VendorPostLikeCreateWithoutUserInput, VendorPostLikeUncheckedCreateWithoutUserInput> | VendorPostLikeCreateWithoutUserInput[] | VendorPostLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutUserInput | VendorPostLikeCreateOrConnectWithoutUserInput[]
+    upsert?: VendorPostLikeUpsertWithWhereUniqueWithoutUserInput | VendorPostLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VendorPostLikeCreateManyUserInputEnvelope
+    set?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    disconnect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    delete?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    update?: VendorPostLikeUpdateWithWhereUniqueWithoutUserInput | VendorPostLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VendorPostLikeUpdateManyWithWhereWithoutUserInput | VendorPostLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VendorPostLikeScalarWhereInput | VendorPostLikeScalarWhereInput[]
+  }
+
+  export type VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VendorPostCommentCreateWithoutUserInput, VendorPostCommentUncheckedCreateWithoutUserInput> | VendorPostCommentCreateWithoutUserInput[] | VendorPostCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutUserInput | VendorPostCommentCreateOrConnectWithoutUserInput[]
+    upsert?: VendorPostCommentUpsertWithWhereUniqueWithoutUserInput | VendorPostCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VendorPostCommentCreateManyUserInputEnvelope
+    set?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    disconnect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    delete?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    update?: VendorPostCommentUpdateWithWhereUniqueWithoutUserInput | VendorPostCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VendorPostCommentUpdateManyWithWhereWithoutUserInput | VendorPostCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VendorPostCommentScalarWhereInput | VendorPostCommentScalarWhereInput[]
+  }
+
+  export type UserCommandUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserCommandCreateWithoutUserInput, UserCommandUncheckedCreateWithoutUserInput> | UserCommandCreateWithoutUserInput[] | UserCommandUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserCommandCreateOrConnectWithoutUserInput | UserCommandCreateOrConnectWithoutUserInput[]
+    upsert?: UserCommandUpsertWithWhereUniqueWithoutUserInput | UserCommandUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserCommandCreateManyUserInputEnvelope
+    set?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    disconnect?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    delete?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    connect?: UserCommandWhereUniqueInput | UserCommandWhereUniqueInput[]
+    update?: UserCommandUpdateWithWhereUniqueWithoutUserInput | UserCommandUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserCommandUpdateManyWithWhereWithoutUserInput | UserCommandUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserCommandScalarWhereInput | UserCommandScalarWhereInput[]
+  }
+
   export type VendorProfileCreatecertificationsInput = {
     set: string[]
   }
@@ -12029,6 +25883,13 @@ export namespace Prisma {
     connect?: SustainabilityCertWhereUniqueInput | SustainabilityCertWhereUniqueInput[]
   }
 
+  export type VendorPostCreateNestedManyWithoutVendorInput = {
+    create?: XOR<VendorPostCreateWithoutVendorInput, VendorPostUncheckedCreateWithoutVendorInput> | VendorPostCreateWithoutVendorInput[] | VendorPostUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorPostCreateOrConnectWithoutVendorInput | VendorPostCreateOrConnectWithoutVendorInput[]
+    createMany?: VendorPostCreateManyVendorInputEnvelope
+    connect?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+  }
+
   export type ProduceUncheckedCreateNestedManyWithoutVendorInput = {
     create?: XOR<ProduceCreateWithoutVendorInput, ProduceUncheckedCreateWithoutVendorInput> | ProduceCreateWithoutVendorInput[] | ProduceUncheckedCreateWithoutVendorInput[]
     connectOrCreate?: ProduceCreateOrConnectWithoutVendorInput | ProduceCreateOrConnectWithoutVendorInput[]
@@ -12055,6 +25916,13 @@ export namespace Prisma {
     connectOrCreate?: SustainabilityCertCreateOrConnectWithoutVendorInput | SustainabilityCertCreateOrConnectWithoutVendorInput[]
     createMany?: SustainabilityCertCreateManyVendorInputEnvelope
     connect?: SustainabilityCertWhereUniqueInput | SustainabilityCertWhereUniqueInput[]
+  }
+
+  export type VendorPostUncheckedCreateNestedManyWithoutVendorInput = {
+    create?: XOR<VendorPostCreateWithoutVendorInput, VendorPostUncheckedCreateWithoutVendorInput> | VendorPostCreateWithoutVendorInput[] | VendorPostUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorPostCreateOrConnectWithoutVendorInput | VendorPostCreateOrConnectWithoutVendorInput[]
+    createMany?: VendorPostCreateManyVendorInputEnvelope
+    connect?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
   }
 
   export type EnumCertificationStatusFieldUpdateOperationsInput = {
@@ -12130,6 +25998,20 @@ export namespace Prisma {
     deleteMany?: SustainabilityCertScalarWhereInput | SustainabilityCertScalarWhereInput[]
   }
 
+  export type VendorPostUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<VendorPostCreateWithoutVendorInput, VendorPostUncheckedCreateWithoutVendorInput> | VendorPostCreateWithoutVendorInput[] | VendorPostUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorPostCreateOrConnectWithoutVendorInput | VendorPostCreateOrConnectWithoutVendorInput[]
+    upsert?: VendorPostUpsertWithWhereUniqueWithoutVendorInput | VendorPostUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: VendorPostCreateManyVendorInputEnvelope
+    set?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    disconnect?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    delete?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    connect?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    update?: VendorPostUpdateWithWhereUniqueWithoutVendorInput | VendorPostUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: VendorPostUpdateManyWithWhereWithoutVendorInput | VendorPostUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: VendorPostScalarWhereInput | VendorPostScalarWhereInput[]
+  }
+
   export type ProduceUncheckedUpdateManyWithoutVendorNestedInput = {
     create?: XOR<ProduceCreateWithoutVendorInput, ProduceUncheckedCreateWithoutVendorInput> | ProduceCreateWithoutVendorInput[] | ProduceUncheckedCreateWithoutVendorInput[]
     connectOrCreate?: ProduceCreateOrConnectWithoutVendorInput | ProduceCreateOrConnectWithoutVendorInput[]
@@ -12184,6 +26066,20 @@ export namespace Prisma {
     update?: SustainabilityCertUpdateWithWhereUniqueWithoutVendorInput | SustainabilityCertUpdateWithWhereUniqueWithoutVendorInput[]
     updateMany?: SustainabilityCertUpdateManyWithWhereWithoutVendorInput | SustainabilityCertUpdateManyWithWhereWithoutVendorInput[]
     deleteMany?: SustainabilityCertScalarWhereInput | SustainabilityCertScalarWhereInput[]
+  }
+
+  export type VendorPostUncheckedUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<VendorPostCreateWithoutVendorInput, VendorPostUncheckedCreateWithoutVendorInput> | VendorPostCreateWithoutVendorInput[] | VendorPostUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: VendorPostCreateOrConnectWithoutVendorInput | VendorPostCreateOrConnectWithoutVendorInput[]
+    upsert?: VendorPostUpsertWithWhereUniqueWithoutVendorInput | VendorPostUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: VendorPostCreateManyVendorInputEnvelope
+    set?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    disconnect?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    delete?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    connect?: VendorPostWhereUniqueInput | VendorPostWhereUniqueInput[]
+    update?: VendorPostUpdateWithWhereUniqueWithoutVendorInput | VendorPostUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: VendorPostUpdateManyWithWhereWithoutVendorInput | VendorPostUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: VendorPostScalarWhereInput | VendorPostScalarWhereInput[]
   }
 
   export type VendorProfileCreateNestedOneWithoutProducesInput = {
@@ -12336,12 +26232,486 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PostLikeCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostLikeCreateWithoutPostInput, PostLikeUncheckedCreateWithoutPostInput> | PostLikeCreateWithoutPostInput[] | PostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutPostInput | PostLikeCreateOrConnectWithoutPostInput[]
+    createMany?: PostLikeCreateManyPostInputEnvelope
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+  }
+
+  export type PostCommentCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostCommentCreateWithoutPostInput, PostCommentUncheckedCreateWithoutPostInput> | PostCommentCreateWithoutPostInput[] | PostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutPostInput | PostCommentCreateOrConnectWithoutPostInput[]
+    createMany?: PostCommentCreateManyPostInputEnvelope
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+  }
+
+  export type PostLikeUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostLikeCreateWithoutPostInput, PostLikeUncheckedCreateWithoutPostInput> | PostLikeCreateWithoutPostInput[] | PostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutPostInput | PostLikeCreateOrConnectWithoutPostInput[]
+    createMany?: PostLikeCreateManyPostInputEnvelope
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+  }
+
+  export type PostCommentUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostCommentCreateWithoutPostInput, PostCommentUncheckedCreateWithoutPostInput> | PostCommentCreateWithoutPostInput[] | PostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutPostInput | PostCommentCreateOrConnectWithoutPostInput[]
+    createMany?: PostCommentCreateManyPostInputEnvelope
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutCommunityPostsNestedInput = {
     create?: XOR<UserCreateWithoutCommunityPostsInput, UserUncheckedCreateWithoutCommunityPostsInput>
     connectOrCreate?: UserCreateOrConnectWithoutCommunityPostsInput
     upsert?: UserUpsertWithoutCommunityPostsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommunityPostsInput, UserUpdateWithoutCommunityPostsInput>, UserUncheckedUpdateWithoutCommunityPostsInput>
+  }
+
+  export type PostLikeUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostLikeCreateWithoutPostInput, PostLikeUncheckedCreateWithoutPostInput> | PostLikeCreateWithoutPostInput[] | PostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutPostInput | PostLikeCreateOrConnectWithoutPostInput[]
+    upsert?: PostLikeUpsertWithWhereUniqueWithoutPostInput | PostLikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostLikeCreateManyPostInputEnvelope
+    set?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    disconnect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    delete?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    update?: PostLikeUpdateWithWhereUniqueWithoutPostInput | PostLikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostLikeUpdateManyWithWhereWithoutPostInput | PostLikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostLikeScalarWhereInput | PostLikeScalarWhereInput[]
+  }
+
+  export type PostCommentUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostCommentCreateWithoutPostInput, PostCommentUncheckedCreateWithoutPostInput> | PostCommentCreateWithoutPostInput[] | PostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutPostInput | PostCommentCreateOrConnectWithoutPostInput[]
+    upsert?: PostCommentUpsertWithWhereUniqueWithoutPostInput | PostCommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostCommentCreateManyPostInputEnvelope
+    set?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    disconnect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    delete?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    update?: PostCommentUpdateWithWhereUniqueWithoutPostInput | PostCommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostCommentUpdateManyWithWhereWithoutPostInput | PostCommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostCommentScalarWhereInput | PostCommentScalarWhereInput[]
+  }
+
+  export type PostLikeUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostLikeCreateWithoutPostInput, PostLikeUncheckedCreateWithoutPostInput> | PostLikeCreateWithoutPostInput[] | PostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostLikeCreateOrConnectWithoutPostInput | PostLikeCreateOrConnectWithoutPostInput[]
+    upsert?: PostLikeUpsertWithWhereUniqueWithoutPostInput | PostLikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostLikeCreateManyPostInputEnvelope
+    set?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    disconnect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    delete?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    connect?: PostLikeWhereUniqueInput | PostLikeWhereUniqueInput[]
+    update?: PostLikeUpdateWithWhereUniqueWithoutPostInput | PostLikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostLikeUpdateManyWithWhereWithoutPostInput | PostLikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostLikeScalarWhereInput | PostLikeScalarWhereInput[]
+  }
+
+  export type PostCommentUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostCommentCreateWithoutPostInput, PostCommentUncheckedCreateWithoutPostInput> | PostCommentCreateWithoutPostInput[] | PostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostCommentCreateOrConnectWithoutPostInput | PostCommentCreateOrConnectWithoutPostInput[]
+    upsert?: PostCommentUpsertWithWhereUniqueWithoutPostInput | PostCommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostCommentCreateManyPostInputEnvelope
+    set?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    disconnect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    delete?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    connect?: PostCommentWhereUniqueInput | PostCommentWhereUniqueInput[]
+    update?: PostCommentUpdateWithWhereUniqueWithoutPostInput | PostCommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostCommentUpdateManyWithWhereWithoutPostInput | PostCommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostCommentScalarWhereInput | PostCommentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutPostLikesInput = {
+    create?: XOR<UserCreateWithoutPostLikesInput, UserUncheckedCreateWithoutPostLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostLikesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommunityPostCreateNestedOneWithoutLikesInput = {
+    create?: XOR<CommunityPostCreateWithoutLikesInput, CommunityPostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutLikesInput
+    connect?: CommunityPostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPostLikesNestedInput = {
+    create?: XOR<UserCreateWithoutPostLikesInput, UserUncheckedCreateWithoutPostLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostLikesInput
+    upsert?: UserUpsertWithoutPostLikesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostLikesInput, UserUpdateWithoutPostLikesInput>, UserUncheckedUpdateWithoutPostLikesInput>
+  }
+
+  export type CommunityPostUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<CommunityPostCreateWithoutLikesInput, CommunityPostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutLikesInput
+    upsert?: CommunityPostUpsertWithoutLikesInput
+    connect?: CommunityPostWhereUniqueInput
+    update?: XOR<XOR<CommunityPostUpdateToOneWithWhereWithoutLikesInput, CommunityPostUpdateWithoutLikesInput>, CommunityPostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserCreateNestedOneWithoutPostCommentsInput = {
+    create?: XOR<UserCreateWithoutPostCommentsInput, UserUncheckedCreateWithoutPostCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommunityPostCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<CommunityPostCreateWithoutCommentsInput, CommunityPostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutCommentsInput
+    connect?: CommunityPostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPostCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutPostCommentsInput, UserUncheckedCreateWithoutPostCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostCommentsInput
+    upsert?: UserUpsertWithoutPostCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostCommentsInput, UserUpdateWithoutPostCommentsInput>, UserUncheckedUpdateWithoutPostCommentsInput>
+  }
+
+  export type CommunityPostUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<CommunityPostCreateWithoutCommentsInput, CommunityPostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutCommentsInput
+    upsert?: CommunityPostUpsertWithoutCommentsInput
+    connect?: CommunityPostWhereUniqueInput
+    update?: XOR<XOR<CommunityPostUpdateToOneWithWhereWithoutCommentsInput, CommunityPostUpdateWithoutCommentsInput>, CommunityPostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutCustomerPostsInput = {
+    create?: XOR<UserCreateWithoutCustomerPostsInput, UserUncheckedCreateWithoutCustomerPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerPostsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CustomerPostLikeCreateNestedManyWithoutPostInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutPostInput, CustomerPostLikeUncheckedCreateWithoutPostInput> | CustomerPostLikeCreateWithoutPostInput[] | CustomerPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutPostInput | CustomerPostLikeCreateOrConnectWithoutPostInput[]
+    createMany?: CustomerPostLikeCreateManyPostInputEnvelope
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+  }
+
+  export type CustomerPostCommentCreateNestedManyWithoutPostInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutPostInput, CustomerPostCommentUncheckedCreateWithoutPostInput> | CustomerPostCommentCreateWithoutPostInput[] | CustomerPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutPostInput | CustomerPostCommentCreateOrConnectWithoutPostInput[]
+    createMany?: CustomerPostCommentCreateManyPostInputEnvelope
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+  }
+
+  export type CustomerPostLikeUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutPostInput, CustomerPostLikeUncheckedCreateWithoutPostInput> | CustomerPostLikeCreateWithoutPostInput[] | CustomerPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutPostInput | CustomerPostLikeCreateOrConnectWithoutPostInput[]
+    createMany?: CustomerPostLikeCreateManyPostInputEnvelope
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+  }
+
+  export type CustomerPostCommentUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutPostInput, CustomerPostCommentUncheckedCreateWithoutPostInput> | CustomerPostCommentCreateWithoutPostInput[] | CustomerPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutPostInput | CustomerPostCommentCreateOrConnectWithoutPostInput[]
+    createMany?: CustomerPostCommentCreateManyPostInputEnvelope
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+  }
+
+  export type EnumPostCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.PostCategory
+  }
+
+  export type UserUpdateOneRequiredWithoutCustomerPostsNestedInput = {
+    create?: XOR<UserCreateWithoutCustomerPostsInput, UserUncheckedCreateWithoutCustomerPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerPostsInput
+    upsert?: UserUpsertWithoutCustomerPostsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCustomerPostsInput, UserUpdateWithoutCustomerPostsInput>, UserUncheckedUpdateWithoutCustomerPostsInput>
+  }
+
+  export type CustomerPostLikeUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutPostInput, CustomerPostLikeUncheckedCreateWithoutPostInput> | CustomerPostLikeCreateWithoutPostInput[] | CustomerPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutPostInput | CustomerPostLikeCreateOrConnectWithoutPostInput[]
+    upsert?: CustomerPostLikeUpsertWithWhereUniqueWithoutPostInput | CustomerPostLikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CustomerPostLikeCreateManyPostInputEnvelope
+    set?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    disconnect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    delete?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    update?: CustomerPostLikeUpdateWithWhereUniqueWithoutPostInput | CustomerPostLikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CustomerPostLikeUpdateManyWithWhereWithoutPostInput | CustomerPostLikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CustomerPostLikeScalarWhereInput | CustomerPostLikeScalarWhereInput[]
+  }
+
+  export type CustomerPostCommentUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutPostInput, CustomerPostCommentUncheckedCreateWithoutPostInput> | CustomerPostCommentCreateWithoutPostInput[] | CustomerPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutPostInput | CustomerPostCommentCreateOrConnectWithoutPostInput[]
+    upsert?: CustomerPostCommentUpsertWithWhereUniqueWithoutPostInput | CustomerPostCommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CustomerPostCommentCreateManyPostInputEnvelope
+    set?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    disconnect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    delete?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    update?: CustomerPostCommentUpdateWithWhereUniqueWithoutPostInput | CustomerPostCommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CustomerPostCommentUpdateManyWithWhereWithoutPostInput | CustomerPostCommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CustomerPostCommentScalarWhereInput | CustomerPostCommentScalarWhereInput[]
+  }
+
+  export type CustomerPostLikeUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CustomerPostLikeCreateWithoutPostInput, CustomerPostLikeUncheckedCreateWithoutPostInput> | CustomerPostLikeCreateWithoutPostInput[] | CustomerPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostLikeCreateOrConnectWithoutPostInput | CustomerPostLikeCreateOrConnectWithoutPostInput[]
+    upsert?: CustomerPostLikeUpsertWithWhereUniqueWithoutPostInput | CustomerPostLikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CustomerPostLikeCreateManyPostInputEnvelope
+    set?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    disconnect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    delete?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    connect?: CustomerPostLikeWhereUniqueInput | CustomerPostLikeWhereUniqueInput[]
+    update?: CustomerPostLikeUpdateWithWhereUniqueWithoutPostInput | CustomerPostLikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CustomerPostLikeUpdateManyWithWhereWithoutPostInput | CustomerPostLikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CustomerPostLikeScalarWhereInput | CustomerPostLikeScalarWhereInput[]
+  }
+
+  export type CustomerPostCommentUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CustomerPostCommentCreateWithoutPostInput, CustomerPostCommentUncheckedCreateWithoutPostInput> | CustomerPostCommentCreateWithoutPostInput[] | CustomerPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CustomerPostCommentCreateOrConnectWithoutPostInput | CustomerPostCommentCreateOrConnectWithoutPostInput[]
+    upsert?: CustomerPostCommentUpsertWithWhereUniqueWithoutPostInput | CustomerPostCommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CustomerPostCommentCreateManyPostInputEnvelope
+    set?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    disconnect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    delete?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    connect?: CustomerPostCommentWhereUniqueInput | CustomerPostCommentWhereUniqueInput[]
+    update?: CustomerPostCommentUpdateWithWhereUniqueWithoutPostInput | CustomerPostCommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CustomerPostCommentUpdateManyWithWhereWithoutPostInput | CustomerPostCommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CustomerPostCommentScalarWhereInput | CustomerPostCommentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutCustomerPostLikesInput = {
+    create?: XOR<UserCreateWithoutCustomerPostLikesInput, UserUncheckedCreateWithoutCustomerPostLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerPostLikesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CustomerPostCreateNestedOneWithoutLikesInput = {
+    create?: XOR<CustomerPostCreateWithoutLikesInput, CustomerPostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutLikesInput
+    connect?: CustomerPostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCustomerPostLikesNestedInput = {
+    create?: XOR<UserCreateWithoutCustomerPostLikesInput, UserUncheckedCreateWithoutCustomerPostLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerPostLikesInput
+    upsert?: UserUpsertWithoutCustomerPostLikesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCustomerPostLikesInput, UserUpdateWithoutCustomerPostLikesInput>, UserUncheckedUpdateWithoutCustomerPostLikesInput>
+  }
+
+  export type CustomerPostUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<CustomerPostCreateWithoutLikesInput, CustomerPostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutLikesInput
+    upsert?: CustomerPostUpsertWithoutLikesInput
+    connect?: CustomerPostWhereUniqueInput
+    update?: XOR<XOR<CustomerPostUpdateToOneWithWhereWithoutLikesInput, CustomerPostUpdateWithoutLikesInput>, CustomerPostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserCreateNestedOneWithoutCustomerPostCommentsInput = {
+    create?: XOR<UserCreateWithoutCustomerPostCommentsInput, UserUncheckedCreateWithoutCustomerPostCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerPostCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CustomerPostCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<CustomerPostCreateWithoutCommentsInput, CustomerPostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutCommentsInput
+    connect?: CustomerPostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCustomerPostCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutCustomerPostCommentsInput, UserUncheckedCreateWithoutCustomerPostCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerPostCommentsInput
+    upsert?: UserUpsertWithoutCustomerPostCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCustomerPostCommentsInput, UserUpdateWithoutCustomerPostCommentsInput>, UserUncheckedUpdateWithoutCustomerPostCommentsInput>
+  }
+
+  export type CustomerPostUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<CustomerPostCreateWithoutCommentsInput, CustomerPostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: CustomerPostCreateOrConnectWithoutCommentsInput
+    upsert?: CustomerPostUpsertWithoutCommentsInput
+    connect?: CustomerPostWhereUniqueInput
+    update?: XOR<XOR<CustomerPostUpdateToOneWithWhereWithoutCommentsInput, CustomerPostUpdateWithoutCommentsInput>, CustomerPostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type VendorProfileCreateNestedOneWithoutVendorPostsInput = {
+    create?: XOR<VendorProfileCreateWithoutVendorPostsInput, VendorProfileUncheckedCreateWithoutVendorPostsInput>
+    connectOrCreate?: VendorProfileCreateOrConnectWithoutVendorPostsInput
+    connect?: VendorProfileWhereUniqueInput
+  }
+
+  export type VendorPostLikeCreateNestedManyWithoutPostInput = {
+    create?: XOR<VendorPostLikeCreateWithoutPostInput, VendorPostLikeUncheckedCreateWithoutPostInput> | VendorPostLikeCreateWithoutPostInput[] | VendorPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutPostInput | VendorPostLikeCreateOrConnectWithoutPostInput[]
+    createMany?: VendorPostLikeCreateManyPostInputEnvelope
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+  }
+
+  export type VendorPostCommentCreateNestedManyWithoutPostInput = {
+    create?: XOR<VendorPostCommentCreateWithoutPostInput, VendorPostCommentUncheckedCreateWithoutPostInput> | VendorPostCommentCreateWithoutPostInput[] | VendorPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutPostInput | VendorPostCommentCreateOrConnectWithoutPostInput[]
+    createMany?: VendorPostCommentCreateManyPostInputEnvelope
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+  }
+
+  export type VendorPostLikeUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<VendorPostLikeCreateWithoutPostInput, VendorPostLikeUncheckedCreateWithoutPostInput> | VendorPostLikeCreateWithoutPostInput[] | VendorPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutPostInput | VendorPostLikeCreateOrConnectWithoutPostInput[]
+    createMany?: VendorPostLikeCreateManyPostInputEnvelope
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+  }
+
+  export type VendorPostCommentUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<VendorPostCommentCreateWithoutPostInput, VendorPostCommentUncheckedCreateWithoutPostInput> | VendorPostCommentCreateWithoutPostInput[] | VendorPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutPostInput | VendorPostCommentCreateOrConnectWithoutPostInput[]
+    createMany?: VendorPostCommentCreateManyPostInputEnvelope
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+  }
+
+  export type EnumVendorPostCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.VendorPostCategory
+  }
+
+  export type VendorProfileUpdateOneRequiredWithoutVendorPostsNestedInput = {
+    create?: XOR<VendorProfileCreateWithoutVendorPostsInput, VendorProfileUncheckedCreateWithoutVendorPostsInput>
+    connectOrCreate?: VendorProfileCreateOrConnectWithoutVendorPostsInput
+    upsert?: VendorProfileUpsertWithoutVendorPostsInput
+    connect?: VendorProfileWhereUniqueInput
+    update?: XOR<XOR<VendorProfileUpdateToOneWithWhereWithoutVendorPostsInput, VendorProfileUpdateWithoutVendorPostsInput>, VendorProfileUncheckedUpdateWithoutVendorPostsInput>
+  }
+
+  export type VendorPostLikeUpdateManyWithoutPostNestedInput = {
+    create?: XOR<VendorPostLikeCreateWithoutPostInput, VendorPostLikeUncheckedCreateWithoutPostInput> | VendorPostLikeCreateWithoutPostInput[] | VendorPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutPostInput | VendorPostLikeCreateOrConnectWithoutPostInput[]
+    upsert?: VendorPostLikeUpsertWithWhereUniqueWithoutPostInput | VendorPostLikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: VendorPostLikeCreateManyPostInputEnvelope
+    set?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    disconnect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    delete?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    update?: VendorPostLikeUpdateWithWhereUniqueWithoutPostInput | VendorPostLikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: VendorPostLikeUpdateManyWithWhereWithoutPostInput | VendorPostLikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: VendorPostLikeScalarWhereInput | VendorPostLikeScalarWhereInput[]
+  }
+
+  export type VendorPostCommentUpdateManyWithoutPostNestedInput = {
+    create?: XOR<VendorPostCommentCreateWithoutPostInput, VendorPostCommentUncheckedCreateWithoutPostInput> | VendorPostCommentCreateWithoutPostInput[] | VendorPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutPostInput | VendorPostCommentCreateOrConnectWithoutPostInput[]
+    upsert?: VendorPostCommentUpsertWithWhereUniqueWithoutPostInput | VendorPostCommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: VendorPostCommentCreateManyPostInputEnvelope
+    set?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    disconnect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    delete?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    update?: VendorPostCommentUpdateWithWhereUniqueWithoutPostInput | VendorPostCommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: VendorPostCommentUpdateManyWithWhereWithoutPostInput | VendorPostCommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: VendorPostCommentScalarWhereInput | VendorPostCommentScalarWhereInput[]
+  }
+
+  export type VendorPostLikeUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<VendorPostLikeCreateWithoutPostInput, VendorPostLikeUncheckedCreateWithoutPostInput> | VendorPostLikeCreateWithoutPostInput[] | VendorPostLikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostLikeCreateOrConnectWithoutPostInput | VendorPostLikeCreateOrConnectWithoutPostInput[]
+    upsert?: VendorPostLikeUpsertWithWhereUniqueWithoutPostInput | VendorPostLikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: VendorPostLikeCreateManyPostInputEnvelope
+    set?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    disconnect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    delete?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    connect?: VendorPostLikeWhereUniqueInput | VendorPostLikeWhereUniqueInput[]
+    update?: VendorPostLikeUpdateWithWhereUniqueWithoutPostInput | VendorPostLikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: VendorPostLikeUpdateManyWithWhereWithoutPostInput | VendorPostLikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: VendorPostLikeScalarWhereInput | VendorPostLikeScalarWhereInput[]
+  }
+
+  export type VendorPostCommentUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<VendorPostCommentCreateWithoutPostInput, VendorPostCommentUncheckedCreateWithoutPostInput> | VendorPostCommentCreateWithoutPostInput[] | VendorPostCommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: VendorPostCommentCreateOrConnectWithoutPostInput | VendorPostCommentCreateOrConnectWithoutPostInput[]
+    upsert?: VendorPostCommentUpsertWithWhereUniqueWithoutPostInput | VendorPostCommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: VendorPostCommentCreateManyPostInputEnvelope
+    set?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    disconnect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    delete?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    connect?: VendorPostCommentWhereUniqueInput | VendorPostCommentWhereUniqueInput[]
+    update?: VendorPostCommentUpdateWithWhereUniqueWithoutPostInput | VendorPostCommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: VendorPostCommentUpdateManyWithWhereWithoutPostInput | VendorPostCommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: VendorPostCommentScalarWhereInput | VendorPostCommentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutVendorPostLikesInput = {
+    create?: XOR<UserCreateWithoutVendorPostLikesInput, UserUncheckedCreateWithoutVendorPostLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVendorPostLikesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type VendorPostCreateNestedOneWithoutLikesInput = {
+    create?: XOR<VendorPostCreateWithoutLikesInput, VendorPostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: VendorPostCreateOrConnectWithoutLikesInput
+    connect?: VendorPostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutVendorPostLikesNestedInput = {
+    create?: XOR<UserCreateWithoutVendorPostLikesInput, UserUncheckedCreateWithoutVendorPostLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVendorPostLikesInput
+    upsert?: UserUpsertWithoutVendorPostLikesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVendorPostLikesInput, UserUpdateWithoutVendorPostLikesInput>, UserUncheckedUpdateWithoutVendorPostLikesInput>
+  }
+
+  export type VendorPostUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<VendorPostCreateWithoutLikesInput, VendorPostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: VendorPostCreateOrConnectWithoutLikesInput
+    upsert?: VendorPostUpsertWithoutLikesInput
+    connect?: VendorPostWhereUniqueInput
+    update?: XOR<XOR<VendorPostUpdateToOneWithWhereWithoutLikesInput, VendorPostUpdateWithoutLikesInput>, VendorPostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserCreateNestedOneWithoutVendorPostCommentsInput = {
+    create?: XOR<UserCreateWithoutVendorPostCommentsInput, UserUncheckedCreateWithoutVendorPostCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVendorPostCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type VendorPostCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<VendorPostCreateWithoutCommentsInput, VendorPostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: VendorPostCreateOrConnectWithoutCommentsInput
+    connect?: VendorPostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutVendorPostCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutVendorPostCommentsInput, UserUncheckedCreateWithoutVendorPostCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVendorPostCommentsInput
+    upsert?: UserUpsertWithoutVendorPostCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVendorPostCommentsInput, UserUpdateWithoutVendorPostCommentsInput>, UserUncheckedUpdateWithoutVendorPostCommentsInput>
+  }
+
+  export type VendorPostUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<VendorPostCreateWithoutCommentsInput, VendorPostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: VendorPostCreateOrConnectWithoutCommentsInput
+    upsert?: VendorPostUpsertWithoutCommentsInput
+    connect?: VendorPostWhereUniqueInput
+    update?: XOR<XOR<VendorPostUpdateToOneWithWhereWithoutCommentsInput, VendorPostUpdateWithoutCommentsInput>, VendorPostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserCommandsInput = {
+    create?: XOR<UserCreateWithoutUserCommandsInput, UserUncheckedCreateWithoutUserCommandsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserCommandsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumCommandTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CommandType
+  }
+
+  export type UserUpdateOneRequiredWithoutUserCommandsNestedInput = {
+    create?: XOR<UserCreateWithoutUserCommandsInput, UserUncheckedCreateWithoutUserCommandsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserCommandsInput
+    upsert?: UserUpsertWithoutUserCommandsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserCommandsInput, UserUpdateWithoutUserCommandsInput>, UserUncheckedUpdateWithoutUserCommandsInput>
   }
 
   export type VendorProfileCreateNestedOneWithoutSustainabilityCertsInput = {
@@ -12663,6 +27033,57 @@ export namespace Prisma {
     _max?: NestedEnumOrderStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumPostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryFilter<$PrismaModel> | $Enums.PostCategory
+  }
+
+  export type NestedEnumPostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPostCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumVendorPostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.VendorPostCategory | EnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumVendorPostCategoryFilter<$PrismaModel> | $Enums.VendorPostCategory
+  }
+
+  export type NestedEnumVendorPostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VendorPostCategory | EnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VendorPostCategory[] | ListEnumVendorPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumVendorPostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.VendorPostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVendorPostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumVendorPostCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCommandTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommandType | EnumCommandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommandTypeFilter<$PrismaModel> | $Enums.CommandType
+  }
+
+  export type NestedEnumCommandTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommandType | EnumCommandTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommandType[] | ListEnumCommandTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommandTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommandType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommandTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommandTypeFilter<$PrismaModel>
+  }
+
   export type VendorProfileCreateWithoutUserInput = {
     farmName: string
     certificationStatus?: $Enums.CertificationStatus
@@ -12674,6 +27095,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceCreateNestedManyWithoutVendorInput
     orders?: OrderCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileUncheckedCreateWithoutUserInput = {
@@ -12688,6 +27110,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUncheckedCreateNestedManyWithoutVendorInput
     orders?: OrderUncheckedCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertUncheckedCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileCreateOrConnectWithoutUserInput = {
@@ -12727,12 +27150,16 @@ export namespace Prisma {
   export type CommunityPostCreateWithoutUserInput = {
     postContent: string
     postDate?: Date | string
+    likes?: PostLikeCreateNestedManyWithoutPostInput
+    comments?: PostCommentCreateNestedManyWithoutPostInput
   }
 
   export type CommunityPostUncheckedCreateWithoutUserInput = {
     id?: number
     postContent: string
     postDate?: Date | string
+    likes?: PostLikeUncheckedCreateNestedManyWithoutPostInput
+    comments?: PostCommentUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type CommunityPostCreateOrConnectWithoutUserInput = {
@@ -12742,6 +27169,208 @@ export namespace Prisma {
 
   export type CommunityPostCreateManyUserInputEnvelope = {
     data: CommunityPostCreateManyUserInput | CommunityPostCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerPostCreateWithoutUserInput = {
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: CustomerPostLikeCreateNestedManyWithoutPostInput
+    comments?: CustomerPostCommentCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostUncheckedCreateWithoutUserInput = {
+    id?: number
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: CustomerPostLikeUncheckedCreateNestedManyWithoutPostInput
+    comments?: CustomerPostCommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostCreateOrConnectWithoutUserInput = {
+    where: CustomerPostWhereUniqueInput
+    create: XOR<CustomerPostCreateWithoutUserInput, CustomerPostUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPostCreateManyUserInputEnvelope = {
+    data: CustomerPostCreateManyUserInput | CustomerPostCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostLikeCreateWithoutUserInput = {
+    createdAt?: Date | string
+    post: CommunityPostCreateNestedOneWithoutLikesInput
+  }
+
+  export type PostLikeUncheckedCreateWithoutUserInput = {
+    id?: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type PostLikeCreateOrConnectWithoutUserInput = {
+    where: PostLikeWhereUniqueInput
+    create: XOR<PostLikeCreateWithoutUserInput, PostLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostLikeCreateManyUserInputEnvelope = {
+    data: PostLikeCreateManyUserInput | PostLikeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostCommentCreateWithoutUserInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: CommunityPostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type PostCommentUncheckedCreateWithoutUserInput = {
+    id?: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostCommentCreateOrConnectWithoutUserInput = {
+    where: PostCommentWhereUniqueInput
+    create: XOR<PostCommentCreateWithoutUserInput, PostCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostCommentCreateManyUserInputEnvelope = {
+    data: PostCommentCreateManyUserInput | PostCommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerPostLikeCreateWithoutUserInput = {
+    createdAt?: Date | string
+    post: CustomerPostCreateNestedOneWithoutLikesInput
+  }
+
+  export type CustomerPostLikeUncheckedCreateWithoutUserInput = {
+    id?: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type CustomerPostLikeCreateOrConnectWithoutUserInput = {
+    where: CustomerPostLikeWhereUniqueInput
+    create: XOR<CustomerPostLikeCreateWithoutUserInput, CustomerPostLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPostLikeCreateManyUserInputEnvelope = {
+    data: CustomerPostLikeCreateManyUserInput | CustomerPostLikeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerPostCommentCreateWithoutUserInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: CustomerPostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CustomerPostCommentUncheckedCreateWithoutUserInput = {
+    id?: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerPostCommentCreateOrConnectWithoutUserInput = {
+    where: CustomerPostCommentWhereUniqueInput
+    create: XOR<CustomerPostCommentCreateWithoutUserInput, CustomerPostCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPostCommentCreateManyUserInputEnvelope = {
+    data: CustomerPostCommentCreateManyUserInput | CustomerPostCommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VendorPostLikeCreateWithoutUserInput = {
+    createdAt?: Date | string
+    post: VendorPostCreateNestedOneWithoutLikesInput
+  }
+
+  export type VendorPostLikeUncheckedCreateWithoutUserInput = {
+    id?: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type VendorPostLikeCreateOrConnectWithoutUserInput = {
+    where: VendorPostLikeWhereUniqueInput
+    create: XOR<VendorPostLikeCreateWithoutUserInput, VendorPostLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type VendorPostLikeCreateManyUserInputEnvelope = {
+    data: VendorPostLikeCreateManyUserInput | VendorPostLikeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VendorPostCommentCreateWithoutUserInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: VendorPostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type VendorPostCommentUncheckedCreateWithoutUserInput = {
+    id?: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VendorPostCommentCreateOrConnectWithoutUserInput = {
+    where: VendorPostCommentWhereUniqueInput
+    create: XOR<VendorPostCommentCreateWithoutUserInput, VendorPostCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type VendorPostCommentCreateManyUserInputEnvelope = {
+    data: VendorPostCommentCreateManyUserInput | VendorPostCommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCommandCreateWithoutUserInput = {
+    name: string
+    description?: string | null
+    command: string
+    type?: $Enums.CommandType
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCommandUncheckedCreateWithoutUserInput = {
+    id?: number
+    name: string
+    description?: string | null
+    command: string
+    type?: $Enums.CommandType
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCommandCreateOrConnectWithoutUserInput = {
+    where: UserCommandWhereUniqueInput
+    create: XOR<UserCommandCreateWithoutUserInput, UserCommandUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserCommandCreateManyUserInputEnvelope = {
+    data: UserCommandCreateManyUserInput | UserCommandCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -12767,6 +27396,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUpdateManyWithoutVendorNestedInput
     orders?: OrderUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorProfileUncheckedUpdateWithoutUserInput = {
@@ -12781,6 +27411,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUncheckedUpdateManyWithoutVendorNestedInput
     orders?: OrderUncheckedUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type OrderUpsertWithWhereUniqueWithoutUserInput = {
@@ -12839,6 +27470,229 @@ export namespace Prisma {
     postDate?: DateTimeFilter<"CommunityPost"> | Date | string
   }
 
+  export type CustomerPostUpsertWithWhereUniqueWithoutUserInput = {
+    where: CustomerPostWhereUniqueInput
+    update: XOR<CustomerPostUpdateWithoutUserInput, CustomerPostUncheckedUpdateWithoutUserInput>
+    create: XOR<CustomerPostCreateWithoutUserInput, CustomerPostUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPostUpdateWithWhereUniqueWithoutUserInput = {
+    where: CustomerPostWhereUniqueInput
+    data: XOR<CustomerPostUpdateWithoutUserInput, CustomerPostUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CustomerPostUpdateManyWithWhereWithoutUserInput = {
+    where: CustomerPostScalarWhereInput
+    data: XOR<CustomerPostUpdateManyMutationInput, CustomerPostUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CustomerPostScalarWhereInput = {
+    AND?: CustomerPostScalarWhereInput | CustomerPostScalarWhereInput[]
+    OR?: CustomerPostScalarWhereInput[]
+    NOT?: CustomerPostScalarWhereInput | CustomerPostScalarWhereInput[]
+    id?: IntFilter<"CustomerPost"> | number
+    userId?: IntFilter<"CustomerPost"> | number
+    title?: StringFilter<"CustomerPost"> | string
+    content?: StringFilter<"CustomerPost"> | string
+    category?: EnumPostCategoryFilter<"CustomerPost"> | $Enums.PostCategory
+    isApproved?: BoolFilter<"CustomerPost"> | boolean
+    createdAt?: DateTimeFilter<"CustomerPost"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerPost"> | Date | string
+  }
+
+  export type PostLikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostLikeWhereUniqueInput
+    update: XOR<PostLikeUpdateWithoutUserInput, PostLikeUncheckedUpdateWithoutUserInput>
+    create: XOR<PostLikeCreateWithoutUserInput, PostLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostLikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostLikeWhereUniqueInput
+    data: XOR<PostLikeUpdateWithoutUserInput, PostLikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PostLikeUpdateManyWithWhereWithoutUserInput = {
+    where: PostLikeScalarWhereInput
+    data: XOR<PostLikeUpdateManyMutationInput, PostLikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PostLikeScalarWhereInput = {
+    AND?: PostLikeScalarWhereInput | PostLikeScalarWhereInput[]
+    OR?: PostLikeScalarWhereInput[]
+    NOT?: PostLikeScalarWhereInput | PostLikeScalarWhereInput[]
+    id?: IntFilter<"PostLike"> | number
+    userId?: IntFilter<"PostLike"> | number
+    postId?: IntFilter<"PostLike"> | number
+    createdAt?: DateTimeFilter<"PostLike"> | Date | string
+  }
+
+  export type PostCommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostCommentWhereUniqueInput
+    update: XOR<PostCommentUpdateWithoutUserInput, PostCommentUncheckedUpdateWithoutUserInput>
+    create: XOR<PostCommentCreateWithoutUserInput, PostCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostCommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostCommentWhereUniqueInput
+    data: XOR<PostCommentUpdateWithoutUserInput, PostCommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PostCommentUpdateManyWithWhereWithoutUserInput = {
+    where: PostCommentScalarWhereInput
+    data: XOR<PostCommentUpdateManyMutationInput, PostCommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PostCommentScalarWhereInput = {
+    AND?: PostCommentScalarWhereInput | PostCommentScalarWhereInput[]
+    OR?: PostCommentScalarWhereInput[]
+    NOT?: PostCommentScalarWhereInput | PostCommentScalarWhereInput[]
+    id?: IntFilter<"PostComment"> | number
+    userId?: IntFilter<"PostComment"> | number
+    postId?: IntFilter<"PostComment"> | number
+    content?: StringFilter<"PostComment"> | string
+    createdAt?: DateTimeFilter<"PostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"PostComment"> | Date | string
+  }
+
+  export type CustomerPostLikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: CustomerPostLikeWhereUniqueInput
+    update: XOR<CustomerPostLikeUpdateWithoutUserInput, CustomerPostLikeUncheckedUpdateWithoutUserInput>
+    create: XOR<CustomerPostLikeCreateWithoutUserInput, CustomerPostLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPostLikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: CustomerPostLikeWhereUniqueInput
+    data: XOR<CustomerPostLikeUpdateWithoutUserInput, CustomerPostLikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CustomerPostLikeUpdateManyWithWhereWithoutUserInput = {
+    where: CustomerPostLikeScalarWhereInput
+    data: XOR<CustomerPostLikeUpdateManyMutationInput, CustomerPostLikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CustomerPostLikeScalarWhereInput = {
+    AND?: CustomerPostLikeScalarWhereInput | CustomerPostLikeScalarWhereInput[]
+    OR?: CustomerPostLikeScalarWhereInput[]
+    NOT?: CustomerPostLikeScalarWhereInput | CustomerPostLikeScalarWhereInput[]
+    id?: IntFilter<"CustomerPostLike"> | number
+    userId?: IntFilter<"CustomerPostLike"> | number
+    postId?: IntFilter<"CustomerPostLike"> | number
+    createdAt?: DateTimeFilter<"CustomerPostLike"> | Date | string
+  }
+
+  export type CustomerPostCommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: CustomerPostCommentWhereUniqueInput
+    update: XOR<CustomerPostCommentUpdateWithoutUserInput, CustomerPostCommentUncheckedUpdateWithoutUserInput>
+    create: XOR<CustomerPostCommentCreateWithoutUserInput, CustomerPostCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPostCommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CustomerPostCommentWhereUniqueInput
+    data: XOR<CustomerPostCommentUpdateWithoutUserInput, CustomerPostCommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CustomerPostCommentUpdateManyWithWhereWithoutUserInput = {
+    where: CustomerPostCommentScalarWhereInput
+    data: XOR<CustomerPostCommentUpdateManyMutationInput, CustomerPostCommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CustomerPostCommentScalarWhereInput = {
+    AND?: CustomerPostCommentScalarWhereInput | CustomerPostCommentScalarWhereInput[]
+    OR?: CustomerPostCommentScalarWhereInput[]
+    NOT?: CustomerPostCommentScalarWhereInput | CustomerPostCommentScalarWhereInput[]
+    id?: IntFilter<"CustomerPostComment"> | number
+    userId?: IntFilter<"CustomerPostComment"> | number
+    postId?: IntFilter<"CustomerPostComment"> | number
+    content?: StringFilter<"CustomerPostComment"> | string
+    createdAt?: DateTimeFilter<"CustomerPostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerPostComment"> | Date | string
+  }
+
+  export type VendorPostLikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: VendorPostLikeWhereUniqueInput
+    update: XOR<VendorPostLikeUpdateWithoutUserInput, VendorPostLikeUncheckedUpdateWithoutUserInput>
+    create: XOR<VendorPostLikeCreateWithoutUserInput, VendorPostLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type VendorPostLikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: VendorPostLikeWhereUniqueInput
+    data: XOR<VendorPostLikeUpdateWithoutUserInput, VendorPostLikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type VendorPostLikeUpdateManyWithWhereWithoutUserInput = {
+    where: VendorPostLikeScalarWhereInput
+    data: XOR<VendorPostLikeUpdateManyMutationInput, VendorPostLikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type VendorPostLikeScalarWhereInput = {
+    AND?: VendorPostLikeScalarWhereInput | VendorPostLikeScalarWhereInput[]
+    OR?: VendorPostLikeScalarWhereInput[]
+    NOT?: VendorPostLikeScalarWhereInput | VendorPostLikeScalarWhereInput[]
+    id?: IntFilter<"VendorPostLike"> | number
+    userId?: IntFilter<"VendorPostLike"> | number
+    postId?: IntFilter<"VendorPostLike"> | number
+    createdAt?: DateTimeFilter<"VendorPostLike"> | Date | string
+  }
+
+  export type VendorPostCommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: VendorPostCommentWhereUniqueInput
+    update: XOR<VendorPostCommentUpdateWithoutUserInput, VendorPostCommentUncheckedUpdateWithoutUserInput>
+    create: XOR<VendorPostCommentCreateWithoutUserInput, VendorPostCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type VendorPostCommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: VendorPostCommentWhereUniqueInput
+    data: XOR<VendorPostCommentUpdateWithoutUserInput, VendorPostCommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type VendorPostCommentUpdateManyWithWhereWithoutUserInput = {
+    where: VendorPostCommentScalarWhereInput
+    data: XOR<VendorPostCommentUpdateManyMutationInput, VendorPostCommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type VendorPostCommentScalarWhereInput = {
+    AND?: VendorPostCommentScalarWhereInput | VendorPostCommentScalarWhereInput[]
+    OR?: VendorPostCommentScalarWhereInput[]
+    NOT?: VendorPostCommentScalarWhereInput | VendorPostCommentScalarWhereInput[]
+    id?: IntFilter<"VendorPostComment"> | number
+    userId?: IntFilter<"VendorPostComment"> | number
+    postId?: IntFilter<"VendorPostComment"> | number
+    content?: StringFilter<"VendorPostComment"> | string
+    createdAt?: DateTimeFilter<"VendorPostComment"> | Date | string
+    updatedAt?: DateTimeFilter<"VendorPostComment"> | Date | string
+  }
+
+  export type UserCommandUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserCommandWhereUniqueInput
+    update: XOR<UserCommandUpdateWithoutUserInput, UserCommandUncheckedUpdateWithoutUserInput>
+    create: XOR<UserCommandCreateWithoutUserInput, UserCommandUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserCommandUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserCommandWhereUniqueInput
+    data: XOR<UserCommandUpdateWithoutUserInput, UserCommandUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCommandUpdateManyWithWhereWithoutUserInput = {
+    where: UserCommandScalarWhereInput
+    data: XOR<UserCommandUpdateManyMutationInput, UserCommandUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserCommandScalarWhereInput = {
+    AND?: UserCommandScalarWhereInput | UserCommandScalarWhereInput[]
+    OR?: UserCommandScalarWhereInput[]
+    NOT?: UserCommandScalarWhereInput | UserCommandScalarWhereInput[]
+    id?: IntFilter<"UserCommand"> | number
+    userId?: IntFilter<"UserCommand"> | number
+    name?: StringFilter<"UserCommand"> | string
+    description?: StringNullableFilter<"UserCommand"> | string | null
+    command?: StringFilter<"UserCommand"> | string
+    type?: EnumCommandTypeFilter<"UserCommand"> | $Enums.CommandType
+    isPublic?: BoolFilter<"UserCommand"> | boolean
+    createdAt?: DateTimeFilter<"UserCommand"> | Date | string
+    updatedAt?: DateTimeFilter<"UserCommand"> | Date | string
+  }
+
   export type UserCreateWithoutVendorProfileInput = {
     name: string
     email: string
@@ -12849,6 +27703,14 @@ export namespace Prisma {
     createdAt?: Date | string
     orders?: OrderCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVendorProfileInput = {
@@ -12862,6 +27724,14 @@ export namespace Prisma {
     createdAt?: Date | string
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVendorProfileInput = {
@@ -12991,6 +27861,41 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type VendorPostCreateWithoutVendorInput = {
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: VendorPostLikeCreateNestedManyWithoutPostInput
+    comments?: VendorPostCommentCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostUncheckedCreateWithoutVendorInput = {
+    id?: number
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: VendorPostLikeUncheckedCreateNestedManyWithoutPostInput
+    comments?: VendorPostCommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostCreateOrConnectWithoutVendorInput = {
+    where: VendorPostWhereUniqueInput
+    create: XOR<VendorPostCreateWithoutVendorInput, VendorPostUncheckedCreateWithoutVendorInput>
+  }
+
+  export type VendorPostCreateManyVendorInputEnvelope = {
+    data: VendorPostCreateManyVendorInput | VendorPostCreateManyVendorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutVendorProfileInput = {
     update: XOR<UserUpdateWithoutVendorProfileInput, UserUncheckedUpdateWithoutVendorProfileInput>
     create: XOR<UserCreateWithoutVendorProfileInput, UserUncheckedCreateWithoutVendorProfileInput>
@@ -13012,6 +27917,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorProfileInput = {
@@ -13025,6 +27938,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProduceUpsertWithWhereUniqueWithoutVendorInput = {
@@ -13135,6 +28056,37 @@ export namespace Prisma {
     certificationDate?: DateTimeFilter<"SustainabilityCert"> | Date | string
   }
 
+  export type VendorPostUpsertWithWhereUniqueWithoutVendorInput = {
+    where: VendorPostWhereUniqueInput
+    update: XOR<VendorPostUpdateWithoutVendorInput, VendorPostUncheckedUpdateWithoutVendorInput>
+    create: XOR<VendorPostCreateWithoutVendorInput, VendorPostUncheckedCreateWithoutVendorInput>
+  }
+
+  export type VendorPostUpdateWithWhereUniqueWithoutVendorInput = {
+    where: VendorPostWhereUniqueInput
+    data: XOR<VendorPostUpdateWithoutVendorInput, VendorPostUncheckedUpdateWithoutVendorInput>
+  }
+
+  export type VendorPostUpdateManyWithWhereWithoutVendorInput = {
+    where: VendorPostScalarWhereInput
+    data: XOR<VendorPostUpdateManyMutationInput, VendorPostUncheckedUpdateManyWithoutVendorInput>
+  }
+
+  export type VendorPostScalarWhereInput = {
+    AND?: VendorPostScalarWhereInput | VendorPostScalarWhereInput[]
+    OR?: VendorPostScalarWhereInput[]
+    NOT?: VendorPostScalarWhereInput | VendorPostScalarWhereInput[]
+    id?: IntFilter<"VendorPost"> | number
+    vendorId?: IntFilter<"VendorPost"> | number
+    title?: StringFilter<"VendorPost"> | string
+    content?: StringFilter<"VendorPost"> | string
+    category?: EnumVendorPostCategoryFilter<"VendorPost"> | $Enums.VendorPostCategory
+    image?: StringNullableFilter<"VendorPost"> | string | null
+    isApproved?: BoolFilter<"VendorPost"> | boolean
+    createdAt?: DateTimeFilter<"VendorPost"> | Date | string
+    updatedAt?: DateTimeFilter<"VendorPost"> | Date | string
+  }
+
   export type VendorProfileCreateWithoutProducesInput = {
     farmName: string
     certificationStatus?: $Enums.CertificationStatus
@@ -13146,6 +28098,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceCreateNestedManyWithoutVendorInput
     orders?: OrderCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileUncheckedCreateWithoutProducesInput = {
@@ -13160,6 +28113,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUncheckedCreateNestedManyWithoutVendorInput
     orders?: OrderUncheckedCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertUncheckedCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileCreateOrConnectWithoutProducesInput = {
@@ -13218,6 +28172,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUpdateManyWithoutVendorNestedInput
     orders?: OrderUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorProfileUncheckedUpdateWithoutProducesInput = {
@@ -13232,6 +28187,7 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUncheckedUpdateManyWithoutVendorNestedInput
     orders?: OrderUncheckedUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type OrderUpsertWithWhereUniqueWithoutProduceInput = {
@@ -13261,6 +28217,7 @@ export namespace Prisma {
     produces?: ProduceCreateNestedManyWithoutVendorInput
     orders?: OrderCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileUncheckedCreateWithoutRentalSpacesInput = {
@@ -13275,6 +28232,7 @@ export namespace Prisma {
     produces?: ProduceUncheckedCreateNestedManyWithoutVendorInput
     orders?: OrderUncheckedCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertUncheckedCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileCreateOrConnectWithoutRentalSpacesInput = {
@@ -13304,6 +28262,7 @@ export namespace Prisma {
     produces?: ProduceUpdateManyWithoutVendorNestedInput
     orders?: OrderUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorProfileUncheckedUpdateWithoutRentalSpacesInput = {
@@ -13318,6 +28277,7 @@ export namespace Prisma {
     produces?: ProduceUncheckedUpdateManyWithoutVendorNestedInput
     orders?: OrderUncheckedUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type UserCreateWithoutOrdersInput = {
@@ -13330,6 +28290,14 @@ export namespace Prisma {
     createdAt?: Date | string
     vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -13343,6 +28311,14 @@ export namespace Prisma {
     createdAt?: Date | string
     vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -13395,6 +28371,7 @@ export namespace Prisma {
     produces?: ProduceCreateNestedManyWithoutVendorInput
     rentalSpaces?: RentalSpaceCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileUncheckedCreateWithoutOrdersInput = {
@@ -13409,6 +28386,7 @@ export namespace Prisma {
     produces?: ProduceUncheckedCreateNestedManyWithoutVendorInput
     rentalSpaces?: RentalSpaceUncheckedCreateNestedManyWithoutVendorInput
     sustainabilityCerts?: SustainabilityCertUncheckedCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileCreateOrConnectWithoutOrdersInput = {
@@ -13437,6 +28415,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -13450,6 +28436,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProduceUpsertWithoutOrdersInput = {
@@ -13514,6 +28508,7 @@ export namespace Prisma {
     produces?: ProduceUpdateManyWithoutVendorNestedInput
     rentalSpaces?: RentalSpaceUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorProfileUncheckedUpdateWithoutOrdersInput = {
@@ -13528,6 +28523,7 @@ export namespace Prisma {
     produces?: ProduceUncheckedUpdateManyWithoutVendorNestedInput
     rentalSpaces?: RentalSpaceUncheckedUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type UserCreateWithoutCommunityPostsInput = {
@@ -13540,6 +28536,14 @@ export namespace Prisma {
     createdAt?: Date | string
     vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommunityPostsInput = {
@@ -13553,11 +28557,65 @@ export namespace Prisma {
     createdAt?: Date | string
     vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommunityPostsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutCommunityPostsInput, UserUncheckedCreateWithoutCommunityPostsInput>
+  }
+
+  export type PostLikeCreateWithoutPostInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPostLikesInput
+  }
+
+  export type PostLikeUncheckedCreateWithoutPostInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type PostLikeCreateOrConnectWithoutPostInput = {
+    where: PostLikeWhereUniqueInput
+    create: XOR<PostLikeCreateWithoutPostInput, PostLikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostLikeCreateManyPostInputEnvelope = {
+    data: PostLikeCreateManyPostInput | PostLikeCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostCommentCreateWithoutPostInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPostCommentsInput
+  }
+
+  export type PostCommentUncheckedCreateWithoutPostInput = {
+    id?: number
+    userId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostCommentCreateOrConnectWithoutPostInput = {
+    where: PostCommentWhereUniqueInput
+    create: XOR<PostCommentCreateWithoutPostInput, PostCommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostCommentCreateManyPostInputEnvelope = {
+    data: PostCommentCreateManyPostInput | PostCommentCreateManyPostInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutCommunityPostsInput = {
@@ -13581,6 +28639,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommunityPostsInput = {
@@ -13594,6 +28660,1408 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PostLikeUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostLikeWhereUniqueInput
+    update: XOR<PostLikeUpdateWithoutPostInput, PostLikeUncheckedUpdateWithoutPostInput>
+    create: XOR<PostLikeCreateWithoutPostInput, PostLikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostLikeUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostLikeWhereUniqueInput
+    data: XOR<PostLikeUpdateWithoutPostInput, PostLikeUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostLikeUpdateManyWithWhereWithoutPostInput = {
+    where: PostLikeScalarWhereInput
+    data: XOR<PostLikeUpdateManyMutationInput, PostLikeUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type PostCommentUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostCommentWhereUniqueInput
+    update: XOR<PostCommentUpdateWithoutPostInput, PostCommentUncheckedUpdateWithoutPostInput>
+    create: XOR<PostCommentCreateWithoutPostInput, PostCommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostCommentUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostCommentWhereUniqueInput
+    data: XOR<PostCommentUpdateWithoutPostInput, PostCommentUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostCommentUpdateManyWithWhereWithoutPostInput = {
+    where: PostCommentScalarWhereInput
+    data: XOR<PostCommentUpdateManyMutationInput, PostCommentUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type UserCreateWithoutPostLikesInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPostLikesInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPostLikesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPostLikesInput, UserUncheckedCreateWithoutPostLikesInput>
+  }
+
+  export type CommunityPostCreateWithoutLikesInput = {
+    postContent: string
+    postDate?: Date | string
+    user: UserCreateNestedOneWithoutCommunityPostsInput
+    comments?: PostCommentCreateNestedManyWithoutPostInput
+  }
+
+  export type CommunityPostUncheckedCreateWithoutLikesInput = {
+    id?: number
+    userId: number
+    postContent: string
+    postDate?: Date | string
+    comments?: PostCommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type CommunityPostCreateOrConnectWithoutLikesInput = {
+    where: CommunityPostWhereUniqueInput
+    create: XOR<CommunityPostCreateWithoutLikesInput, CommunityPostUncheckedCreateWithoutLikesInput>
+  }
+
+  export type UserUpsertWithoutPostLikesInput = {
+    update: XOR<UserUpdateWithoutPostLikesInput, UserUncheckedUpdateWithoutPostLikesInput>
+    create: XOR<UserCreateWithoutPostLikesInput, UserUncheckedCreateWithoutPostLikesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPostLikesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPostLikesInput, UserUncheckedUpdateWithoutPostLikesInput>
+  }
+
+  export type UserUpdateWithoutPostLikesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPostLikesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CommunityPostUpsertWithoutLikesInput = {
+    update: XOR<CommunityPostUpdateWithoutLikesInput, CommunityPostUncheckedUpdateWithoutLikesInput>
+    create: XOR<CommunityPostCreateWithoutLikesInput, CommunityPostUncheckedCreateWithoutLikesInput>
+    where?: CommunityPostWhereInput
+  }
+
+  export type CommunityPostUpdateToOneWithWhereWithoutLikesInput = {
+    where?: CommunityPostWhereInput
+    data: XOR<CommunityPostUpdateWithoutLikesInput, CommunityPostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type CommunityPostUpdateWithoutLikesInput = {
+    postContent?: StringFieldUpdateOperationsInput | string
+    postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCommunityPostsNestedInput
+    comments?: PostCommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type CommunityPostUncheckedUpdateWithoutLikesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postContent?: StringFieldUpdateOperationsInput | string
+    postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserCreateWithoutPostCommentsInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPostCommentsInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPostCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPostCommentsInput, UserUncheckedCreateWithoutPostCommentsInput>
+  }
+
+  export type CommunityPostCreateWithoutCommentsInput = {
+    postContent: string
+    postDate?: Date | string
+    user: UserCreateNestedOneWithoutCommunityPostsInput
+    likes?: PostLikeCreateNestedManyWithoutPostInput
+  }
+
+  export type CommunityPostUncheckedCreateWithoutCommentsInput = {
+    id?: number
+    userId: number
+    postContent: string
+    postDate?: Date | string
+    likes?: PostLikeUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type CommunityPostCreateOrConnectWithoutCommentsInput = {
+    where: CommunityPostWhereUniqueInput
+    create: XOR<CommunityPostCreateWithoutCommentsInput, CommunityPostUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserUpsertWithoutPostCommentsInput = {
+    update: XOR<UserUpdateWithoutPostCommentsInput, UserUncheckedUpdateWithoutPostCommentsInput>
+    create: XOR<UserCreateWithoutPostCommentsInput, UserUncheckedCreateWithoutPostCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPostCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPostCommentsInput, UserUncheckedUpdateWithoutPostCommentsInput>
+  }
+
+  export type UserUpdateWithoutPostCommentsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPostCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CommunityPostUpsertWithoutCommentsInput = {
+    update: XOR<CommunityPostUpdateWithoutCommentsInput, CommunityPostUncheckedUpdateWithoutCommentsInput>
+    create: XOR<CommunityPostCreateWithoutCommentsInput, CommunityPostUncheckedCreateWithoutCommentsInput>
+    where?: CommunityPostWhereInput
+  }
+
+  export type CommunityPostUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: CommunityPostWhereInput
+    data: XOR<CommunityPostUpdateWithoutCommentsInput, CommunityPostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type CommunityPostUpdateWithoutCommentsInput = {
+    postContent?: StringFieldUpdateOperationsInput | string
+    postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCommunityPostsNestedInput
+    likes?: PostLikeUpdateManyWithoutPostNestedInput
+  }
+
+  export type CommunityPostUncheckedUpdateWithoutCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    postContent?: StringFieldUpdateOperationsInput | string
+    postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserCreateWithoutCustomerPostsInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCustomerPostsInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCustomerPostsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCustomerPostsInput, UserUncheckedCreateWithoutCustomerPostsInput>
+  }
+
+  export type CustomerPostLikeCreateWithoutPostInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutCustomerPostLikesInput
+  }
+
+  export type CustomerPostLikeUncheckedCreateWithoutPostInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type CustomerPostLikeCreateOrConnectWithoutPostInput = {
+    where: CustomerPostLikeWhereUniqueInput
+    create: XOR<CustomerPostLikeCreateWithoutPostInput, CustomerPostLikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type CustomerPostLikeCreateManyPostInputEnvelope = {
+    data: CustomerPostLikeCreateManyPostInput | CustomerPostLikeCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerPostCommentCreateWithoutPostInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCustomerPostCommentsInput
+  }
+
+  export type CustomerPostCommentUncheckedCreateWithoutPostInput = {
+    id?: number
+    userId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerPostCommentCreateOrConnectWithoutPostInput = {
+    where: CustomerPostCommentWhereUniqueInput
+    create: XOR<CustomerPostCommentCreateWithoutPostInput, CustomerPostCommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type CustomerPostCommentCreateManyPostInputEnvelope = {
+    data: CustomerPostCommentCreateManyPostInput | CustomerPostCommentCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutCustomerPostsInput = {
+    update: XOR<UserUpdateWithoutCustomerPostsInput, UserUncheckedUpdateWithoutCustomerPostsInput>
+    create: XOR<UserCreateWithoutCustomerPostsInput, UserUncheckedCreateWithoutCustomerPostsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCustomerPostsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCustomerPostsInput, UserUncheckedUpdateWithoutCustomerPostsInput>
+  }
+
+  export type UserUpdateWithoutCustomerPostsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCustomerPostsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CustomerPostLikeUpsertWithWhereUniqueWithoutPostInput = {
+    where: CustomerPostLikeWhereUniqueInput
+    update: XOR<CustomerPostLikeUpdateWithoutPostInput, CustomerPostLikeUncheckedUpdateWithoutPostInput>
+    create: XOR<CustomerPostLikeCreateWithoutPostInput, CustomerPostLikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type CustomerPostLikeUpdateWithWhereUniqueWithoutPostInput = {
+    where: CustomerPostLikeWhereUniqueInput
+    data: XOR<CustomerPostLikeUpdateWithoutPostInput, CustomerPostLikeUncheckedUpdateWithoutPostInput>
+  }
+
+  export type CustomerPostLikeUpdateManyWithWhereWithoutPostInput = {
+    where: CustomerPostLikeScalarWhereInput
+    data: XOR<CustomerPostLikeUpdateManyMutationInput, CustomerPostLikeUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type CustomerPostCommentUpsertWithWhereUniqueWithoutPostInput = {
+    where: CustomerPostCommentWhereUniqueInput
+    update: XOR<CustomerPostCommentUpdateWithoutPostInput, CustomerPostCommentUncheckedUpdateWithoutPostInput>
+    create: XOR<CustomerPostCommentCreateWithoutPostInput, CustomerPostCommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type CustomerPostCommentUpdateWithWhereUniqueWithoutPostInput = {
+    where: CustomerPostCommentWhereUniqueInput
+    data: XOR<CustomerPostCommentUpdateWithoutPostInput, CustomerPostCommentUncheckedUpdateWithoutPostInput>
+  }
+
+  export type CustomerPostCommentUpdateManyWithWhereWithoutPostInput = {
+    where: CustomerPostCommentScalarWhereInput
+    data: XOR<CustomerPostCommentUpdateManyMutationInput, CustomerPostCommentUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type UserCreateWithoutCustomerPostLikesInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCustomerPostLikesInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCustomerPostLikesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCustomerPostLikesInput, UserUncheckedCreateWithoutCustomerPostLikesInput>
+  }
+
+  export type CustomerPostCreateWithoutLikesInput = {
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCustomerPostsInput
+    comments?: CustomerPostCommentCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostUncheckedCreateWithoutLikesInput = {
+    id?: number
+    userId: number
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    comments?: CustomerPostCommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostCreateOrConnectWithoutLikesInput = {
+    where: CustomerPostWhereUniqueInput
+    create: XOR<CustomerPostCreateWithoutLikesInput, CustomerPostUncheckedCreateWithoutLikesInput>
+  }
+
+  export type UserUpsertWithoutCustomerPostLikesInput = {
+    update: XOR<UserUpdateWithoutCustomerPostLikesInput, UserUncheckedUpdateWithoutCustomerPostLikesInput>
+    create: XOR<UserCreateWithoutCustomerPostLikesInput, UserUncheckedCreateWithoutCustomerPostLikesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCustomerPostLikesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCustomerPostLikesInput, UserUncheckedUpdateWithoutCustomerPostLikesInput>
+  }
+
+  export type UserUpdateWithoutCustomerPostLikesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCustomerPostLikesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CustomerPostUpsertWithoutLikesInput = {
+    update: XOR<CustomerPostUpdateWithoutLikesInput, CustomerPostUncheckedUpdateWithoutLikesInput>
+    create: XOR<CustomerPostCreateWithoutLikesInput, CustomerPostUncheckedCreateWithoutLikesInput>
+    where?: CustomerPostWhereInput
+  }
+
+  export type CustomerPostUpdateToOneWithWhereWithoutLikesInput = {
+    where?: CustomerPostWhereInput
+    data: XOR<CustomerPostUpdateWithoutLikesInput, CustomerPostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type CustomerPostUpdateWithoutLikesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCustomerPostsNestedInput
+    comments?: CustomerPostCommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type CustomerPostUncheckedUpdateWithoutLikesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: CustomerPostCommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserCreateWithoutCustomerPostCommentsInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCustomerPostCommentsInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCustomerPostCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCustomerPostCommentsInput, UserUncheckedCreateWithoutCustomerPostCommentsInput>
+  }
+
+  export type CustomerPostCreateWithoutCommentsInput = {
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCustomerPostsInput
+    likes?: CustomerPostLikeCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostUncheckedCreateWithoutCommentsInput = {
+    id?: number
+    userId: number
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: CustomerPostLikeUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type CustomerPostCreateOrConnectWithoutCommentsInput = {
+    where: CustomerPostWhereUniqueInput
+    create: XOR<CustomerPostCreateWithoutCommentsInput, CustomerPostUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserUpsertWithoutCustomerPostCommentsInput = {
+    update: XOR<UserUpdateWithoutCustomerPostCommentsInput, UserUncheckedUpdateWithoutCustomerPostCommentsInput>
+    create: XOR<UserCreateWithoutCustomerPostCommentsInput, UserUncheckedCreateWithoutCustomerPostCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCustomerPostCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCustomerPostCommentsInput, UserUncheckedUpdateWithoutCustomerPostCommentsInput>
+  }
+
+  export type UserUpdateWithoutCustomerPostCommentsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCustomerPostCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CustomerPostUpsertWithoutCommentsInput = {
+    update: XOR<CustomerPostUpdateWithoutCommentsInput, CustomerPostUncheckedUpdateWithoutCommentsInput>
+    create: XOR<CustomerPostCreateWithoutCommentsInput, CustomerPostUncheckedCreateWithoutCommentsInput>
+    where?: CustomerPostWhereInput
+  }
+
+  export type CustomerPostUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: CustomerPostWhereInput
+    data: XOR<CustomerPostUpdateWithoutCommentsInput, CustomerPostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type CustomerPostUpdateWithoutCommentsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCustomerPostsNestedInput
+    likes?: CustomerPostLikeUpdateManyWithoutPostNestedInput
+  }
+
+  export type CustomerPostUncheckedUpdateWithoutCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: CustomerPostLikeUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type VendorProfileCreateWithoutVendorPostsInput = {
+    farmName: string
+    certificationStatus?: $Enums.CertificationStatus
+    farmLocation: string
+    profilePhoto?: string | null
+    certifications?: VendorProfileCreatecertificationsInput | string[]
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutVendorProfileInput
+    produces?: ProduceCreateNestedManyWithoutVendorInput
+    rentalSpaces?: RentalSpaceCreateNestedManyWithoutVendorInput
+    orders?: OrderCreateNestedManyWithoutVendorInput
+    sustainabilityCerts?: SustainabilityCertCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorProfileUncheckedCreateWithoutVendorPostsInput = {
+    id?: number
+    userId: number
+    farmName: string
+    certificationStatus?: $Enums.CertificationStatus
+    farmLocation: string
+    profilePhoto?: string | null
+    certifications?: VendorProfileCreatecertificationsInput | string[]
+    createdAt?: Date | string
+    produces?: ProduceUncheckedCreateNestedManyWithoutVendorInput
+    rentalSpaces?: RentalSpaceUncheckedCreateNestedManyWithoutVendorInput
+    orders?: OrderUncheckedCreateNestedManyWithoutVendorInput
+    sustainabilityCerts?: SustainabilityCertUncheckedCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorProfileCreateOrConnectWithoutVendorPostsInput = {
+    where: VendorProfileWhereUniqueInput
+    create: XOR<VendorProfileCreateWithoutVendorPostsInput, VendorProfileUncheckedCreateWithoutVendorPostsInput>
+  }
+
+  export type VendorPostLikeCreateWithoutPostInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutVendorPostLikesInput
+  }
+
+  export type VendorPostLikeUncheckedCreateWithoutPostInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type VendorPostLikeCreateOrConnectWithoutPostInput = {
+    where: VendorPostLikeWhereUniqueInput
+    create: XOR<VendorPostLikeCreateWithoutPostInput, VendorPostLikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type VendorPostLikeCreateManyPostInputEnvelope = {
+    data: VendorPostLikeCreateManyPostInput | VendorPostLikeCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VendorPostCommentCreateWithoutPostInput = {
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutVendorPostCommentsInput
+  }
+
+  export type VendorPostCommentUncheckedCreateWithoutPostInput = {
+    id?: number
+    userId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VendorPostCommentCreateOrConnectWithoutPostInput = {
+    where: VendorPostCommentWhereUniqueInput
+    create: XOR<VendorPostCommentCreateWithoutPostInput, VendorPostCommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type VendorPostCommentCreateManyPostInputEnvelope = {
+    data: VendorPostCommentCreateManyPostInput | VendorPostCommentCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VendorProfileUpsertWithoutVendorPostsInput = {
+    update: XOR<VendorProfileUpdateWithoutVendorPostsInput, VendorProfileUncheckedUpdateWithoutVendorPostsInput>
+    create: XOR<VendorProfileCreateWithoutVendorPostsInput, VendorProfileUncheckedCreateWithoutVendorPostsInput>
+    where?: VendorProfileWhereInput
+  }
+
+  export type VendorProfileUpdateToOneWithWhereWithoutVendorPostsInput = {
+    where?: VendorProfileWhereInput
+    data: XOR<VendorProfileUpdateWithoutVendorPostsInput, VendorProfileUncheckedUpdateWithoutVendorPostsInput>
+  }
+
+  export type VendorProfileUpdateWithoutVendorPostsInput = {
+    farmName?: StringFieldUpdateOperationsInput | string
+    certificationStatus?: EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+    farmLocation?: StringFieldUpdateOperationsInput | string
+    profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    certifications?: VendorProfileUpdatecertificationsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVendorProfileNestedInput
+    produces?: ProduceUpdateManyWithoutVendorNestedInput
+    rentalSpaces?: RentalSpaceUpdateManyWithoutVendorNestedInput
+    orders?: OrderUpdateManyWithoutVendorNestedInput
+    sustainabilityCerts?: SustainabilityCertUpdateManyWithoutVendorNestedInput
+  }
+
+  export type VendorProfileUncheckedUpdateWithoutVendorPostsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    farmName?: StringFieldUpdateOperationsInput | string
+    certificationStatus?: EnumCertificationStatusFieldUpdateOperationsInput | $Enums.CertificationStatus
+    farmLocation?: StringFieldUpdateOperationsInput | string
+    profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
+    certifications?: VendorProfileUpdatecertificationsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    produces?: ProduceUncheckedUpdateManyWithoutVendorNestedInput
+    rentalSpaces?: RentalSpaceUncheckedUpdateManyWithoutVendorNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutVendorNestedInput
+    sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
+  }
+
+  export type VendorPostLikeUpsertWithWhereUniqueWithoutPostInput = {
+    where: VendorPostLikeWhereUniqueInput
+    update: XOR<VendorPostLikeUpdateWithoutPostInput, VendorPostLikeUncheckedUpdateWithoutPostInput>
+    create: XOR<VendorPostLikeCreateWithoutPostInput, VendorPostLikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type VendorPostLikeUpdateWithWhereUniqueWithoutPostInput = {
+    where: VendorPostLikeWhereUniqueInput
+    data: XOR<VendorPostLikeUpdateWithoutPostInput, VendorPostLikeUncheckedUpdateWithoutPostInput>
+  }
+
+  export type VendorPostLikeUpdateManyWithWhereWithoutPostInput = {
+    where: VendorPostLikeScalarWhereInput
+    data: XOR<VendorPostLikeUpdateManyMutationInput, VendorPostLikeUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type VendorPostCommentUpsertWithWhereUniqueWithoutPostInput = {
+    where: VendorPostCommentWhereUniqueInput
+    update: XOR<VendorPostCommentUpdateWithoutPostInput, VendorPostCommentUncheckedUpdateWithoutPostInput>
+    create: XOR<VendorPostCommentCreateWithoutPostInput, VendorPostCommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type VendorPostCommentUpdateWithWhereUniqueWithoutPostInput = {
+    where: VendorPostCommentWhereUniqueInput
+    data: XOR<VendorPostCommentUpdateWithoutPostInput, VendorPostCommentUncheckedUpdateWithoutPostInput>
+  }
+
+  export type VendorPostCommentUpdateManyWithWhereWithoutPostInput = {
+    where: VendorPostCommentScalarWhereInput
+    data: XOR<VendorPostCommentUpdateManyMutationInput, VendorPostCommentUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type UserCreateWithoutVendorPostLikesInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutVendorPostLikesInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutVendorPostLikesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVendorPostLikesInput, UserUncheckedCreateWithoutVendorPostLikesInput>
+  }
+
+  export type VendorPostCreateWithoutLikesInput = {
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vendor: VendorProfileCreateNestedOneWithoutVendorPostsInput
+    comments?: VendorPostCommentCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostUncheckedCreateWithoutLikesInput = {
+    id?: number
+    vendorId: number
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    comments?: VendorPostCommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostCreateOrConnectWithoutLikesInput = {
+    where: VendorPostWhereUniqueInput
+    create: XOR<VendorPostCreateWithoutLikesInput, VendorPostUncheckedCreateWithoutLikesInput>
+  }
+
+  export type UserUpsertWithoutVendorPostLikesInput = {
+    update: XOR<UserUpdateWithoutVendorPostLikesInput, UserUncheckedUpdateWithoutVendorPostLikesInput>
+    create: XOR<UserCreateWithoutVendorPostLikesInput, UserUncheckedCreateWithoutVendorPostLikesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVendorPostLikesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVendorPostLikesInput, UserUncheckedUpdateWithoutVendorPostLikesInput>
+  }
+
+  export type UserUpdateWithoutVendorPostLikesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVendorPostLikesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type VendorPostUpsertWithoutLikesInput = {
+    update: XOR<VendorPostUpdateWithoutLikesInput, VendorPostUncheckedUpdateWithoutLikesInput>
+    create: XOR<VendorPostCreateWithoutLikesInput, VendorPostUncheckedCreateWithoutLikesInput>
+    where?: VendorPostWhereInput
+  }
+
+  export type VendorPostUpdateToOneWithWhereWithoutLikesInput = {
+    where?: VendorPostWhereInput
+    data: XOR<VendorPostUpdateWithoutLikesInput, VendorPostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type VendorPostUpdateWithoutLikesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorProfileUpdateOneRequiredWithoutVendorPostsNestedInput
+    comments?: VendorPostCommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type VendorPostUncheckedUpdateWithoutLikesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    vendorId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: VendorPostCommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserCreateWithoutVendorPostCommentsInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutVendorPostCommentsInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    userCommands?: UserCommandUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutVendorPostCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVendorPostCommentsInput, UserUncheckedCreateWithoutVendorPostCommentsInput>
+  }
+
+  export type VendorPostCreateWithoutCommentsInput = {
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vendor: VendorProfileCreateNestedOneWithoutVendorPostsInput
+    likes?: VendorPostLikeCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostUncheckedCreateWithoutCommentsInput = {
+    id?: number
+    vendorId: number
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: VendorPostLikeUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type VendorPostCreateOrConnectWithoutCommentsInput = {
+    where: VendorPostWhereUniqueInput
+    create: XOR<VendorPostCreateWithoutCommentsInput, VendorPostUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserUpsertWithoutVendorPostCommentsInput = {
+    update: XOR<UserUpdateWithoutVendorPostCommentsInput, UserUncheckedUpdateWithoutVendorPostCommentsInput>
+    create: XOR<UserCreateWithoutVendorPostCommentsInput, UserUncheckedCreateWithoutVendorPostCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVendorPostCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVendorPostCommentsInput, UserUncheckedUpdateWithoutVendorPostCommentsInput>
+  }
+
+  export type UserUpdateWithoutVendorPostCommentsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVendorPostCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    userCommands?: UserCommandUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type VendorPostUpsertWithoutCommentsInput = {
+    update: XOR<VendorPostUpdateWithoutCommentsInput, VendorPostUncheckedUpdateWithoutCommentsInput>
+    create: XOR<VendorPostCreateWithoutCommentsInput, VendorPostUncheckedCreateWithoutCommentsInput>
+    where?: VendorPostWhereInput
+  }
+
+  export type VendorPostUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: VendorPostWhereInput
+    data: XOR<VendorPostUpdateWithoutCommentsInput, VendorPostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type VendorPostUpdateWithoutCommentsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorProfileUpdateOneRequiredWithoutVendorPostsNestedInput
+    likes?: VendorPostLikeUpdateManyWithoutPostNestedInput
+  }
+
+  export type VendorPostUncheckedUpdateWithoutCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    vendorId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: VendorPostLikeUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserCreateWithoutUserCommandsInput = {
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeCreateNestedManyWithoutUserInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserCommandsInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    profileImage?: string | null
+    createdAt?: Date | string
+    vendorProfile?: VendorProfileUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutUserInput
+    customerPosts?: CustomerPostUncheckedCreateNestedManyWithoutUserInput
+    postLikes?: PostLikeUncheckedCreateNestedManyWithoutUserInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    customerPostLikes?: CustomerPostLikeUncheckedCreateNestedManyWithoutUserInput
+    customerPostComments?: CustomerPostCommentUncheckedCreateNestedManyWithoutUserInput
+    vendorPostLikes?: VendorPostLikeUncheckedCreateNestedManyWithoutUserInput
+    vendorPostComments?: VendorPostCommentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserCommandsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserCommandsInput, UserUncheckedCreateWithoutUserCommandsInput>
+  }
+
+  export type UserUpsertWithoutUserCommandsInput = {
+    update: XOR<UserUpdateWithoutUserCommandsInput, UserUncheckedUpdateWithoutUserCommandsInput>
+    create: XOR<UserCreateWithoutUserCommandsInput, UserUncheckedCreateWithoutUserCommandsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserCommandsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserCommandsInput, UserUncheckedUpdateWithoutUserCommandsInput>
+  }
+
+  export type UserUpdateWithoutUserCommandsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserCommandsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendorProfile?: VendorProfileUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutUserNestedInput
+    customerPosts?: CustomerPostUncheckedUpdateManyWithoutUserNestedInput
+    postLikes?: PostLikeUncheckedUpdateManyWithoutUserNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    customerPostLikes?: CustomerPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    customerPostComments?: CustomerPostCommentUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostLikes?: VendorPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    vendorPostComments?: VendorPostCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VendorProfileCreateWithoutSustainabilityCertsInput = {
@@ -13607,6 +30075,7 @@ export namespace Prisma {
     produces?: ProduceCreateNestedManyWithoutVendorInput
     rentalSpaces?: RentalSpaceCreateNestedManyWithoutVendorInput
     orders?: OrderCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileUncheckedCreateWithoutSustainabilityCertsInput = {
@@ -13621,6 +30090,7 @@ export namespace Prisma {
     produces?: ProduceUncheckedCreateNestedManyWithoutVendorInput
     rentalSpaces?: RentalSpaceUncheckedCreateNestedManyWithoutVendorInput
     orders?: OrderUncheckedCreateNestedManyWithoutVendorInput
+    vendorPosts?: VendorPostUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorProfileCreateOrConnectWithoutSustainabilityCertsInput = {
@@ -13650,6 +30120,7 @@ export namespace Prisma {
     produces?: ProduceUpdateManyWithoutVendorNestedInput
     rentalSpaces?: RentalSpaceUpdateManyWithoutVendorNestedInput
     orders?: OrderUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorProfileUncheckedUpdateWithoutSustainabilityCertsInput = {
@@ -13664,6 +30135,7 @@ export namespace Prisma {
     produces?: ProduceUncheckedUpdateManyWithoutVendorNestedInput
     rentalSpaces?: RentalSpaceUncheckedUpdateManyWithoutVendorNestedInput
     orders?: OrderUncheckedUpdateManyWithoutVendorNestedInput
+    vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type OrderCreateManyUserInput = {
@@ -13680,6 +30152,69 @@ export namespace Prisma {
     id?: number
     postContent: string
     postDate?: Date | string
+  }
+
+  export type CustomerPostCreateManyUserInput = {
+    id?: number
+    title: string
+    content: string
+    category: $Enums.PostCategory
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostLikeCreateManyUserInput = {
+    id?: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type PostCommentCreateManyUserInput = {
+    id?: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerPostLikeCreateManyUserInput = {
+    id?: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type CustomerPostCommentCreateManyUserInput = {
+    id?: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VendorPostLikeCreateManyUserInput = {
+    id?: number
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type VendorPostCommentCreateManyUserInput = {
+    id?: number
+    postId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCommandCreateManyUserInput = {
+    id?: number
+    name: string
+    description?: string | null
+    command: string
+    type?: $Enums.CommandType
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type OrderUpdateWithoutUserInput = {
@@ -13714,18 +30249,207 @@ export namespace Prisma {
   export type CommunityPostUpdateWithoutUserInput = {
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: PostLikeUpdateManyWithoutPostNestedInput
+    comments?: PostCommentUpdateManyWithoutPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: PostLikeUncheckedUpdateManyWithoutPostNestedInput
+    comments?: PostCommentUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: CustomerPostLikeUpdateManyWithoutPostNestedInput
+    comments?: CustomerPostCommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type CustomerPostUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: CustomerPostLikeUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CustomerPostCommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type CustomerPostUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostLikeUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: CommunityPostUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type PostLikeUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostLikeUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCommentUpdateWithoutUserInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: CommunityPostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type PostCommentUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCommentUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostLikeUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: CustomerPostUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type CustomerPostLikeUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostLikeUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCommentUpdateWithoutUserInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: CustomerPostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CustomerPostCommentUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCommentUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostLikeUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: VendorPostUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type VendorPostLikeUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostLikeUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCommentUpdateWithoutUserInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: VendorPostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type VendorPostCommentUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCommentUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    postId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCommandUpdateWithoutUserInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    command?: StringFieldUpdateOperationsInput | string
+    type?: EnumCommandTypeFieldUpdateOperationsInput | $Enums.CommandType
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCommandUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    command?: StringFieldUpdateOperationsInput | string
+    type?: EnumCommandTypeFieldUpdateOperationsInput | $Enums.CommandType
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCommandUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    command?: StringFieldUpdateOperationsInput | string
+    type?: EnumCommandTypeFieldUpdateOperationsInput | $Enums.CommandType
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProduceCreateManyVendorInput = {
@@ -13768,6 +30492,17 @@ export namespace Prisma {
     id?: number
     certifyingAgency: string
     certificationDate: Date | string
+  }
+
+  export type VendorPostCreateManyVendorInput = {
+    id?: number
+    title: string
+    content: string
+    category: $Enums.VendorPostCategory
+    image?: string | null
+    isApproved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ProduceUpdateWithoutVendorInput = {
@@ -13894,6 +30629,42 @@ export namespace Prisma {
     certificationDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VendorPostUpdateWithoutVendorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: VendorPostLikeUpdateManyWithoutPostNestedInput
+    comments?: VendorPostCommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type VendorPostUncheckedUpdateWithoutVendorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: VendorPostLikeUncheckedUpdateManyWithoutPostNestedInput
+    comments?: VendorPostCommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type VendorPostUncheckedUpdateManyWithoutVendorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumVendorPostCategoryFieldUpdateOperationsInput | $Enums.VendorPostCategory
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type OrderCreateManyProduceInput = {
     id?: number
     userId: number
@@ -13931,6 +30702,168 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostLikeCreateManyPostInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type PostCommentCreateManyPostInput = {
+    id?: number
+    userId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostLikeUpdateWithoutPostInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPostLikesNestedInput
+  }
+
+  export type PostLikeUncheckedUpdateWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostLikeUncheckedUpdateManyWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCommentUpdateWithoutPostInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPostCommentsNestedInput
+  }
+
+  export type PostCommentUncheckedUpdateWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostCommentUncheckedUpdateManyWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostLikeCreateManyPostInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type CustomerPostCommentCreateManyPostInput = {
+    id?: number
+    userId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerPostLikeUpdateWithoutPostInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCustomerPostLikesNestedInput
+  }
+
+  export type CustomerPostLikeUncheckedUpdateWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostLikeUncheckedUpdateManyWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCommentUpdateWithoutPostInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCustomerPostCommentsNestedInput
+  }
+
+  export type CustomerPostCommentUncheckedUpdateWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerPostCommentUncheckedUpdateManyWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostLikeCreateManyPostInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type VendorPostCommentCreateManyPostInput = {
+    id?: number
+    userId: number
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VendorPostLikeUpdateWithoutPostInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVendorPostLikesNestedInput
+  }
+
+  export type VendorPostLikeUncheckedUpdateWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostLikeUncheckedUpdateManyWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCommentUpdateWithoutPostInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVendorPostCommentsNestedInput
+  }
+
+  export type VendorPostCommentUncheckedUpdateWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VendorPostCommentUncheckedUpdateManyWithoutPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

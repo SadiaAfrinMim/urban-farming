@@ -152,6 +152,77 @@ const getOrders = catchAsync(async (req: Request & { user?: IJWTPayload }, res: 
     });
 });
 
+const createVendorPost = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const result = await VendorService.createVendorPost(user, req);
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: 'Vendor post created successfully',
+        data: result,
+    });
+});
+
+const getVendorPosts = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const result = await VendorService.getVendorPosts(user);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Vendor posts retrieved successfully',
+        data: result,
+    });
+});
+
+const updateVendorPost = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const { id } = req.params;
+    const result = await VendorService.updateVendorPost(user, id, req);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Vendor post updated successfully',
+        data: result,
+    });
+});
+
+const deleteVendorPost = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const { id } = req.params;
+    const result = await VendorService.deleteVendorPost(user, id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Vendor post deleted successfully',
+        data: result,
+    });
+});
+
+const toggleVendorPostLike = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const { postId } = req.params;
+    const result = await VendorService.toggleVendorPostLike(user, postId);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: result.liked ? 'Post liked successfully' : 'Post unliked successfully',
+        data: result,
+    });
+});
+
+const addVendorPostComment = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const { postId } = req.params;
+    const { content } = req.body;
+    const result = await VendorService.addVendorPostComment(user, postId, content);
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: 'Comment added successfully',
+        data: result,
+    });
+});
+
 export const VendorController = {
     createOrUpdateProfile,
     getProfile,
@@ -166,4 +237,10 @@ export const VendorController = {
     deleteProduce,
     updatePlantStatus,
     getOrders,
+    createVendorPost,
+    getVendorPosts,
+    updateVendorPost,
+    deleteVendorPost,
+    toggleVendorPostLike,
+    addVendorPostComment,
 };

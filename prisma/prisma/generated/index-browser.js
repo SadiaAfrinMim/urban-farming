@@ -188,6 +188,89 @@ exports.Prisma.CommunityPostScalarFieldEnum = {
   postDate: 'postDate'
 };
 
+exports.Prisma.PostLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PostCommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerPostScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  content: 'content',
+  category: 'category',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerPostLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CustomerPostCommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VendorPostScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  title: 'title',
+  content: 'content',
+  category: 'category',
+  image: 'image',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VendorPostLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VendorPostCommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserCommandScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  description: 'description',
+  command: 'command',
+  type: 'type',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SustainabilityCertScalarFieldEnum = {
   id: 'id',
   vendorId: 'vendorId',
@@ -248,6 +331,26 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   Cancelled: 'Cancelled'
 };
 
+exports.PostCategory = exports.$Enums.PostCategory = {
+  Question: 'Question',
+  Discussion: 'Discussion',
+  Review: 'Review',
+  Suggestion: 'Suggestion'
+};
+
+exports.VendorPostCategory = exports.$Enums.VendorPostCategory = {
+  FarmUpdate: 'FarmUpdate',
+  ProductShowcase: 'ProductShowcase',
+  Sustainability: 'Sustainability',
+  Community: 'Community'
+};
+
+exports.CommandType = exports.$Enums.CommandType = {
+  SCRIPT: 'SCRIPT',
+  QUERY: 'QUERY',
+  ACTION: 'ACTION'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   VendorProfile: 'VendorProfile',
@@ -255,6 +358,15 @@ exports.Prisma.ModelName = {
   RentalSpace: 'RentalSpace',
   Order: 'Order',
   CommunityPost: 'CommunityPost',
+  PostLike: 'PostLike',
+  PostComment: 'PostComment',
+  CustomerPost: 'CustomerPost',
+  CustomerPostLike: 'CustomerPostLike',
+  CustomerPostComment: 'CustomerPostComment',
+  VendorPost: 'VendorPost',
+  VendorPostLike: 'VendorPostLike',
+  VendorPostComment: 'VendorPostComment',
+  UserCommand: 'UserCommand',
   SustainabilityCert: 'SustainabilityCert'
 };
 

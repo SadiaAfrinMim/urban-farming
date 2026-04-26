@@ -13,6 +13,9 @@ router.use(auth('Admin'));
 
 // User Management Routes
 router.get('/users', validateRequest(AdminValidation.getUsersQuerySchema), AdminController.getAllUsers);
+router.get('/users/all', AdminController.getAllUsersData);
+router.get('/vendors/all', AdminController.getAllVendorsData);
+router.get('/customers/all', AdminController.getAllCustomersData);
 router.patch('/users/:userId/role', validateRequest(AdminValidation.updateUserRoleZodSchema), AdminController.updateUserRole);
 router.patch('/users/:userId/status', validateRequest(AdminValidation.updateUserStatusZodSchema), AdminController.updateUserStatus);
 
@@ -45,5 +48,8 @@ router.get('/logs/rate-limit', AdminController.getRateLimitLogs);
 router.post('/announcements', validateRequest(AdminValidation.createAnnouncementZodSchema), AdminController.createAnnouncement);
 router.get('/announcements', AdminController.getAnnouncements);
 router.delete('/announcements/:announcementId', validateRequest(AdminValidation.deleteAnnouncementZodSchema), AdminController.deleteAnnouncement);
+
+// Dashboard Routes
+router.get('/dashboard/stats', AdminController.getDashboardStats);
 
 export const AdminRoutes = router;

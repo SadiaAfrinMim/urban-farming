@@ -59,9 +59,17 @@ model User {
   profileImage String?
   createdAt    DateTime   @default(now())
 
-  vendorProfile  VendorProfile?
-  orders         Order[]
-  communityPosts CommunityPost[]
+  vendorProfile        VendorProfile?
+  orders               Order[]
+  communityPosts       CommunityPost[]
+  customerPosts        CustomerPost[]
+  postLikes            PostLike[]
+  postComments         PostComment[]
+  customerPostLikes    CustomerPostLike[]
+  customerPostComments CustomerPostComment[]
+  vendorPostLikes      VendorPostLike[]
+  vendorPostComments   VendorPostComment[]
+  userCommands         UserCommand[]
 
   @@map("users")
 }
@@ -81,6 +89,7 @@ model VendorProfile {
   rentalSpaces        RentalSpace[]
   orders              Order[]
   sustainabilityCerts SustainabilityCert[]
+  vendorPosts         VendorPost[]
 
   @@map("vendor_profiles")
 }
@@ -145,9 +154,163 @@ model CommunityPost {
   postContent String
   postDate    DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user     User          @relation(fields: [userId], references: [id])
+  likes    PostLike[]
+  comments PostComment[]
 
   @@map("community_posts")
+}
+
+model PostLike {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  createdAt DateTime @default(now())
+
+  user User          @relation(fields: [userId], references: [id])
+  post CommunityPost @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+  @@map("post_likes")
+}
+
+model PostComment {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User          @relation(fields: [userId], references: [id])
+  post CommunityPost @relation(fields: [postId], references: [id])
+
+  @@map("post_comments")
+}
+
+enum PostCategory {
+  Question
+  Discussion
+  Review
+  Suggestion
+}
+
+enum VendorPostCategory {
+  FarmUpdate
+  ProductShowcase
+  Sustainability
+  Community
+}
+
+model CustomerPost {
+  id         Int          @id @default(autoincrement())
+  userId     Int
+  title      String
+  content    String
+  category   PostCategory
+  isApproved Boolean      @default(false)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  user     User                  @relation(fields: [userId], references: [id])
+  likes    CustomerPostLike[]
+  comments CustomerPostComment[]
+
+  @@map("customer_posts")
+}
+
+model CustomerPostLike {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  createdAt DateTime @default(now())
+
+  user User         @relation(fields: [userId], references: [id])
+  post CustomerPost @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+  @@map("customer_post_likes")
+}
+
+model CustomerPostComment {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User         @relation(fields: [userId], references: [id])
+  post CustomerPost @relation(fields: [postId], references: [id])
+
+  @@map("customer_post_comments")
+}
+
+model VendorPost {
+  id         Int                @id @default(autoincrement())
+  vendorId   Int
+  title      String
+  content    String
+  category   VendorPostCategory
+  image      String?
+  isApproved Boolean            @default(false)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+
+  vendor   VendorProfile       @relation(fields: [vendorId], references: [id])
+  likes    VendorPostLike[]
+  comments VendorPostComment[]
+
+  @@map("vendor_posts")
+}
+
+model VendorPostLike {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  createdAt DateTime @default(now())
+
+  user User       @relation(fields: [userId], references: [id])
+  post VendorPost @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+  @@map("vendor_post_likes")
+}
+
+model VendorPostComment {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User       @relation(fields: [userId], references: [id])
+  post VendorPost @relation(fields: [postId], references: [id])
+
+  @@map("vendor_post_comments")
+}
+
+enum CommandType {
+  SCRIPT
+  QUERY
+  ACTION
+}
+
+model UserCommand {
+  id          Int         @id @default(autoincrement())
+  userId      Int
+  name        String
+  description String?
+  command     String
+  type        CommandType @default(SCRIPT)
+  isPublic    Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_commands")
 }
 
 model SustainabilityCert {

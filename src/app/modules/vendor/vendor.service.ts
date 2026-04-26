@@ -519,6 +519,277 @@ const getOrders = async (user: IJWTPayload) => {
     return orders;
 };
 
+const createVendorPost = async (user: IJWTPayload, req: Request) => {
+    console.log('=== VENDOR POST CREATE SERVICE START ===');
+    console.log('Body:', req.body);
+    console.log('Image URL from middleware:', req.body.imageUrl);
+
+    const profile = await prisma.vendorProfile.findUnique({
+        where: {
+            userId: user.id!,
+        },
+    });
+
+    if (!profile) {
+        throw new ApiError('Vendor profile not found', 404);
+    }
+
+    // Validate category
+    const validCategories = ['FarmUpdate', 'ProductShowcase', 'Sustainability', 'Community'];
+    if (!validCategories.includes(req.body.category)) {
+        throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+    }
+
+    const postData = {
+        vendorId: profile.id,
+        title: req.body.title,
+        content: req.body.content,
+        category: req.body.category,
+        image: req.body.imageUrl || null,
+        isApproved: req.body.isApproved || false,
+    };
+
+    console.log('Final vendor post data:', postData);
+
+    const post = await prisma.vendorPost.create({
+        data: postData,
+        include: {
+            vendor: {
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                            email: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    console.log('✅ Vendor post created:', post.id);
+    return post;
+};
+
+const getVendorPosts = async (user: IJWTPayload) => {
+    const profile = await prisma.vendorProfile.findUnique({
+        where: {
+            userId: user.id!,
+        },
+    });
+
+    if (!profile) {
+        return [];
+    }
+
+    const posts = await prisma.vendorPost.findMany({
+        where: {
+            vendorId: profile.id,
+        },
+        include: {
+            likes: {
+                select: {
+                    id: true,
+                    userId: true,
+                },
+            },
+            comments: {
+                select: {
+                    id: true,
+                    content: true,
+                    createdAt: true,
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                },
+                orderBy: {
+                    createdAt: 'asc',
+                },
+            },
+        },
+        orderBy: {
+            createdAt: 'desc',
+        },
+    });
+
+    // Add computed fields
+    return posts.map(post => ({
+        ...post,
+        likeCount: post.likes.length,
+        commentCount: post.comments.length,
+    }));
+};
+
+const updateVendorPost = async (user: IJWTPayload, id: string, req: any) => {
+    const profile = await prisma.vendorProfile.findUnique({
+        where: {
+            userId: user.id!,
+        },
+    });
+
+    if (!profile) {
+        throw new ApiError('Vendor profile not found', 404);
+    }
+
+    const post = await prisma.vendorPost.findUnique({
+        where: {
+            id: parseInt(id),
+        },
+    });
+
+    if (!post) {
+        throw new ApiError('Vendor post not found', 404);
+    }
+
+    // Check if the post belongs to the user
+    if (post.vendorId !== profile.id) {
+        throw new ApiError('You can only update your own posts', 403);
+    }
+
+    // Validate category if provided
+    if (req.body.category) {
+        const validCategories = ['FarmUpdate', 'ProductShowcase', 'Sustainability', 'Community'];
+        if (!validCategories.includes(req.body.category)) {
+            throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+        }
+    }
+
+    // Handle image update
+    let updateData: any = {
+        ...req.body,
+        updatedAt: new Date(),
+    };
+
+    // If new image was uploaded via multipart, use it
+    if (req.body.imageUrl) {
+        updateData.image = req.body.imageUrl;
+    }
+
+    const updatedPost = await prisma.vendorPost.update({
+        where: {
+            id: parseInt(id),
+        },
+        data: updateData,
+        include: {
+            vendor: {
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                            email: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    return updatedPost;
+};
+
+const deleteVendorPost = async (user: IJWTPayload, id: string) => {
+    const profile = await prisma.vendorProfile.findUnique({
+        where: {
+            userId: user.id!,
+        },
+    });
+
+    if (!profile) {
+        throw new ApiError('Vendor profile not found', 404);
+    }
+
+    const post = await prisma.vendorPost.findUnique({
+        where: {
+            id: parseInt(id),
+        },
+    });
+
+    if (!post) {
+        throw new ApiError('Vendor post not found', 404);
+    }
+
+    // Check if the post belongs to the user
+    if (post.vendorId !== profile.id) {
+        throw new ApiError('You can only delete your own posts', 403);
+    }
+
+    await prisma.vendorPost.delete({
+        where: {
+            id: parseInt(id),
+        },
+    });
+};
+
+const toggleVendorPostLike = async (user: IJWTPayload, postId: string) => {
+    const post = await prisma.vendorPost.findUnique({
+        where: { id: parseInt(postId) },
+    });
+    if (!post) {
+        throw new ApiError('Vendor post not found', 404);
+    }
+
+    // Check if user already liked the post
+    const existingLike = await prisma.vendorPostLike.findUnique({
+        where: {
+            userId_postId: {
+                userId: user.id!,
+                postId: parseInt(postId),
+            },
+        },
+    });
+
+    if (existingLike) {
+        // Unlike the post
+        await prisma.vendorPostLike.delete({
+            where: { id: existingLike.id },
+        });
+        return { liked: false };
+    } else {
+        // Like the post
+        await prisma.vendorPostLike.create({
+            data: {
+                userId: user.id!,
+                postId: parseInt(postId),
+            },
+        });
+        return { liked: true };
+    }
+};
+
+const addVendorPostComment = async (user: IJWTPayload, postId: string, content: string) => {
+    const post = await prisma.vendorPost.findUnique({
+        where: { id: parseInt(postId) },
+    });
+    if (!post) {
+        throw new ApiError('Vendor post not found', 404);
+    }
+
+    if (!content.trim()) {
+        throw new ApiError('Comment content cannot be empty', 400);
+    }
+
+    const comment = await prisma.vendorPostComment.create({
+        data: {
+            userId: user.id!,
+            postId: parseInt(postId),
+            content: content.trim(),
+        },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+        },
+    });
+
+    return comment;
+};
+
 export const VendorService = {
     createOrUpdateProfile,
     getProfile,
@@ -533,4 +804,10 @@ export const VendorService = {
     deleteProduce,
     updatePlantStatus,
     getOrders,
+    createVendorPost,
+    getVendorPosts,
+    updateVendorPost,
+    deleteVendorPost,
+    toggleVendorPostLike,
+    addVendorPostComment,
 };

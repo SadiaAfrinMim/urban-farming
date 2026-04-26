@@ -90,9 +90,9 @@ const getPendingCertifications = async () => {
     where: { certificationStatus: CertificationStatus.Pending },
     include: {
       user: true,
-      certifications: true,
     },
   });
+
   return vendors;
 };
 
@@ -381,9 +381,257 @@ const deleteAnnouncement = async (announcementId: string) => {
   return { message: 'Announcement deleted successfully' };
 };
 
+const getDashboardStats = async () => {
+  const [
+    totalUsers,
+    totalVendors,
+    totalCustomers,
+    pendingCertifications,
+    pendingProducts,
+    pendingPosts,
+  ] = await Promise.all([
+    prisma.user.count(),
+    prisma.user.count({ where: { role: UserRole.Vendor } }),
+    prisma.user.count({ where: { role: UserRole.Customer } }),
+    prisma.vendorProfile.count({ where: { certificationStatus: CertificationStatus.Pending } }),
+    prisma.produce.count({ where: { certificationStatus: CertificationStatus.Pending } }),
+    prisma.communityPost.count({ where: { isApproved: false } }),
+  ]);
+
+  return {
+    totalUsers,
+    totalVendors,
+    totalCustomers,
+    pendingCertifications,
+    pendingProducts,
+    pendingPosts,
+  };
+};
+
+const getAllUsersData = async (filters: any, options: any) => {
+  const { searchTerm, role, status, ...filterData } = filters;
+  const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: [
+        { name: { contains: searchTerm, mode: 'insensitive' } },
+        { email: { contains: searchTerm, mode: 'insensitive' } },
+      ],
+    });
+  }
+
+  if (role) {
+    andConditions.push({ role });
+  }
+
+  if (status) {
+    andConditions.push({ status });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map(key => ({
+        [key]: filterData[key],
+      })),
+    });
+  }
+
+  const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.user.findMany({
+    where: whereConditions,
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: {
+      [sortBy]: sortOrder,
+    },
+    include: {
+      vendorProfile: true,
+    },
+  });
+
+  const total = await prisma.user.count({ where: whereConditions });
+
+  return {
+    data: result,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
+
+const getAllVendorsData = async (filters: any, options: any) => {
+  const { searchTerm, certificationStatus, ...filterData } = filters;
+  const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: [
+        { user: { name: { contains: searchTerm, mode: 'insensitive' } } },
+        { user: { email: { contains: searchTerm, mode: 'insensitive' } } },
+        { farmName: { contains: searchTerm, mode: 'insensitive' } },
+        { farmLocation: { contains: searchTerm, mode: 'insensitive' } },
+      ],
+    });
+  }
+
+  if (certificationStatus) {
+    andConditions.push({ certificationStatus });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map(key => ({
+        [key]: filterData[key],
+      })),
+    });
+  }
+
+  const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.vendorProfile.findMany({
+    where: whereConditions,
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: {
+      [sortBy]: sortOrder,
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          status: true,
+          createdAt: true,
+        },
+      },
+      produces: {
+        take: 3,
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          certificationStatus: true,
+        },
+      },
+      rentalSpaces: {
+        take: 3,
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          location: true,
+          price: true,
+          availability: true,
+        },
+      },
+    },
+  });
+
+  const total = await prisma.vendorProfile.count({ where: whereConditions });
+
+  return {
+    data: result,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
+
+const getAllCustomersData = async (filters: any, options: any) => {
+  const { searchTerm, ...filterData } = filters;
+  const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: [
+        { name: { contains: searchTerm, mode: 'insensitive' } },
+        { email: { contains: searchTerm, mode: 'insensitive' } },
+      ],
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map(key => ({
+        [key]: filterData[key],
+      })),
+    });
+  }
+
+  const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.user.findMany({
+    where: {
+      ...whereConditions,
+      role: UserRole.Customer,
+    },
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: {
+      [sortBy]: sortOrder,
+    },
+    include: {
+      _count: {
+        select: {
+          orders: true,
+        },
+      },
+    },
+  });
+
+  // Get posts count for each customer
+  const customersWithPosts = await Promise.all(
+    result.map(async (customer) => {
+      const postsCount = await prisma.customerPost.count({
+        where: { userId: customer.id },
+      });
+      return {
+        ...customer,
+        postsCount,
+        ordersCount: customer._count.orders,
+      };
+    })
+  );
+
+  const total = await prisma.user.count({
+    where: {
+      ...whereConditions,
+      role: UserRole.Customer,
+    },
+  });
+
+  return {
+    data: customersWithPosts,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
+
 export const AdminService = {
   // User Management
   getAllUsers,
+  getAllUsersData,
+  getAllVendorsData,
+  getAllCustomersData,
   updateUserRole,
   updateUserStatus,
 
@@ -406,6 +654,9 @@ export const AdminService = {
   getAllOrders,
   getRentalAnalytics,
   getRevenueAnalytics,
+
+  // Dashboard
+  getDashboardStats,
 
   // System Settings
   getRateLimitLogs,

@@ -21,6 +21,45 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllUsersData = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ['searchTerm', 'role', 'status']);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const result = await AdminService.getAllUsersData(filters, options);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All users data retrieved successfully',
+    data: result,
+  });
+});
+
+const getAllVendorsData = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ['searchTerm', 'certificationStatus']);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const result = await AdminService.getAllVendorsData(filters, options);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All vendors data retrieved successfully',
+    data: result,
+  });
+});
+
+const getAllCustomersData = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ['searchTerm']);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const result = await AdminService.getAllCustomersData(filters, options);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All customers data retrieved successfully',
+    data: result,
+  });
+});
+
 const updateUserRole = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { role } = req.body;
@@ -263,9 +302,23 @@ const deleteAnnouncement = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getDashboardStats = catchAsync(async (req: Request, res: Response) => {
+  const result = await AdminService.getDashboardStats();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Dashboard stats retrieved successfully',
+    data: result,
+  });
+});
+
 export const AdminController = {
   // User Management
   getAllUsers,
+  getAllUsersData,
+  getAllVendorsData,
+  getAllCustomersData,
   updateUserRole,
   updateUserStatus,
 
@@ -288,6 +341,9 @@ export const AdminController = {
   getAllOrders,
   getRentalAnalytics,
   getRevenueAnalytics,
+
+  // Dashboard
+  getDashboardStats,
 
   // System Settings
   getRateLimitLogs,

@@ -190,6 +190,100 @@ router.patch('/posts/:id', auth(UserRole.Admin, UserRole.Vendor, UserRole.Custom
  */
 router.delete('/posts/:id', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.deletePost);
 
+/**
+ * @swagger
+ * /community/posts/{id}/like:
+ *   post:
+ *     summary: Toggle like on a community post
+ *     tags: [Community]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The post ID
+ *     responses:
+ *       200:
+ *         description: Like toggled successfully
+ */
+router.post('/posts/:id/like', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.toggleLike);
+
+/**
+ * @swagger
+ * /community/posts/{id}/comments:
+ *   post:
+ *     summary: Add a comment to a community post
+ *     tags: [Community]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The post ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 description: The comment content
+ *             required:
+ *               - content
+ *     responses:
+ *       201:
+ *         description: Comment added successfully
+ */
+router.post('/posts/:id/comments', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.addComment);
+
+/**
+ * @swagger
+ * /community/posts/{id}/comments:
+ *   get:
+ *     summary: Get comments for a community post
+ *     tags: [Community]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The post ID
+ *     responses:
+ *       200:
+ *         description: Comments retrieved successfully
+ */
+router.get('/posts/:id/comments', CommunityController.getPostComments);
+
+/**
+ * @swagger
+ * /community/posts/comments/{commentId}:
+ *   delete:
+ *     summary: Delete a comment
+ *     tags: [Community]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: commentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The comment ID
+ *     responses:
+ *       200:
+ *         description: Comment deleted successfully
+ */
+router.delete('/posts/comments/:commentId', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.deleteComment);
+
 export const communityRoutes = router;
 
 /**

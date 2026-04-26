@@ -25,7 +25,7 @@ const router = express.Router();
  *       200:
  *         description: List of certificates
  */
-router.get('/certs', auth(UserRole.Admin), SustainabilityController.getAllCerts);
+router.get('/certs', auth(UserRole.Admin,UserRole.Customer), SustainabilityController.getAllCerts);
 
 /**
  * @swagger

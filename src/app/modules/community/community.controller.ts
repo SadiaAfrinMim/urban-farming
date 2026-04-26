@@ -66,10 +66,62 @@ const deletePost = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const toggleLike = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const user = (req as AuthenticatedRequest).user;
+  const result = await CommunityService.toggleLike(id, user.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: result.liked ? 'Post liked successfully' : 'Post unliked successfully',
+    data: result,
+  });
+});
+
+const addComment = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const user = (req as AuthenticatedRequest).user;
+  const { content } = req.body;
+  const result = await CommunityService.addComment(id, user.id, content);
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: 'Comment added successfully',
+    data: result,
+  });
+});
+
+const getPostComments = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await CommunityService.getPostComments(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Comments retrieved successfully',
+    data: result,
+  });
+});
+
+const deleteComment = catchAsync(async (req: Request, res: Response) => {
+  const { commentId } = req.params;
+  const user = (req as AuthenticatedRequest).user;
+  await CommunityService.deleteComment(commentId, user.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Comment deleted successfully',
+    data: null,
+  });
+});
+
 export const CommunityController = {
   getAllPosts,
   getPostById,
   createPost,
   updatePost,
   deletePost,
+  toggleLike,
+  addComment,
+  getPostComments,
+  deleteComment,
 };

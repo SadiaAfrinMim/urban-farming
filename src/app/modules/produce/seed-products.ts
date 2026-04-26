@@ -1,12 +1,5 @@
 // Seed approved products for marketplace testing
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from '../../../prisma/prisma/generated/client';
-import config from '../../../config';
-
-const adapter = new PrismaPg({
-  connectionString: config.database_url as string,
-});
-const prisma = new PrismaClient({ adapter });
+import { prisma } from '../../shared/prisma';
 
 async function seedApprovedProducts() {
   try {

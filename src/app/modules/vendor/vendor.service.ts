@@ -180,9 +180,20 @@ const getVendorCard = async (user: IJWTPayload) => {
 };
 
 const createRentalSpace = async (user: IJWTPayload, req: Request) => {
-    console.log('=== RENTAL SPACE SERVICE START ===');
-    console.log('Body:', req.body);
-    console.log('Image URL from middleware:', req.body.imageUrl);
+    console.log('=== RENTAL SPACE CREATE SERVICE START ===');
+    console.log('Request method:', req.method);
+    console.log('Content-Type:', req.headers['content-type']);
+    console.log('Body keys:', Object.keys(req.body || {}));
+    console.log('Files:', req.file ? 'Has file' : 'No file');
+    console.log('Image URL from middleware:', req.body?.imageUrl);
+
+    // Log all body data for debugging
+    if (req.body) {
+        Object.keys(req.body).forEach(key => {
+            console.log(`${key}:`, typeof req.body[key] === 'string' && req.body[key].length > 50 ?
+                req.body[key].substring(0, 50) + '...' : req.body[key]);
+        });
+    }
 
     // Validate required fields
     const { location, size, price } = req.body;
@@ -257,7 +268,13 @@ const getRentalSpaces = async (user: IJWTPayload) => {
     return rentalSpaces;
 };
 
-const updateRentalSpace = async (user: IJWTPayload, id: string, data: any) => {
+const updateRentalSpace = async (user: IJWTPayload, id: string, req: any) => {
+    console.log('=== RENTAL SPACE UPDATE SERVICE START ===');
+    console.log('Rental space ID:', id);
+    console.log('Content-Type:', req.headers?.['content-type']);
+    console.log('Body keys:', Object.keys(req.body || {}));
+    console.log('Files:', req.file ? 'Has file' : 'No file');
+
     const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id!,
@@ -265,16 +282,40 @@ const updateRentalSpace = async (user: IJWTPayload, id: string, data: any) => {
     });
 
     if (!profile) {
-        throw new Error('Vendor profile not found');
+        throw new ApiError('Vendor profile not found', 404);
     }
 
-    const rentalSpace = await prisma.rentalSpace.updateMany({
+    const data = req.body;
+
+    // Parse FormData if it contains 'data' field
+    let updateData: any = data;
+    if (data.data) {
+        console.log('Parsing JSON data from FormData');
+        updateData = JSON.parse(data.data);
+    }
+
+    // Handle image update - check for imageUrl from middleware
+    if (data.imageUrl) {
+        console.log('Adding image URL:', data.imageUrl);
+        updateData.image = data.imageUrl;
+    }
+
+    // Convert price to number if it's a string
+    if (updateData.price && typeof updateData.price === 'string') {
+        updateData.price = parseFloat(updateData.price);
+    }
+
+    console.log('Final update data:', updateData);
+
+    const rentalSpace = await prisma.rentalSpace.update({
         where: {
-            id,
+            id: parseInt(id),
             vendorId: profile.id,
         },
-        data,
+        data: updateData,
     });
+
+    console.log('Rental space updated successfully');
     return rentalSpace;
 };
 
@@ -286,12 +327,12 @@ const deleteRentalSpace = async (user: IJWTPayload, id: string) => {
     });
 
     if (!profile) {
-        throw new Error('Vendor profile not found');
+        throw new ApiError('Vendor profile not found', 404);
     }
 
-    const rentalSpace = await prisma.rentalSpace.deleteMany({
+    const rentalSpace = await prisma.rentalSpace.delete({
         where: {
-            id,
+            id: parseInt(id),
             vendorId: profile.id,
         },
     });
@@ -311,6 +352,12 @@ const createProduce = async (user: IJWTPayload, req: Request) => {
 
     if (!profile) {
         throw new ApiError('Vendor profile not found', 404);
+    }
+
+    // Validate category
+    const validCategories = ['Vegetables', 'Fruits', 'Grains', 'Dairy'];
+    if (!validCategories.includes(req.body.category)) {
+        throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
     }
 
     const produceData = {
@@ -358,7 +405,7 @@ const getProduces = async (user: IJWTPayload) => {
     return produces;
 };
 
-const updateProduce = async (user: IJWTPayload, id: string, data: any) => {
+const updateProduce = async (user: IJWTPayload, id: string, req: any) => {
     const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id!,
@@ -366,15 +413,38 @@ const updateProduce = async (user: IJWTPayload, id: string, data: any) => {
     });
 
     if (!profile) {
-        throw new Error('Vendor profile not found');
+        throw new ApiError('Vendor profile not found', 404);
     }
 
-    const produce = await prisma.produce.updateMany({
+    const data = req.body;
+
+    // Validate category if provided
+    if (data.category) {
+        const validCategories = ['Vegetables', 'Fruits', 'Grains', 'Dairy'];
+        if (!validCategories.includes(data.category)) {
+            throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+        }
+    }
+
+    // Handle image update - check for imageUrl from middleware or direct JSON
+    let updateData: any = {
+        ...data,
+        price: data.price ? parseFloat(data.price) : undefined,
+        availableQuantity: data.availableQuantity ? parseInt(data.availableQuantity) : undefined,
+        isOrganic: data.isOrganic === 'true' || data.isOrganic === true ? true : data.isOrganic === 'false' || data.isOrganic === false ? false : undefined,
+    };
+
+    // If new image was uploaded via multipart, use it
+    if (data.imageUrl) {
+        updateData.image = data.imageUrl;
+    }
+
+    const produce = await prisma.produce.update({
         where: {
-            id,
+            id: parseInt(id),
             vendorId: profile.id,
         },
-        data,
+        data: updateData,
     });
     return produce;
 };
@@ -387,12 +457,12 @@ const deleteProduce = async (user: IJWTPayload, id: string) => {
     });
 
     if (!profile) {
-        throw new Error('Vendor profile not found');
+        throw new ApiError('Vendor profile not found', 404);
     }
 
-    const produce = await prisma.produce.deleteMany({
+    const produce = await prisma.produce.delete({
         where: {
-            id,
+            id: parseInt(id),
             vendorId: profile.id,
         },
     });

@@ -213,13 +213,19 @@ router.get('/card', auth(UserRole.Vendor), VendorController.getVendorCard);
  *       201:
  *         description: Rental space created
  */
-router.post(
-  '/rental-spaces',
-  auth(UserRole.Vendor),
-  uploadSingle,
-  uploadToCloudinary,
-  VendorController.createRentalSpace
-);
+router.post('/rental-spaces', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+  // Check if request has multipart data
+  if (req.headers['content-type']?.includes('multipart/form-data')) {
+    // Use multer to parse multipart data
+    uploadSingle(req, res, (err) => {
+      if (err) return next(err);
+      uploadToCloudinary(req, res, next);
+    });
+  } else {
+    // Regular JSON request, proceed directly
+    next();
+  }
+}, VendorController.createRentalSpace);
 
 /**
  * @swagger
@@ -249,11 +255,33 @@ router.get('/rental-spaces', auth(UserRole.Vendor), VendorController.getRentalSp
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Rental space updated
  */
-router.patch('/rental-spaces/:id', auth(UserRole.Vendor), VendorController.updateRentalSpace);
+router.patch('/rental-spaces/:id', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+  // Check if request has multipart data
+  if (req.headers['content-type']?.includes('multipart/form-data')) {
+    // Use multer to parse multipart data
+    uploadSingle(req, res, (err) => {
+      if (err) return next(err);
+      uploadToCloudinary(req, res, next);
+    });
+  } else {
+    // Regular JSON request, proceed directly
+    next();
+  }
+}, VendorController.updateRentalSpace);
 
 /**
  * @swagger
@@ -334,11 +362,33 @@ router.get('/produces', auth(UserRole.Vendor), VendorController.getProduces);
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Produce updated
  */
-router.patch('/produces/:id', auth(UserRole.Vendor), VendorController.updateProduce);
+router.patch('/produces/:id', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+  // Check if request has multipart data
+  if (req.headers['content-type']?.includes('multipart/form-data')) {
+    // Use multer to parse multipart data
+    uploadSingle(req, res, (err) => {
+      if (err) return next(err);
+      uploadToCloudinary(req, res, next);
+    });
+  } else {
+    // Regular JSON request, proceed directly
+    next();
+  }
+}, VendorController.updateProduce);
 
 /**
  * @swagger

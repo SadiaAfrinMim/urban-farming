@@ -47,21 +47,44 @@ cloudinary.config({
 // Upload to Cloudinary
 const uploadToCloudinary = async (file: Express.Multer.File) => {
   try {
+    console.log('Starting Cloudinary upload for file:', file.originalname, 'size:', file.size, 'mimetype:', file.mimetype);
+
+    // Check if Cloudinary is configured
+    if (!config.cloudinary.api_key || !config.cloudinary.cloud_name || !config.cloudinary.api_secret) {
+      console.error('Cloudinary configuration missing:', {
+        api_key: !!config.cloudinary.api_key,
+        cloud_name: !!config.cloudinary.cloud_name,
+        api_secret: !!config.cloudinary.api_secret
+      });
+      throw new Error('Cloudinary configuration is incomplete');
+    }
+
+    // Configure Cloudinary
+    cloudinary.config({
+      cloud_name: config.cloudinary.cloud_name,
+      api_key: config.cloudinary.api_key,
+      api_secret: config.cloudinary.api_secret,
+    });
+
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const publicId = `${file.fieldname}-${uniqueSuffix}`;
+    const publicId = `image-${uniqueSuffix}`;
+
+    console.log('Uploading to Cloudinary with public_id:', publicId);
 
     const uploadResult = await cloudinary.uploader.upload(
       `data:${file.mimetype};base64,${file.buffer.toString('base64')}`,
       {
         public_id: publicId,
         resource_type: 'auto',
+        folder: 'urban-farming',
       }
     );
 
+    console.log('Cloudinary upload successful:', uploadResult.secure_url);
     return uploadResult;
   } catch (error) {
     console.error('Cloudinary upload error:', error);
-    throw new Error('Failed to upload file to Cloudinary');
+    throw new Error(`Failed to upload file to Cloudinary: ${error.message || error}`);
   }
 };
 

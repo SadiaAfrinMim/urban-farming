@@ -65,26 +65,11 @@ router.patch(
 );
 
 // Update profile (NO VALIDATION)
-router.patch(
+router.post(
   "/update-my-profile",
   auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer),
-  (req: Request, res: Response, next: NextFunction) => {
-    // Handle both multipart form data (with file) and regular JSON
-    if (req.headers['content-type']?.includes('multipart/form-data')) {
-      // Use multer to parse multipart data
-      fileUploader.upload.single('file')(req, res, (err) => {
-        if (err) return next(err);
-
-        // Parse JSON data from the 'data' field
-        const parsedData = JSON.parse(req.body.data || '{}');
-        req.body = parsedData;
-        return UserController.updateMyProfile(req, res, next);
-      });
-    } else {
-      // Regular JSON request
-      return UserController.updateMyProfile(req, res, next);
-    }
-  }
+  fileUploader.upload.single('file'),
+  UserController.updateMyProfile
 );
 
 export const userRoutes = router;

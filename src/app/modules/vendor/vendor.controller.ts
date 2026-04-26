@@ -63,7 +63,7 @@ const getRentalSpaces = catchAsync(async (req: Request & { user?: IJWTPayload },
 const updateRentalSpace = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
     const user = req.user!;
     const { id } = req.params;
-    const result = await VendorService.updateRentalSpace(user, id, req.body);
+    const result = await VendorService.updateRentalSpace(user, id, req);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -109,7 +109,7 @@ const getProduces = catchAsync(async (req: Request & { user?: IJWTPayload }, res
 const updateProduce = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
     const user = req.user!;
     const { id } = req.params;
-    const result = await VendorService.updateProduce(user, id, req.body);
+    const result = await VendorService.updateProduce(user, id, req);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

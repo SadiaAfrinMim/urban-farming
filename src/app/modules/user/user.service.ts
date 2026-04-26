@@ -268,14 +268,20 @@ const updateMyProfile = async (user: IJWTPayload, req: Request) => {
     const file = req.file;
     let uploadedImage = null;
 
+    // Parse the data from FormData if it exists
+    let requestData = req.body;
+    if (req.body.data) {
+        requestData = JSON.parse(req.body.data);
+    }
+
     try {
         // ✅ Cloudinary আপলোড ট্রানজাকশনের বাইরে করা
         if (file) {
             uploadedImage = await fileUploader.uploadToCloudinary(file);
-            req.body.profilePhoto = uploadedImage?.secure_url;
+            requestData.profilePhoto = uploadedImage?.secure_url;
         }
 
-        let { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = req.body;
+        let { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = requestData;
 
         // Handle profile image based on role
         if (userInfo.role === UserRole.Customer || userInfo.role === UserRole.Admin) {

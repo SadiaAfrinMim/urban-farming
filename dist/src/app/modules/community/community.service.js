@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommunityService = void 0;
-const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
+const prisma_1 = require("../../shared/prisma");
 const http_status_1 = __importDefault(require("http-status"));
+const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const getAllPosts = async () => {
-    const posts = await prisma_1.default.communityPost.findMany({
+    const posts = await prisma_1.prisma.communityPost.findMany({
         include: {
             user: true,
         },
@@ -19,8 +19,8 @@ const getAllPosts = async () => {
     return posts;
 };
 const getPostById = async (id) => {
-    const post = await prisma_1.default.communityPost.findUnique({
-        where: { id },
+    const post = await prisma_1.prisma.communityPost.findUnique({
+        where: { id: parseInt(id) },
         include: {
             user: true,
         },
@@ -31,17 +31,17 @@ const getPostById = async (id) => {
     return post;
 };
 const createPost = async (userId, payload) => {
-    const post = await prisma_1.default.communityPost.create({
+    const post = await prisma_1.prisma.communityPost.create({
         data: {
             userId,
-            ...payload,
+            postContent: payload.postContent,
         },
     });
     return post;
 };
 const updatePost = async (id, user, payload) => {
-    const post = await prisma_1.default.communityPost.findUnique({
-        where: { id },
+    const post = await prisma_1.prisma.communityPost.findUnique({
+        where: { id: parseInt(id) },
     });
     if (!post) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
@@ -49,15 +49,17 @@ const updatePost = async (id, user, payload) => {
     if (post.userId !== user.id && user.role !== 'Admin') {
         throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
     }
-    const updated = await prisma_1.default.communityPost.update({
-        where: { id },
-        data: payload,
+    const updated = await prisma_1.prisma.communityPost.update({
+        where: { id: parseInt(id) },
+        data: {
+            postContent: payload.postContent,
+        },
     });
     return updated;
 };
 const deletePost = async (id, user) => {
-    const post = await prisma_1.default.communityPost.findUnique({
-        where: { id },
+    const post = await prisma_1.prisma.communityPost.findUnique({
+        where: { id: parseInt(id) },
     });
     if (!post) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
@@ -65,8 +67,8 @@ const deletePost = async (id, user) => {
     if (post.userId !== user.id && user.role !== 'Admin') {
         throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
     }
-    await prisma_1.default.communityPost.delete({
-        where: { id },
+    await prisma_1.prisma.communityPost.delete({
+        where: { id: parseInt(id) },
     });
 };
 exports.CommunityService = {

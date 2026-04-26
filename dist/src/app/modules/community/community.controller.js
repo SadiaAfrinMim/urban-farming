@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommunityController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
-const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
-const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const sendResponse_1 = __importDefault(require("../../shared/sendResponse"));
 const community_service_1 = require("./community.service");
+const catchAsync_1 = __importDefault(require("../../shared/catchAsync"));
 const getAllPosts = (0, catchAsync_1.default)(async (req, res) => {
     const result = await community_service_1.CommunityService.getAllPosts();
     (0, sendResponse_1.default)(res, {
@@ -58,6 +58,7 @@ const deletePost = (0, catchAsync_1.default)(async (req, res) => {
         statusCode: http_status_1.default.OK,
         success: true,
         message: 'Post deleted successfully',
+        data: null,
     });
 });
 exports.CommunityController = {

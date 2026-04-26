@@ -9,6 +9,7 @@ import { sustainabilityRoutes } from '../modules/sustainability/sustainability.r
 import { userRoutes } from '../modules/user/user.routes';
 import { VendorRoutes } from '../modules/vendor/vendor.routes';
 import { AdminRoutes } from '../modules/admin/admin.routes';
+import { paymentRoutes } from '../modules/payment/payment.routes';
 
 const router = express.Router();
 
@@ -56,6 +57,9 @@ const moduleRoutes = [
     {
         path: '/admin',
         route: AdminRoutes
+    },{
+        path: '/payments',
+        route: paymentRoutes
     }
 ];
 

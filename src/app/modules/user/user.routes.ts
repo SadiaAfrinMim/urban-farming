@@ -68,13 +68,22 @@ router.patch(
 router.patch(
   "/update-my-profile",
   auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer),
-  fileUploader.upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
+    // Handle both multipart form data (with file) and regular JSON
+    if (req.headers['content-type']?.includes('multipart/form-data')) {
+      // Use multer to parse multipart data
+      fileUploader.upload.single('file')(req, res, (err) => {
+        if (err) return next(err);
 
-    const parsedData = JSON.parse(req.body.data || '{}');
-    req.body = parsedData;
-
-    return UserController.updateMyProfile(req, res, next)
+        // Parse JSON data from the 'data' field
+        const parsedData = JSON.parse(req.body.data || '{}');
+        req.body = parsedData;
+        return UserController.updateMyProfile(req, res, next);
+      });
+    } else {
+      // Regular JSON request
+      return UserController.updateMyProfile(req, res, next);
+    }
   }
 );
 

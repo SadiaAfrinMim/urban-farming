@@ -1,12 +1,53 @@
+import { IJWTPayload } from '../../types/common';
 export declare const CommunityService: {
-    getAllPosts: () => Promise<any>;
-    getPostById: (id: string) => Promise<any>;
-    createPost: (userId: string, payload: {
+    getAllPosts: () => Promise<({
+        user: {
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            createdAt: Date;
+        };
+    } & {
+        id: number;
+        userId: number;
         postContent: string;
-    }) => Promise<any>;
-    updatePost: (id: string, user: any, payload: Partial<{
+        postDate: Date;
+    })[]>;
+    getPostById: (id: string) => Promise<{
+        user: {
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            createdAt: Date;
+        };
+    } & {
+        id: number;
+        userId: number;
         postContent: string;
-    }>) => Promise<any>;
-    deletePost: (id: string, user: any) => Promise<void>;
+        postDate: Date;
+    }>;
+    createPost: (userId: number, payload: {
+        postContent: string;
+    }) => Promise<{
+        id: number;
+        userId: number;
+        postContent: string;
+        postDate: Date;
+    }>;
+    updatePost: (id: string, user: IJWTPayload, payload: Partial<{
+        postContent: string;
+    }>) => Promise<{
+        id: number;
+        userId: number;
+        postContent: string;
+        postDate: Date;
+    }>;
+    deletePost: (id: string, user: IJWTPayload) => Promise<void>;
 };
 //# sourceMappingURL=community.service.d.ts.map

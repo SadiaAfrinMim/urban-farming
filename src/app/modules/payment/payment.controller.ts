@@ -10,7 +10,15 @@ import { UserRole } from '../../types/common';
 const createPaymentIntent = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.id as string;
   const { orderId } = req.body;
+
+  console.log('Payment intent request:', { orderId, userId, user: req.user });
+
+  if (!userId) {
+    throw new Error('Authentication required');
+  }
+
   const result = await PaymentService.createPaymentIntent(orderId, userId);
+  console.log('Payment intent created successfully:', result.clientSecret ? 'Has client secret' : 'No client secret');
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

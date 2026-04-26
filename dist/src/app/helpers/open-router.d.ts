@@ -1,2 +1,3 @@
-export declare const openai: any;
+import OpenAI from 'openai';
+export declare const openai: OpenAI;
 //# sourceMappingURL=open-router.d.ts.map

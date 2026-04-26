@@ -1,30 +1,42 @@
-import { UserRole } from '@prisma/client';
+import { IJWTPayload } from '../../types/common';
 export declare const AuthService: {
     registerUser: (payload: {
         name?: string;
         email: string;
         password: string;
-        role?: UserRole;
-    }) => Promise<any>;
+        role?: string;
+        adminCode?: string;
+        farmName?: string;
+        farmLocation?: string;
+    }) => Promise<{
+        id: number;
+        name: string;
+        email: string;
+        password: string;
+        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+        createdAt: Date;
+    }>;
     loginUser: (payload: {
         email: string;
         password: string;
     }) => Promise<{
-        accessToken: never;
-        refreshToken: never;
+        accessToken: string;
+        refreshToken: string;
         user: {
-            id: any;
-            name: any;
-            email: any;
-            role: any;
+            id: number;
+            name: string;
+            email: string;
+            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
         };
     }>;
     refreshToken: (token: string) => Promise<{
-        accessToken: never;
+        accessToken: string;
     }>;
-    changePassword: (user: any, payload: {
+    changePassword: (user: IJWTPayload, payload: {
         oldPassword: string;
         newPassword: string;
     }) => Promise<void>;
+    ensureAdminExists: () => Promise<void>;
 };
 //# sourceMappingURL=auth.service.d.ts.map

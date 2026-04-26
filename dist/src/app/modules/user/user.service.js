@@ -6,72 +6,120 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const prisma_1 = require("../../shared/prisma");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const client_1 = require("../../../../prisma/generated/prisma/client");
+const common_1 = require("../../types/common");
 const fileUploader_1 = require("../../helpers/fileUploader");
 const user_constant_1 = require("./user.constant");
 const paginationHelper_1 = require("../../helpers/paginationHelper");
-const createPatient = async (req) => {
-    if (req.file) {
-        const uploadResult = await fileUploader_1.fileUploader.uploadToCloudinary(req.file);
-        req.body.patient.profilePhoto = uploadResult?.secure_url;
-    }
+const createCustomer = async (req) => {
     const hashPassword = await bcryptjs_1.default.hash(req.body.password, 10);
-    const result = await prisma_1.prisma.$transaction(async (tnx) => {
-        await tnx.user.create({
-            data: {
-                email: req.body.patient.email,
-                password: hashPassword
-            }
-        });
-        return await tnx.patient.create({
-            data: req.body.patient
-        });
+    const result = await prisma_1.prisma.user.create({
+        data: {
+            name: req.body.name,
+            email: req.body.email,
+            password: hashPassword,
+            role: common_1.UserRole.Customer
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            createdAt: true
+        }
     });
     return result;
 };
 const createAdmin = async (req) => {
-    const file = req.file;
-    if (file) {
-        const uploadToCloudinary = await fileUploader_1.fileUploader.uploadToCloudinary(file);
-        req.body.admin.profilePhoto = uploadToCloudinary?.secure_url;
-    }
     const hashedPassword = await bcryptjs_1.default.hash(req.body.password, 10);
     const userData = {
-        email: req.body.admin.email,
+        name: req.body.name,
+        email: req.body.email,
         password: hashedPassword,
-        role: client_1.UserRole.ADMIN
+        role: common_1.UserRole.Admin
     };
-    const result = await prisma_1.prisma.$transaction(async (transactionClient) => {
-        await transactionClient.user.create({
-            data: userData
-        });
-        const createdAdminData = await transactionClient.admin.create({
-            data: req.body.admin
-        });
-        return createdAdminData;
+    const result = await prisma_1.prisma.user.create({
+        data: userData,
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            createdAt: true
+        }
     });
     return result;
 };
-const createDoctor = async (req) => {
+const createVendor = async (req) => {
     const file = req.file;
-    if (file) {
-        const uploadToCloudinary = await fileUploader_1.fileUploader.uploadToCloudinary(file);
-        req.body.doctor.profilePhoto = uploadToCloudinary?.secure_url;
+    let uploadedImage = null;
+    req.body.vendorProfile = req.body.vendorProfile || {};
+    try {
+        // 1. Upload outside transaction (OK)
+        if (file) {
+            uploadedImage = await fileUploader_1.fileUploader.uploadToCloudinary(file);
+            req.body.vendorProfile.profilePhoto = uploadedImage?.secure_url;
+        }
+        const hashedPassword = await bcryptjs_1.default.hash(req.body.password, 10);
+        const userData = {
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+            role: common_1.UserRole.Vendor
+        };
+        // 2. Keep transaction ONLY for DB ops
+        const result = await prisma_1.prisma.$transaction(async (tx) => {
+            const createdUser = await tx.user.create({
+                data: userData
+            });
+            const createdVendorProfile = await tx.vendorProfile.create({
+                data: {
+                    ...req.body.vendorProfile,
+                    userId: createdUser.id
+                }
+            });
+            return { user: createdUser, vendorProfile: createdVendorProfile };
+        }, {
+            timeout: 20000 // 20 second timeout
+        });
+        return result;
     }
+    catch (error) {
+        if (uploadedImage) {
+            await fileUploader_1.fileUploader.deleteFromCloudinary(uploadedImage.public_id);
+        }
+        throw error;
+    }
+};
+const createVendorPublic = async (req) => {
     const hashedPassword = await bcryptjs_1.default.hash(req.body.password, 10);
     const userData = {
-        email: req.body.doctor.email,
+        name: req.body.name,
+        email: req.body.email,
         password: hashedPassword,
-        role: client_1.UserRole.DOCTOR
+        role: common_1.UserRole.Vendor
     };
-    const result = await prisma_1.prisma.$transaction(async (transactionClient) => {
-        await transactionClient.user.create({
+    const result = await prisma_1.prisma.$transaction(async (tx) => {
+        const createdUser = await tx.user.create({
             data: userData
         });
-        const createdDoctorData = await transactionClient.doctor.create({
-            data: req.body.doctor
+        const createdVendorProfile = await tx.vendorProfile.create({
+            data: {
+                farmName: req.body.farmName,
+                farmLocation: req.body.farmLocation,
+                userId: createdUser.id,
+                certificationStatus: "Pending" // Default status for new vendors
+            }
         });
-        return createdDoctorData;
+        return {
+            user: {
+                id: createdUser.id,
+                name: createdUser.name,
+                email: createdUser.email,
+                role: createdUser.role,
+                createdAt: createdUser.createdAt
+            },
+            vendorProfile: createdVendorProfile
+        };
     });
     return result;
 };
@@ -122,44 +170,37 @@ const getAllFromDB = async (params, options) => {
     };
 };
 const getMyProfile = async (user) => {
-    const userInfo = await prisma_1.prisma.user.findUniqueOrThrow({
+    const userInfo = await prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: user.email,
-            status: client_1.UserStatus.ACTIVE
+            status: common_1.UserStatus.Active
         },
         select: {
             id: true,
             email: true,
-            needPasswordChange: true,
             role: true,
             status: true
         }
     });
-    let profileData;
-    if (userInfo.role === client_1.UserRole.PATIENT) {
-        profileData = await prisma_1.prisma.patient.findUnique({
+    let profileData = null;
+    if (userInfo.role === common_1.UserRole.Vendor) {
+        profileData = await prisma_1.prisma.vendorProfile.findUnique({
             where: {
-                email: userInfo.email
-            }
-        });
-    }
-    else if (userInfo.role === client_1.UserRole.DOCTOR) {
-        profileData = await prisma_1.prisma.doctor.findUnique({
-            where: {
-                email: userInfo.email
-            }
-        });
-    }
-    else if (userInfo.role === client_1.UserRole.ADMIN) {
-        profileData = await prisma_1.prisma.admin.findUnique({
-            where: {
-                email: userInfo.email
-            }
+                userId: userInfo.id
+            },
+            select: {
+                id: true,
+                farmName: true,
+                farmLocation: true,
+                certificationStatus: true,
+                certifications: true,
+                createdAt: true,
+            },
         });
     }
     return {
         ...userInfo,
-        ...profileData
+        profileData
     };
 };
 const changeProfileStatus = async (id, payload) => {
@@ -176,52 +217,76 @@ const changeProfileStatus = async (id, payload) => {
     });
     return updateUserStatus;
 };
-const updateMyProfie = async (user, req) => {
-    const userInfo = await prisma_1.prisma.user.findUniqueOrThrow({
+const updateMyProfile = async (user, req) => {
+    const userInfo = await prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: user?.email,
-            status: client_1.UserStatus.ACTIVE
+            status: common_1.UserStatus.Active
         }
     });
     const file = req.file;
-    if (file) {
-        const uploadToCloudinary = await fileUploader_1.fileUploader.uploadToCloudinary(file);
-        req.body.profilePhoto = uploadToCloudinary?.secure_url;
-    }
-    let profileInfo;
-    if (userInfo.role === client_1.UserRole.ADMIN) {
-        profileInfo = await prisma_1.prisma.admin.update({
-            where: {
-                email: userInfo.email
-            },
-            data: req.body
+    let uploadedImage = null;
+    try {
+        // ✅ Cloudinary আপলোড ট্রানজাকশনের বাইরে করা
+        if (file) {
+            uploadedImage = await fileUploader_1.fileUploader.uploadToCloudinary(file);
+            req.body.profilePhoto = uploadedImage?.secure_url;
+        }
+        const { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = req.body;
+        // ✅ শুধুমাত্র ডাটাবেস অপারেশন ট্রানজাকশনের ভিতর
+        await prisma_1.prisma.$transaction(async (transactionClient) => {
+            // Update User table for all roles
+            if (Object.keys(userUpdateData).length > 0) {
+                await transactionClient.user.update({
+                    where: {
+                        id: userInfo.id
+                    },
+                    data: userUpdateData
+                });
+            }
+            if (userInfo.role === common_1.UserRole.Vendor) {
+                const vendorUpdateData = {
+                    farmName,
+                    certificationStatus,
+                    farmLocation,
+                    profilePhoto
+                };
+                // Filter out undefined values
+                Object.keys(vendorUpdateData).forEach(key => {
+                    if (vendorUpdateData[key] === undefined) {
+                        delete vendorUpdateData[key];
+                    }
+                });
+                if (Object.keys(vendorUpdateData).length > 0) {
+                    await transactionClient.vendorProfile.update({
+                        where: {
+                            userId: userInfo.id
+                        },
+                        data: vendorUpdateData
+                    });
+                }
+            }
+        }, {
+            timeout: 10000 // ✅ 10 সেকেন্ড টাইমআউট যোগ করা
         });
+        return { message: 'Profile updated' };
     }
-    else if (userInfo.role === client_1.UserRole.DOCTOR) {
-        profileInfo = await prisma_1.prisma.doctor.update({
-            where: {
-                email: userInfo.email
-            },
-            data: req.body
-        });
+    catch (error) {
+        // ট্রানজাকশন ফেইল হলে আপলোড করা ইমেজ ডিলিট করা
+        if (uploadedImage) {
+            await fileUploader_1.fileUploader.deleteFromCloudinary(uploadedImage.public_id);
+        }
+        throw error;
     }
-    else if (userInfo.role === client_1.UserRole.PATIENT) {
-        profileInfo = await prisma_1.prisma.patient.update({
-            where: {
-                email: userInfo.email
-            },
-            data: req.body
-        });
-    }
-    return { ...profileInfo };
 };
 exports.UserService = {
-    createPatient,
+    createCustomer,
     createAdmin,
-    createDoctor,
+    createVendor,
+    createVendorPublic,
     getAllFromDB,
     getMyProfile,
     changeProfileStatus,
-    updateMyProfie
+    updateMyProfile
 };
 //# sourceMappingURL=user.service.js.map

@@ -10,12 +10,12 @@ const user_constant_1 = require("./user.constant");
 const http_status_1 = __importDefault(require("http-status"));
 const user_service_1 = require("./user.service");
 const pick_1 = __importDefault(require("../../helpers/pick"));
-const createPatient = (0, catchAsync_1.default)(async (req, res) => {
-    const result = await user_service_1.UserService.createPatient(req);
+const createCustomer = (0, catchAsync_1.default)(async (req, res) => {
+    const result = await user_service_1.UserService.createCustomer(req);
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
         success: true,
-        message: "Patient created successfully!",
+        message: "Customer created successfully!",
         data: result
     });
 });
@@ -28,12 +28,21 @@ const createAdmin = (0, catchAsync_1.default)(async (req, res) => {
         data: result
     });
 });
-const createDoctor = (0, catchAsync_1.default)(async (req, res) => {
-    const result = await user_service_1.UserService.createDoctor(req);
+const createVendor = (0, catchAsync_1.default)(async (req, res) => {
+    const result = await user_service_1.UserService.createVendor(req);
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
         success: true,
-        message: "Doctor Created successfuly!",
+        message: "Vendor Created successfuly!",
+        data: result
+    });
+});
+const createVendorPublic = (0, catchAsync_1.default)(async (req, res) => {
+    const result = await user_service_1.UserService.createVendorPublic(req);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 201,
+        success: true,
+        message: "Vendor created successfully!",
         data: result
     });
 });
@@ -69,9 +78,9 @@ const changeProfileStatus = (0, catchAsync_1.default)(async (req, res) => {
         data: result
     });
 });
-const updateMyProfie = (0, catchAsync_1.default)(async (req, res) => {
+const updateMyProfile = (0, catchAsync_1.default)(async (req, res) => {
     const user = req.user;
-    const result = await user_service_1.UserService.updateMyProfie(user, req);
+    const result = await user_service_1.UserService.updateMyProfile(user, req);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -80,12 +89,13 @@ const updateMyProfie = (0, catchAsync_1.default)(async (req, res) => {
     });
 });
 exports.UserController = {
-    createPatient,
+    createCustomer,
     createAdmin,
-    createDoctor,
+    createVendor,
+    createVendorPublic,
     getAllFromDB,
     getMyProfile,
     changeProfileStatus,
-    updateMyProfie
+    updateMyProfile
 };
 //# sourceMappingURL=user.controller.js.map

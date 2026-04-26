@@ -184,6 +184,18 @@ const createRentalSpace = async (user: IJWTPayload, req: Request) => {
     console.log('Body:', req.body);
     console.log('Image URL from middleware:', req.body.imageUrl);
 
+    // Validate required fields
+    const { location, size, price } = req.body;
+    if (!location || !size || !price) {
+        throw new ApiError('Location, size, and price are required', 400);
+    }
+
+    // Validate price is a valid number
+    const parsedPrice = parseFloat(price);
+    if (isNaN(parsedPrice) || parsedPrice <= 0) {
+        throw new ApiError('Price must be a valid positive number', 400);
+    }
+
     const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id!,
@@ -194,16 +206,24 @@ const createRentalSpace = async (user: IJWTPayload, req: Request) => {
         throw new ApiError('Vendor profile not found', 404);
     }
 
-    const rentalSpaceData: any = { ...req.body };
+    // Extract only valid RentalSpace fields from request body
+    const rentalSpaceData: any = {
+        location: req.body.location,
+        size: req.body.size,
+        price: parseFloat(req.body.price), // Ensure price is a number
+        availability: req.body.availability !== undefined ? req.body.availability : true,
+        plantStatus: req.body.plantStatus || null,
+        lastWatered: req.body.lastWatered ? new Date(req.body.lastWatered) : null,
+        vendorId: profile.id,
+    };
 
+    // Add image if provided
     if (req.body.imageUrl) {
         rentalSpaceData.image = req.body.imageUrl;
         console.log('✅ Image URL added to rental space:', req.body.imageUrl);
     } else {
         console.log('⚠️ No image URL provided for rental space');
     }
-
-    rentalSpaceData.vendorId = profile.id;
 
     console.log('Final rental space data:', rentalSpaceData);
 

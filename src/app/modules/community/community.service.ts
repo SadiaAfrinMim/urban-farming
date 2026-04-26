@@ -8,7 +8,6 @@ const getAllPosts = async () => {
   const posts = await prisma.communityPost.findMany({
     include: {
       user: true,
-      reports: true,
     },
     orderBy: {
       postDate: 'desc',
@@ -19,7 +18,7 @@ const getAllPosts = async () => {
 
 const getPostById = async (id: string) => {
   const post = await prisma.communityPost.findUnique({
-    where: { id },
+    where: { id: parseInt(id) },
     include: {
       user: true,
     },
@@ -30,13 +29,13 @@ const getPostById = async (id: string) => {
   return post;
 };
 
-const createPost = async (userId: string, payload: {
+const createPost = async (userId: number, payload: {
   postContent: string;
 }) => {
   const post = await prisma.communityPost.create({
     data: {
       userId,
-      ...payload,
+      postContent: payload.postContent,
     },
   });
   return post;
@@ -46,33 +45,35 @@ const updatePost = async (id: string, user: IJWTPayload, payload: Partial<{
   postContent: string;
 }>) => {
   const post = await prisma.communityPost.findUnique({
-    where: { id },
+    where: { id: parseInt(id) },
   });
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
-  if (post.userId !== user.id && user.role !== 'Admin') {
+  if (post.userId !== parseInt(user.id) && user.role !== 'Admin') {
     throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
   }
   const updated = await prisma.communityPost.update({
-    where: { id },
-    data: payload,
+    where: { id: parseInt(id) },
+    data: {
+      postContent: payload.postContent,
+    },
   });
   return updated;
 };
 
 const deletePost = async (id: string, user: IJWTPayload) => {
   const post = await prisma.communityPost.findUnique({
-    where: { id },
+    where: { id: parseInt(id) },
   });
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
-  if (post.userId !== user.id && user.role !== 'Admin') {
+  if (post.userId !== parseInt(user.id) && user.role !== 'Admin') {
     throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
   }
   await prisma.communityPost.delete({
-    where: { id },
+    where: { id: parseInt(id) },
   });
 };
 

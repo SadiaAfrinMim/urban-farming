@@ -37,7 +37,7 @@ const router = express.Router();
  */
 router.post(
   '/create-intent',
-  auth(UserRole.Customer),
+  auth(UserRole.Customer,UserRole.Vendor),
   PaymentController.createPaymentIntent
 );
 
@@ -64,7 +64,7 @@ router.post(
  */
 router.post(
   '/confirm',
-  auth(UserRole.Customer),
+  auth(UserRole.Customer, UserRole.Vendor),
   PaymentController.confirmPayment
 );
 
@@ -93,7 +93,7 @@ router.post(
  */
 router.post(
   '/checkout-session',
-  auth(UserRole.Customer),
+  auth(UserRole.Customer, UserRole.Vendor),
   PaymentController.createCheckoutSession
 );
 

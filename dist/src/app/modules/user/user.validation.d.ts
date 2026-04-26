@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 export declare const UserValidation: {
     createUserZodSchema: z.ZodObject<{
         body: z.ZodObject<{
@@ -10,6 +10,24 @@ export declare const UserValidation: {
                 Vendor: "Vendor";
                 Customer: "Customer";
             }>>;
+            adminCode: z.ZodOptional<z.ZodString>;
+        }, z.core.$strip>;
+    }, z.core.$strip>;
+    createVendorZodSchema: z.ZodObject<{
+        body: z.ZodObject<{
+            name: z.ZodString;
+            email: z.ZodString;
+            password: z.ZodString;
+            farmName: z.ZodString;
+            farmLocation: z.ZodString;
+        }, z.core.$strip>;
+    }, z.core.$strip>;
+    updateProfileZodSchema: z.ZodObject<{
+        body: z.ZodObject<{
+            name: z.ZodOptional<z.ZodString>;
+            email: z.ZodOptional<z.ZodString>;
+            farmName: z.ZodOptional<z.ZodString>;
+            farmLocation: z.ZodOptional<z.ZodString>;
         }, z.core.$strip>;
     }, z.core.$strip>;
     loginZodSchema: z.ZodObject<{

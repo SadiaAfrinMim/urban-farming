@@ -5,31 +5,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRoutes = void 0;
 const express_1 = __importDefault(require("express"));
-const user_validation_1 = require("./user.validation");
-const client_1 = require("@prisma/client");
 const auth_1 = __importDefault(require("../../middlewares/auth"));
 const user_controller_1 = require("./user.controller");
 const fileUploader_1 = require("../../helpers/fileUploader");
+const generated_1 = require("../../../../prisma/prisma/generated");
 const router = express_1.default.Router();
-router.get("/", (0, auth_1.default)(client_1.UserRole.ADMIN), user_controller_1.UserController.getAllFromDB);
-router.get('/me', (0, auth_1.default)(client_1.UserRole.ADMIN, client_1.UserRole.DOCTOR, client_1.UserRole.PATIENT), user_controller_1.UserController.getMyProfile);
-router.post("/create-patient", fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
-    req.body = user_validation_1.UserValidation.createPatientValidationSchema.parse(JSON.parse(req.body.data));
-    return user_controller_1.UserController.createPatient(req, res, next);
+// Get all users
+router.get("/", (0, auth_1.default)(generated_1.UserRole.Admin), user_controller_1.UserController.getAllFromDB);
+// Get my profile
+router.get('/me', (0, auth_1.default)(generated_1.UserRole.Admin, generated_1.UserRole.Vendor, generated_1.UserRole.Customer), user_controller_1.UserController.getMyProfile);
+// Public endpoints - No authentication required
+// Create customer (NO VALIDATION)
+router.post("/create-customer", (req, res, next) => {
+    return user_controller_1.UserController.createCustomer(req, res, next);
 });
-router.post("/create-admin", (0, auth_1.default)(client_1.UserRole.ADMIN), fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
-    req.body = user_validation_1.UserValidation.createAdminValidationSchema.parse(JSON.parse(req.body.data));
+// Create admin (adminCode check only)
+router.post("/create-admin", (req, res, next) => {
+    // Admin code check removed for development
+    // if (req.body.adminCode !== 'ADMIN123') {
+    //   return res.status(400).json({
+    //     statusCode: 400,
+    //     success: false,
+    //     message: "Invalid admin code"
+    //   });
+    // }
     return user_controller_1.UserController.createAdmin(req, res, next);
 });
-router.post("/create-doctor", (0, auth_1.default)(client_1.UserRole.ADMIN), fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
-    console.log(JSON.parse(req.body.data));
-    req.body = user_validation_1.UserValidation.createDoctorValidationSchema.parse(JSON.parse(req.body.data));
-    return user_controller_1.UserController.createDoctor(req, res, next);
+// Create vendor (NO VALIDATION)
+router.post("/create-vendor", (req, res, next) => {
+    return user_controller_1.UserController.createVendorPublic(req, res, next);
 });
-router.patch('/:id/status', (0, auth_1.default)(client_1.UserRole.ADMIN), user_controller_1.UserController.changeProfileStatus);
-router.patch("/update-my-profile", (0, auth_1.default)(client_1.UserRole.ADMIN, client_1.UserRole.DOCTOR, client_1.UserRole.PATIENT), fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
-    req.body = JSON.parse(req.body.data);
-    return user_controller_1.UserController.updateMyProfie(req, res, next);
+// Change status
+router.patch('/:id/status', (0, auth_1.default)(generated_1.UserRole.Admin), user_controller_1.UserController.changeProfileStatus);
+// Update profile (NO VALIDATION)
+router.patch("/update-my-profile", (0, auth_1.default)(generated_1.UserRole.Admin, generated_1.UserRole.Vendor, generated_1.UserRole.Customer), fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
+    const parsedData = JSON.parse(req.body.data || '{}');
+    req.body = parsedData;
+    return user_controller_1.UserController.updateMyProfile(req, res, next);
 });
 exports.userRoutes = router;
 //# sourceMappingURL=user.routes.js.map

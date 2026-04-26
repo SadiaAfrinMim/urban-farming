@@ -7,7 +7,7 @@ import { OrderStatus } from '../../types/common';
 
 const createPaymentIntent = async (orderId: string, userId: string) => {
   const order = await prisma.order.findUnique({
-    where: { id: orderId },
+    where: { id: parseInt(orderId) },
     include: {
       produce: true,
     },
@@ -56,7 +56,7 @@ const confirmPayment = async (paymentIntentId: string) => {
   }
 
   const updatedOrder = await prisma.order.update({
-    where: { id: orderId },
+    where: { id: parseInt(orderId) },
     data: {
       status: OrderStatus.Confirmed,
     },
@@ -77,7 +77,7 @@ const confirmPayment = async (paymentIntentId: string) => {
 
 const createCheckoutSession = async (orderId: string, userId: string) => {
   const order = await prisma.order.findUnique({
-    where: { id: orderId },
+    where: { id: parseInt(orderId) },
     include: {
       produce: true,
     },
@@ -134,7 +134,7 @@ const handleWebhook = async (signature: string, payload: Buffer) => {
 
     if (orderId) {
       await prisma.order.update({
-        where: { id: orderId },
+        where: { id: parseInt(orderId) },
         data: {
           status: OrderStatus.Confirmed,
         },

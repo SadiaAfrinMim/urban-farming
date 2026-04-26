@@ -5,27 +5,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProduceController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
-const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
-const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const catchAsync_1 = __importDefault(require("../../../app/shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../app/shared/sendResponse"));
 const produce_service_1 = require("./produce.service");
 const getAllProduces = (0, catchAsync_1.default)(async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
-    const result = await produce_service_1.ProduceService.getAllProduces(Number(page), Number(limit));
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
-        success: true,
-        message: 'Produces retrieved successfully',
-        data: result,
-    });
+    // If no pagination requested, return just the products array for marketplace
+    if (page === 1 && limit === 10 && !req.query.page && !req.query.limit) {
+        const result = await produce_service_1.ProduceService.getAllProduces(Number(page), Number(limit));
+        (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.OK,
+            success: true,
+            message: 'Produces retrieved successfully',
+            data: result.data, // Return just the data array
+        });
+    }
+    else {
+        // Return paginated response for API consumers that request pagination
+        const result = await produce_service_1.ProduceService.getAllProduces(Number(page), Number(limit));
+        (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.OK,
+            success: true,
+            message: 'Produces retrieved successfully',
+            data: result,
+        });
+    }
 });
 const searchProduces = (0, catchAsync_1.default)(async (req, res) => {
-    const { category, name } = req.query;
-    const result = await produce_service_1.ProduceService.searchProduces(category, name);
+    const { q } = req.query;
+    const result = await produce_service_1.ProduceService.searchProduces(q);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
         message: 'Produces searched successfully',
-        data: result,
+        data: result, // Already returns array from service
     });
 });
 const getProduceById = (0, catchAsync_1.default)(async (req, res) => {
@@ -67,6 +80,7 @@ const deleteProduce = (0, catchAsync_1.default)(async (req, res) => {
         statusCode: http_status_1.default.OK,
         success: true,
         message: 'Produce deleted successfully',
+        data: null,
     });
 });
 exports.ProduceController = {

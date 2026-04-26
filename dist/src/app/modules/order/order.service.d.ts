@@ -1,10 +1,93 @@
+import { OrderStatus } from '../../types/common';
+import { IJWTPayload } from '../../types/common';
 export declare const OrderService: {
-    getOrders: (user: any) => Promise<any>;
-    getOrderById: (id: string, user: any) => Promise<any>;
+    getOrders: (user: IJWTPayload) => Promise<({
+        user: {
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            createdAt: Date;
+        };
+        vendor: {
+            user: {
+                id: number;
+                name: string;
+                email: string;
+                password: string;
+                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+                createdAt: Date;
+            };
+        } & {
+            id: number;
+            createdAt: Date;
+            farmName: string;
+            farmLocation: string;
+            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            profilePhoto: string | null;
+            certifications: string[];
+            userId: number;
+        };
+        produce: {
+            id: number;
+            name: string;
+            createdAt: Date;
+            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            vendorId: number;
+            price: number;
+            image: string | null;
+            description: string;
+            category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+            availableQuantity: number;
+            unit: string | null;
+            isOrganic: boolean | null;
+        };
+    } & {
+        id: number;
+        status: import("../../../../prisma/prisma/generated").$Enums.OrderStatus;
+        userId: number;
+        vendorId: number;
+        produceId: number;
+        quantity: number;
+        totalPrice: number;
+        orderDate: Date;
+    })[]>;
+    getOrderById: (id: string, user: IJWTPayload) => Promise<{
+        id: number;
+        status: import("../../../../prisma/prisma/generated").$Enums.OrderStatus;
+        userId: number;
+        vendorId: number;
+        produceId: number;
+        quantity: number;
+        totalPrice: number;
+        orderDate: Date;
+    }>;
     createOrder: (userId: string, payload: {
-        produceId: string;
+        produceId: string | number;
         quantity?: number;
-    }) => Promise<any>;
-    updateOrderStatus: (id: string, status: OrderStatus) => Promise<any>;
+        totalPrice?: number;
+    }) => Promise<{
+        id: number;
+        status: import("../../../../prisma/prisma/generated").$Enums.OrderStatus;
+        userId: number;
+        vendorId: number;
+        produceId: number;
+        quantity: number;
+        totalPrice: number;
+        orderDate: Date;
+    }>;
+    updateOrderStatus: (id: string, status: OrderStatus) => Promise<{
+        id: number;
+        status: import("../../../../prisma/prisma/generated").$Enums.OrderStatus;
+        userId: number;
+        vendorId: number;
+        produceId: number;
+        quantity: number;
+        totalPrice: number;
+        orderDate: Date;
+    }>;
 };
 //# sourceMappingURL=order.service.d.ts.map

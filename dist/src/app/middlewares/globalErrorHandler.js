@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("../../../prisma/generated/prisma/client");
+const client_1 = require("../../../prisma/prisma/generated/client");
 const http_status_1 = __importDefault(require("http-status"));
 const globalErrorHandler = (err, req, res, next) => {
     console.log(err);
@@ -28,11 +28,11 @@ const globalErrorHandler = (err, req, res, next) => {
                 statusCode = http_status_1.default.BAD_REQUEST;
         }
     }
-    else if (err instanceof client_1.Prisma.PrismaClientValidationError) {
-        message = "Validation Error",
-            error = err.message,
-            statusCode = http_status_1.default.BAD_REQUEST;
-    }
+    // else if (err instanceof Prisma.PrismaClientValidationError) {
+    //     message = "Validation Error",
+    //         error = err.message,
+    //         statusCode = httpStatus.BAD_REQUEST
+    // }
     else if (err instanceof client_1.Prisma.PrismaClientUnknownRequestError) {
         message = "Unknown Prisma error occured!",
             error = err.message,

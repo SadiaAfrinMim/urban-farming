@@ -65,21 +65,35 @@ const getOrderById = async (id: string, user: IJWTPayload) => {
 };
 
 const createOrder = async (userId: string, payload: {
-  produceId: string;
-  quantity?: number; // Assuming quantity, but model doesn't have, perhaps add later or assume 1
+  produceId: string | number;
+  quantity?: number;
+  totalPrice?: number;
 }) => {
-  const { produceId } = payload;
+  const produceId = typeof payload.produceId === 'string' ? parseInt(payload.produceId) : payload.produceId;
+  const quantity = payload.quantity || 1;
+
   const produce = await prisma.produce.findUnique({
     where: { id: produceId },
   });
   if (!produce) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
   }
+
+  // Check if product is approved
+  if (produce.certificationStatus !== 'Approved') {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Product is not available for purchase');
+  }
+
+  // Calculate total price if not provided
+  const totalPrice = payload.totalPrice || (produce.price * quantity);
+
   const order = await prisma.order.create({
     data: {
-      userId,
+      userId: parseInt(userId),
       produceId,
       vendorId: produce.vendorId,
+      quantity,
+      totalPrice,
     },
   });
   return order;

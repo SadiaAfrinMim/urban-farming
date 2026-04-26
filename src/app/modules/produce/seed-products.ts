@@ -125,4 +125,5 @@ async function seedApprovedProducts() {
   }
 }
 
-seedApprovedProducts();
+// Run the seeding function
+seedApprovedProducts().catch(console.error);

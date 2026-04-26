@@ -5,7 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const morgan_1 = __importDefault(require("morgan"));
+// @ts-ignore
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+// @ts-ignore
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const globalErrorHandler_1 = __importDefault(require("./app/middlewares/globalErrorHandler"));
 const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
@@ -14,13 +17,15 @@ const routes_1 = __importDefault(require("./app/routes"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:3001',
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     credentials: true
 }));
 //parser
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.urlencoded({ extended: true }));
+// API logging
+app.use((0, morgan_1.default)('combined'));
 const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
@@ -34,6 +39,15 @@ const swaggerOptions = {
                 url: 'http://localhost:5000/api/v1',
             },
         ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+            },
+        },
     },
     apis: ['./src/app/modules/**/*.routes.ts'], // Path to the API docs
 };

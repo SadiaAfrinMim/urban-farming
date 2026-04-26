@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RentalService = void 0;
-const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
+const prisma_1 = require("../../shared/prisma");
 const http_status_1 = __importDefault(require("http-status"));
+const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const getAllRentalSpaces = async () => {
-    const rentalSpaces = await prisma_1.default.rentalSpace.findMany({
+    const rentalSpaces = await prisma_1.prisma.rentalSpace.findMany({
         include: {
             vendor: {
                 include: {
@@ -27,7 +27,7 @@ const searchRentalSpaces = async (location) => {
             mode: 'insensitive',
         };
     }
-    const rentalSpaces = await prisma_1.default.rentalSpace.findMany({
+    const rentalSpaces = await prisma_1.prisma.rentalSpace.findMany({
         where,
         include: {
             vendor: {
@@ -40,7 +40,7 @@ const searchRentalSpaces = async (location) => {
     return rentalSpaces;
 };
 const getRentalSpaceById = async (id) => {
-    const rentalSpace = await prisma_1.default.rentalSpace.findUnique({
+    const rentalSpace = await prisma_1.prisma.rentalSpace.findUnique({
         where: { id },
         include: {
             vendor: {
@@ -57,13 +57,13 @@ const getRentalSpaceById = async (id) => {
 };
 const createRentalSpace = async (vendorId, payload) => {
     // Check if vendor exists and is Vendor role
-    const vendorProfile = await prisma_1.default.vendorProfile.findUnique({
+    const vendorProfile = await prisma_1.prisma.vendorProfile.findUnique({
         where: { userId: vendorId },
     });
     if (!vendorProfile) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Vendor profile not found');
     }
-    const rentalSpace = await prisma_1.default.rentalSpace.create({
+    const rentalSpace = await prisma_1.prisma.rentalSpace.create({
         data: {
             vendorId: vendorProfile.id,
             ...payload,
@@ -72,31 +72,31 @@ const createRentalSpace = async (vendorId, payload) => {
     return rentalSpace;
 };
 const updateRentalSpace = async (id, payload) => {
-    const rentalSpace = await prisma_1.default.rentalSpace.findUnique({
+    const rentalSpace = await prisma_1.prisma.rentalSpace.findUnique({
         where: { id },
     });
     if (!rentalSpace) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
     }
-    const updated = await prisma_1.default.rentalSpace.update({
+    const updated = await prisma_1.prisma.rentalSpace.update({
         where: { id },
         data: payload,
     });
     return updated;
 };
 const deleteRentalSpace = async (id) => {
-    const rentalSpace = await prisma_1.default.rentalSpace.findUnique({
+    const rentalSpace = await prisma_1.prisma.rentalSpace.findUnique({
         where: { id },
     });
     if (!rentalSpace) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
     }
-    await prisma_1.default.rentalSpace.delete({
+    await prisma_1.prisma.rentalSpace.delete({
         where: { id },
     });
 };
 const toggleAvailability = async (id, availability) => {
-    const updated = await prisma_1.default.rentalSpace.update({
+    const updated = await prisma_1.prisma.rentalSpace.update({
         where: { id },
         data: { availability },
     });

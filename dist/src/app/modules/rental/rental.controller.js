@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RentalController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
-const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
-const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const catchAsync_1 = __importDefault(require("../../../app/shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../app/shared/sendResponse"));
 const rental_service_1 = require("./rental.service");
 const getAllRentalSpaces = (0, catchAsync_1.default)(async (req, res) => {
     const result = await rental_service_1.RentalService.getAllRentalSpaces();
@@ -66,6 +66,7 @@ const deleteRentalSpace = (0, catchAsync_1.default)(async (req, res) => {
         statusCode: http_status_1.default.OK,
         success: true,
         message: 'Rental space deleted successfully',
+        data: null,
     });
 });
 const toggleAvailability = (0, catchAsync_1.default)(async (req, res) => {

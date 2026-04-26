@@ -203,14 +203,15 @@ const getAllFromDB = async (params: any, options: IOptions) => {
 const getMyProfile = async (user: IJWTPayload) => {
     const userInfo = await prisma.user.findFirstOrThrow({
         where: {
-            email: user.email!,
-            status: UserStatus.Active
+            id: parseInt(user.id),
         },
         select: {
             id: true,
+            name: true,
             email: true,
             role: true,
-            status: true
+            status: true,
+            profileImage: true
         }
     })
 
@@ -274,7 +275,15 @@ const updateMyProfile = async (user: IJWTPayload, req: Request) => {
             req.body.profilePhoto = uploadedImage?.secure_url;
         }
 
-        const { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = req.body;
+        let { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = req.body;
+
+        // Handle profile image based on role
+        if (userInfo.role === UserRole.Customer || userInfo.role === UserRole.Admin) {
+            // For customers and admins, store profile image in User table
+            userUpdateData.profileImage = profilePhoto;
+        }
+        // For vendors, profile image should NOT be updated via this endpoint
+        // They should use the vendor profile update endpoint
 
         // ✅ শুধুমাত্র ডাটাবেস অপারেশন ট্রানজাকশনের ভিতর
         await prisma.$transaction(async (transactionClient) => {
@@ -292,8 +301,7 @@ const updateMyProfile = async (user: IJWTPayload, req: Request) => {
                 const vendorUpdateData = {
                     farmName,
                     certificationStatus,
-                    farmLocation,
-                    profilePhoto
+                    farmLocation
                 };
                 // Filter out undefined values
                 Object.keys(vendorUpdateData).forEach(key => {
@@ -315,7 +323,43 @@ const updateMyProfile = async (user: IJWTPayload, req: Request) => {
             timeout: 10000 // ✅ 10 সেকেন্ড টাইমআউট যোগ করা
         });
 
-        return { message: 'Profile updated' };
+        // Return updated profile data
+        const updatedUser = await prisma.user.findFirstOrThrow({
+            where: {
+                id: userInfo.id
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                role: true,
+                status: true,
+                profileImage: true
+            }
+        });
+
+        let updatedProfileData = null;
+        if (updatedUser.role === UserRole.Vendor) {
+            updatedProfileData = await prisma.vendorProfile.findUnique({
+                where: {
+                    userId: updatedUser.id
+                },
+                select: {
+                    id: true,
+                    farmName: true,
+                    farmLocation: true,
+                    certificationStatus: true,
+                    certifications: true,
+                    profilePhoto: true,
+                    createdAt: true,
+                },
+            });
+        }
+
+        return {
+            ...updatedUser,
+            profileData: updatedProfileData
+        };
     } catch (error) {
         // ট্রানজাকশন ফেইল হলে আপলোড করা ইমেজ ডিলিট করা
         if (uploadedImage) {

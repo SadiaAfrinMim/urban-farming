@@ -1,23 +1,109 @@
 import { Request } from "express";
-import { Prisma, UserStatus } from "../../../../prisma/generated/prisma/client";
+import { UserStatus } from "../../types/common";
 import { IJWTPayload } from "../../types/common";
 import { IOptions } from "../../helpers/paginationHelper";
 export declare const UserService: {
-    createPatient: (req: Request) => Promise<runtime.Types.Utils.JsPromise<R>>;
-    createAdmin: (req: Request) => Promise<Admin>;
-    createDoctor: (req: Request) => Promise<Doctor>;
+    createCustomer: (req: Request) => Promise<{
+        id: number;
+        name: string;
+        email: string;
+        password: string;
+        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+        createdAt: Date;
+    }>;
+    createAdmin: (req: Request) => Promise<{
+        id: number;
+        name: string;
+        email: string;
+        password: string;
+        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+        createdAt: Date;
+    }>;
+    createVendor: (req: Request) => Promise<{
+        user: {
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            createdAt: Date;
+        };
+        vendorProfile: {
+            id: number;
+            createdAt: Date;
+            farmName: string;
+            farmLocation: string;
+            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            profilePhoto: string | null;
+            certifications: string[];
+            userId: number;
+        };
+    }>;
+    createVendorPublic: (req: Request) => Promise<{
+        user: {
+            id: number;
+            name: string;
+            email: string;
+            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+            createdAt: Date;
+        };
+        vendorProfile: {
+            id: number;
+            createdAt: Date;
+            farmName: string;
+            farmLocation: string;
+            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            profilePhoto: string | null;
+            certifications: string[];
+            userId: number;
+        };
+    }>;
     getAllFromDB: (params: any, options: IOptions) => Promise<{
         meta: {
             page: number;
             limit: number;
-            total: runtime.Types.Public.PrismaPromise<T>;
+            total: number;
         };
-        data: runtime.Types.Public.PrismaPromise<T>;
+        data: {
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            createdAt: Date;
+        }[];
     }>;
-    getMyProfile: (user: IJWTPayload) => Promise<any>;
+    getMyProfile: (user: IJWTPayload) => Promise<{
+        profileData: {
+            id: number;
+            createdAt: Date;
+            farmName: string;
+            farmLocation: string;
+            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certifications: string[];
+        } | null;
+        id: number;
+        email: string;
+        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+    }>;
     changeProfileStatus: (id: string, payload: {
         status: UserStatus;
-    }) => Promise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T_1, "update", GlobalOmitOptions>>;
-    updateMyProfie: (user: IJWTPayload, req: Request) => Promise<any>;
+    }) => Promise<{
+        id: number;
+        name: string;
+        email: string;
+        password: string;
+        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+        createdAt: Date;
+    }>;
+    updateMyProfile: (user: IJWTPayload, req: Request) => Promise<{
+        message: string;
+    }>;
 };
 //# sourceMappingURL=user.service.d.ts.map

@@ -220,8 +220,16 @@ const getMyProfile = async (user: IJWTPayload) => {
         profileData = await prisma.vendorProfile.findUnique({
             where: {
                 userId: userInfo.id
-            }
-        })
+            },
+            select: {
+                id: true,
+                farmName: true,
+                farmLocation: true,
+                certificationStatus: true,
+                certifications: true,
+                createdAt: true,
+            },
+        });
     }
 
     return {

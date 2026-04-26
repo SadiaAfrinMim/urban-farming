@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Admin, Doctor, Prisma, UserStatus } from "../../../../prisma/generated/prisma/client";
+import { Prisma, UserStatus } from "../../../../prisma/generated/prisma/client";
 import { IJWTPayload } from "../../types/common";
 import { IOptions } from "../../helpers/paginationHelper";
 export declare const UserService: {

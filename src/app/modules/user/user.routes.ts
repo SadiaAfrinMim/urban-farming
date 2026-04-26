@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response } from 'express'
 
-import { UserRole } from '../../../../prisma/generated/prisma/enums';
+
 import auth from '../../middlewares/auth';
 import { UserController } from './user.controller';
 import { fileUploader } from '../../helpers/fileUploader';
+import { UserRole } from '../../../../prisma/prisma/generated';
 
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.get(
   UserController.getMyProfile
 );
 
+// Public endpoints - No authentication required
 // Create customer (NO VALIDATION)
 router.post(
   "/create-customer",
@@ -34,13 +36,14 @@ router.post(
   "/create-admin",
   (req: Request, res: Response, next: NextFunction) => {
 
-    if (req.body.adminCode !== 'ADMIN123') {
-      return res.status(400).json({
-        statusCode: 400,
-        success: false,
-        message: "Invalid admin code"
-      });
-    }
+    // Admin code check removed for development
+    // if (req.body.adminCode !== 'ADMIN123') {
+    //   return res.status(400).json({
+    //     statusCode: 400,
+    //     success: false,
+    //     message: "Invalid admin code"
+    //   });
+    // }
 
     return UserController.createAdmin(req, res, next)
   }

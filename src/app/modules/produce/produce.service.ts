@@ -6,6 +6,9 @@ import ApiError from '../../errors/ApiError';
 const getAllProduces = async (page: number, limit: number) => {
   const skip = (page - 1) * limit;
   const produces = await prisma.produce.findMany({
+    where: {
+      certificationStatus: 'Approved', // Only show approved products in marketplace
+    },
     skip,
     take: limit,
     include: {
@@ -16,7 +19,11 @@ const getAllProduces = async (page: number, limit: number) => {
       },
     },
   });
-  const total = await prisma.produce.count();
+  const total = await prisma.produce.count({
+    where: {
+      certificationStatus: 'Approved',
+    },
+  });
   return {
     data: produces,
     meta: {
@@ -28,16 +35,31 @@ const getAllProduces = async (page: number, limit: number) => {
   };
 };
 
-const searchProduces = async (category?: string, name?: string) => {
-  const where: any = {};
-  if (category) {
-    where.category = category;
-  }
-  if (name) {
-    where.name = {
-      contains: name,
-      mode: 'insensitive',
-    };
+const searchProduces = async (query?: string) => {
+  const where: any = {
+    certificationStatus: 'Approved', // Only show approved products in marketplace
+  };
+  if (query) {
+    where.OR = [
+      {
+        name: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+      {
+        description: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+      {
+        category: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+    ];
   }
   const produces = await prisma.produce.findMany({
     where,

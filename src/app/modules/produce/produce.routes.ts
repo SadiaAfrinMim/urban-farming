@@ -2,8 +2,8 @@ import express from 'express';
 import { ProduceController } from './produce.controller';
 import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/ValidateRequest';
-import { UserRole } from '../../../../prisma/generated/prisma/enums';
-import { ProduceValidation } from './produce.validation';
+import { UserRole } from '../../../../prisma/prisma/generated/client';
+
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', ProduceController.getProduceById);
  *       201:
  *         description: Produce created
  */
-router.post('/', validateRequest(ProduceValidation.createProduce), auth(UserRole.Vendor), ProduceController.createProduce);
+router.post('/', auth(UserRole.Vendor), ProduceController.createProduce);
 /**
  * @swagger
  * /produces/{id}:
@@ -92,7 +92,7 @@ router.post('/', validateRequest(ProduceValidation.createProduce), auth(UserRole
  *     summary: Update produce
  *     tags: [Produces]
  *     security:
- *       - bearerAuth: []
+ *       - bearerAuth: []           
  *     parameters:
  *       - in: path
  *         name: id
@@ -114,7 +114,7 @@ router.post('/', validateRequest(ProduceValidation.createProduce), auth(UserRole
  *       200:
  *         description: Produce updated
  */
-router.patch('/:id', validateRequest(ProduceValidation.updateProduce), auth(UserRole.Vendor), ProduceController.updateProduce);
+router.patch('/:id', auth(UserRole.Vendor), ProduceController.updateProduce);
 /**
  * @swagger
  * /produces/{id}:

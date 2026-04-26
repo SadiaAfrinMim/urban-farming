@@ -1,7 +1,7 @@
 import express from 'express';
 import { OrderController } from './order.controller';
 import auth from '../../middlewares/auth';
-import { UserRole } from '../../../../prisma/generated/prisma/enums';
+import { UserRole } from '../../../../prisma/prisma/generated/client';
 
 /**
  * @swagger

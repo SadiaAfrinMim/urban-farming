@@ -1,0 +1,161 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./prisma/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  Admin
+  Vendor
+  Customer
+}
+
+enum UserStatus {
+  Active
+  Pending
+  Suspended
+}
+
+enum CertificationStatus {
+  Pending
+  Approved
+  Rejected
+}
+
+enum ProduceCategory {
+  Vegetables
+  Fruits
+  Grains
+  Dairy
+}
+
+enum OrderStatus {
+  Pending
+  Confirmed
+  Shipped
+  Delivered
+  Cancelled
+}
+
+enum PlantHealth {
+  Healthy
+  Sick
+  Dead
+}
+
+model User {
+  id        Int         @id @default(autoincrement())
+  name      String
+  email     String      @unique
+  password  String
+  role      UserRole
+  status    UserStatus
+  createdAt DateTime    @default(now())
+
+  vendorProfile   VendorProfile?
+  orders          Order[]
+  communityPosts  CommunityPost[]
+
+  @@map("users")
+}
+
+model VendorProfile {
+  id                 Int                @id @default(autoincrement())
+  userId             Int                @unique
+  farmName           String
+  certificationStatus CertificationStatus @default(Pending)
+  farmLocation       String
+  profilePhoto       String?
+  certifications     String[]
+  createdAt          DateTime           @default(now())
+
+  user               User               @relation(fields: [userId], references: [id])
+  produces           Produce[]
+  rentalSpaces       RentalSpace[]
+  orders             Order[]
+  sustainabilityCerts SustainabilityCert[]
+
+  @@map("vendor_profiles")
+}
+
+model Produce {
+  id                 Int                @id @default(autoincrement())
+  vendorId           Int
+  name               String
+  description        String
+  price              Float
+  category           ProduceCategory
+  certificationStatus CertificationStatus @default(Pending)
+  availableQuantity  Int
+  unit               String?
+  isOrganic          Boolean?           @default(false)
+  image              String?
+  createdAt          DateTime           @default(now())
+
+  vendor             VendorProfile @relation(fields: [vendorId], references: [id])
+  orders             Order[]
+
+  @@map("produces")
+}
+
+model RentalSpace {
+  id           Int     @id @default(autoincrement())
+  vendorId     Int
+  location     String
+  size         String
+  price        Float
+  availability Boolean @default(true)
+  image        String?
+  plantStatus  PlantHealth?
+  lastWatered  DateTime?
+  createdAt    DateTime @default(now())
+
+  vendor       VendorProfile @relation(fields: [vendorId], references: [id])
+
+  @@map("rental_spaces")
+}
+
+model Order {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  produceId Int
+  vendorId  Int
+  quantity  Int
+  totalPrice Float
+  status    OrderStatus @default(Pending)
+  orderDate DateTime   @default(now())
+
+  user    User           @relation(fields: [userId], references: [id])
+  produce Produce        @relation(fields: [produceId], references: [id])
+  vendor  VendorProfile  @relation(fields: [vendorId], references: [id])
+
+  @@map("orders")
+}
+
+model CommunityPost {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  postContent String
+  postDate    DateTime @default(now())
+
+  user        User @relation(fields: [userId], references: [id])
+
+  @@map("community_posts")
+}
+
+model SustainabilityCert {
+  id               Int      @id @default(autoincrement())
+  vendorId         Int
+  certifyingAgency String
+  certificationDate DateTime
+
+  vendor           VendorProfile @relation(fields: [vendorId], references: [id])
+
+  @@map("sustainability_certs")
+}

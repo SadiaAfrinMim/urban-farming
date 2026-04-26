@@ -1,4 +1,4 @@
-import { Prisma } from "../../../prisma/generated/prisma/client";
+import { Prisma } from "../../../prisma/prisma/generated/client";
 import { NextFunction, Request, Response } from "express"
 import httpStatus from "http-status"
 
@@ -27,11 +27,11 @@ const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFun
         }
     }
 
-    else if (err instanceof Prisma.PrismaClientValidationError) {
-        message = "Validation Error",
-            error = err.message,
-            statusCode = httpStatus.BAD_REQUEST
-    }
+    // else if (err instanceof Prisma.PrismaClientValidationError) {
+    //     message = "Validation Error",
+    //         error = err.message,
+    //         statusCode = httpStatus.BAD_REQUEST
+    // }
     else if (err instanceof Prisma.PrismaClientUnknownRequestError) {
         message = "Unknown Prisma error occured!",
             error = err.message,

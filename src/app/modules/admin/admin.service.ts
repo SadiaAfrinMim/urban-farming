@@ -1,5 +1,5 @@
 import { prisma } from '../../shared/prisma';
-import { UserRole, UserStatus, CertificationStatus } from '@prisma/client';
+import { UserRole, UserStatus, CertificationStatus } from '../../../../prisma/prisma/generated';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError';
 
@@ -97,13 +97,18 @@ const getPendingCertifications = async () => {
 };
 
 const approveCertification = async (vendorId: string) => {
-  const vendor = await prisma.vendorProfile.findUnique({ where: { id: vendorId } });
+  const id = parseInt(vendorId);
+  if (isNaN(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
+  }
+
+  const vendor = await prisma.vendorProfile.findUnique({ where: { id } });
   if (!vendor) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Vendor not found');
   }
 
   const updatedVendor = await prisma.vendorProfile.update({
-    where: { id: vendorId },
+    where: { id },
     data: { certificationStatus: CertificationStatus.Approved },
     include: { user: true },
   });
@@ -112,13 +117,18 @@ const approveCertification = async (vendorId: string) => {
 };
 
 const rejectCertification = async (vendorId: string, reason?: string) => {
-  const vendor = await prisma.vendorProfile.findUnique({ where: { id: vendorId } });
+  const id = parseInt(vendorId);
+  if (isNaN(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
+  }
+
+  const vendor = await prisma.vendorProfile.findUnique({ where: { id } });
   if (!vendor) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Vendor not found');
   }
 
   const updatedVendor = await prisma.vendorProfile.update({
-    where: { id: vendorId },
+    where: { id },
     data: { certificationStatus: CertificationStatus.Rejected },
     include: { user: true },
   });
@@ -129,13 +139,18 @@ const rejectCertification = async (vendorId: string, reason?: string) => {
 };
 
 const approveProduce = async (produceId: string) => {
-  const produce = await prisma.produce.findUnique({ where: { id: produceId } });
+  const id = parseInt(produceId);
+  if (isNaN(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid produce ID');
+  }
+
+  const produce = await prisma.produce.findUnique({ where: { id } });
   if (!produce) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
   }
 
   const updatedProduce = await prisma.produce.update({
-    where: { id: produceId },
+    where: { id },
     data: { certificationStatus: CertificationStatus.Approved },
     include: { vendor: { include: { user: true } } },
   });
@@ -144,13 +159,18 @@ const approveProduce = async (produceId: string) => {
 };
 
 const rejectProduce = async (produceId: string) => {
-  const produce = await prisma.produce.findUnique({ where: { id: produceId } });
+  const id = parseInt(produceId);
+  if (isNaN(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid produce ID');
+  }
+
+  const produce = await prisma.produce.findUnique({ where: { id } });
   if (!produce) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
   }
 
   const updatedProduce = await prisma.produce.update({
-    where: { id: produceId },
+    where: { id },
     data: { certificationStatus: CertificationStatus.Rejected },
     include: { vendor: { include: { user: true } } },
   });
@@ -181,13 +201,18 @@ const getAllPosts = async () => {
 };
 
 const approvePost = async (postId: string, adminId: string) => {
-  const post = await prisma.communityPost.findUnique({ where: { id: postId } });
+  const id = parseInt(postId);
+  if (isNaN(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid post ID');
+  }
+
+  const post = await prisma.communityPost.findUnique({ where: { id } });
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
 
   const updatedPost = await prisma.communityPost.update({
-    where: { id: postId },
+    where: { id },
     data: {
       isApproved: true,
       moderatedBy: adminId,
@@ -200,48 +225,38 @@ const approvePost = async (postId: string, adminId: string) => {
 };
 
 const deletePost = async (postId: string) => {
-  const post = await prisma.communityPost.findUnique({ where: { id: postId } });
+  const id = parseInt(postId);
+  if (isNaN(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid post ID');
+  }
+
+  const post = await prisma.communityPost.findUnique({ where: { id } });
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
 
-  await prisma.communityPost.delete({ where: { id: postId } });
+  await prisma.communityPost.delete({ where: { id } });
   return { message: 'Post deleted successfully' };
 };
 
 const getReports = async () => {
-  const reports = await prisma.report.findMany({
-    include: {
-      reporter: true,
-      reported: true,
-      post: true,
-    },
-    orderBy: { createdAt: 'desc' },
-  });
-  return reports;
+  // TODO: Implement Report model in database schema
+  // For now, return empty array
+  console.warn('Report functionality not implemented - missing Report model in schema');
+  return [];
 };
 
 const resolveReport = async (reportId: string, adminId: string) => {
-  const report = await prisma.report.findUnique({ where: { id: reportId } });
-  if (!report) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Report not found');
-  }
-
-  const updatedReport = await prisma.report.update({
-    where: { id: reportId },
-    data: {
-      status: 'Resolved',
-      adminId,
-      resolvedAt: new Date(),
-    },
-    include: {
-      reporter: true,
-      reported: true,
-      post: true,
-    },
-  });
-
-  return updatedReport;
+  // TODO: Implement Report model in database schema
+  // For now, return a mock response
+  console.warn('Report functionality not implemented - missing Report model in schema');
+  return {
+    id: reportId,
+    status: 'Resolved',
+    adminId,
+    resolvedAt: new Date(),
+    message: 'Report resolved (mock implementation)'
+  };
 };
 
 // Transaction and Order Monitoring

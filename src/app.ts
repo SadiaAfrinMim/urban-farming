@@ -1,5 +1,6 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
+import morgan from 'morgan';
 // @ts-ignore
 import swaggerUi from 'swagger-ui-express';
 // @ts-ignore
@@ -24,6 +25,9 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+// API logging
+app.use(morgan('combined'));
 
 const swaggerOptions = {
   definition: {

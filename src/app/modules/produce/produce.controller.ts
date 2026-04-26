@@ -6,23 +6,36 @@ import { ProduceService } from './produce.service';
 
 const getAllProduces = catchAsync(async (req: Request, res: Response) => {
   const { page = 1, limit = 10 } = req.query;
-  const result = await ProduceService.getAllProduces(Number(page), Number(limit));
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Produces retrieved successfully',
-    data: result,
-  });
+
+  // If no pagination requested, return just the products array for marketplace
+  if (page === 1 && limit === 10 && !req.query.page && !req.query.limit) {
+    const result = await ProduceService.getAllProduces(Number(page), Number(limit));
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Produces retrieved successfully',
+      data: result.data, // Return just the data array
+    });
+  } else {
+    // Return paginated response for API consumers that request pagination
+    const result = await ProduceService.getAllProduces(Number(page), Number(limit));
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Produces retrieved successfully',
+      data: result,
+    });
+  }
 });
 
 const searchProduces = catchAsync(async (req: Request, res: Response) => {
-  const { category, name } = req.query;
-  const result = await ProduceService.searchProduces(category as string, name as string);
+  const { q } = req.query;
+  const result = await ProduceService.searchProduces(q as string);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Produces searched successfully',
-    data: result,
+    data: result, // Already returns array from service
   });
 });
 

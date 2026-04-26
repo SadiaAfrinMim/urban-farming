@@ -1,12 +1,15 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { AuthController } from './auth.controller';
+import validateRequest from '../../middlewares/ValidateRequest';
+import { AuthValidation } from './auth.validation';
 
 import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/ValidateRequest';
+import { UserRole } from '../../../../prisma/prisma/generated';
+  
 
 
-import { UserRole } from '../../../../.prisma/client/enums';
+
 
 /**
  * @swagger
@@ -16,6 +19,8 @@ import { UserRole } from '../../../../.prisma/client/enums';
  */
 
 const router = express.Router();
+
+// Public authentication routes
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -43,6 +48,7 @@ const authLimiter = rateLimit({
  */
 router.post(
   '/register',
+
   authLimiter,
   AuthController.registerUser
 );
@@ -76,6 +82,7 @@ router.post(
  */
 router.post(
   '/login',
+  validateRequest(AuthValidation.loginUserZodSchema),
   authLimiter,
   AuthController.loginUser
 );
@@ -105,6 +112,7 @@ router.post(
  */
 router.post(
   '/refresh-token',
+ 
   AuthController.refreshToken
 );
 
@@ -138,10 +146,22 @@ router.post(
  */
 router.post(
   '/change-password',
-  
+
   auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer),
   AuthController.changePassword
 );
+
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: Logout user
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ */
+router.post('/logout', AuthController.logout);
 
 export const authRoutes = router;
 

@@ -12,7 +12,16 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024, // 5MB
   },
   fileFilter: (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif/;
+    // Allow images for profile photos and both images and PDFs for certifications
+    let allowedTypes;
+    if (file.fieldname === 'profilePhoto') {
+      allowedTypes = /jpeg|jpg|png|gif/;
+    } else if (file.fieldname === 'certification') {
+      allowedTypes = /jpeg|jpg|png|gif|pdf/;
+    } else {
+      // For other files (like produce images), allow images
+      allowedTypes = /jpeg|jpg|png|gif/;
+    }
 
     const extname = allowedTypes.test(
       path.extname(file.originalname).toLowerCase()
@@ -23,7 +32,7 @@ const upload = multer({
     if (mimetype && extname) {
       cb(null, true);
     } else {
-      cb(new Error('Only image files are allowed!'));
+      cb(new Error(`Only allowed file types are permitted for ${file.fieldname}!`));
     }
   },
 });

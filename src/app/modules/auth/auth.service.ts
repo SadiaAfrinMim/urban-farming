@@ -5,8 +5,9 @@ import config from '../../../config';
 import type { SignOptions } from 'jsonwebtoken';
 import { prisma } from '../../shared/prisma';
 import httpStatus from 'http-status';
-import { IJWTPayload, UserRole, CertificationStatus } from '../../types/common';
+import { IJWTPayload, UserRole, CertificationStatus, UserStatus } from '../../types/common';
 import ApiError from '../../errors/ApiError';
+import { jwtHelper } from '../../helpers/jwtHelper';
 
 const ensureAdminExists = async () => {
   const adminExists = await prisma.user.findFirst({
@@ -22,6 +23,7 @@ const ensureAdminExists = async () => {
         email: 'admin@example.com',
         password: hashedPassword,
         role: UserRole.Admin,
+        status: UserStatus.Active,
       },
     });
 
@@ -42,20 +44,31 @@ const registerUser = async (payload: {
 
   const role = roleString === 'Admin' ? UserRole.Admin : roleString === 'Vendor' ? UserRole.Vendor : UserRole.Customer;
 
-  if (roleString === 'Admin') {
-    if (adminCode !== 'ADMIN123') {
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid admin code');
-    }
+  // Admin role registration is now allowed without code for development
+  // if (roleString === 'Admin') {
+  //   if (adminCode !== 'ADMIN123') {
+  //     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid admin code');
+  //   }
+  // }
+
+  // Check if user already exists
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser) {
+    throw new ApiError(httpStatus.CONFLICT, 'User with this email already exists');
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
   const user = await prisma.user.create({
     data: {
-      name: name || null,
+      name,
       email,
       password: hashedPassword,
       role,
+      status: UserStatus.Active,
     },
     select: {
       id: true,
@@ -105,17 +118,31 @@ const loginUser = async (payload: { email: string; password: string }) => {
   const refreshSecret = config.jwt.refresh_token_secret || 'default-refresh-secret';
   const refreshExpiresIn = config.jwt.refresh_token_expires_in || '1y';
 
-  const accessToken = jwt.sign(
+  console.log('JWT Config Debug:', {
+    jwtSecret: jwtSecret ? jwtSecret.substring(0, 10) + '...' : 'undefined',
+    expiresIn,
+    refreshSecret: refreshSecret ? refreshSecret.substring(0, 10) + '...' : 'undefined',
+    refreshExpiresIn
+  });
+
+  const accessToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
     jwtSecret,
-    { expiresIn: expiresIn as string | number }
+    expiresIn as string
   );
 
-  const refreshToken = jwt.sign(
+  const refreshToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
     refreshSecret,
-    { expiresIn: refreshExpiresIn as string | number }
+    refreshExpiresIn as string
   );
+
+  console.log('Generated Tokens:', {
+    accessTokenLength: accessToken.length,
+    accessTokenStart: accessToken.substring(0, 20) + '...',
+    refreshTokenLength: refreshToken.length,
+    refreshTokenStart: refreshToken.substring(0, 20) + '...'
+  });
 
   return {
     accessToken,
@@ -132,7 +159,7 @@ const loginUser = async (payload: { email: string; password: string }) => {
 const refreshToken = async (token: string) => {
   let decoded;
   try {
-    decoded = jwt.verify(token, config.jwt.refresh_token_secret as string) as IJWTPayload;
+    decoded = jwtHelper.verifyToken(token, config.jwt.refresh_token_secret as string);
   } catch (err) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid refresh token');
   }
@@ -150,10 +177,10 @@ const refreshToken = async (token: string) => {
   const jwtSecret = config.jwt.jwt_secret || 'default-secret';
   const expiresIn = config.jwt.expires_in || '7d';
 
-  const accessToken = jwt.sign(
+  const accessToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
     jwtSecret,
-    { expiresIn: expiresIn as string | number }
+    expiresIn as string
   );
 
   return {

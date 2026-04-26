@@ -5,8 +5,8 @@ import sendResponse from '../../shared/sendResponse';
 import { VendorService } from './vendor.service';
 import { IJWTPayload } from '../../types/common';
 
-const createOrUpdateProfile = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const createOrUpdateProfile = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const result = await VendorService.createOrUpdateProfile(user, req);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -16,8 +16,19 @@ const createOrUpdateProfile = catchAsync(async (req: Request, res: Response) => 
     });
 });
 
-const getProfile = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const getVendorCard = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const result = await VendorService.getVendorCard(user);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Vendor card retrieved successfully',
+        data: result,
+    });
+});
+
+const getProfile = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const result = await VendorService.getProfile(user);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -27,9 +38,9 @@ const getProfile = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const createRentalSpace = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
-    const result = await VendorService.createRentalSpace(user, req.body);
+const createRentalSpace = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const result = await VendorService.createRentalSpace(user, req);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -38,8 +49,8 @@ const createRentalSpace = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const getRentalSpaces = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor  as IJWTPayload;
+const getRentalSpaces = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const result = await VendorService.getRentalSpaces(user);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -49,8 +60,8 @@ const getRentalSpaces = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const updateRentalSpace = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const updateRentalSpace = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const { id } = req.params;
     const result = await VendorService.updateRentalSpace(user, id, req.body);
     sendResponse(res, {
@@ -61,8 +72,8 @@ const updateRentalSpace = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const deleteRentalSpace = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const deleteRentalSpace = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const { id } = req.params;
     const result = await VendorService.deleteRentalSpace(user, id);
     sendResponse(res, {
@@ -73,9 +84,9 @@ const deleteRentalSpace = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const createProduce = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
-    const result = await VendorService.createProduce(user, req.body);
+const createProduce = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const result = await VendorService.createProduce(user, req);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -84,8 +95,8 @@ const createProduce = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const getProduces = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const getProduces = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const result = await VendorService.getProduces(user);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -95,8 +106,8 @@ const getProduces = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const updateProduce = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const updateProduce = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const { id } = req.params;
     const result = await VendorService.updateProduce(user, id, req.body);
     sendResponse(res, {
@@ -107,8 +118,8 @@ const updateProduce = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const deleteProduce = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const deleteProduce = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const { id } = req.params;
     const result = await VendorService.deleteProduce(user, id);
     sendResponse(res, {
@@ -119,8 +130,8 @@ const deleteProduce = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const updatePlantStatus = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const updatePlantStatus = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const result = await VendorService.updatePlantStatus(user, req.body);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -130,8 +141,8 @@ const updatePlantStatus = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const getOrders = catchAsync(async (req: Request, res: Response) => {
-    const user = req.Vendor as IJWTPayload;
+const getOrders = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
     const result = await VendorService.getOrders(user);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -144,6 +155,7 @@ const getOrders = catchAsync(async (req: Request, res: Response) => {
 export const VendorController = {
     createOrUpdateProfile,
     getProfile,
+    getVendorCard,
     createRentalSpace,
     getRentalSpaces,
     updateRentalSpace,

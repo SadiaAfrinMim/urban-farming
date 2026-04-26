@@ -1,7 +1,8 @@
 import express from 'express';
 import { SustainabilityController } from './sustainability.controller';
 import auth from '../../middlewares/auth';
-import { UserRole } from '../../../../prisma/generated/prisma/enums';
+import { UserRole } from '../../../../prisma/prisma/generated';
+
 
 /**
  * @swagger
@@ -14,7 +15,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /certs:
+ * /sustainability/certs:
  *   get:
  *     summary: Get all certificates
  *     tags: [Sustainability]
@@ -24,9 +25,11 @@ const router = express.Router();
  *       200:
  *         description: List of certificates
  */
+router.get('/certs', auth(UserRole.Admin), SustainabilityController.getAllCerts);
+
 /**
  * @swagger
- * /certs/{id}:
+ * /sustainability/certs/{id}:
  *   get:
  *     summary: Get certificate by ID
  *     tags: [Sustainability]
@@ -42,9 +45,11 @@ const router = express.Router();
  *       200:
  *         description: Certificate details
  */
+router.get('/certs/:id', auth(UserRole.Admin, UserRole.Vendor), SustainabilityController.getCertById);
+
 /**
  * @swagger
- * /certs:
+ * /sustainability/certs:
  *   post:
  *     summary: Create certificate
  *     tags: [Sustainability]
@@ -65,9 +70,11 @@ const router = express.Router();
  *       201:
  *         description: Certificate created
  */
+router.post('/certs', auth(UserRole.Vendor), SustainabilityController.createCert);
+
 /**
  * @swagger
- * /certs/{id}/status:
+ * /sustainability/certs/{id}/status:
  *   patch:
  *     summary: Update certificate status
  *     tags: [Sustainability]
@@ -93,10 +100,6 @@ const router = express.Router();
  *       200:
  *         description: Status updated
  */
-router.get('/certs', auth(UserRole.Admin), SustainabilityController.getAllCerts);
-router.get('/certs/:id', auth(UserRole.Admin, UserRole.Vendor), SustainabilityController.getCertById);
-
-router.post('/certs', auth(UserRole.Vendor), SustainabilityController.createCert);
 router.patch('/certs/:id/status', auth(UserRole.Admin), SustainabilityController.updateCertStatus);
 
 export const sustainabilityRoutes = router;

@@ -97,18 +97,23 @@ async function seedApprovedProducts() {
       },
     ];
 
-    for (const product of products) {
-      await prisma.produce.upsert({
-        where: {
-          name_vendorId: {
-            name: product.name,
-            vendorId: product.vendorId,
-          },
-        },
-        update: product,
-        create: product,
+  for (const product of products) {
+    // Check if product already exists
+    const existingProduct = await prisma.produce.findFirst({
+      where: {
+        name: product.name,
+        vendorId: product.vendorId,
+      },
+    });
+
+    if (!existingProduct) {
+      await prisma.produce.create({
+        data: product,
       });
+    } else {
+      console.log(`Product "${product.name}" already exists, skipping...`);
     }
+  }
 
     console.log('✅ Sample approved products seeded successfully!');
     console.log(`📦 Created ${products.length} approved products for marketplace testing`);

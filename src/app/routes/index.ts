@@ -20,7 +20,7 @@ const moduleRoutes = [
         route: authRoutes
     },
     {
-        path: '/rental',
+        path: '/rentals',
         route: rentalRoutes
     },
     {

@@ -33,8 +33,12 @@ const getCertById = async (id: string, user: IJWTPayload) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Certificate not found');
   }
   if (user.role === 'Vendor') {
+    const userIdNumber = parseInt(user.id, 10);
+    if (isNaN(userIdNumber)) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+    }
     const vendorProfile = await prisma.vendorProfile.findUnique({
-      where: { userId: user.id },
+      where: { userId: userIdNumber },
     });
     if (!vendorProfile || cert.vendorId !== vendorProfile.id) {
       throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
@@ -47,8 +51,12 @@ const createCert = async (userId: string, payload: {
   certifyingAgency: string;
   certificationDate: string;
 }) => {
+  const userIdNumber = parseInt(userId, 10);
+  if (isNaN(userIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+  }
   const vendorProfile = await prisma.vendorProfile.findUnique({
-    where: { userId },
+    where: { userId: userIdNumber },
   });
   if (!vendorProfile) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');

@@ -165,9 +165,13 @@ const refreshToken = async (token: string) => {
   }
 
   const { id } = decoded;
+  const userIdNumber = parseInt(id, 10);
+  if (isNaN(userIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID in token');
+  }
 
   const user = await prisma.user.findUnique({
-    where: { id },
+    where: { id: userIdNumber },
   });
 
   if (!user) {
@@ -194,8 +198,13 @@ const changePassword = async (
 ) => {
   const { oldPassword, newPassword } = payload;
 
+  const userIdNumber = parseInt(user.id, 10);
+  if (isNaN(userIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+  }
+
   const existingUser = await prisma.user.findUnique({
-    where: { id: user.id },
+    where: { id: userIdNumber },
   });
 
   if (!existingUser) {
@@ -211,7 +220,7 @@ const changePassword = async (
   const hashedNewPassword = await bcrypt.hash(newPassword, 12);
 
   await prisma.user.update({
-    where: { id: user.id },
+    where: { id: userIdNumber },
     data: { password: hashedNewPassword },
   });
 };

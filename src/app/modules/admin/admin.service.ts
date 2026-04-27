@@ -1,5 +1,5 @@
 import { prisma } from '../../shared/prisma';
-import { UserRole, UserStatus, CertificationStatus } from '../../../../prisma/prisma/generated';
+import { UserRole, UserStatus, CertificationStatus } from '../../types/common';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError';
 
@@ -7,6 +7,8 @@ import ApiError from '../../errors/ApiError';
 const getAllUsers = async (filters: any, options: any) => {
   const { searchTerm, ...filterData } = filters;
   const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+  const parsedPage = parseInt(page.toString(), 10) || 1;
+  const parsedLimit = parseInt(limit.toString(), 10) || 10;
 
   const andConditions = [];
 
@@ -31,8 +33,8 @@ const getAllUsers = async (filters: any, options: any) => {
 
   const result = await prisma.user.findMany({
     where: whereConditions,
-    skip: (page - 1) * limit,
-    take: limit,
+    skip: (parsedPage - 1) * parsedLimit,
+    take: parsedLimit,
     orderBy: {
       [sortBy]: sortOrder,
     },
@@ -55,13 +57,18 @@ const getAllUsers = async (filters: any, options: any) => {
 };
 
 const updateUserRole = async (userId: string, role: UserRole) => {
-  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const userIdNumber = parseInt(userId, 10);
+  if (isNaN(userIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: userIdNumber } });
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
   const updatedUser = await prisma.user.update({
-    where: { id: userId },
+    where: { id: userIdNumber },
     data: { role },
     include: { vendorProfile: true },
   });
@@ -70,13 +77,18 @@ const updateUserRole = async (userId: string, role: UserRole) => {
 };
 
 const updateUserStatus = async (userId: string, status: UserStatus) => {
-  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const userIdNumber = parseInt(userId, 10);
+  if (isNaN(userIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: userIdNumber } });
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
   const updatedUser = await prisma.user.update({
-    where: { id: userId },
+    where: { id: userIdNumber },
     data: { status },
     include: { vendorProfile: true },
   });
@@ -193,7 +205,8 @@ const getAllPosts = async () => {
   const posts = await prisma.communityPost.findMany({
     include: {
       user: true,
-      reports: true,
+      likes: true,
+      comments: true,
     },
     orderBy: { postDate: 'desc' },
   });
@@ -262,10 +275,12 @@ const resolveReport = async (reportId: string, adminId: string) => {
 // Transaction and Order Monitoring
 const getAllOrders = async (filters: any, options: any) => {
   const { page = 1, limit = 10, sortBy = 'orderDate', sortOrder = 'desc' } = options;
+  const parsedPage = parseInt(page.toString(), 10) || 1;
+  const parsedLimit = parseInt(limit.toString(), 10) || 10;
 
   const result = await prisma.order.findMany({
-    skip: (page - 1) * limit,
-    take: limit,
+    skip: (parsedPage - 1) * parsedLimit,
+    take: parsedLimit,
     orderBy: {
       [sortBy]: sortOrder,
     },
@@ -281,10 +296,10 @@ const getAllOrders = async (filters: any, options: any) => {
   return {
     data: result,
     meta: {
-      page,
-      limit,
+      page: parsedPage,
+      limit: parsedLimit,
       total,
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(total / parsedLimit),
     },
   };
 };
@@ -343,10 +358,10 @@ const getRateLimitLogs = async (options: any) => {
   return {
     data: result,
     meta: {
-      page,
-      limit,
-      total: 1,
-      totalPages: 1,
+      page: parsedPage,
+      limit: parsedLimit,
+      total,
+      totalPages: Math.ceil(total / parsedLimit),
     },
   };
 };
@@ -372,12 +387,17 @@ const getAnnouncements = async () => {
 };
 
 const deleteAnnouncement = async (announcementId: string) => {
-  const announcement = await prisma.announcement.findUnique({ where: { id: announcementId } });
+  const id = parseInt(announcementId, 10);
+  if (isNaN(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid announcement ID');
+  }
+
+  const announcement = await prisma.announcement.findUnique({ where: { id } });
   if (!announcement) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Announcement not found');
   }
 
-  await prisma.announcement.delete({ where: { id: announcementId } });
+  await prisma.announcement.delete({ where: { id } });
   return { message: 'Announcement deleted successfully' };
 };
 
@@ -388,14 +408,16 @@ const getDashboardStats = async () => {
     totalCustomers,
     pendingCertifications,
     pendingProducts,
-    pendingPosts,
+    pendingVendorPosts,
+    pendingCustomerPosts,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { role: UserRole.Vendor } }),
     prisma.user.count({ where: { role: UserRole.Customer } }),
     prisma.vendorProfile.count({ where: { certificationStatus: CertificationStatus.Pending } }),
     prisma.produce.count({ where: { certificationStatus: CertificationStatus.Pending } }),
-    prisma.communityPost.count({ where: { isApproved: false } }),
+    prisma.vendorPost.count({ where: { isApproved: false } }),
+    prisma.customerPost.count({ where: { isApproved: false } }),
   ]);
 
   return {
@@ -404,13 +426,15 @@ const getDashboardStats = async () => {
     totalCustomers,
     pendingCertifications,
     pendingProducts,
-    pendingPosts,
+    pendingPosts: pendingVendorPosts + pendingCustomerPosts,
   };
 };
 
 const getAllUsersData = async (filters: any, options: any) => {
   const { searchTerm, role, status, ...filterData } = filters;
   const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+  const parsedPage = parseInt(page.toString(), 10) || 1;
+  const parsedLimit = parseInt(limit.toString(), 10) || 10;
 
   const andConditions = [];
 
@@ -443,8 +467,8 @@ const getAllUsersData = async (filters: any, options: any) => {
 
   const result = await prisma.user.findMany({
     where: whereConditions,
-    skip: (page - 1) * limit,
-    take: limit,
+    skip: (parsedPage - 1) * parsedLimit,
+    take: parsedLimit,
     orderBy: {
       [sortBy]: sortOrder,
     },
@@ -458,10 +482,10 @@ const getAllUsersData = async (filters: any, options: any) => {
   return {
     data: result,
     meta: {
-      page,
-      limit,
+      page: parsedPage,
+      limit: parsedLimit,
       total,
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(total / parsedLimit),
     },
   };
 };
@@ -469,6 +493,8 @@ const getAllUsersData = async (filters: any, options: any) => {
 const getAllVendorsData = async (filters: any, options: any) => {
   const { searchTerm, certificationStatus, ...filterData } = filters;
   const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+  const parsedPage = parseInt(page.toString(), 10) || 1;
+  const parsedLimit = parseInt(limit.toString(), 10) || 10;
 
   const andConditions = [];
 
@@ -499,8 +525,8 @@ const getAllVendorsData = async (filters: any, options: any) => {
 
   const result = await prisma.vendorProfile.findMany({
     where: whereConditions,
-    skip: (page - 1) * limit,
-    take: limit,
+    skip: (parsedPage - 1) * parsedLimit,
+    take: parsedLimit,
     orderBy: {
       [sortBy]: sortOrder,
     },
@@ -553,6 +579,8 @@ const getAllVendorsData = async (filters: any, options: any) => {
 const getAllCustomersData = async (filters: any, options: any) => {
   const { searchTerm, ...filterData } = filters;
   const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+  const parsedPage = parseInt(page.toString(), 10) || 1;
+  const parsedLimit = parseInt(limit.toString(), 10) || 10;
 
   const andConditions = [];
 
@@ -580,8 +608,8 @@ const getAllCustomersData = async (filters: any, options: any) => {
       ...whereConditions,
       role: UserRole.Customer,
     },
-    skip: (page - 1) * limit,
-    take: limit,
+    skip: (parsedPage - 1) * parsedLimit,
+    take: parsedLimit,
     orderBy: {
       [sortBy]: sortOrder,
     },
@@ -618,10 +646,10 @@ const getAllCustomersData = async (filters: any, options: any) => {
   return {
     data: customersWithPosts,
     meta: {
-      page,
-      limit,
+      page: parsedPage,
+      limit: parsedLimit,
       total,
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(total / parsedLimit),
     },
   };
 };

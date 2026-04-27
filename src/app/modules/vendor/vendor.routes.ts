@@ -439,6 +439,36 @@ router.patch('/plant-update', auth(UserRole.Vendor), VendorController.updatePlan
 // Orders route
 /**
  * @swagger
+ * /vendor/orders/{id}/status:
+ *   patch:
+ *     summary: Update order status
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [Pending, Confirmed, Shipped, Delivered, Cancelled]
+ *     responses:
+ *       200:
+ *         description: Order status updated
+ */
+router.patch('/orders/:id/status', auth(UserRole.Vendor), VendorController.updateOrderStatus);
+
+/**
+ * @swagger
  * /vendor/orders:
  *   get:
  *     summary: Get vendor orders

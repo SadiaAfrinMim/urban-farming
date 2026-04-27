@@ -98,8 +98,12 @@ const createProduce = async (vendorId: string, payload: {
   category: string;
   availableQuantity: number;
 }) => {
+  const vendorIdNumber = parseInt(vendorId, 10);
+  if (isNaN(vendorIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
+  }
   const vendorProfile = await prisma.vendorProfile.findUnique({
-    where: { userId: vendorId },
+    where: { userId: vendorIdNumber },
   });
   if (!vendorProfile) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');

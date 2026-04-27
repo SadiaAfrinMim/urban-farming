@@ -10,8 +10,12 @@ const getOrders = async (user: IJWTPayload) => {
   if (user.role === 'Customer') {
     where.userId = user.id;
   } else if (user.role === 'Vendor') {
+    const userIdNumber = parseInt(user.id, 10);
+    if (isNaN(userIdNumber)) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+    }
     const vendorProfile = await prisma.vendorProfile.findUnique({
-      where: { userId: user.id },
+      where: { userId: userIdNumber },
     });
     if (vendorProfile) {
       where.vendorId = vendorProfile.id;
@@ -54,8 +58,12 @@ const getOrderById = async (id: string, user: IJWTPayload) => {
     throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
   }
   if (user.role === 'Vendor') {
+    const userIdNumber = parseInt(user.id, 10);
+    if (isNaN(userIdNumber)) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+    }
     const vendorProfile = await prisma.vendorProfile.findUnique({
-      where: { userId: user.id },
+      where: { userId: userIdNumber },
     });
     if (!vendorProfile || order.vendorId !== vendorProfile.id) {
       throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');

@@ -30,7 +30,8 @@ const getAllUsersData = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'All users data retrieved successfully',
-    data: result,
+    data: result.data,
+    meta: result.meta,
   });
 });
 

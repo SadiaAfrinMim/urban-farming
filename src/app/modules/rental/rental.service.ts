@@ -61,8 +61,12 @@ const createRentalSpace = async (vendorId: string, payload: {
   availability?: boolean;
 }) => {
   // Check if vendor exists and is Vendor role
+  const vendorIdNumber = parseInt(vendorId, 10);
+  if (isNaN(vendorIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
+  }
   const vendorProfile = await prisma.vendorProfile.findUnique({
-    where: { userId: vendorId },
+    where: { userId: vendorIdNumber },
   });
 
   if (!vendorProfile) {

@@ -318,6 +318,12 @@ exports.ProduceCategory = exports.$Enums.ProduceCategory = {
 };
 
 exports.PlantHealth = exports.$Enums.PlantHealth = {
+  Seeding: 'Seeding',
+  Sprouting: 'Sprouting',
+  Growing: 'Growing',
+  Flowering: 'Flowering',
+  ReadyToHarvest: 'ReadyToHarvest',
+  Harvested: 'Harvested',
   Healthy: 'Healthy',
   Sick: 'Sick',
   Dead: 'Dead'

@@ -44,6 +44,12 @@ enum OrderStatus {
 }
 
 enum PlantHealth {
+  Seeding
+  Sprouting
+  Growing
+  Flowering
+  ReadyToHarvest
+  Harvested
   Healthy
   Sick
   Dead

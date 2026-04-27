@@ -241,15 +241,20 @@ const getMyProfile = async (user: IJWTPayload) => {
 };
 
 const changeProfileStatus = async (id: string, payload: { status: UserStatus }) => {
+    const userIdNumber = parseInt(id, 10);
+    if (isNaN(userIdNumber)) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+    }
+
     const userData = await prisma.user.findUniqueOrThrow({
         where: {
-            id
+            id: userIdNumber
         }
     })
 
     const updateUserStatus = await prisma.user.update({
         where: {
-            id
+            id: userIdNumber
         },
         data: payload
     })

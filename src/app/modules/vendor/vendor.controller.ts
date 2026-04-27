@@ -141,6 +141,19 @@ const updatePlantStatus = catchAsync(async (req: Request & { user?: IJWTPayload 
     });
 });
 
+const updateOrderStatus = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const { id } = req.params;
+    const { status } = req.body;
+    const result = await VendorService.updateOrderStatus(user, id, status);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Order status updated successfully',
+        data: result,
+    });
+});
+
 const getOrders = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
     const user = req.user!;
     const result = await VendorService.getOrders(user);
@@ -236,6 +249,7 @@ export const VendorController = {
     updateProduce,
     deleteProduce,
     updatePlantStatus,
+    updateOrderStatus,
     getOrders,
     createVendorPost,
     getVendorPosts,

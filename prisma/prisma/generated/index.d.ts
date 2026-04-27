@@ -147,6 +147,12 @@ export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
 export const PlantHealth: {
+  Seeding: 'Seeding',
+  Sprouting: 'Sprouting',
+  Growing: 'Growing',
+  Flowering: 'Flowering',
+  ReadyToHarvest: 'ReadyToHarvest',
+  Harvested: 'Harvested',
   Healthy: 'Healthy',
   Sick: 'Sick',
   Dead: 'Dead'

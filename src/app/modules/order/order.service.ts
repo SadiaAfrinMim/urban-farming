@@ -92,19 +92,45 @@ const createOrder = async (userId: string, payload: {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Product is not available for purchase');
   }
 
-  // Calculate total price if not provided
-  const totalPrice = payload.totalPrice || (produce.price * quantity);
+  // Check if enough stock is available
+  if (produce.availableQuantity < quantity) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Insufficient stock available');
+  }
 
-  const order = await prisma.order.create({
-    data: {
-      userId: parseInt(userId),
-      produceId,
-      vendorId: produce.vendorId,
-      quantity,
-      totalPrice,
-    },
+  // Calculate total price (always use price * quantity to ensure accuracy)
+  const totalPrice = produce.price * quantity;
+
+  // Use a transaction to ensure both order creation and stock update happen atomically
+  const result = await prisma.$transaction(async (tx) => {
+    // Decrease the available quantity
+    const updatedProduce = await tx.produce.update({
+      where: { id: produceId },
+      data: {
+        availableQuantity: {
+          decrement: quantity,
+        },
+      },
+    });
+
+    console.log(`Stock decreased for produce ${produceId}: ${produce.availableQuantity} -> ${updatedProduce.availableQuantity} (ordered: ${quantity})`);
+
+    // Create the order
+    const order = await tx.order.create({
+      data: {
+        userId: parseInt(userId),
+        produceId,
+        vendorId: produce.vendorId,
+        quantity,
+        totalPrice,
+      },
+    });
+
+    console.log(`Order created: ${order.id} for user ${userId}, produce ${produceId}, quantity ${quantity}, total ${totalPrice}`);
+
+    return order;
   });
-  return order;
+
+  return result;
 };
 
 const updateOrderStatus = async (id: string, status: OrderStatus) => {
@@ -114,11 +140,56 @@ const updateOrderStatus = async (id: string, status: OrderStatus) => {
   if (!order) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
   }
-  const updated = await prisma.order.update({
-    where: { id },
-    data: { status },
+
+  // If cancelling a pending order, restore the stock
+  if (status === OrderStatus.Cancelled && order.status === OrderStatus.Pending) {
+    await prisma.$transaction(async (tx) => {
+      // Restore the stock
+      await tx.produce.update({
+        where: { id: order.produceId },
+        data: {
+          availableQuantity: {
+            increment: order.quantity,
+          },
+        },
+      });
+
+      // Update order status
+      await tx.order.update({
+        where: { id },
+        data: { status },
+      });
+    });
+
+    console.log(`Stock restored for cancelled order ${id}: +${order.quantity} to produce ${order.produceId}`);
+  } else {
+    const updated = await prisma.order.update({
+      where: { id },
+      data: { status },
+    });
+    return updated;
+  }
+};
+
+// Function to cancel expired pending orders and restore stock
+const cancelExpiredOrders = async () => {
+  const expiryTime = new Date(Date.now() - 30 * 60 * 1000); // 30 minutes ago
+
+  const expiredOrders = await prisma.order.findMany({
+    where: {
+      status: OrderStatus.Pending,
+      createdAt: {
+        lt: expiryTime,
+      },
+    },
   });
-  return updated;
+
+  for (const order of expiredOrders) {
+    await updateOrderStatus(order.id.toString(), OrderStatus.Cancelled);
+    console.log(`Auto-cancelled expired order ${order.id}`);
+  }
+
+  return expiredOrders.length;
 };
 
 export const OrderService = {
@@ -126,4 +197,5 @@ export const OrderService = {
   getOrderById,
   createOrder,
   updateOrderStatus,
+  cancelExpiredOrders,
 };

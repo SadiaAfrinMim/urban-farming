@@ -158,4 +158,27 @@ router.delete('/:id', auth(UserRole.Vendor), RentalController.deleteRentalSpace)
  */
 router.patch('/:id/availability', auth(UserRole.Vendor), RentalController.toggleAvailability);
 
+/**
+ * @swagger
+ * /rentals/book:
+ *   post:
+ *     summary: Book a rental space
+ *     tags: [Rentals]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               spaceId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Rental space booked
+ */
+router.post('/book', auth(UserRole.Customer), RentalController.bookRentalSpace);
+
 export const rentalRoutes = router;

@@ -83,6 +83,18 @@ const toggleAvailability = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const bookRentalSpace = catchAsync(async (req: Request, res: Response) => {
+  const { spaceId } = req.body;
+  const user = (req as any).user;
+  const result = await RentalService.bookRentalSpace(spaceId, user.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Rental space booked successfully',
+    data: result,
+  });
+});
+
 export const RentalController = {
   getAllRentalSpaces,
   searchRentalSpaces,
@@ -91,4 +103,5 @@ export const RentalController = {
   updateRentalSpace,
   deleteRentalSpace,
   toggleAvailability,
+  bookRentalSpace,
 };

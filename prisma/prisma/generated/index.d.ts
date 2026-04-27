@@ -8993,6 +8993,7 @@ export namespace Prisma {
     userId: number | null
     postContent: string | null
     postDate: Date | null
+    isApproved: boolean | null
   }
 
   export type CommunityPostMaxAggregateOutputType = {
@@ -9000,6 +9001,7 @@ export namespace Prisma {
     userId: number | null
     postContent: string | null
     postDate: Date | null
+    isApproved: boolean | null
   }
 
   export type CommunityPostCountAggregateOutputType = {
@@ -9007,6 +9009,7 @@ export namespace Prisma {
     userId: number
     postContent: number
     postDate: number
+    isApproved: number
     _all: number
   }
 
@@ -9026,6 +9029,7 @@ export namespace Prisma {
     userId?: true
     postContent?: true
     postDate?: true
+    isApproved?: true
   }
 
   export type CommunityPostMaxAggregateInputType = {
@@ -9033,6 +9037,7 @@ export namespace Prisma {
     userId?: true
     postContent?: true
     postDate?: true
+    isApproved?: true
   }
 
   export type CommunityPostCountAggregateInputType = {
@@ -9040,6 +9045,7 @@ export namespace Prisma {
     userId?: true
     postContent?: true
     postDate?: true
+    isApproved?: true
     _all?: true
   }
 
@@ -9134,6 +9140,7 @@ export namespace Prisma {
     userId: number
     postContent: string
     postDate: Date
+    isApproved: boolean
     _count: CommunityPostCountAggregateOutputType | null
     _avg: CommunityPostAvgAggregateOutputType | null
     _sum: CommunityPostSumAggregateOutputType | null
@@ -9160,6 +9167,7 @@ export namespace Prisma {
     userId?: boolean
     postContent?: boolean
     postDate?: boolean
+    isApproved?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     likes?: boolean | CommunityPost$likesArgs<ExtArgs>
     comments?: boolean | CommunityPost$commentsArgs<ExtArgs>
@@ -9171,6 +9179,7 @@ export namespace Prisma {
     userId?: boolean
     postContent?: boolean
     postDate?: boolean
+    isApproved?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["communityPost"]>
 
@@ -9179,6 +9188,7 @@ export namespace Prisma {
     userId?: boolean
     postContent?: boolean
     postDate?: boolean
+    isApproved?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["communityPost"]>
 
@@ -9187,9 +9197,10 @@ export namespace Prisma {
     userId?: boolean
     postContent?: boolean
     postDate?: boolean
+    isApproved?: boolean
   }
 
-  export type CommunityPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postContent" | "postDate", ExtArgs["result"]["communityPost"]>
+  export type CommunityPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "postContent" | "postDate" | "isApproved", ExtArgs["result"]["communityPost"]>
   export type CommunityPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     likes?: boolean | CommunityPost$likesArgs<ExtArgs>
@@ -9215,6 +9226,7 @@ export namespace Prisma {
       userId: number
       postContent: string
       postDate: Date
+      isApproved: boolean
     }, ExtArgs["result"]["communityPost"]>
     composites: {}
   }
@@ -9645,6 +9657,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"CommunityPost", 'Int'>
     readonly postContent: FieldRef<"CommunityPost", 'String'>
     readonly postDate: FieldRef<"CommunityPost", 'DateTime'>
+    readonly isApproved: FieldRef<"CommunityPost", 'Boolean'>
   }
     
 
@@ -21534,7 +21547,8 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     postContent: 'postContent',
-    postDate: 'postDate'
+    postDate: 'postDate',
+    isApproved: 'isApproved'
   };
 
   export type CommunityPostScalarFieldEnum = (typeof CommunityPostScalarFieldEnum)[keyof typeof CommunityPostScalarFieldEnum]
@@ -22333,6 +22347,7 @@ export namespace Prisma {
     userId?: IntFilter<"CommunityPost"> | number
     postContent?: StringFilter<"CommunityPost"> | string
     postDate?: DateTimeFilter<"CommunityPost"> | Date | string
+    isApproved?: BoolFilter<"CommunityPost"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     likes?: PostLikeListRelationFilter
     comments?: PostCommentListRelationFilter
@@ -22343,6 +22358,7 @@ export namespace Prisma {
     userId?: SortOrder
     postContent?: SortOrder
     postDate?: SortOrder
+    isApproved?: SortOrder
     user?: UserOrderByWithRelationInput
     likes?: PostLikeOrderByRelationAggregateInput
     comments?: PostCommentOrderByRelationAggregateInput
@@ -22356,6 +22372,7 @@ export namespace Prisma {
     userId?: IntFilter<"CommunityPost"> | number
     postContent?: StringFilter<"CommunityPost"> | string
     postDate?: DateTimeFilter<"CommunityPost"> | Date | string
+    isApproved?: BoolFilter<"CommunityPost"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     likes?: PostLikeListRelationFilter
     comments?: PostCommentListRelationFilter
@@ -22366,6 +22383,7 @@ export namespace Prisma {
     userId?: SortOrder
     postContent?: SortOrder
     postDate?: SortOrder
+    isApproved?: SortOrder
     _count?: CommunityPostCountOrderByAggregateInput
     _avg?: CommunityPostAvgOrderByAggregateInput
     _max?: CommunityPostMaxOrderByAggregateInput
@@ -22381,6 +22399,7 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter<"CommunityPost"> | number
     postContent?: StringWithAggregatesFilter<"CommunityPost"> | string
     postDate?: DateTimeWithAggregatesFilter<"CommunityPost"> | Date | string
+    isApproved?: BoolWithAggregatesFilter<"CommunityPost"> | boolean
   }
 
   export type PostLikeWhereInput = {
@@ -23513,6 +23532,7 @@ export namespace Prisma {
   export type CommunityPostCreateInput = {
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     user: UserCreateNestedOneWithoutCommunityPostsInput
     likes?: PostLikeCreateNestedManyWithoutPostInput
     comments?: PostCommentCreateNestedManyWithoutPostInput
@@ -23523,6 +23543,7 @@ export namespace Prisma {
     userId: number
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     likes?: PostLikeUncheckedCreateNestedManyWithoutPostInput
     comments?: PostCommentUncheckedCreateNestedManyWithoutPostInput
   }
@@ -23530,6 +23551,7 @@ export namespace Prisma {
   export type CommunityPostUpdateInput = {
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutCommunityPostsNestedInput
     likes?: PostLikeUpdateManyWithoutPostNestedInput
     comments?: PostCommentUpdateManyWithoutPostNestedInput
@@ -23540,6 +23562,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     likes?: PostLikeUncheckedUpdateManyWithoutPostNestedInput
     comments?: PostCommentUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -23549,11 +23572,13 @@ export namespace Prisma {
     userId: number
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
   }
 
   export type CommunityPostUpdateManyMutationInput = {
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CommunityPostUncheckedUpdateManyInput = {
@@ -23561,6 +23586,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PostLikeCreateInput = {
@@ -24882,6 +24908,7 @@ export namespace Prisma {
     userId?: SortOrder
     postContent?: SortOrder
     postDate?: SortOrder
+    isApproved?: SortOrder
   }
 
   export type CommunityPostAvgOrderByAggregateInput = {
@@ -24894,6 +24921,7 @@ export namespace Prisma {
     userId?: SortOrder
     postContent?: SortOrder
     postDate?: SortOrder
+    isApproved?: SortOrder
   }
 
   export type CommunityPostMinOrderByAggregateInput = {
@@ -24901,6 +24929,7 @@ export namespace Prisma {
     userId?: SortOrder
     postContent?: SortOrder
     postDate?: SortOrder
+    isApproved?: SortOrder
   }
 
   export type CommunityPostSumOrderByAggregateInput = {
@@ -27156,6 +27185,7 @@ export namespace Prisma {
   export type CommunityPostCreateWithoutUserInput = {
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     likes?: PostLikeCreateNestedManyWithoutPostInput
     comments?: PostCommentCreateNestedManyWithoutPostInput
   }
@@ -27164,6 +27194,7 @@ export namespace Prisma {
     id?: number
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     likes?: PostLikeUncheckedCreateNestedManyWithoutPostInput
     comments?: PostCommentUncheckedCreateNestedManyWithoutPostInput
   }
@@ -27474,6 +27505,7 @@ export namespace Prisma {
     userId?: IntFilter<"CommunityPost"> | number
     postContent?: StringFilter<"CommunityPost"> | string
     postDate?: DateTimeFilter<"CommunityPost"> | Date | string
+    isApproved?: BoolFilter<"CommunityPost"> | boolean
   }
 
   export type CustomerPostUpsertWithWhereUniqueWithoutUserInput = {
@@ -28757,6 +28789,7 @@ export namespace Prisma {
   export type CommunityPostCreateWithoutLikesInput = {
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     user: UserCreateNestedOneWithoutCommunityPostsInput
     comments?: PostCommentCreateNestedManyWithoutPostInput
   }
@@ -28766,6 +28799,7 @@ export namespace Prisma {
     userId: number
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     comments?: PostCommentUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -28840,6 +28874,7 @@ export namespace Prisma {
   export type CommunityPostUpdateWithoutLikesInput = {
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutCommunityPostsNestedInput
     comments?: PostCommentUpdateManyWithoutPostNestedInput
   }
@@ -28849,6 +28884,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     comments?: PostCommentUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -28901,6 +28937,7 @@ export namespace Prisma {
   export type CommunityPostCreateWithoutCommentsInput = {
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     user: UserCreateNestedOneWithoutCommunityPostsInput
     likes?: PostLikeCreateNestedManyWithoutPostInput
   }
@@ -28910,6 +28947,7 @@ export namespace Prisma {
     userId: number
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
     likes?: PostLikeUncheckedCreateNestedManyWithoutPostInput
   }
 
@@ -28984,6 +29022,7 @@ export namespace Prisma {
   export type CommunityPostUpdateWithoutCommentsInput = {
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutCommunityPostsNestedInput
     likes?: PostLikeUpdateManyWithoutPostNestedInput
   }
@@ -28993,6 +29032,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     likes?: PostLikeUncheckedUpdateManyWithoutPostNestedInput
   }
 
@@ -30158,6 +30198,7 @@ export namespace Prisma {
     id?: number
     postContent: string
     postDate?: Date | string
+    isApproved?: boolean
   }
 
   export type CustomerPostCreateManyUserInput = {
@@ -30255,6 +30296,7 @@ export namespace Prisma {
   export type CommunityPostUpdateWithoutUserInput = {
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     likes?: PostLikeUpdateManyWithoutPostNestedInput
     comments?: PostCommentUpdateManyWithoutPostNestedInput
   }
@@ -30263,6 +30305,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
     likes?: PostLikeUncheckedUpdateManyWithoutPostNestedInput
     comments?: PostCommentUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -30271,6 +30314,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     postContent?: StringFieldUpdateOperationsInput | string
     postDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CustomerPostUpdateWithoutUserInput = {

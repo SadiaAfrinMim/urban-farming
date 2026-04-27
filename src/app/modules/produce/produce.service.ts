@@ -76,7 +76,7 @@ const searchProduces = async (query?: string) => {
 
 const getProduceById = async (id: string) => {
   const produce = await prisma.produce.findUnique({
-    where: { id },
+    where: { id: parseInt(id) },
     include: {
       vendor: {
         include: {
@@ -97,6 +97,7 @@ const createProduce = async (vendorId: string, payload: {
   price: number;
   category: string;
   availableQuantity: number;
+  unit?: string;
 }) => {
   const vendorIdNumber = parseInt(vendorId, 10);
   if (isNaN(vendorIdNumber)) {
@@ -123,15 +124,16 @@ const updateProduce = async (id: string, payload: Partial<{
   price: number;
   category: string;
   availableQuantity: number;
+  unit?: string;
 }>) => {
   const produce = await prisma.produce.findUnique({
-    where: { id },
+    where: { id: parseInt(id) },
   });
   if (!produce) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
   }
   const updated = await prisma.produce.update({
-    where: { id },
+    where: { id: parseInt(id) },
     data: payload,
   });
   return updated;
@@ -139,13 +141,13 @@ const updateProduce = async (id: string, payload: Partial<{
 
 const deleteProduce = async (id: string) => {
   const produce = await prisma.produce.findUnique({
-    where: { id },
+    where: { id: parseInt(id) },
   });
   if (!produce) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
   }
   await prisma.produce.delete({
-    where: { id },
+    where: { id: parseInt(id) },
   });
 };
 

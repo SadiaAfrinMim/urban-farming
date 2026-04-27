@@ -138,27 +138,30 @@ model RentalSpace {
 }
 
 model Order {
-  id        Int        @id @default(autoincrement())
-  userId    Int
-  produceId Int
-  vendorId  Int
-  quantity  Int
-  totalPrice Float
-  status    OrderStatus @default(Pending)
-  orderDate DateTime   @default(now())
+   id        Int        @id @default(autoincrement())
+   userId    Int
+   produceId Int?
+   vendorId  Int
+   rentalSpaceId Int?
+   quantity  Int
+   totalPrice Float
+   status    OrderStatus @default(Pending)
+   orderDate DateTime   @default(now())
 
-  user    User           @relation(fields: [userId], references: [id])
-  produce Produce        @relation(fields: [produceId], references: [id])
-  vendor  VendorProfile  @relation(fields: [vendorId], references: [id])
+   user    User           @relation(fields: [userId], references: [id])
+   produce Produce?       @relation(fields: [produceId], references: [id])
+   vendor  VendorProfile  @relation(fields: [vendorId], references: [id])
+   rentalSpace RentalSpace? @relation(fields: [rentalSpaceId], references: [id])
 
-  @@map("orders")
-}
+   @@map("orders")
+ }
 
 model CommunityPost {
   id          Int      @id @default(autoincrement())
   userId      Int
   postContent String
   postDate    DateTime @default(now())
+  isApproved  Boolean  @default(true)
 
   user        User @relation(fields: [userId], references: [id])
   likes       PostLike[]

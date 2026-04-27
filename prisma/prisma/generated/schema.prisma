@@ -159,6 +159,7 @@ model CommunityPost {
   userId      Int
   postContent String
   postDate    DateTime @default(now())
+  isApproved  Boolean  @default(true)
 
   user     User          @relation(fields: [userId], references: [id])
   likes    PostLike[]

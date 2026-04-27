@@ -248,6 +248,11 @@ const deletePost = async (postId: string) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
 
+  // Delete related likes and comments first
+  await prisma.postLike.deleteMany({ where: { postId: id } });
+  await prisma.postComment.deleteMany({ where: { postId: id } });
+
+  // Now delete the post
   await prisma.communityPost.delete({ where: { id } });
   return { message: 'Post deleted successfully' };
 };
@@ -307,7 +312,7 @@ const getAllOrders = async (filters: any, options: any) => {
 const getRentalAnalytics = async () => {
   const totalSpaces = await prisma.rentalSpace.count();
   const rentedSpaces = await prisma.rentalSpace.count({
-    where: { available: false },
+    where: { availability: false },
   });
 
   const rentedPercentage = totalSpaces > 0 ? (rentedSpaces / totalSpaces) * 100 : 0;

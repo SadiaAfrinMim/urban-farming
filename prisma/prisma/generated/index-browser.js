@@ -185,7 +185,8 @@ exports.Prisma.CommunityPostScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   postContent: 'postContent',
-  postDate: 'postDate'
+  postDate: 'postDate',
+  isApproved: 'isApproved'
 };
 
 exports.Prisma.PostLikeScalarFieldEnum = {

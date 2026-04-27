@@ -11,6 +11,7 @@ import { VendorRoutes } from '../modules/vendor/vendor.routes';
 import { AdminRoutes } from '../modules/admin/admin.routes';
 import { paymentRoutes } from '../modules/payment/payment.routes';
 import { customerRoutes } from '../modules/customer/customer.routes';
+import { homeRoutes } from '../modules/home/home.routes';
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ const moduleRoutes = [
         route: orderRoutes
     },
     {
-  path: '/produces',
+        path: '/produces',
         route: produceRoutes
     },
     {
@@ -44,7 +45,7 @@ const moduleRoutes = [
         route: sustainabilityRoutes
     },
     {
-       path: '/user',
+        path: '/user',
         route: userRoutes
     },
     {
@@ -62,9 +63,14 @@ const moduleRoutes = [
     {
         path: '/admin',
         route: AdminRoutes
-    },{
+    },
+    {
         path: '/payments',
         route: paymentRoutes
+    },
+    {
+        path: '/home',
+        route: homeRoutes
     }
 ];
 

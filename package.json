@@ -50,6 +50,7 @@
     "multer": "^2.1.1",
     "node-cron": "^4.2.1",
     "openai": "^4.52.7",
+    "socket.io": "^4.8.3",
     "stripe": "^16.9.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

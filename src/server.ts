@@ -1,17 +1,54 @@
 import { Server } from 'http';
+import { Server as SocketServer } from 'socket.io';
+import cron from 'node-cron';
 import app from './app';
 import config from './config';
+import { OrderService } from './app/modules/order/order.service';
 
 
 async function bootstrap() {
     // This variable will hold our server instance
     let server: Server;
+    let io: SocketServer;
 
     try {
         // Start the server
         server = app.listen(config.port, () => {
             console.log(`🚀 Server is running on http://localhost:${config.port}`);
         });
+
+        // Initialize Socket.IO
+        io = new SocketServer(server, {
+            cors: {
+                origin: ['http://localhost:3000', 'http://localhost:3001'],
+                credentials: true
+            }
+        });
+
+        // Store io instance globally for use in controllers
+        (global as any).io = io;
+
+        io.on('connection', (socket) => {
+            console.log('User connected:', socket.id);
+
+            socket.on('disconnect', () => {
+                console.log('User disconnected:', socket.id);
+            });
+        });
+
+        // Schedule cron job to cancel expired orders every 15 minutes
+        cron.schedule('*/15 * * * *', async () => {
+            try {
+                const cancelledCount = await OrderService.cancelExpiredOrders();
+                if (cancelledCount > 0) {
+                    console.log(`🧹 Cancelled ${cancelledCount} expired orders and restored stock`);
+                }
+            } catch (error) {
+                console.error('Error cancelling expired orders:', error);
+            }
+        });
+
+        console.log('⏰ Order cleanup cron job scheduled (every 15 minutes)');
 
         // Function to gracefully shut down the server
         const exitHandler = () => {

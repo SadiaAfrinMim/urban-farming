@@ -120,6 +120,24 @@ const toggleAvailability = async (id: string, availability: boolean) => {
   return updated;
 };
 
+const bookRentalSpace = async (spaceId: string, customerId: string) => {
+  const rentalSpace = await prisma.rentalSpace.findUnique({
+    where: { id: spaceId },
+  });
+  if (!rentalSpace) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
+  }
+  if (!rentalSpace.availability) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Rental space is not available');
+  }
+  // Update availability to false
+  const updated = await prisma.rentalSpace.update({
+    where: { id: spaceId },
+    data: { availability: false },
+  });
+  return updated;
+};
+
 export const RentalService = {
   getAllRentalSpaces,
   searchRentalSpaces,
@@ -128,4 +146,5 @@ export const RentalService = {
   updateRentalSpace,
   deleteRentalSpace,
   toggleAvailability,
+  bookRentalSpace,
 };

@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+
 // @ts-ignore
 import swaggerUi from 'swagger-ui-express';
 // @ts-ignore
@@ -17,8 +18,16 @@ const app: Application = express();
 
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
-    credentials: true
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'https://urban-farming-sable.vercel.app',
+        'https://urban-farming-backend-pink.vercel.app',
+        // Add any additional frontend deployment URLs here
+    ],
+     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 //parser
@@ -40,6 +49,11 @@ const swaggerOptions = {
     servers: [
       {
         url: 'http://localhost:5000/api/v1',
+        description: 'Local development server'
+      },
+      {
+        url: 'https://urban-farming-backend-lntnpv71y-sadia660s-projects.vercel.app/api/v1',
+        description: 'Production server'
       },
     ],
     components: {

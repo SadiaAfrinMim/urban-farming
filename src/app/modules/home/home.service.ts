@@ -1,5 +1,5 @@
 import { prisma } from '../../shared/prisma';
-import { UserRole } from '../../../../prisma/prisma/generated';
+import { UserRole } from '@prisma/client';
 
 // Featured Products
 const getFeaturedProducts = async () => {

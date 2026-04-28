@@ -5,7 +5,7 @@ import validateRequest from '../../middlewares/ValidateRequest';
 import { AuthValidation } from './auth.validation';
 
 import auth from '../../middlewares/auth';
-import { UserRole } from '../../../../prisma/prisma/generated';
+import { UserRole } from '@prisma/client';
   
 
 

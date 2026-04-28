@@ -114,7 +114,21 @@ const createProduce = async (vendorId: string, payload: {
       vendorId: vendorProfile.id,
       ...payload,
     },
+    include: {
+      vendor: {
+        include: {
+          user: true,
+        },
+      },
+    },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('produce-created', produce);
+  }
+
   return produce;
 };
 
@@ -135,7 +149,21 @@ const updateProduce = async (id: string, payload: Partial<{
   const updated = await prisma.produce.update({
     where: { id: parseInt(id) },
     data: payload,
+    include: {
+      vendor: {
+        include: {
+          user: true,
+        },
+      },
+    },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('produce-updated', updated);
+  }
+
   return updated;
 };
 
@@ -149,6 +177,12 @@ const deleteProduce = async (id: string) => {
   await prisma.produce.delete({
     where: { id: parseInt(id) },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('produce-deleted', { id });
+  }
 };
 
 export const ProduceService = {

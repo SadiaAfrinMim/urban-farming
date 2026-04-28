@@ -190,6 +190,20 @@ router.get('/profile', auth(UserRole.Vendor), VendorController.getProfile);
  */
 router.get('/card', auth(UserRole.Vendor), VendorController.getVendorCard);
 
+/**
+ * @swagger
+ * /vendor/dashboard/stats:
+ *   get:
+ *     summary: Get vendor dashboard statistics
+ *     tags: [Vendor]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Dashboard stats retrieved successfully
+ */
+router.get('/dashboard/stats', auth(UserRole.Vendor), VendorController.getVendorDashboardStats);
+
 // Rental space routes
 /**
  * @swagger

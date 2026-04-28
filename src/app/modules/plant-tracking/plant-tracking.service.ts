@@ -1,5 +1,5 @@
 import { prisma } from '../../shared/prisma';
-import { PlantHealth } from '../../../../prisma/prisma/generated';
+import { PlantHealth } from '@prisma/client';
 import { IPaginationOptions } from '../../types/common';
 import { paginationHelper } from '../../helpers/paginationHelper';
 import ApiError from '../../errors/ApiError';

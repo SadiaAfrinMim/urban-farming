@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./prisma/generated"
 }
 
 datasource db {
@@ -76,6 +75,7 @@ model User {
   vendorPostLikes       VendorPostLike[]
   vendorPostComments    VendorPostComment[]
   userCommands          UserCommand[]
+  notifications         Notification[]
 
   @@map("users")
 }
@@ -133,6 +133,7 @@ model RentalSpace {
   createdAt    DateTime @default(now())
 
   vendor       VendorProfile @relation(fields: [vendorId], references: [id])
+  orders       Order[]
 
   @@map("rental_spaces")
 }
@@ -320,6 +321,31 @@ model UserCommand {
   user        User @relation(fields: [userId], references: [id])
 
   @@map("user_commands")
+}
+
+enum NotificationType {
+  ORDER_STATUS_UPDATE
+  RENTAL_SPACE_BOOKED
+  COMMUNITY_POST_LIKE
+  COMMUNITY_POST_COMMENT
+  PRODUCE_UPDATE
+  SYSTEM
+}
+
+model Notification {
+  id        Int              @id @default(autoincrement())
+  userId    Int
+  type      NotificationType
+  title     String
+  message   String
+  data      Json?            // Additional data for the notification
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  user      User @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
 }
 
 model SustainabilityCert {

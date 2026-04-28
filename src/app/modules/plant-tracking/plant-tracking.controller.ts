@@ -5,7 +5,7 @@ import sendResponse from '../../shared/sendResponse';
 import { PlantTrackingService } from './plant-tracking.service';
 import { IJWTPayload } from '../../types/common';
 import pick from '../../helpers/pick';
-import { PlantHealth } from '../../../../prisma/prisma/generated';
+import { PlantHealth } from '@prisma/client';
 
 const createPlantTracking = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.userId as string;

@@ -236,6 +236,17 @@ const addVendorPostComment = catchAsync(async (req: Request & { user?: IJWTPaylo
     });
 });
 
+const getVendorDashboardStats = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+    const user = req.user!;
+    const result = await VendorService.getVendorDashboardStats(user);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Dashboard stats retrieved successfully',
+        data: result,
+    });
+});
+
 export const VendorController = {
     createOrUpdateProfile,
     getProfile,
@@ -257,4 +268,5 @@ export const VendorController = {
     deleteVendorPost,
     toggleVendorPostLike,
     addVendorPostComment,
+    getVendorDashboardStats,
 };

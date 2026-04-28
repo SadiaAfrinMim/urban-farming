@@ -1,6 +1,9 @@
 import { Request } from 'express';
 import { prisma } from '../../shared/prisma';
-import { fileUploader } from '../../helpers/fileUploader';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationType } from '@prisma/client';
+
+import httpStatus from 'http-status';
 import { IJWTPayload } from '../../types/common';
 import ApiError from '../../errors/ApiError';
 
@@ -377,9 +380,45 @@ const createProduce = async (user: IJWTPayload, req: Request) => {
 
     const produce = await prisma.produce.create({
         data: produceData,
+        include: {
+            vendor: {
+                include: { user: true }
+            }
+        }
     });
 
     console.log('✅ Produce created:', produce.id);
+
+    // Notify admins about new product submission for approval (async, non-blocking)
+    if (produce.certificationStatus === 'Pending') {
+        process.nextTick(async () => {
+            try {
+                const NotificationService = (await import('../notification/notification.service')).NotificationService;
+                const admins = await prisma.user.findMany({
+                    where: { role: 'Admin' },
+                });
+
+                for (const admin of admins) {
+                    await NotificationService.createNotification(
+                        admin.id,
+                        'SYSTEM' as any,
+                        'New Product for Approval',
+                        `New product "${produce.name}" submitted by ${produce.vendor.user.name} needs approval.`,
+                        {
+                            produceId: produce.id,
+                            produceName: produce.name,
+                            vendorId: produce.vendor.userId,
+                            vendorName: produce.vendor.user.name,
+                            type: 'product_approval',
+                        }
+                    );
+                }
+            } catch (error) {
+                console.error('Failed to create product approval notification:', error);
+            }
+        });
+    }
+
     return produce;
 };
 
@@ -840,6 +879,90 @@ const addVendorPostComment = async (user: IJWTPayload, postId: string, content: 
     return comment;
 };
 
+const getVendorDashboardStats = async (user: IJWTPayload) => {
+    const profile = await prisma.vendorProfile.findUnique({
+        where: {
+            userId: user.id!,
+        },
+    });
+
+    if (!profile) {
+        throw new ApiError('Vendor profile not found', 404);
+    }
+
+    // Get total sales (sum of all completed orders)
+    const totalSalesResult = await prisma.order.aggregate({
+        where: {
+            status: 'Delivered',
+            vendorId: profile.id,
+        },
+        _sum: {
+            totalPrice: true,
+        },
+    });
+
+    // Get active rentals (rental spaces with availability true)
+    const activeRentals = await prisma.rentalSpace.count({
+        where: {
+            vendorId: profile.id,
+            availability: true,
+        },
+    });
+
+    // Get pending orders
+    const pendingOrders = await prisma.order.count({
+        where: {
+            status: 'Pending',
+            vendorId: profile.id,
+        },
+    });
+
+    // Get total products
+    const totalProducts = await prisma.produce.count({
+        where: {
+            vendorId: profile.id,
+        },
+    });
+
+    // Get monthly earnings for the last 4 months
+    const currentDate = new Date();
+    const monthlyEarnings = [];
+
+    for (let i = 3; i >= 0; i--) {
+        const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+        const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() - i + 1, 0, 23, 59, 59);
+
+        const monthlySales = await prisma.order.aggregate({
+            where: {
+                status: 'Delivered',
+                vendorId: profile.id,
+                orderDate: {
+                    gte: monthStart,
+                    lte: monthEnd,
+                },
+            },
+            _sum: {
+                totalPrice: true,
+            },
+        });
+
+        const monthName = monthStart.toLocaleString('en-US', { month: 'short' });
+
+        monthlyEarnings.push({
+            month: monthName,
+            earnings: monthlySales._sum.totalPrice || 0,
+        });
+    }
+
+    return {
+        totalSales: totalSalesResult._sum.totalPrice || 0,
+        activeRentals,
+        pendingOrders,
+        totalProducts,
+        monthlyEarnings,
+    };
+};
+
 export const VendorService = {
     createOrUpdateProfile,
     getProfile,
@@ -861,4 +984,5 @@ export const VendorService = {
     deleteVendorPost,
     toggleVendorPostLike,
     addVendorPostComment,
+    getVendorDashboardStats,
 };

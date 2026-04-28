@@ -1,7 +1,7 @@
 import express from 'express';
 import { CommunityController } from './community.controller';
 import auth from '../../middlewares/auth';
-import { UserRole } from '../../../../prisma/prisma/generated/client';
+import { UserRole } from '@prisma/client';
 
 /**
  * @swagger

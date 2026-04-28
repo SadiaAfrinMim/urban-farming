@@ -1,7 +1,7 @@
 import express from 'express';
 import { RentalController } from './rental.controller';
 import auth from '../../middlewares/auth';
-import { UserRole } from '../../../../prisma/prisma/generated';
+import { UserRole } from '@prisma/client';
 
 
 /**

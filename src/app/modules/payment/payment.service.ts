@@ -25,20 +25,32 @@ const createPaymentIntent = async (orderId: string, userId: string) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'This order has already been paid');
   }
 
+  const amount = order.totalPrice || order.produce.price * order.quantity;
+
+  // Convert BDT to USD (approximate rate: 1 USD = 120 BDT)
+  const usdAmount = Math.round(amount / 120 * 100); // Convert to USD cents
+
+  // Ensure minimum amount of $0.50 (50 cents)
+  const finalAmount = Math.max(usdAmount, 50);
+
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round((order.totalPrice || order.produce.price * order.quantity) * 100), // Convert to cents
-    currency: 'bdt',
+    amount: finalAmount, // Amount in USD cents
+    currency: 'usd',
     metadata: {
       orderId: order.id,
       userId: userId,
       produceId: order.produceId,
+      originalAmount: amount.toString(),
+      originalCurrency: 'bdt',
     },
   });
 
   return {
     clientSecret: paymentIntent.client_secret,
     orderId: order.id,
-    amount: order.totalPrice,
+    amount: finalAmount / 100, // Return USD amount
+    originalAmount: amount, // Original BDT amount
+    currency: 'usd',
   };
 };
 
@@ -91,33 +103,46 @@ const createCheckoutSession = async (orderId: string, userId: string) => {
     throw new ApiError(httpStatus.FORBIDDEN, 'You are not authorized to pay for this order');
   }
 
-   const session = await stripe.checkout.sessions.create({
+  const amount = order.totalPrice || order.produce.price * order.quantity;
+
+  // Convert BDT to USD (approximate rate: 1 USD = 120 BDT)
+  const usdAmount = Math.round(amount / 120 * 100); // Convert to USD cents
+
+  // Ensure minimum amount of $0.50 (50 cents)
+  const finalAmount = Math.max(usdAmount, 50);
+
+  const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [
       {
         price_data: {
-          currency: 'bdt',
+          currency: 'usd',
           product_data: {
             name: order.produce.name,
             description: order.produce.description || 'Organic produce purchase',
           },
-          unit_amount: Math.round((order.totalPrice || order.produce.price * order.quantity) * 100),
+          unit_amount: finalAmount,
         },
         quantity: 1,
       },
     ],
     mode: 'payment',
-    success_url: `http://localhost:3000/payment?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `http://localhost:3000/payment/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `http://localhost:3000/payment?canceled=true`,
     metadata: {
       orderId: order.id,
       userId: userId,
+      originalAmount: amount.toString(),
+      originalCurrency: 'bdt',
     },
   });
 
   return {
     sessionId: session.id,
     url: session.url,
+    amount: finalAmount / 100, // Return USD amount
+    originalAmount: amount, // Original BDT amount
+    currency: 'usd',
   };
 };
 

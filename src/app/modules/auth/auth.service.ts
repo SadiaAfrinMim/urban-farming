@@ -1,11 +1,10 @@
-
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../../../config';
 import type { SignOptions } from 'jsonwebtoken';
 import { prisma } from '../../shared/prisma';
+import { UserRole, UserStatus, CertificationStatus } from '@prisma/client';
 import httpStatus from 'http-status';
-import { IJWTPayload, UserRole, CertificationStatus, UserStatus } from '../../types/common';
 import ApiError from '../../errors/ApiError';
 import { jwtHelper } from '../../helpers/jwtHelper';
 
@@ -44,13 +43,6 @@ const registerUser = async (payload: {
 
   const role = roleString === 'Admin' ? UserRole.Admin : roleString === 'Vendor' ? UserRole.Vendor : UserRole.Customer;
 
-  // Admin role registration is now allowed without code for development
-  // if (roleString === 'Admin') {
-  //   if (adminCode !== 'ADMIN123') {
-  //     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid admin code');
-  //   }
-  // }
-
   // Check if user already exists
   const existingUser = await prisma.user.findUnique({
     where: { email },
@@ -88,9 +80,92 @@ const registerUser = async (payload: {
         certificationStatus: CertificationStatus.Pending,
       },
     });
+
+    // Notify admins about new vendor registration (async, non-blocking)
+    process.nextTick(async () => {
+      try {
+        console.log('Creating vendor registration notification for user:', user.name);
+        const NotificationService = (await import('../notification/notification.service')).NotificationService;
+        const admins = await prisma.user.findMany({
+          where: { role: UserRole.Admin },
+        });
+        console.log('Found admins:', admins.length);
+
+        for (const admin of admins) {
+          console.log('Creating notification for admin:', admin.id);
+          await NotificationService.createNotification(
+            admin.id,
+            'SYSTEM' as any,
+            'New Vendor Registration',
+            `New vendor "${user.name}" has registered and needs certification approval.`,
+            {
+              userId: user.id,
+              userName: user.name,
+              userEmail: user.email,
+              type: 'vendor_registration',
+            }
+          );
+        }
+      } catch (error) {
+        console.error('Failed to create vendor registration notification:', error);
+      }
+    });
   }
 
-  return user;
+  // Notify admins about new customer registration (async, non-blocking)
+  if (roleString === 'Customer') {
+    process.nextTick(async () => {
+      try {
+        console.log('Creating customer registration notification for user:', user.name);
+        const NotificationService = (await import('../notification/notification.service')).NotificationService;
+        const admins = await prisma.user.findMany({
+          where: { role: UserRole.Admin },
+        });
+        console.log('Found admins for customer notification:', admins.length);
+
+        for (const admin of admins) {
+          console.log('Creating customer notification for admin:', admin.id);
+          await NotificationService.createNotification(
+            admin.id,
+            'SYSTEM' as any,
+            'New Customer Registration',
+            `New customer "${user.name}" has registered.`,
+            {
+              userId: user.id,
+              userName: user.name,
+              userEmail: user.email,
+              type: 'customer_registration',
+            }
+          );
+        }
+      } catch (error) {
+        console.error('Failed to create customer registration notification:', error);
+      }
+    });
+  }
+
+  // Generate JWT tokens
+  const jwtSecret = config.jwt.jwt_secret || 'default-secret';
+  const accessExpiresIn = config.jwt.expires_in || '7d';
+  const refreshExpiresIn = config.jwt.refresh_expires_in || '30d';
+
+  const accessToken = jwtHelper.generateToken(
+    { id: user.id, role: user.role, email: user.email },
+    jwtSecret,
+    accessExpiresIn as string
+  );
+
+  const refreshToken = jwtHelper.generateToken(
+    { id: user.id, role: user.role, email: user.email },
+    jwtSecret,
+    refreshExpiresIn as string
+  );
+
+  return {
+    user,
+    accessToken,
+    refreshToken,
+  };
 };
 
 const loginUser = async (payload: { email: string; password: string }) => {
@@ -107,33 +182,30 @@ const loginUser = async (payload: { email: string; password: string }) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
+  if (user.status !== UserStatus.Active) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'Account is not active');
+  }
+
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid credentials');
   }
 
+  // Generate JWT tokens
   const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-  const expiresIn = config.jwt.expires_in || '7d';
-  const refreshSecret = config.jwt.refresh_token_secret || 'default-refresh-secret';
-  const refreshExpiresIn = config.jwt.refresh_token_expires_in || '1y';
-
-  console.log('JWT Config Debug:', {
-    jwtSecret: jwtSecret ? jwtSecret.substring(0, 10) + '...' : 'undefined',
-    expiresIn,
-    refreshSecret: refreshSecret ? refreshSecret.substring(0, 10) + '...' : 'undefined',
-    refreshExpiresIn
-  });
+  const accessExpiresIn = config.jwt.expires_in || '7d';
+  const refreshExpiresIn = config.jwt.refresh_expires_in || '30d';
 
   const accessToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
     jwtSecret,
-    expiresIn as string
+    accessExpiresIn as string
   );
 
   const refreshToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
-    refreshSecret,
+    jwtSecret,
     refreshExpiresIn as string
   );
 
@@ -160,31 +232,30 @@ const refreshToken = async (token: string) => {
   let decoded;
   try {
     decoded = jwtHelper.verifyToken(token, config.jwt.refresh_token_secret as string);
-  } catch (err) {
+  } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid refresh token');
   }
 
-  const { id } = decoded;
-  const userIdNumber = parseInt(id, 10);
-  if (isNaN(userIdNumber)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID in token');
-  }
-
   const user = await prisma.user.findUnique({
-    where: { id: userIdNumber },
+    where: { id: decoded.id },
   });
 
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
+  if (user.status !== UserStatus.Active) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'Account is not active');
+  }
+
+  // Generate new access token
   const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-  const expiresIn = config.jwt.expires_in || '7d';
+  const accessExpiresIn = config.jwt.expires_in || '7d';
 
   const accessToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
     jwtSecret,
-    expiresIn as string
+    accessExpiresIn as string
   );
 
   return {
@@ -193,7 +264,7 @@ const refreshToken = async (token: string) => {
 };
 
 const changePassword = async (
-  user: IJWTPayload,
+  user: { id: string; role: string },
   payload: { oldPassword: string; newPassword: string }
 ) => {
   const { oldPassword, newPassword } = payload;
@@ -226,9 +297,9 @@ const changePassword = async (
 };
 
 export const AuthService = {
+  ensureAdminExists,
   registerUser,
   loginUser,
   refreshToken,
   changePassword,
-  ensureAdminExists,
 };

@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/client.js';
+import * as runtime from './runtime/library.js';
 import $Types = runtime.Types // general types
 import $Public = runtime.Types.Public
 import $Utils = runtime.Types.Utils
@@ -233,15 +233,13 @@ export const CommandType: typeof $Enums.CommandType
  * Type-safe database client for TypeScript & Node.js
  * @example
  * ```
- * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
- * })
+ * const prisma = new PrismaClient()
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```
  *
  *
- * Read more in our [docs](https://pris.ly/d/client).
+ * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
@@ -256,15 +254,13 @@ export class PrismaClient<
    * Type-safe database client for TypeScript & Node.js
    * @example
    * ```
-   * const prisma = new PrismaClient({
-   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
-   * })
+   * const prisma = new PrismaClient()
    * // Fetch zero or more Users
    * const users = await prisma.user.findMany()
    * ```
    *
    *
-   * Read more in our [docs](https://pris.ly/d/client).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
   constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
@@ -287,7 +283,7 @@ export class PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -299,7 +295,7 @@ export class PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -310,7 +306,7 @@ export class PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -322,7 +318,7 @@ export class PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -338,11 +334,12 @@ export class PrismaClient<
    * ])
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
+
 
   $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
     extArgs: ExtArgs
@@ -547,6 +544,14 @@ export namespace Prisma {
   export type DecimalJsLike = runtime.DecimalJsLike
 
   /**
+   * Metrics
+   */
+  export type Metrics = runtime.Metrics
+  export type Metric<T> = runtime.Metric<T>
+  export type MetricHistogram = runtime.MetricHistogram
+  export type MetricHistogramBucket = runtime.MetricHistogramBucket
+
+  /**
   * Extensions
   */
   export import Extension = $Extensions.UserArgs
@@ -557,12 +562,11 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.7.0
-   * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+   * Prisma Client JS version: 6.19.3
+   * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
     client: string
-    engine: string
   }
 
   export const prismaVersion: PrismaVersion
@@ -962,6 +966,9 @@ export namespace Prisma {
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
 
 
+  export type Datasources = {
+    db?: Datasource
+  }
 
   interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
     returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
@@ -2189,6 +2196,14 @@ export namespace Prisma {
   export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
   export interface PrismaClientOptions {
     /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasources?: Datasources
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasourceUrl?: string
+    /**
      * @default "colorless"
      */
     errorFormat?: ErrorFormat
@@ -2214,7 +2229,7 @@ export namespace Prisma {
      *  { emit: 'stdout', level: 'error' }
      * 
      * ```
-     * Read more in our [docs](https://pris.ly/d/logging).
+     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
     log?: (LogLevel | LogDefinition)[]
     /**
@@ -2230,11 +2245,7 @@ export namespace Prisma {
     /**
      * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
      */
-    adapter?: runtime.SqlDriverAdapterFactory
-    /**
-     * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
-     */
-    accelerateUrl?: string
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -2250,22 +2261,6 @@ export namespace Prisma {
      * ```
      */
     omit?: Prisma.GlobalOmitConfig
-    /**
-     * SQL commenter plugins that add metadata to SQL queries as comments.
-     * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
-     * 
-     * @example
-     * ```
-     * const prisma = new PrismaClient({
-     *   adapter,
-     *   comments: [
-     *     traceContext(),
-     *     queryInsights(),
-     *   ],
-     * })
-     * ```
-     */
-    comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
@@ -2565,6 +2560,37 @@ export namespace Prisma {
    * ProduceCountOutputType without action
    */
   export type ProduceCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
+  }
+
+
+  /**
+   * Count Type RentalSpaceCountOutputType
+   */
+
+  export type RentalSpaceCountOutputType = {
+    orders: number
+  }
+
+  export type RentalSpaceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    orders?: boolean | RentalSpaceCountOutputTypeCountOrdersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RentalSpaceCountOutputType without action
+   */
+  export type RentalSpaceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSpaceCountOutputType
+     */
+    select?: RentalSpaceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RentalSpaceCountOutputType without action
+   */
+  export type RentalSpaceCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderWhereInput
   }
 
@@ -3642,11 +3668,6 @@ export namespace Prisma {
      * Skip the first `n` Users.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
@@ -5051,11 +5072,6 @@ export namespace Prisma {
      * Skip the first `n` VendorProfiles.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of VendorProfiles.
-     */
     distinct?: VendorProfileScalarFieldEnum | VendorProfileScalarFieldEnum[]
   }
 
@@ -6377,11 +6393,6 @@ export namespace Prisma {
      * Skip the first `n` Produces.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Produces.
-     */
     distinct?: ProduceScalarFieldEnum | ProduceScalarFieldEnum[]
   }
 
@@ -6871,6 +6882,8 @@ export namespace Prisma {
     lastWatered?: boolean
     createdAt?: boolean
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    orders?: boolean | RentalSpace$ordersArgs<ExtArgs>
+    _count?: boolean | RentalSpaceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rentalSpace"]>
 
   export type RentalSpaceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6917,6 +6930,8 @@ export namespace Prisma {
   export type RentalSpaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "location" | "size" | "price" | "availability" | "image" | "plantStatus" | "lastWatered" | "createdAt", ExtArgs["result"]["rentalSpace"]>
   export type RentalSpaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    orders?: boolean | RentalSpace$ordersArgs<ExtArgs>
+    _count?: boolean | RentalSpaceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RentalSpaceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
@@ -6929,6 +6944,7 @@ export namespace Prisma {
     name: "RentalSpace"
     objects: {
       vendor: Prisma.$VendorProfilePayload<ExtArgs>
+      orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -7336,6 +7352,7 @@ export namespace Prisma {
   export interface Prisma__RentalSpaceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     vendor<T extends VendorProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorProfileDefaultArgs<ExtArgs>>): Prisma__VendorProfileClient<$Result.GetResult<Prisma.$VendorProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    orders<T extends RentalSpace$ordersArgs<ExtArgs> = {}>(args?: Subset<T, RentalSpace$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7571,11 +7588,6 @@ export namespace Prisma {
      * Skip the first `n` RentalSpaces.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of RentalSpaces.
-     */
     distinct?: RentalSpaceScalarFieldEnum | RentalSpaceScalarFieldEnum[]
   }
 
@@ -7776,6 +7788,30 @@ export namespace Prisma {
   }
 
   /**
+   * RentalSpace.orders
+   */
+  export type RentalSpace$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
+  }
+
+  /**
    * RentalSpace without action
    */
   export type RentalSpaceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7811,6 +7847,7 @@ export namespace Prisma {
     userId: number | null
     produceId: number | null
     vendorId: number | null
+    rentalSpaceId: number | null
     quantity: number | null
     totalPrice: number | null
   }
@@ -7820,6 +7857,7 @@ export namespace Prisma {
     userId: number | null
     produceId: number | null
     vendorId: number | null
+    rentalSpaceId: number | null
     quantity: number | null
     totalPrice: number | null
   }
@@ -7829,6 +7867,7 @@ export namespace Prisma {
     userId: number | null
     produceId: number | null
     vendorId: number | null
+    rentalSpaceId: number | null
     quantity: number | null
     totalPrice: number | null
     status: $Enums.OrderStatus | null
@@ -7840,6 +7879,7 @@ export namespace Prisma {
     userId: number | null
     produceId: number | null
     vendorId: number | null
+    rentalSpaceId: number | null
     quantity: number | null
     totalPrice: number | null
     status: $Enums.OrderStatus | null
@@ -7851,6 +7891,7 @@ export namespace Prisma {
     userId: number
     produceId: number
     vendorId: number
+    rentalSpaceId: number
     quantity: number
     totalPrice: number
     status: number
@@ -7864,6 +7905,7 @@ export namespace Prisma {
     userId?: true
     produceId?: true
     vendorId?: true
+    rentalSpaceId?: true
     quantity?: true
     totalPrice?: true
   }
@@ -7873,6 +7915,7 @@ export namespace Prisma {
     userId?: true
     produceId?: true
     vendorId?: true
+    rentalSpaceId?: true
     quantity?: true
     totalPrice?: true
   }
@@ -7882,6 +7925,7 @@ export namespace Prisma {
     userId?: true
     produceId?: true
     vendorId?: true
+    rentalSpaceId?: true
     quantity?: true
     totalPrice?: true
     status?: true
@@ -7893,6 +7937,7 @@ export namespace Prisma {
     userId?: true
     produceId?: true
     vendorId?: true
+    rentalSpaceId?: true
     quantity?: true
     totalPrice?: true
     status?: true
@@ -7904,6 +7949,7 @@ export namespace Prisma {
     userId?: true
     produceId?: true
     vendorId?: true
+    rentalSpaceId?: true
     quantity?: true
     totalPrice?: true
     status?: true
@@ -8000,8 +8046,9 @@ export namespace Prisma {
   export type OrderGroupByOutputType = {
     id: number
     userId: number
-    produceId: number
+    produceId: number | null
     vendorId: number
+    rentalSpaceId: number | null
     quantity: number
     totalPrice: number
     status: $Enums.OrderStatus
@@ -8032,13 +8079,15 @@ export namespace Prisma {
     userId?: boolean
     produceId?: boolean
     vendorId?: boolean
+    rentalSpaceId?: boolean
     quantity?: boolean
     totalPrice?: boolean
     status?: boolean
     orderDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    produce?: boolean | ProduceDefaultArgs<ExtArgs>
+    produce?: boolean | Order$produceArgs<ExtArgs>
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    rentalSpace?: boolean | Order$rentalSpaceArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8046,13 +8095,15 @@ export namespace Prisma {
     userId?: boolean
     produceId?: boolean
     vendorId?: boolean
+    rentalSpaceId?: boolean
     quantity?: boolean
     totalPrice?: boolean
     status?: boolean
     orderDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    produce?: boolean | ProduceDefaultArgs<ExtArgs>
+    produce?: boolean | Order$produceArgs<ExtArgs>
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    rentalSpace?: boolean | Order$rentalSpaceArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8060,13 +8111,15 @@ export namespace Prisma {
     userId?: boolean
     produceId?: boolean
     vendorId?: boolean
+    rentalSpaceId?: boolean
     quantity?: boolean
     totalPrice?: boolean
     status?: boolean
     orderDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    produce?: boolean | ProduceDefaultArgs<ExtArgs>
+    produce?: boolean | Order$produceArgs<ExtArgs>
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    rentalSpace?: boolean | Order$rentalSpaceArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectScalar = {
@@ -8074,41 +8127,47 @@ export namespace Prisma {
     userId?: boolean
     produceId?: boolean
     vendorId?: boolean
+    rentalSpaceId?: boolean
     quantity?: boolean
     totalPrice?: boolean
     status?: boolean
     orderDate?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "produceId" | "vendorId" | "quantity" | "totalPrice" | "status" | "orderDate", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "produceId" | "vendorId" | "rentalSpaceId" | "quantity" | "totalPrice" | "status" | "orderDate", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    produce?: boolean | ProduceDefaultArgs<ExtArgs>
+    produce?: boolean | Order$produceArgs<ExtArgs>
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    rentalSpace?: boolean | Order$rentalSpaceArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    produce?: boolean | ProduceDefaultArgs<ExtArgs>
+    produce?: boolean | Order$produceArgs<ExtArgs>
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    rentalSpace?: boolean | Order$rentalSpaceArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    produce?: boolean | ProduceDefaultArgs<ExtArgs>
+    produce?: boolean | Order$produceArgs<ExtArgs>
     vendor?: boolean | VendorProfileDefaultArgs<ExtArgs>
+    rentalSpace?: boolean | Order$rentalSpaceArgs<ExtArgs>
   }
 
   export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Order"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      produce: Prisma.$ProducePayload<ExtArgs>
+      produce: Prisma.$ProducePayload<ExtArgs> | null
       vendor: Prisma.$VendorProfilePayload<ExtArgs>
+      rentalSpace: Prisma.$RentalSpacePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: number
-      produceId: number
+      produceId: number | null
       vendorId: number
+      rentalSpaceId: number | null
       quantity: number
       totalPrice: number
       status: $Enums.OrderStatus
@@ -8508,8 +8567,9 @@ export namespace Prisma {
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    produce<T extends ProduceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProduceDefaultArgs<ExtArgs>>): Prisma__ProduceClient<$Result.GetResult<Prisma.$ProducePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    produce<T extends Order$produceArgs<ExtArgs> = {}>(args?: Subset<T, Order$produceArgs<ExtArgs>>): Prisma__ProduceClient<$Result.GetResult<Prisma.$ProducePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     vendor<T extends VendorProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorProfileDefaultArgs<ExtArgs>>): Prisma__VendorProfileClient<$Result.GetResult<Prisma.$VendorProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    rentalSpace<T extends Order$rentalSpaceArgs<ExtArgs> = {}>(args?: Subset<T, Order$rentalSpaceArgs<ExtArgs>>): Prisma__RentalSpaceClient<$Result.GetResult<Prisma.$RentalSpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8543,6 +8603,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"Order", 'Int'>
     readonly produceId: FieldRef<"Order", 'Int'>
     readonly vendorId: FieldRef<"Order", 'Int'>
+    readonly rentalSpaceId: FieldRef<"Order", 'Int'>
     readonly quantity: FieldRef<"Order", 'Int'>
     readonly totalPrice: FieldRef<"Order", 'Float'>
     readonly status: FieldRef<"Order", 'OrderStatus'>
@@ -8743,11 +8804,6 @@ export namespace Prisma {
      * Skip the first `n` Orders.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Orders.
-     */
     distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
   }
 
@@ -8945,6 +9001,44 @@ export namespace Prisma {
      * Limit how many Orders to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Order.produce
+   */
+  export type Order$produceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produce
+     */
+    select?: ProduceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produce
+     */
+    omit?: ProduceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProduceInclude<ExtArgs> | null
+    where?: ProduceWhereInput
+  }
+
+  /**
+   * Order.rentalSpace
+   */
+  export type Order$rentalSpaceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSpace
+     */
+    select?: RentalSpaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSpace
+     */
+    omit?: RentalSpaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalSpaceInclude<ExtArgs> | null
+    where?: RentalSpaceWhereInput
   }
 
   /**
@@ -9854,11 +9948,6 @@ export namespace Prisma {
      * Skip the first `n` CommunityPosts.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CommunityPosts.
-     */
     distinct?: CommunityPostScalarFieldEnum | CommunityPostScalarFieldEnum[]
   }
 
@@ -11002,11 +11091,6 @@ export namespace Prisma {
      * Skip the first `n` PostLikes.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PostLikes.
-     */
     distinct?: PostLikeScalarFieldEnum | PostLikeScalarFieldEnum[]
   }
 
@@ -12128,11 +12212,6 @@ export namespace Prisma {
      * Skip the first `n` PostComments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PostComments.
-     */
     distinct?: PostCommentScalarFieldEnum | PostCommentScalarFieldEnum[]
   }
 
@@ -13278,11 +13357,6 @@ export namespace Prisma {
      * Skip the first `n` CustomerPosts.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CustomerPosts.
-     */
     distinct?: CustomerPostScalarFieldEnum | CustomerPostScalarFieldEnum[]
   }
 
@@ -14426,11 +14500,6 @@ export namespace Prisma {
      * Skip the first `n` CustomerPostLikes.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CustomerPostLikes.
-     */
     distinct?: CustomerPostLikeScalarFieldEnum | CustomerPostLikeScalarFieldEnum[]
   }
 
@@ -15552,11 +15621,6 @@ export namespace Prisma {
      * Skip the first `n` CustomerPostComments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CustomerPostComments.
-     */
     distinct?: CustomerPostCommentScalarFieldEnum | CustomerPostCommentScalarFieldEnum[]
   }
 
@@ -16715,11 +16779,6 @@ export namespace Prisma {
      * Skip the first `n` VendorPosts.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of VendorPosts.
-     */
     distinct?: VendorPostScalarFieldEnum | VendorPostScalarFieldEnum[]
   }
 
@@ -17863,11 +17922,6 @@ export namespace Prisma {
      * Skip the first `n` VendorPostLikes.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of VendorPostLikes.
-     */
     distinct?: VendorPostLikeScalarFieldEnum | VendorPostLikeScalarFieldEnum[]
   }
 
@@ -18989,11 +19043,6 @@ export namespace Prisma {
      * Skip the first `n` VendorPostComments.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of VendorPostComments.
-     */
     distinct?: VendorPostCommentScalarFieldEnum | VendorPostCommentScalarFieldEnum[]
   }
 
@@ -20142,11 +20191,6 @@ export namespace Prisma {
      * Skip the first `n` UserCommands.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of UserCommands.
-     */
     distinct?: UserCommandScalarFieldEnum | UserCommandScalarFieldEnum[]
   }
 
@@ -21230,11 +21274,6 @@ export namespace Prisma {
      * Skip the first `n` SustainabilityCerts.
      */
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SustainabilityCerts.
-     */
     distinct?: SustainabilityCertScalarFieldEnum | SustainabilityCertScalarFieldEnum[]
   }
 
@@ -21534,6 +21573,7 @@ export namespace Prisma {
     userId: 'userId',
     produceId: 'produceId',
     vendorId: 'vendorId',
+    rentalSpaceId: 'rentalSpaceId',
     quantity: 'quantity',
     totalPrice: 'totalPrice',
     status: 'status',
@@ -22194,6 +22234,7 @@ export namespace Prisma {
     lastWatered?: DateTimeNullableFilter<"RentalSpace"> | Date | string | null
     createdAt?: DateTimeFilter<"RentalSpace"> | Date | string
     vendor?: XOR<VendorProfileScalarRelationFilter, VendorProfileWhereInput>
+    orders?: OrderListRelationFilter
   }
 
   export type RentalSpaceOrderByWithRelationInput = {
@@ -22208,6 +22249,7 @@ export namespace Prisma {
     lastWatered?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     vendor?: VendorProfileOrderByWithRelationInput
+    orders?: OrderOrderByRelationAggregateInput
   }
 
   export type RentalSpaceWhereUniqueInput = Prisma.AtLeast<{
@@ -22225,6 +22267,7 @@ export namespace Prisma {
     lastWatered?: DateTimeNullableFilter<"RentalSpace"> | Date | string | null
     createdAt?: DateTimeFilter<"RentalSpace"> | Date | string
     vendor?: XOR<VendorProfileScalarRelationFilter, VendorProfileWhereInput>
+    orders?: OrderListRelationFilter
   }, "id">
 
   export type RentalSpaceOrderByWithAggregationInput = {
@@ -22267,22 +22310,25 @@ export namespace Prisma {
     NOT?: OrderWhereInput | OrderWhereInput[]
     id?: IntFilter<"Order"> | number
     userId?: IntFilter<"Order"> | number
-    produceId?: IntFilter<"Order"> | number
+    produceId?: IntNullableFilter<"Order"> | number | null
     vendorId?: IntFilter<"Order"> | number
+    rentalSpaceId?: IntNullableFilter<"Order"> | number | null
     quantity?: IntFilter<"Order"> | number
     totalPrice?: FloatFilter<"Order"> | number
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     orderDate?: DateTimeFilter<"Order"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    produce?: XOR<ProduceScalarRelationFilter, ProduceWhereInput>
+    produce?: XOR<ProduceNullableScalarRelationFilter, ProduceWhereInput> | null
     vendor?: XOR<VendorProfileScalarRelationFilter, VendorProfileWhereInput>
+    rentalSpace?: XOR<RentalSpaceNullableScalarRelationFilter, RentalSpaceWhereInput> | null
   }
 
   export type OrderOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    produceId?: SortOrder
+    produceId?: SortOrderInput | SortOrder
     vendorId?: SortOrder
+    rentalSpaceId?: SortOrderInput | SortOrder
     quantity?: SortOrder
     totalPrice?: SortOrder
     status?: SortOrder
@@ -22290,6 +22336,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     produce?: ProduceOrderByWithRelationInput
     vendor?: VendorProfileOrderByWithRelationInput
+    rentalSpace?: RentalSpaceOrderByWithRelationInput
   }
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -22298,22 +22345,25 @@ export namespace Prisma {
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
     userId?: IntFilter<"Order"> | number
-    produceId?: IntFilter<"Order"> | number
+    produceId?: IntNullableFilter<"Order"> | number | null
     vendorId?: IntFilter<"Order"> | number
+    rentalSpaceId?: IntNullableFilter<"Order"> | number | null
     quantity?: IntFilter<"Order"> | number
     totalPrice?: FloatFilter<"Order"> | number
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     orderDate?: DateTimeFilter<"Order"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    produce?: XOR<ProduceScalarRelationFilter, ProduceWhereInput>
+    produce?: XOR<ProduceNullableScalarRelationFilter, ProduceWhereInput> | null
     vendor?: XOR<VendorProfileScalarRelationFilter, VendorProfileWhereInput>
+    rentalSpace?: XOR<RentalSpaceNullableScalarRelationFilter, RentalSpaceWhereInput> | null
   }, "id">
 
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    produceId?: SortOrder
+    produceId?: SortOrderInput | SortOrder
     vendorId?: SortOrder
+    rentalSpaceId?: SortOrderInput | SortOrder
     quantity?: SortOrder
     totalPrice?: SortOrder
     status?: SortOrder
@@ -22331,8 +22381,9 @@ export namespace Prisma {
     NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Order"> | number
     userId?: IntWithAggregatesFilter<"Order"> | number
-    produceId?: IntWithAggregatesFilter<"Order"> | number
+    produceId?: IntNullableWithAggregatesFilter<"Order"> | number | null
     vendorId?: IntWithAggregatesFilter<"Order"> | number
+    rentalSpaceId?: IntNullableWithAggregatesFilter<"Order"> | number | null
     quantity?: IntWithAggregatesFilter<"Order"> | number
     totalPrice?: FloatWithAggregatesFilter<"Order"> | number
     status?: EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
@@ -23381,6 +23432,7 @@ export namespace Prisma {
     lastWatered?: Date | string | null
     createdAt?: Date | string
     vendor: VendorProfileCreateNestedOneWithoutRentalSpacesInput
+    orders?: OrderCreateNestedManyWithoutRentalSpaceInput
   }
 
   export type RentalSpaceUncheckedCreateInput = {
@@ -23394,6 +23446,7 @@ export namespace Prisma {
     plantStatus?: $Enums.PlantHealth | null
     lastWatered?: Date | string | null
     createdAt?: Date | string
+    orders?: OrderUncheckedCreateNestedManyWithoutRentalSpaceInput
   }
 
   export type RentalSpaceUpdateInput = {
@@ -23406,6 +23459,7 @@ export namespace Prisma {
     lastWatered?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorProfileUpdateOneRequiredWithoutRentalSpacesNestedInput
+    orders?: OrderUpdateManyWithoutRentalSpaceNestedInput
   }
 
   export type RentalSpaceUncheckedUpdateInput = {
@@ -23419,6 +23473,7 @@ export namespace Prisma {
     plantStatus?: NullableEnumPlantHealthFieldUpdateOperationsInput | $Enums.PlantHealth | null
     lastWatered?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderUncheckedUpdateManyWithoutRentalSpaceNestedInput
   }
 
   export type RentalSpaceCreateManyInput = {
@@ -23464,15 +23519,17 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     orderDate?: Date | string
     user: UserCreateNestedOneWithoutOrdersInput
-    produce: ProduceCreateNestedOneWithoutOrdersInput
+    produce?: ProduceCreateNestedOneWithoutOrdersInput
     vendor: VendorProfileCreateNestedOneWithoutOrdersInput
+    rentalSpace?: RentalSpaceCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateInput = {
     id?: number
     userId: number
-    produceId: number
+    produceId?: number | null
     vendorId: number
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -23485,15 +23542,17 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
-    produce?: ProduceUpdateOneRequiredWithoutOrdersNestedInput
+    produce?: ProduceUpdateOneWithoutOrdersNestedInput
     vendor?: VendorProfileUpdateOneRequiredWithoutOrdersNestedInput
+    rentalSpace?: RentalSpaceUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    produceId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
     vendorId?: IntFieldUpdateOperationsInput | number
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -23503,8 +23562,9 @@ export namespace Prisma {
   export type OrderCreateManyInput = {
     id?: number
     userId: number
-    produceId: number
+    produceId?: number | null
     vendorId: number
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -23521,8 +23581,9 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    produceId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
     vendorId?: IntFieldUpdateOperationsInput | number
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -24830,6 +24891,17 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -24837,9 +24909,14 @@ export namespace Prisma {
     not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus
   }
 
-  export type ProduceScalarRelationFilter = {
-    is?: ProduceWhereInput
-    isNot?: ProduceWhereInput
+  export type ProduceNullableScalarRelationFilter = {
+    is?: ProduceWhereInput | null
+    isNot?: ProduceWhereInput | null
+  }
+
+  export type RentalSpaceNullableScalarRelationFilter = {
+    is?: RentalSpaceWhereInput | null
+    isNot?: RentalSpaceWhereInput | null
   }
 
   export type OrderCountOrderByAggregateInput = {
@@ -24847,6 +24924,7 @@ export namespace Prisma {
     userId?: SortOrder
     produceId?: SortOrder
     vendorId?: SortOrder
+    rentalSpaceId?: SortOrder
     quantity?: SortOrder
     totalPrice?: SortOrder
     status?: SortOrder
@@ -24858,6 +24936,7 @@ export namespace Prisma {
     userId?: SortOrder
     produceId?: SortOrder
     vendorId?: SortOrder
+    rentalSpaceId?: SortOrder
     quantity?: SortOrder
     totalPrice?: SortOrder
   }
@@ -24867,6 +24946,7 @@ export namespace Prisma {
     userId?: SortOrder
     produceId?: SortOrder
     vendorId?: SortOrder
+    rentalSpaceId?: SortOrder
     quantity?: SortOrder
     totalPrice?: SortOrder
     status?: SortOrder
@@ -24878,6 +24958,7 @@ export namespace Prisma {
     userId?: SortOrder
     produceId?: SortOrder
     vendorId?: SortOrder
+    rentalSpaceId?: SortOrder
     quantity?: SortOrder
     totalPrice?: SortOrder
     status?: SortOrder
@@ -24889,8 +24970,25 @@ export namespace Prisma {
     userId?: SortOrder
     produceId?: SortOrder
     vendorId?: SortOrder
+    rentalSpaceId?: SortOrder
     quantity?: SortOrder
     totalPrice?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -26195,6 +26293,20 @@ export namespace Prisma {
     connect?: VendorProfileWhereUniqueInput
   }
 
+  export type OrderCreateNestedManyWithoutRentalSpaceInput = {
+    create?: XOR<OrderCreateWithoutRentalSpaceInput, OrderUncheckedCreateWithoutRentalSpaceInput> | OrderCreateWithoutRentalSpaceInput[] | OrderUncheckedCreateWithoutRentalSpaceInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutRentalSpaceInput | OrderCreateOrConnectWithoutRentalSpaceInput[]
+    createMany?: OrderCreateManyRentalSpaceInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutRentalSpaceInput = {
+    create?: XOR<OrderCreateWithoutRentalSpaceInput, OrderUncheckedCreateWithoutRentalSpaceInput> | OrderCreateWithoutRentalSpaceInput[] | OrderUncheckedCreateWithoutRentalSpaceInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutRentalSpaceInput | OrderCreateOrConnectWithoutRentalSpaceInput[]
+    createMany?: OrderCreateManyRentalSpaceInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -26215,6 +26327,34 @@ export namespace Prisma {
     update?: XOR<XOR<VendorProfileUpdateToOneWithWhereWithoutRentalSpacesInput, VendorProfileUpdateWithoutRentalSpacesInput>, VendorProfileUncheckedUpdateWithoutRentalSpacesInput>
   }
 
+  export type OrderUpdateManyWithoutRentalSpaceNestedInput = {
+    create?: XOR<OrderCreateWithoutRentalSpaceInput, OrderUncheckedCreateWithoutRentalSpaceInput> | OrderCreateWithoutRentalSpaceInput[] | OrderUncheckedCreateWithoutRentalSpaceInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutRentalSpaceInput | OrderCreateOrConnectWithoutRentalSpaceInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutRentalSpaceInput | OrderUpsertWithWhereUniqueWithoutRentalSpaceInput[]
+    createMany?: OrderCreateManyRentalSpaceInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutRentalSpaceInput | OrderUpdateWithWhereUniqueWithoutRentalSpaceInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutRentalSpaceInput | OrderUpdateManyWithWhereWithoutRentalSpaceInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
+  export type OrderUncheckedUpdateManyWithoutRentalSpaceNestedInput = {
+    create?: XOR<OrderCreateWithoutRentalSpaceInput, OrderUncheckedCreateWithoutRentalSpaceInput> | OrderCreateWithoutRentalSpaceInput[] | OrderUncheckedCreateWithoutRentalSpaceInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutRentalSpaceInput | OrderCreateOrConnectWithoutRentalSpaceInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutRentalSpaceInput | OrderUpsertWithWhereUniqueWithoutRentalSpaceInput[]
+    createMany?: OrderCreateManyRentalSpaceInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutRentalSpaceInput | OrderUpdateWithWhereUniqueWithoutRentalSpaceInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutRentalSpaceInput | OrderUpdateManyWithWhereWithoutRentalSpaceInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutOrdersInput = {
     create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
@@ -26233,6 +26373,12 @@ export namespace Prisma {
     connect?: VendorProfileWhereUniqueInput
   }
 
+  export type RentalSpaceCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<RentalSpaceCreateWithoutOrdersInput, RentalSpaceUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: RentalSpaceCreateOrConnectWithoutOrdersInput
+    connect?: RentalSpaceWhereUniqueInput
+  }
+
   export type EnumOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.OrderStatus
   }
@@ -26245,10 +26391,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrdersInput, UserUpdateWithoutOrdersInput>, UserUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type ProduceUpdateOneRequiredWithoutOrdersNestedInput = {
+  export type ProduceUpdateOneWithoutOrdersNestedInput = {
     create?: XOR<ProduceCreateWithoutOrdersInput, ProduceUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: ProduceCreateOrConnectWithoutOrdersInput
     upsert?: ProduceUpsertWithoutOrdersInput
+    disconnect?: ProduceWhereInput | boolean
+    delete?: ProduceWhereInput | boolean
     connect?: ProduceWhereUniqueInput
     update?: XOR<XOR<ProduceUpdateToOneWithWhereWithoutOrdersInput, ProduceUpdateWithoutOrdersInput>, ProduceUncheckedUpdateWithoutOrdersInput>
   }
@@ -26259,6 +26407,24 @@ export namespace Prisma {
     upsert?: VendorProfileUpsertWithoutOrdersInput
     connect?: VendorProfileWhereUniqueInput
     update?: XOR<XOR<VendorProfileUpdateToOneWithWhereWithoutOrdersInput, VendorProfileUpdateWithoutOrdersInput>, VendorProfileUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type RentalSpaceUpdateOneWithoutOrdersNestedInput = {
+    create?: XOR<RentalSpaceCreateWithoutOrdersInput, RentalSpaceUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: RentalSpaceCreateOrConnectWithoutOrdersInput
+    upsert?: RentalSpaceUpsertWithoutOrdersInput
+    disconnect?: RentalSpaceWhereInput | boolean
+    delete?: RentalSpaceWhereInput | boolean
+    connect?: RentalSpaceWhereUniqueInput
+    update?: XOR<XOR<RentalSpaceUpdateToOneWithWhereWithoutOrdersInput, RentalSpaceUpdateWithoutOrdersInput>, RentalSpaceUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserCreateNestedOneWithoutCommunityPostsInput = {
@@ -27058,6 +27224,33 @@ export namespace Prisma {
     not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -27158,14 +27351,16 @@ export namespace Prisma {
     totalPrice: number
     status?: $Enums.OrderStatus
     orderDate?: Date | string
-    produce: ProduceCreateNestedOneWithoutOrdersInput
+    produce?: ProduceCreateNestedOneWithoutOrdersInput
     vendor: VendorProfileCreateNestedOneWithoutOrdersInput
+    rentalSpace?: RentalSpaceCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutUserInput = {
     id?: number
-    produceId: number
+    produceId?: number | null
     vendorId: number
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -27473,8 +27668,9 @@ export namespace Prisma {
     NOT?: OrderScalarWhereInput | OrderScalarWhereInput[]
     id?: IntFilter<"Order"> | number
     userId?: IntFilter<"Order"> | number
-    produceId?: IntFilter<"Order"> | number
+    produceId?: IntNullableFilter<"Order"> | number | null
     vendorId?: IntFilter<"Order"> | number
+    rentalSpaceId?: IntNullableFilter<"Order"> | number | null
     quantity?: IntFilter<"Order"> | number
     totalPrice?: FloatFilter<"Order"> | number
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
@@ -27825,6 +28021,7 @@ export namespace Prisma {
     plantStatus?: $Enums.PlantHealth | null
     lastWatered?: Date | string | null
     createdAt?: Date | string
+    orders?: OrderCreateNestedManyWithoutRentalSpaceInput
   }
 
   export type RentalSpaceUncheckedCreateWithoutVendorInput = {
@@ -27837,6 +28034,7 @@ export namespace Prisma {
     plantStatus?: $Enums.PlantHealth | null
     lastWatered?: Date | string | null
     createdAt?: Date | string
+    orders?: OrderUncheckedCreateNestedManyWithoutRentalSpaceInput
   }
 
   export type RentalSpaceCreateOrConnectWithoutVendorInput = {
@@ -27855,13 +28053,15 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     orderDate?: Date | string
     user: UserCreateNestedOneWithoutOrdersInput
-    produce: ProduceCreateNestedOneWithoutOrdersInput
+    produce?: ProduceCreateNestedOneWithoutOrdersInput
+    rentalSpace?: RentalSpaceCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutVendorInput = {
     id?: number
     userId: number
-    produceId: number
+    produceId?: number | null
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -28166,12 +28366,14 @@ export namespace Prisma {
     orderDate?: Date | string
     user: UserCreateNestedOneWithoutOrdersInput
     vendor: VendorProfileCreateNestedOneWithoutOrdersInput
+    rentalSpace?: RentalSpaceCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutProduceInput = {
     id?: number
     userId: number
     vendorId: number
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -28278,6 +28480,37 @@ export namespace Prisma {
     create: XOR<VendorProfileCreateWithoutRentalSpacesInput, VendorProfileUncheckedCreateWithoutRentalSpacesInput>
   }
 
+  export type OrderCreateWithoutRentalSpaceInput = {
+    quantity: number
+    totalPrice: number
+    status?: $Enums.OrderStatus
+    orderDate?: Date | string
+    user: UserCreateNestedOneWithoutOrdersInput
+    produce?: ProduceCreateNestedOneWithoutOrdersInput
+    vendor: VendorProfileCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderUncheckedCreateWithoutRentalSpaceInput = {
+    id?: number
+    userId: number
+    produceId?: number | null
+    vendorId: number
+    quantity: number
+    totalPrice: number
+    status?: $Enums.OrderStatus
+    orderDate?: Date | string
+  }
+
+  export type OrderCreateOrConnectWithoutRentalSpaceInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutRentalSpaceInput, OrderUncheckedCreateWithoutRentalSpaceInput>
+  }
+
+  export type OrderCreateManyRentalSpaceInputEnvelope = {
+    data: OrderCreateManyRentalSpaceInput | OrderCreateManyRentalSpaceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type VendorProfileUpsertWithoutRentalSpacesInput = {
     update: XOR<VendorProfileUpdateWithoutRentalSpacesInput, VendorProfileUncheckedUpdateWithoutRentalSpacesInput>
     create: XOR<VendorProfileCreateWithoutRentalSpacesInput, VendorProfileUncheckedCreateWithoutRentalSpacesInput>
@@ -28316,6 +28549,22 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
     vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
+  }
+
+  export type OrderUpsertWithWhereUniqueWithoutRentalSpaceInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutRentalSpaceInput, OrderUncheckedUpdateWithoutRentalSpaceInput>
+    create: XOR<OrderCreateWithoutRentalSpaceInput, OrderUncheckedCreateWithoutRentalSpaceInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutRentalSpaceInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutRentalSpaceInput, OrderUncheckedUpdateWithoutRentalSpaceInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutRentalSpaceInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutRentalSpaceInput>
   }
 
   export type UserCreateWithoutOrdersInput = {
@@ -28430,6 +28679,36 @@ export namespace Prisma {
   export type VendorProfileCreateOrConnectWithoutOrdersInput = {
     where: VendorProfileWhereUniqueInput
     create: XOR<VendorProfileCreateWithoutOrdersInput, VendorProfileUncheckedCreateWithoutOrdersInput>
+  }
+
+  export type RentalSpaceCreateWithoutOrdersInput = {
+    location: string
+    size: string
+    price: number
+    availability?: boolean
+    image?: string | null
+    plantStatus?: $Enums.PlantHealth | null
+    lastWatered?: Date | string | null
+    createdAt?: Date | string
+    vendor: VendorProfileCreateNestedOneWithoutRentalSpacesInput
+  }
+
+  export type RentalSpaceUncheckedCreateWithoutOrdersInput = {
+    id?: number
+    vendorId: number
+    location: string
+    size: string
+    price: number
+    availability?: boolean
+    image?: string | null
+    plantStatus?: $Enums.PlantHealth | null
+    lastWatered?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RentalSpaceCreateOrConnectWithoutOrdersInput = {
+    where: RentalSpaceWhereUniqueInput
+    create: XOR<RentalSpaceCreateWithoutOrdersInput, RentalSpaceUncheckedCreateWithoutOrdersInput>
   }
 
   export type UserUpsertWithoutOrdersInput = {
@@ -28562,6 +28841,42 @@ export namespace Prisma {
     rentalSpaces?: RentalSpaceUncheckedUpdateManyWithoutVendorNestedInput
     sustainabilityCerts?: SustainabilityCertUncheckedUpdateManyWithoutVendorNestedInput
     vendorPosts?: VendorPostUncheckedUpdateManyWithoutVendorNestedInput
+  }
+
+  export type RentalSpaceUpsertWithoutOrdersInput = {
+    update: XOR<RentalSpaceUpdateWithoutOrdersInput, RentalSpaceUncheckedUpdateWithoutOrdersInput>
+    create: XOR<RentalSpaceCreateWithoutOrdersInput, RentalSpaceUncheckedCreateWithoutOrdersInput>
+    where?: RentalSpaceWhereInput
+  }
+
+  export type RentalSpaceUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: RentalSpaceWhereInput
+    data: XOR<RentalSpaceUpdateWithoutOrdersInput, RentalSpaceUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type RentalSpaceUpdateWithoutOrdersInput = {
+    location?: StringFieldUpdateOperationsInput | string
+    size?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    plantStatus?: NullableEnumPlantHealthFieldUpdateOperationsInput | $Enums.PlantHealth | null
+    lastWatered?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorProfileUpdateOneRequiredWithoutRentalSpacesNestedInput
+  }
+
+  export type RentalSpaceUncheckedUpdateWithoutOrdersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    vendorId?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    size?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    plantStatus?: NullableEnumPlantHealthFieldUpdateOperationsInput | $Enums.PlantHealth | null
+    lastWatered?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutCommunityPostsInput = {
@@ -30186,8 +30501,9 @@ export namespace Prisma {
 
   export type OrderCreateManyUserInput = {
     id?: number
-    produceId: number
+    produceId?: number | null
     vendorId: number
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -30269,14 +30585,16 @@ export namespace Prisma {
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    produce?: ProduceUpdateOneRequiredWithoutOrdersNestedInput
+    produce?: ProduceUpdateOneWithoutOrdersNestedInput
     vendor?: VendorProfileUpdateOneRequiredWithoutOrdersNestedInput
+    rentalSpace?: RentalSpaceUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    produceId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
     vendorId?: IntFieldUpdateOperationsInput | number
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -30285,8 +30603,9 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    produceId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
     vendorId?: IntFieldUpdateOperationsInput | number
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -30531,7 +30850,8 @@ export namespace Prisma {
   export type OrderCreateManyVendorInput = {
     id?: number
     userId: number
-    produceId: number
+    produceId?: number | null
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -30607,6 +30927,7 @@ export namespace Prisma {
     plantStatus?: NullableEnumPlantHealthFieldUpdateOperationsInput | $Enums.PlantHealth | null
     lastWatered?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderUpdateManyWithoutRentalSpaceNestedInput
   }
 
   export type RentalSpaceUncheckedUpdateWithoutVendorInput = {
@@ -30619,6 +30940,7 @@ export namespace Prisma {
     plantStatus?: NullableEnumPlantHealthFieldUpdateOperationsInput | $Enums.PlantHealth | null
     lastWatered?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderUncheckedUpdateManyWithoutRentalSpaceNestedInput
   }
 
   export type RentalSpaceUncheckedUpdateManyWithoutVendorInput = {
@@ -30639,13 +30961,15 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
-    produce?: ProduceUpdateOneRequiredWithoutOrdersNestedInput
+    produce?: ProduceUpdateOneWithoutOrdersNestedInput
+    rentalSpace?: RentalSpaceUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutVendorInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    produceId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -30655,7 +30979,8 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyWithoutVendorInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    produceId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -30719,6 +31044,7 @@ export namespace Prisma {
     id?: number
     userId: number
     vendorId: number
+    rentalSpaceId?: number | null
     quantity: number
     totalPrice: number
     status?: $Enums.OrderStatus
@@ -30732,12 +31058,14 @@ export namespace Prisma {
     orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     vendor?: VendorProfileUpdateOneRequiredWithoutOrdersNestedInput
+    rentalSpace?: RentalSpaceUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutProduceInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     vendorId?: IntFieldUpdateOperationsInput | number
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -30747,6 +31075,50 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyWithoutProduceInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    vendorId?: IntFieldUpdateOperationsInput | number
+    rentalSpaceId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrderCreateManyRentalSpaceInput = {
+    id?: number
+    userId: number
+    produceId?: number | null
+    vendorId: number
+    quantity: number
+    totalPrice: number
+    status?: $Enums.OrderStatus
+    orderDate?: Date | string
+  }
+
+  export type OrderUpdateWithoutRentalSpaceInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
+    produce?: ProduceUpdateOneWithoutOrdersNestedInput
+    vendor?: VendorProfileUpdateOneRequiredWithoutOrdersNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutRentalSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
+    vendorId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: FloatFieldUpdateOperationsInput | number
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrderUncheckedUpdateManyWithoutRentalSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    produceId?: NullableIntFieldUpdateOperationsInput | number | null
     vendorId?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     totalPrice?: FloatFieldUpdateOperationsInput | number

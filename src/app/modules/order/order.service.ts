@@ -1,5 +1,7 @@
 import { OrderStatus } from '../../types/common';
 import { prisma } from '../../shared/prisma';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationType } from '@prisma/client';
 
 import httpStatus from 'http-status';
 import { IJWTPayload } from '../../types/common';
@@ -123,11 +125,57 @@ const createOrder = async (userId: string, payload: {
         quantity,
         totalPrice,
       },
+      include: {
+        user: true,
+        produce: true,
+        vendor: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
 
     console.log(`Order created: ${order.id} for user ${userId}, produce ${produceId}, quantity ${quantity}, total ${totalPrice}`);
 
     return order;
+  });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('order-created', result);
+  }
+
+  // Notify admins about new order (async, non-blocking)
+  process.nextTick(async () => {
+    try {
+      const NotificationService = (await import('../notification/notification.service')).NotificationService;
+      const admins = await prisma.user.findMany({
+        where: { role: 'Admin' },
+      });
+
+      for (const admin of admins) {
+        await NotificationService.createNotification(
+          admin.id,
+          'SYSTEM' as any,
+          'New Order Placed',
+          `New order #${result.id} placed by ${result.user.name} for ${result.produce.name}.`,
+          {
+            orderId: result.id,
+            customerId: result.userId,
+            customerName: result.user.name,
+            vendorId: result.vendorId,
+            vendorName: result.vendor.user.name,
+            produceName: result.produce.name,
+            totalPrice: result.totalPrice,
+            type: 'new_order',
+          }
+        );
+      }
+    } catch (error) {
+      console.error('Failed to create new order notification:', error);
+    }
   });
 
   return result;
@@ -143,7 +191,7 @@ const updateOrderStatus = async (id: string, status: OrderStatus) => {
 
   // If cancelling a pending order, restore the stock
   if (status === OrderStatus.Cancelled && order.status === OrderStatus.Pending) {
-    await prisma.$transaction(async (tx) => {
+    const updated = await prisma.$transaction(async (tx) => {
       // Restore the stock
       await tx.produce.update({
         where: { id: order.produceId },
@@ -155,18 +203,111 @@ const updateOrderStatus = async (id: string, status: OrderStatus) => {
       });
 
       // Update order status
-      await tx.order.update({
+      const updatedOrder = await tx.order.update({
         where: { id },
         data: { status },
+        include: {
+          user: true,
+          produce: true,
+          vendor: {
+            include: {
+              user: true,
+            },
+          },
+        },
       });
+
+      return updatedOrder;
     });
 
     console.log(`Stock restored for cancelled order ${id}: +${order.quantity} to produce ${order.produceId}`);
+
+    // Emit real-time update
+    const io = (global as any).io;
+    if (io) {
+      io.emit('order-status-updated', updated);
+    }
+
+    // Create notifications
+    try {
+      await NotificationService.createNotification(
+        updated.userId,
+        NotificationType.ORDER_STATUS_UPDATE,
+        'Order Status Updated',
+        `Your order #${updated.id} status has been updated to ${status}.`,
+        {
+          orderId: updated.id,
+          status: status,
+          produceName: updated.produce.name,
+        }
+      );
+
+      await NotificationService.createNotification(
+        updated.vendor.userId,
+        NotificationType.ORDER_STATUS_UPDATE,
+        'Order Status Updated',
+        `Order #${updated.id} status has been updated to ${status}.`,
+        {
+          orderId: updated.id,
+          status: status,
+          customerName: updated.user.name,
+        }
+      );
+    } catch (error) {
+      console.error('Failed to create order status notification:', error);
+    }
+
+    return updated;
   } else {
     const updated = await prisma.order.update({
       where: { id },
       data: { status },
+      include: {
+        user: true,
+        produce: true,
+        vendor: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
+
+    // Emit real-time update
+    const io = (global as any).io;
+    if (io) {
+      io.emit('order-status-updated', updated);
+    }
+
+    // Create notifications
+    try {
+      await NotificationService.createNotification(
+        updated.userId,
+        NotificationType.ORDER_STATUS_UPDATE,
+        'Order Status Updated',
+        `Your order #${updated.id} status has been updated to ${status}.`,
+        {
+          orderId: updated.id,
+          status: status,
+          produceName: updated.produce.name,
+        }
+      );
+
+      await NotificationService.createNotification(
+        updated.vendor.userId,
+        NotificationType.ORDER_STATUS_UPDATE,
+        'Order Status Updated',
+        `Order #${updated.id} status has been updated to ${status}.`,
+        {
+          orderId: updated.id,
+          status: status,
+          customerName: updated.user.name,
+        }
+      );
+    } catch (error) {
+      console.error('Failed to create order status notification:', error);
+    }
+
     return updated;
   }
 };

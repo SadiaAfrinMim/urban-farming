@@ -133,23 +133,26 @@ model RentalSpace {
   createdAt    DateTime     @default(now())
 
   vendor VendorProfile @relation(fields: [vendorId], references: [id])
+  orders Order[]
 
   @@map("rental_spaces")
 }
 
 model Order {
-  id         Int         @id @default(autoincrement())
-  userId     Int
-  produceId  Int
-  vendorId   Int
-  quantity   Int
-  totalPrice Float
-  status     OrderStatus @default(Pending)
-  orderDate  DateTime    @default(now())
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  produceId     Int?
+  vendorId      Int
+  rentalSpaceId Int?
+  quantity      Int
+  totalPrice    Float
+  status        OrderStatus @default(Pending)
+  orderDate     DateTime    @default(now())
 
-  user    User          @relation(fields: [userId], references: [id])
-  produce Produce       @relation(fields: [produceId], references: [id])
-  vendor  VendorProfile @relation(fields: [vendorId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  produce     Produce?      @relation(fields: [produceId], references: [id])
+  vendor      VendorProfile @relation(fields: [vendorId], references: [id])
+  rentalSpace RentalSpace?  @relation(fields: [rentalSpaceId], references: [id])
 
   @@map("orders")
 }

@@ -1,4 +1,6 @@
 import { prisma } from '../../shared/prisma';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationType } from '@prisma/client';
 
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError';
@@ -77,7 +79,21 @@ const createRentalSpace = async (vendorId: string, payload: {
       vendorId: vendorProfile.id,
       ...payload,
     },
+    include: {
+      vendor: {
+        include: {
+          user: true,
+        },
+      },
+    },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('rental-space-created', rentalSpace);
+  }
+
   return rentalSpace;
 };
 
@@ -96,7 +112,21 @@ const updateRentalSpace = async (id: string, payload: Partial<{
   const updated = await prisma.rentalSpace.update({
     where: { id },
     data: payload,
+    include: {
+      vendor: {
+        include: {
+          user: true,
+        },
+      },
+    },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('rental-space-updated', updated);
+  }
+
   return updated;
 };
 
@@ -110,19 +140,39 @@ const deleteRentalSpace = async (id: string) => {
   await prisma.rentalSpace.delete({
     where: { id },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('rental-space-deleted', { id });
+  }
 };
 
 const toggleAvailability = async (id: string, availability: boolean) => {
   const updated = await prisma.rentalSpace.update({
     where: { id },
     data: { availability },
+    include: {
+      vendor: {
+        include: {
+          user: true,
+        },
+      },
+    },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('rental-space-availability-changed', updated);
+  }
+
   return updated;
 };
 
 const bookRentalSpace = async (spaceId: string, customerId: string) => {
   const rentalSpace = await prisma.rentalSpace.findUnique({
-    where: { id: spaceId },
+    where: { id: parseInt(spaceId) },
   });
   if (!rentalSpace) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
@@ -134,7 +184,41 @@ const bookRentalSpace = async (spaceId: string, customerId: string) => {
   const updated = await prisma.rentalSpace.update({
     where: { id: spaceId },
     data: { availability: false },
+    include: {
+      vendor: {
+        include: {
+          user: true,
+        },
+      },
+    },
   });
+
+  // Emit real-time update
+  const io = (global as any).io;
+  if (io) {
+    io.emit('rental-space-booked', updated);
+  }
+
+  // Create notification for the vendor (async, non-blocking)
+  process.nextTick(async () => {
+    try {
+      const NotificationService = (await import('../notification/notification.service')).NotificationService;
+      await NotificationService.createNotification(
+        updated.vendor.userId,
+        'RENTAL_SPACE_BOOKED' as any,
+        'Rental Space Booked',
+        `Your rental space "${updated.location}" has been booked.`,
+        {
+          rentalSpaceId: updated.id,
+          customerId: customerId,
+          location: updated.location,
+        }
+      );
+    } catch (error) {
+      console.error('Failed to create booking notification:', error);
+    }
+  });
+
   return updated;
 };
 

@@ -160,10 +160,41 @@ const getFeaturedVendors = async () => {
   });
 };
 
+// Approved Vendors Certificates
+const getApprovedVendorCertificates = async () => {
+  const vendors = await prisma.vendorProfile.findMany({
+    where: {
+      certificationStatus: 'Approved'
+    },
+    include: {
+      user: {
+        select: {
+          name: true,
+          email: true
+        }
+      }
+    },
+    orderBy: { createdAt: 'desc' }
+  });
+
+  return vendors.map(vendor => ({
+    id: vendor.id,
+    farmName: vendor.farmName,
+    farmLocation: vendor.farmLocation,
+    certificationStatus: vendor.certificationStatus,
+    profilePhoto: vendor.profilePhoto,
+    certifications: vendor.certifications,
+    createdAt: vendor.createdAt,
+    updatedAt: vendor.updatedAt,
+    user: vendor.user
+  }));
+};
+
 export const HomeService = {
   getFeaturedProducts,
   getCategories,
   getStatistics,
   getTestimonials,
   getFeaturedVendors,
+  getApprovedVendorCertificates,
 };

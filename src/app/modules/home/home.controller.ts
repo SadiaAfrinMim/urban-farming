@@ -63,10 +63,23 @@ const getFeaturedVendors = async (req: Request, res: Response) => {
   });
 };
 
+// Approved Vendors Certificates
+const getApprovedVendorCertificates = async (req: Request, res: Response) => {
+  const result = await HomeService.getApprovedVendorCertificates();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Approved vendors certificates retrieved successfully',
+    data: result,
+  });
+};
+
 export const HomeController = {
   getFeaturedProducts,
   getCategories,
   getStatistics,
   getTestimonials,
   getFeaturedVendors,
+  getApprovedVendorCertificates,
 };

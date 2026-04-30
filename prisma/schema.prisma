@@ -54,6 +54,13 @@ enum PlantHealth {
   Dead
 }
 
+enum PaymentStatus {
+  Pending
+  Completed
+  Failed
+  Refunded
+}
+
 model User {
   id        Int         @id @default(autoincrement())
   name      String
@@ -66,6 +73,7 @@ model User {
 
   vendorProfile         VendorProfile?
   orders                Order[]
+  payments              Payment[]
   communityPosts        CommunityPost[]
   customerPosts         CustomerPost[]
   postLikes             PostLike[]
@@ -153,9 +161,27 @@ model Order {
    produce Produce?       @relation(fields: [produceId], references: [id])
    vendor  VendorProfile  @relation(fields: [vendorId], references: [id])
    rentalSpace RentalSpace? @relation(fields: [rentalSpaceId], references: [id])
+   payments Payment[]
 
    @@map("orders")
  }
+
+model Payment {
+  id                Int           @id @default(autoincrement())
+  orderId           Int
+  userId            Int
+  paymentIntentId   String        @unique
+  amount            Float         // Amount in USD cents
+  originalAmount    Float         // Original amount in BDT
+  currency          String        @default("usd")
+  status            PaymentStatus @default(Pending)
+  paymentDate       DateTime      @default(now())
+
+  order             Order         @relation(fields: [orderId], references: [id])
+  user              User          @relation(fields: [userId], references: [id])
+
+  @@map("payments")
+}
 
 model CommunityPost {
   id          Int      @id @default(autoincrement())

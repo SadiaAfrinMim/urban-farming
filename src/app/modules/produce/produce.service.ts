@@ -5,24 +5,39 @@ import ApiError from '../../errors/ApiError';
 
 const getAllProduces = async (page: number, limit: number) => {
   const skip = (page - 1) * limit;
+
+  // If limit is very large (like 1000), get all products without pagination
+  const shouldGetAll = limit >= 1000;
+
   const produces = await prisma.produce.findMany({
     where: {
-      certificationStatus: 'Approved', // Only show approved products in marketplace
+      certificationStatus: 'Approved'
     },
-    skip,
-    take: limit,
+    ...(shouldGetAll ? {} : { skip, take: limit }),
+    orderBy: { createdAt: 'desc' },
     include: {
       vendor: {
-        include: {
-          user: true,
-        },
-      },
-    },
+        select: {
+          user: {
+            select: {
+              name: true
+            }
+          },
+          farmName: true,
+          sustainabilityCerts: {
+            select: {
+              certifyingAgency: true,
+              certificationDate: true
+            }
+          }
+        }
+      }
+    }
   });
   const total = await prisma.produce.count({
     where: {
-      certificationStatus: 'Approved',
-    },
+      certificationStatus: 'Approved'
+    }
   });
   return {
     data: produces,
@@ -36,9 +51,7 @@ const getAllProduces = async (page: number, limit: number) => {
 };
 
 const searchProduces = async (query?: string) => {
-  const where: any = {
-    certificationStatus: 'Approved', // Only show approved products in marketplace
-  };
+  const where: any = {};
   if (query) {
     where.OR = [
       {

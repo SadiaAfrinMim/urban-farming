@@ -217,18 +217,28 @@ const getCustomerOrders = async (userId: string) => {
       userId: parseInt(userId),
     },
     include: {
-      orderItems: {
+      produce: {
         include: {
-          produce: {
-            include: {
-              vendor: {
+          vendor: {
+            select: {
+              farmName: true,
+              user: {
                 select: {
-                  farmName: true,
-                  user: {
-                    select: {
-                      name: true,
-                    },
-                  },
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      rentalSpace: {
+        include: {
+          vendor: {
+            select: {
+              farmName: true,
+              user: {
+                select: {
+                  name: true,
                 },
               },
             },
@@ -237,7 +247,7 @@ const getCustomerOrders = async (userId: string) => {
       },
     },
     orderBy: {
-      createdAt: 'desc',
+      orderDate: 'desc',
     },
   });
 

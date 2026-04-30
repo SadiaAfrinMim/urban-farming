@@ -6,6 +6,7 @@ import config from './config';
 import { OrderService } from './app/modules/order/order.service';
 import { NotificationService } from './app/modules/notification/notification.service';
 import { prisma } from './app/shared/prisma';
+import { NotificationType } from '@prisma/client';
 
 async function bootstrap() {
     // This variable will hold our server instance

@@ -70,4 +70,16 @@ router.get('/testimonials', HomeController.getTestimonials);
  */
 router.get('/featured-vendors', HomeController.getFeaturedVendors);
 
+/**
+ * @swagger
+ * /home/approved-vendors-certificates:
+ *   get:
+ *     summary: Get approved vendors with their certificates for sustainability page
+ *     tags: [Home]
+ *     responses:
+ *       200:
+ *         description: Approved vendors certificates retrieved successfully
+ */
+router.get('/approved-vendors-certificates', HomeController.getApprovedVendorCertificates);
+
 export const homeRoutes = router;

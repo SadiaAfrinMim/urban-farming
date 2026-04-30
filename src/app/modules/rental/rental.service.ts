@@ -40,8 +40,12 @@ const searchRentalSpaces = async (location?: string) => {
 };
 
 const getRentalSpaceById = async (id: string) => {
+  const rentalSpaceId = parseInt(id, 10);
+  if (isNaN(rentalSpaceId)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
+  }
   const rentalSpace = await prisma.rentalSpace.findUnique({
-    where: { id },
+    where: { id: rentalSpaceId },
     include: {
       vendor: {
         include: {
@@ -103,14 +107,18 @@ const updateRentalSpace = async (id: string, payload: Partial<{
   price: number;
   availability: boolean;
 }>) => {
+  const rentalSpaceId = parseInt(id, 10);
+  if (isNaN(rentalSpaceId)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
+  }
   const rentalSpace = await prisma.rentalSpace.findUnique({
-    where: { id },
+    where: { id: rentalSpaceId },
   });
   if (!rentalSpace) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
   }
   const updated = await prisma.rentalSpace.update({
-    where: { id },
+    where: { id: rentalSpaceId },
     data: payload,
     include: {
       vendor: {
@@ -131,14 +139,18 @@ const updateRentalSpace = async (id: string, payload: Partial<{
 };
 
 const deleteRentalSpace = async (id: string) => {
+  const rentalSpaceId = parseInt(id, 10);
+  if (isNaN(rentalSpaceId)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
+  }
   const rentalSpace = await prisma.rentalSpace.findUnique({
-    where: { id },
+    where: { id: rentalSpaceId },
   });
   if (!rentalSpace) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
   }
   await prisma.rentalSpace.delete({
-    where: { id },
+    where: { id: rentalSpaceId },
   });
 
   // Emit real-time update
@@ -149,8 +161,12 @@ const deleteRentalSpace = async (id: string) => {
 };
 
 const toggleAvailability = async (id: string, availability: boolean) => {
+  const rentalSpaceId = parseInt(id, 10);
+  if (isNaN(rentalSpaceId)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
+  }
   const updated = await prisma.rentalSpace.update({
-    where: { id },
+    where: { id: rentalSpaceId },
     data: { availability },
     include: {
       vendor: {
@@ -182,7 +198,7 @@ const bookRentalSpace = async (spaceId: string, customerId: string) => {
   }
   // Update availability to false
   const updated = await prisma.rentalSpace.update({
-    where: { id: spaceId },
+    where: { id: parseInt(spaceId) },
     data: { availability: false },
     include: {
       vendor: {

@@ -21,6 +21,45 @@ async function seedApprovedProducts() {
 
     console.log('✅ Vendor profile created/updated');
 
+    // Create sustainability certificates for the vendor
+    const sustainabilityCerts = [
+      {
+        certifyingAgency: 'Organic Farming Bangladesh',
+        certificationDate: new Date('2024-01-15'),
+        vendorId: vendor.id,
+      },
+      {
+        certifyingAgency: 'Global GAP Certification',
+        certificationDate: new Date('2024-03-20'),
+        vendorId: vendor.id,
+      },
+      {
+        certifyingAgency: 'Fair Trade Association',
+        certificationDate: new Date('2024-06-10'),
+        vendorId: vendor.id,
+      },
+    ];
+
+    for (const cert of sustainabilityCerts) {
+      // Check if certificate already exists
+      const existingCert = await prisma.sustainabilityCert.findFirst({
+        where: {
+          certifyingAgency: cert.certifyingAgency,
+          vendorId: cert.vendorId,
+        },
+      });
+
+      if (!existingCert) {
+        await prisma.sustainabilityCert.create({
+          data: cert,
+        });
+      } else {
+        console.log(`Certificate "${cert.certifyingAgency}" already exists, skipping...`);
+      }
+    }
+
+    console.log('✅ Sustainability certificates created/updated');
+
     // Create some approved products
     const products = [
       {

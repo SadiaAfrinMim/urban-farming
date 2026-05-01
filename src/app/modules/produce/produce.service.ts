@@ -78,9 +78,20 @@ const searchProduces = async (query?: string) => {
     where,
     include: {
       vendor: {
-        include: {
-          user: true,
-        },
+        select: {
+          user: {
+            select: {
+              name: true
+            }
+          },
+          farmName: true,
+          sustainabilityCerts: {
+            select: {
+              certifyingAgency: true,
+              certificationDate: true
+            }
+          }
+        }
       },
     },
   });

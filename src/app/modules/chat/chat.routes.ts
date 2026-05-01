@@ -84,32 +84,14 @@ router.post('/handle', ChatController.handleChatMessage);
 router.get('/health', ChatController.healthCheck);
 
 // Environment check route (for debugging)
-router.get('/env-check', async (req, res) => {
-  try {
-    const { prisma } = require('../../shared/prisma');
-
-    // Test database connection
-    await prisma.$queryRaw`SELECT 1`;
-    const dbStatus = '✅ Connected';
-
-    res.json({
-      node_env: process.env.NODE_ENV,
-      openrouter_key: process.env.OPENROUTER_API_KEY ? 'Set' : 'Not set',
-      openai_key: process.env.OPENAI_API_KEY ? 'Set' : 'Not set',
-      database_url: process.env.DATABASE_URL ? 'Set' : 'Not set',
-      database_connection: dbStatus,
-      timestamp: new Date().toISOString()
-    });
-  } catch (error: any) {
-    res.json({
-      node_env: process.env.NODE_ENV,
-      openrouter_key: process.env.OPENROUTER_API_KEY ? 'Set' : 'Not set',
-      openai_key: process.env.OPENAI_API_KEY ? 'Set' : 'Not set',
-      database_url: process.env.DATABASE_URL ? 'Set' : 'Not set',
-      database_connection: `❌ Failed: ${error.message}`,
-      timestamp: new Date().toISOString()
-    });
-  }
+router.get('/env-check', (req, res) => {
+  res.json({
+    node_env: process.env.NODE_ENV,
+    openrouter_key: process.env.OPENROUTER_API_KEY ? 'Set' : 'Not set',
+    openai_key: process.env.OPENAI_API_KEY ? 'Set' : 'Not set',
+    database_url: process.env.DATABASE_URL ? 'Set' : 'Not set',
+    timestamp: new Date().toISOString()
+  });
 });
 
 export const chatRoutes = router;

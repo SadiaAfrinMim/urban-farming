@@ -29,7 +29,7 @@ const getCertById = catchAsync(async (req: Request, res: Response) => {
 const createCert = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const payload = req.body;
-  const result = await SustainabilityService.createCert(user.id, payload);
+  const result = await SustainabilityService.createCert(user.id, payload, user.role);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,

@@ -1,8 +1,9 @@
 // @ts-ignore
 import OpenAI from 'openai';
+import config from '../../config';
 
 // Check if OpenRouter API key is available
-const openRouterApiKey = process.env.OPENROUTER_API_KEY;
+const openRouterApiKey = config.openRouterApiKey;
 export const hasOpenRouterKey = openRouterApiKey &&
   openRouterApiKey !== 'your-openrouter-api-key-here' &&
   openRouterApiKey !== '' &&
@@ -26,7 +27,7 @@ export const openRouter = hasOpenRouterKey ? new OpenAI({
 
 // Legacy OpenAI client (if needed)
 export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || process.env.OPENROUTER_API_KEY,
+  apiKey: config.openaiApiKey || config.openRouterApiKey,
 });
 
 

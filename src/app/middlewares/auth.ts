@@ -103,6 +103,7 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { Secret } from "jsonwebtoken";
+import config from "../../config";
 import ApiError from "../errors/ApiError";
 import { jwtHelper } from "../helpers/jwtHelper";
 import { IJWTPayload } from "../types/common";
@@ -134,7 +135,7 @@ const auth = (...roles: string[]) => {
                 throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized!")
             }
 
-            const verifiedUser = jwtHelper.verifyToken(token, process.env.JWT_SECRET as Secret);
+            const verifiedUser = jwtHelper.verifyToken(token, config.jwt.jwt_secret as Secret);
 
             req.user = verifiedUser;
 

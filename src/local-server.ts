@@ -2,6 +2,7 @@ import { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
 import cron from 'node-cron';
 import app from './app';
+import config from './config';
 import { OrderService } from './app/modules/order/order.service';
 import { NotificationService } from './app/modules/notification/notification.service';
 import { prisma } from './app/shared/prisma';
@@ -14,9 +15,8 @@ async function bootstrap() {
 
     try {
         // Start the server
-        const port = process.env.PORT || 5000;
-        server = app.listen(port, () => {
-            console.log(`🚀 Server is running on http://localhost:${port}`);
+        server = app.listen(config.port, () => {
+            console.log(`🚀 Server is running on http://localhost:${config.port}`);
         });
 
         // Initialize Socket.IO

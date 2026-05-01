@@ -215,8 +215,12 @@ const getAllPosts = async () => {
 
 const approvePost = async (postId: string, adminId: string) => {
   const id = parseInt(postId);
+  const adminIdNumber = parseInt(adminId);
   if (isNaN(id)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid post ID');
+  }
+  if (isNaN(adminIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid admin ID');
   }
 
   const post = await prisma.communityPost.findUnique({ where: { id } });
@@ -228,7 +232,7 @@ const approvePost = async (postId: string, adminId: string) => {
     where: { id },
     data: {
       isApproved: true,
-      moderatedBy: adminId,
+      moderatedBy: adminIdNumber,
       moderatedAt: new Date(),
     },
     include: { user: true },

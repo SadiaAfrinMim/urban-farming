@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import config from './config';
 
 // @ts-ignore
 import swaggerUi from 'swagger-ui-express';
@@ -28,37 +29,18 @@ try {
 const app: Application = express();
 
 
-// Simplified CORS configuration for Vercel
-const corsOptions = {
-    origin: true, // Allow all origins for now to debug
-    credentials: true,
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'https://urban-farming.vercel.app',
+        'https://urban-farming-sable.vercel.app',
+        // Add any additional frontend deployment URLs here
+    ],
+     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
-    exposedHeaders: ['Set-Cookie'],
-    optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
-
-// Additional CORS headers middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
-    // Set CORS headers dynamically
-    const origin = req.headers.origin;
-    if (origin) {
-        res.header('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, X-Access-Token');
-
-    // Handle preflight OPTIONS requests
-    if (req.method === 'OPTIONS') {
-        res.sendStatus(200);
-        return;
-    }
-
-    next();
-});
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 //parser
 app.use(express.json());
@@ -108,7 +90,7 @@ app.use("/api/v1", router);
 app.get('/', (req: Request, res: Response) => {
     res.send({
         message: "Server is running..",
-        environment: process.env.NODE_ENV,
+        environment: config.node_env,
         uptime: process.uptime().toFixed(2) + " sec",
         timeStamp: new Date().toISOString()
     })

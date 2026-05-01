@@ -70,7 +70,7 @@ router.get('/certs/:id', auth(UserRole.Admin, UserRole.Vendor), SustainabilityCo
  *       201:
  *         description: Certificate created
  */
-router.post('/certs', auth(UserRole.Vendor), SustainabilityController.createCert);
+router.post('/certs', auth(UserRole.Admin, UserRole.Vendor), SustainabilityController.createCert);
 
 /**
  * @swagger

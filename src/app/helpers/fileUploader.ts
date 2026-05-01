@@ -1,6 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import { v2 as cloudinary } from 'cloudinary';
+import config from '../../config';
 
 
 // Multer storage (memory)
@@ -39,9 +40,9 @@ const upload = multer({
 
 // Cloudinary config (run once ideally)
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
-  api_key: process.env.CLOUDINARY_API_KEY!,
-  api_secret: process.env.CLOUDINARY_API_SECRET!,
+  cloud_name: config.cloudinary.cloud_name!,
+  api_key: config.cloudinary.api_key!,
+  api_secret: config.cloudinary.api_secret!,
 });
 
 // Upload to Cloudinary
@@ -50,20 +51,20 @@ const uploadToCloudinary = async (file: Express.Multer.File) => {
     console.log('Starting Cloudinary upload for file:', file.originalname, 'size:', file.size, 'mimetype:', file.mimetype);
 
     // Check if Cloudinary is configured
-    if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_SECRET) {
+    if (!config.cloudinary.api_key || !config.cloudinary.cloud_name || !config.cloudinary.api_secret) {
       console.error('Cloudinary configuration missing:', {
-        api_key: !!process.env.CLOUDINARY_API_KEY,
-        cloud_name: !!process.env.CLOUDINARY_CLOUD_NAME,
-        api_secret: !!process.env.CLOUDINARY_API_SECRET
+        api_key: !!config.cloudinary.api_key,
+        cloud_name: !!config.cloudinary.cloud_name,
+        api_secret: !!config.cloudinary.api_secret
       });
       throw new Error('Cloudinary configuration is incomplete');
     }
 
     // Configure Cloudinary
     cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
+      cloud_name: config.cloudinary.cloud_name,
+      api_key: config.cloudinary.api_key,
+      api_secret: config.cloudinary.api_secret,
     });
 
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);

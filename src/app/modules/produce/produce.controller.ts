@@ -23,7 +23,8 @@ const getAllProduces = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Produces retrieved successfully',
-    data: result, // Return the full result object with data and meta
+    data: result.data, // Return just the data array
+    meta: result.meta, // Include meta separately if needed
   });
 });
 

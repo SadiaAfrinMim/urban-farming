@@ -47,14 +47,39 @@ const getCertById = async (id: string, user: IJWTPayload) => {
   return cert;
 };
 
-const createCert = async (userId: string, payload: {
-  certifyingAgency: string;
-  certificationDate: string;
-}) => {
+const createCert = async (userId: string, payload: any, userRole?: string) => {
   const userIdNumber = parseInt(userId, 10);
   if (isNaN(userIdNumber)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
   }
+
+  // If admin is creating cert for a vendor
+  if (userRole === 'Admin' && payload.vendorId) {
+    const vendorIdNumber = parseInt(payload.vendorId, 10);
+    if (isNaN(vendorIdNumber)) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
+    }
+    const vendorProfile = await prisma.vendorProfile.findUnique({
+      where: { id: vendorIdNumber },
+    });
+    if (!vendorProfile) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');
+    }
+    // Check if vendor is approved
+    if (vendorProfile.certificationStatus !== 'Approved') {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Only approved vendors can be added to sustainability list');
+    }
+    const cert = await prisma.sustainabilityCert.create({
+      data: {
+        vendorId: vendorProfile.id,
+        certifyingAgency: payload.certifyingAgency || 'Urban Farming Admin',
+        certificationDate: new Date(payload.certificationDate || new Date()),
+      },
+    });
+    return cert;
+  }
+
+  // If vendor is creating their own cert
   const vendorProfile = await prisma.vendorProfile.findUnique({
     where: { userId: userIdNumber },
   });
@@ -64,7 +89,7 @@ const createCert = async (userId: string, payload: {
   const cert = await prisma.sustainabilityCert.create({
     data: {
       vendorId: vendorProfile.id,
-      ...payload,
+      certifyingAgency: payload.certifyingAgency,
       certificationDate: new Date(payload.certificationDate),
     },
   });

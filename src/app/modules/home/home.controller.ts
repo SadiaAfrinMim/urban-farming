@@ -53,14 +53,30 @@ const getTestimonials = async (req: Request, res: Response) => {
 
 // Featured Vendors
 const getFeaturedVendors = async (req: Request, res: Response) => {
-  const result = await HomeService.getFeaturedVendors();
+  try {
+    const result = await HomeService.getFeaturedVendors();
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Featured vendors retrieved successfully',
-    data: result,
-  });
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Featured vendors retrieved successfully',
+      data: result,
+    });
+  } catch (error: any) {
+    console.error('❌ Get featured vendors error:', {
+      message: error.message,
+      code: error.code,
+      meta: error.meta,
+      stack: error.stack
+    });
+
+    sendResponse(res, {
+      statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+      success: false,
+      message: 'Failed to retrieve featured vendors',
+      data: null,
+    });
+  }
 };
 
 // Approved Vendors Certificates

@@ -62,123 +62,124 @@ enum PaymentStatus {
 }
 
 model User {
-  id        Int         @id @default(autoincrement())
-  name      String
-  email     String      @unique
-  password  String
-  role      UserRole
-  status    UserStatus
+  id           Int        @id @default(autoincrement())
+  name         String
+  email        String     @unique
+  password     String
+  role         UserRole
+  status       UserStatus
   profileImage String?
-  createdAt DateTime    @default(now())
+  createdAt    DateTime   @default(now())
 
-  vendorProfile         VendorProfile?
-  orders                Order[]
-  payments              Payment[]
-  communityPosts        CommunityPost[]
-  customerPosts         CustomerPost[]
-  postLikes             PostLike[]
-  postComments          PostComment[]
-  customerPostLikes     CustomerPostLike[]
-  customerPostComments  CustomerPostComment[]
-  vendorPostLikes       VendorPostLike[]
-  vendorPostComments    VendorPostComment[]
-  userCommands          UserCommand[]
-  notifications         Notification[]
+  vendorProfile        VendorProfile?
+  orders               Order[]
+  payments             Payment[]
+  communityPosts       CommunityPost[]
+  customerPosts        CustomerPost[]
+  postLikes            PostLike[]
+  postComments         PostComment[]
+  customerPostLikes    CustomerPostLike[]
+  customerPostComments CustomerPostComment[]
+  vendorPostLikes      VendorPostLike[]
+  vendorPostComments   VendorPostComment[]
+  userCommands         UserCommand[]
+  notifications        Notification[]
+  chats                Chat[]
 
   @@map("users")
 }
 
 model VendorProfile {
-  id                 Int                @id @default(autoincrement())
-  userId             Int                @unique
-  farmName           String
+  id                  Int                 @id @default(autoincrement())
+  userId              Int                 @unique
+  farmName            String
   certificationStatus CertificationStatus @default(Pending)
-  farmLocation       String
-  profilePhoto       String?
-  certifications     String[]
-  createdAt          DateTime           @default(now())
+  farmLocation        String
+  profilePhoto        String?
+  certifications      String[]
+  createdAt           DateTime            @default(now())
 
-  user               User               @relation(fields: [userId], references: [id])
-  produces           Produce[]
-  rentalSpaces       RentalSpace[]
-  orders             Order[]
+  user                User                 @relation(fields: [userId], references: [id])
+  produces            Produce[]
+  rentalSpaces        RentalSpace[]
+  orders              Order[]
   sustainabilityCerts SustainabilityCert[]
-  vendorPosts        VendorPost[]
+  vendorPosts         VendorPost[]
 
   @@map("vendor_profiles")
 }
 
 model Produce {
-  id                 Int                @id @default(autoincrement())
-  vendorId           Int
-  name               String
-  description        String
-  price              Float
-  category           ProduceCategory
+  id                  Int                 @id @default(autoincrement())
+  vendorId            Int
+  name                String
+  description         String
+  price               Float
+  category            ProduceCategory
   certificationStatus CertificationStatus @default(Pending)
-  availableQuantity  Int
-  unit               String?
-  isOrganic          Boolean?           @default(false)
-  image              String?
-  createdAt          DateTime           @default(now())
+  availableQuantity   Int
+  unit                String?
+  isOrganic           Boolean?            @default(false)
+  image               String?
+  createdAt           DateTime            @default(now())
 
-  vendor             VendorProfile @relation(fields: [vendorId], references: [id])
-  orders             Order[]
+  vendor VendorProfile @relation(fields: [vendorId], references: [id])
+  orders Order[]
 
   @@map("produces")
 }
 
 model RentalSpace {
-  id           Int     @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   vendorId     Int
   location     String
   size         String
   price        Float
-  availability Boolean @default(true)
+  availability Boolean      @default(true)
   image        String?
   plantStatus  PlantHealth?
   lastWatered  DateTime?
-  createdAt    DateTime @default(now())
+  createdAt    DateTime     @default(now())
 
-  vendor       VendorProfile @relation(fields: [vendorId], references: [id])
-  orders       Order[]
+  vendor VendorProfile @relation(fields: [vendorId], references: [id])
+  orders Order[]
 
   @@map("rental_spaces")
 }
 
 model Order {
-   id        Int        @id @default(autoincrement())
-   userId    Int
-   produceId Int?
-   vendorId  Int
-   rentalSpaceId Int?
-   quantity  Int
-   totalPrice Float
-   status    OrderStatus @default(Pending)
-   orderDate DateTime   @default(now())
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  produceId     Int?
+  vendorId      Int
+  rentalSpaceId Int?
+  quantity      Int
+  totalPrice    Float
+  status        OrderStatus @default(Pending)
+  orderDate     DateTime    @default(now())
 
-   user    User           @relation(fields: [userId], references: [id])
-   produce Produce?       @relation(fields: [produceId], references: [id])
-   vendor  VendorProfile  @relation(fields: [vendorId], references: [id])
-   rentalSpace RentalSpace? @relation(fields: [rentalSpaceId], references: [id])
-   payments Payment[]
+  user        User          @relation(fields: [userId], references: [id])
+  produce     Produce?      @relation(fields: [produceId], references: [id])
+  vendor      VendorProfile @relation(fields: [vendorId], references: [id])
+  rentalSpace RentalSpace?  @relation(fields: [rentalSpaceId], references: [id])
+  payments    Payment[]
 
-   @@map("orders")
- }
+  @@map("orders")
+}
 
 model Payment {
-  id                Int           @id @default(autoincrement())
-  orderId           Int
-  userId            Int
-  paymentIntentId   String        @unique
-  amount            Float         // Amount in USD cents
-  originalAmount    Float         // Original amount in BDT
-  currency          String        @default("usd")
-  status            PaymentStatus @default(Pending)
-  paymentDate       DateTime      @default(now())
+  id              Int           @id @default(autoincrement())
+  orderId         Int
+  userId          Int
+  paymentIntentId String        @unique
+  amount          Float // Amount in USD cents
+  originalAmount  Float // Original amount in BDT
+  currency        String        @default("usd")
+  status          PaymentStatus @default(Pending)
+  paymentDate     DateTime      @default(now())
 
-  order             Order         @relation(fields: [orderId], references: [id])
-  user              User          @relation(fields: [userId], references: [id])
+  order Order @relation(fields: [orderId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
 
   @@map("payments")
 }
@@ -190,20 +191,20 @@ model CommunityPost {
   postDate    DateTime @default(now())
   isApproved  Boolean  @default(true)
 
-  user        User @relation(fields: [userId], references: [id])
-  likes       PostLike[]
-  comments    PostComment[]
+  user     User          @relation(fields: [userId], references: [id])
+  likes    PostLike[]
+  comments PostComment[]
 
   @@map("community_posts")
 }
 
 model PostLike {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    Int
   postId    Int
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user User          @relation(fields: [userId], references: [id])
   post CommunityPost @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId])
@@ -218,7 +219,7 @@ model PostComment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user User          @relation(fields: [userId], references: [id])
   post CommunityPost @relation(fields: [postId], references: [id])
 
   @@map("post_comments")
@@ -239,29 +240,29 @@ enum VendorPostCategory {
 }
 
 model CustomerPost {
-  id          Int          @id @default(autoincrement())
-  userId      Int
-  title       String
-  content     String
-  category    PostCategory
-  isApproved  Boolean      @default(false)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id         Int          @id @default(autoincrement())
+  userId     Int
+  title      String
+  content    String
+  category   PostCategory
+  isApproved Boolean      @default(false)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 
-  user        User @relation(fields: [userId], references: [id])
-  likes       CustomerPostLike[]
-  comments    CustomerPostComment[]
+  user     User                  @relation(fields: [userId], references: [id])
+  likes    CustomerPostLike[]
+  comments CustomerPostComment[]
 
   @@map("customer_posts")
 }
 
 model CustomerPostLike {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    Int
   postId    Int
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user User         @relation(fields: [userId], references: [id])
   post CustomerPost @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId])
@@ -276,37 +277,37 @@ model CustomerPostComment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user User         @relation(fields: [userId], references: [id])
   post CustomerPost @relation(fields: [postId], references: [id])
 
   @@map("customer_post_comments")
 }
 
 model VendorPost {
-  id          Int               @id @default(autoincrement())
-  vendorId    Int
-  title       String
-  content     String
-  category    VendorPostCategory
-  image       String?
-  isApproved  Boolean           @default(false)
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  id         Int                @id @default(autoincrement())
+  vendorId   Int
+  title      String
+  content    String
+  category   VendorPostCategory
+  image      String?
+  isApproved Boolean            @default(false)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
 
-  vendor      VendorProfile @relation(fields: [vendorId], references: [id])
-  likes       VendorPostLike[]
-  comments    VendorPostComment[]
+  vendor   VendorProfile       @relation(fields: [vendorId], references: [id])
+  likes    VendorPostLike[]
+  comments VendorPostComment[]
 
   @@map("vendor_posts")
 }
 
 model VendorPostLike {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    Int
   postId    Int
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user User       @relation(fields: [userId], references: [id])
   post VendorPost @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId])
@@ -321,7 +322,7 @@ model VendorPostComment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user User       @relation(fields: [userId], references: [id])
   post VendorPost @relation(fields: [postId], references: [id])
 
   @@map("vendor_post_comments")
@@ -344,7 +345,7 @@ model UserCommand {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
-  user        User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   @@map("user_commands")
 }
@@ -364,23 +365,46 @@ model Notification {
   type      NotificationType
   title     String
   message   String
-  data      Json?            // Additional data for the notification
+  data      Json? // Additional data for the notification
   isRead    Boolean          @default(false)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
 
-  user      User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   @@map("notifications")
 }
 
 model SustainabilityCert {
-  id               Int      @id @default(autoincrement())
-  vendorId         Int
-  certifyingAgency String
+  id                Int      @id @default(autoincrement())
+  vendorId          Int
+  certifyingAgency  String
   certificationDate DateTime
 
-  vendor           VendorProfile @relation(fields: [vendorId], references: [id])
+  vendor VendorProfile @relation(fields: [vendorId], references: [id])
 
   @@map("sustainability_certs")
+}
+
+model Chat {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  message   String
+  isBot     Boolean  @default(false)
+  timestamp DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("chats")
+}
+
+model Announcement {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  target    String   // "all", "customers", "vendors", "admins"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("announcements")
 }

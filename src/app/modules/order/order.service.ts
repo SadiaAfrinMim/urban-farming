@@ -41,8 +41,13 @@ const getOrders = async (user: IJWTPayload) => {
 };
 
 const getOrderById = async (id: string, user: IJWTPayload) => {
+  const orderId = parseInt(id);
+  if (isNaN(orderId)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid order ID');
+  }
+
   const order = await prisma.order.findUnique({
-    where: { id },
+    where: { id: orderId },
     include: {
       user: true,
       produce: true,
@@ -245,8 +250,13 @@ const createOrder = async (userId: string, payload: {
 };
 
 const updateOrderStatus = async (id: string, status: OrderStatus) => {
+  const orderId = parseInt(id);
+  if (isNaN(orderId)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid order ID');
+  }
+
   const order = await prisma.order.findUnique({
-    where: { id },
+    where: { id: orderId },
   });
   if (!order) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');

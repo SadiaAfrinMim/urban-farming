@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import config from '../../../config';
+
 import type { SignOptions } from 'jsonwebtoken';
 import { prisma } from '../../shared/prisma';
 import { UserRole, UserStatus, CertificationStatus } from '@prisma/client';
@@ -145,9 +145,9 @@ const registerUser = async (payload: {
   }
 
   // Generate JWT tokens
-  const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-  const accessExpiresIn = config.jwt.expires_in || '7d';
-  const refreshExpiresIn = config.jwt.refresh_expires_in || '30d';
+  const jwtSecret = process.env.JWT_SECRET || 'default-secret';
+  const accessExpiresIn = process.env.EXPIRES_IN || '7d';
+  const refreshExpiresIn = process.env.REFRESH_TOKEN_EXPIRES_IN || '30d';
 
   const accessToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
@@ -193,9 +193,9 @@ const loginUser = async (payload: { email: string; password: string }) => {
   }
 
   // Generate JWT tokens
-  const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-  const accessExpiresIn = config.jwt.expires_in || '7d';
-  const refreshExpiresIn = config.jwt.refresh_expires_in || '30d';
+  const jwtSecret = process.env.JWT_SECRET || 'default-secret';
+  const accessExpiresIn = process.env.EXPIRES_IN || '7d';
+  const refreshExpiresIn = process.env.REFRESH_TOKEN_EXPIRES_IN || '30d';
 
   const accessToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },
@@ -231,7 +231,7 @@ const loginUser = async (payload: { email: string; password: string }) => {
 const refreshToken = async (token: string) => {
   let decoded;
   try {
-    decoded = jwtHelper.verifyToken(token, config.jwt.refresh_token_secret as string);
+    decoded = jwtHelper.verifyToken(token, process.env.REFRESH_TOKEN_SECRET as string);
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid refresh token');
   }
@@ -249,8 +249,8 @@ const refreshToken = async (token: string) => {
   }
 
   // Generate new access token
-  const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-  const accessExpiresIn = config.jwt.expires_in || '7d';
+  const jwtSecret = process.env.JWT_SECRET || 'default-secret';
+  const accessExpiresIn = process.env.EXPIRES_IN || '7d';
 
   const accessToken = jwtHelper.generateToken(
     { id: user.id, role: user.role, email: user.email },

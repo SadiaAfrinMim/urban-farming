@@ -1,6 +1,6 @@
 import { stripe } from '../../helpers/stripe';
 import { prisma } from '../../shared/prisma';
-import config from '../../../config';
+
 import ApiError from '../../errors/ApiError';
 import httpStatus from 'http-status';
 import { OrderStatus } from '../../types/common';
@@ -177,7 +177,7 @@ const handleWebhook = async (signature: string, payload: Buffer) => {
   const event = stripe.webhooks.constructEvent(
     payload,
     signature,
-    config.stripeWebhookSecret as string
+    process.env.STRIPE_WEBHOOK_SECRET as string
   );
 
   if (event.type === 'checkout.session.completed') {

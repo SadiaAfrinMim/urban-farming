@@ -8,27 +8,57 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import notFound from './app/middlewares/notFound';
-import config from './config';
+
 import router from './app/routes';
 import cookieParser from 'cookie-parser'
 
-
+// Test OpenRouter configuration on startup
+try {
+  const { openRouter } = require('./app/helpers/open-router');
+  console.log('🚀 App startup - OpenRouter status check');
+  if (openRouter) {
+    console.log('✅ OpenRouter client initialized successfully');
+  } else {
+    console.log('⚠️ OpenRouter client is null - chatbot will use fallback responses');
+  }
+} catch (error) {
+  console.log('❌ Error checking OpenRouter configuration:', error?.message);
+}
 
 const app: Application = express();
 
 
-app.use(cors({
-    origin: [
-        'http://localhost:3000',
-        'http://localhost:3001',
-        'https://urban-farming-sable.vercel.app',
-        'https://urban-farming-backend-pink.vercel.app',
-        // Add any additional frontend deployment URLs here
-    ],
-     credentials: true,
+// Simplified CORS configuration for Vercel
+const corsOptions = {
+    origin: true, // Allow all origins for now to debug
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    exposedHeaders: ['Set-Cookie'],
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+// Additional CORS headers middleware
+app.use((req: Request, res: Response, next: NextFunction) => {
+    // Set CORS headers dynamically
+    const origin = req.headers.origin;
+    if (origin) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, X-Access-Token');
+
+    // Handle preflight OPTIONS requests
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+        return;
+    }
+
+    next();
+});
 
 //parser
 app.use(express.json());
@@ -48,7 +78,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:5000/api/v1',
+        url: 'https://urban-farming-backend-pink.vercel.app/api/v1',
         description: 'Local development server'
       },
       {
@@ -78,7 +108,7 @@ app.use("/api/v1", router);
 app.get('/', (req: Request, res: Response) => {
     res.send({
         message: "Server is running..",
-        environment: config.node_env,
+        environment: process.env.NODE_ENV,
         uptime: process.uptime().toFixed(2) + " sec",
         timeStamp: new Date().toISOString()
     })

@@ -181,4 +181,75 @@ router.patch('/:id/availability', auth(UserRole.Vendor), RentalController.toggle
  */
 router.post('/book', auth(UserRole.Customer), RentalController.bookRentalSpace);
 
+/**
+ * @swagger
+ * /rentals/order:
+ *   post:
+ *     summary: Create a rental order
+ *     tags: [Rentals]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               spaceId:
+ *                 type: number
+ *               totalPrice:
+ *                 type: number
+ *               duration:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Rental order created
+ */
+router.post('/order', auth(UserRole.Customer), RentalController.createRentalOrder);
+
+/**
+ * @swagger
+ * /rentals/vendor/orders:
+ *   get:
+ *     summary: Get vendor rental orders
+ *     tags: [Rentals]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Vendor rental orders retrieved successfully
+ */
+router.get('/vendor/orders', auth(UserRole.Vendor), RentalController.getVendorRentalOrders);
+
+/**
+ * @swagger
+ * /rentals/vendor/orders/{id}/status:
+ *   patch:
+ *     summary: Update rental order status
+ *     tags: [Rentals]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [Pending, Confirmed, Shipped, Delivered, Cancelled]
+ *     responses:
+ *       200:
+ *         description: Rental order status updated successfully
+ */
+router.patch('/vendor/orders/:id/status', auth(UserRole.Vendor), RentalController.updateRentalOrderStatus);
+
 export const rentalRoutes = router;

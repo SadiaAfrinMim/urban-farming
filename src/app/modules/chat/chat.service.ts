@@ -3,9 +3,13 @@ import { openRouter } from '../../helpers/open-router';
 
 // Send Message
 const sendMessage = async (payload: { userId: string | number; message: string; isBot?: boolean }) => {
-  const userId = typeof payload.userId === 'string' ? parseInt(payload.userId) : payload.userId;
-  if (isNaN(userId)) {
-    throw new Error('Invalid userId: must be a number');
+  let userId: number | null = null;
+
+  if (payload.userId !== 'guest') {
+    userId = typeof payload.userId === 'string' ? parseInt(payload.userId) : payload.userId;
+    if (isNaN(userId)) {
+      throw new Error('Invalid userId: must be a number');
+    }
   }
 
   const chat = await prisma.chat.create({
@@ -21,13 +25,21 @@ const sendMessage = async (payload: { userId: string | number; message: string; 
 
 // Get Messages for a user
 const getMessages = async (userId: string | number) => {
-  const parsedUserId = typeof userId === 'string' ? parseInt(userId) : userId;
-  if (isNaN(parsedUserId)) {
-    throw new Error('Invalid userId: must be a number');
+  let whereCondition: any;
+
+  if (userId === 'guest') {
+    // For guest users, find messages where userId is null
+    whereCondition = { userId: null };
+  } else {
+    const parsedUserId = typeof userId === 'string' ? parseInt(userId) : userId;
+    if (isNaN(parsedUserId)) {
+      throw new Error('Invalid userId: must be a number');
+    }
+    whereCondition = { userId: parsedUserId };
   }
 
   const messages = await prisma.chat.findMany({
-    where: { userId: parsedUserId },
+    where: whereCondition,
     orderBy: { timestamp: 'asc' },
   });
 

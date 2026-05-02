@@ -358,6 +358,63 @@ const deleteCustomerPostComment = async (commentId: string, userId: string) => {
   });
 };
 
+const updateRentalOrderStatus = async (orderId: string, userId: string, status: string) => {
+  const orderIdNumber = parseInt(orderId, 10);
+  if (isNaN(orderIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid order ID');
+  }
+
+  const userIdNumber = parseInt(userId, 10);
+  if (isNaN(userIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+  }
+
+  // Check if order exists and belongs to the user
+  const order = await prisma.order.findUnique({
+    where: { id: orderIdNumber },
+    include: {
+      rentalSpace: {
+        include: {
+          vendor: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+  }
+
+  if (order.userId !== userId) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'You can only update your own orders');
+  }
+
+  // Update the order status
+  const updatedOrder = await prisma.order.update({
+    where: { id: orderIdNumber },
+    data: { status },
+    include: {
+      user: true,
+      rentalSpace: {
+        include: {
+          vendor: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
+      produce: true,
+    },
+  });
+
+  return updatedOrder;
+};
+
 export const CustomerService = {
   getCustomerPosts,
   createCustomerPost,
@@ -369,4 +426,5 @@ export const CustomerService = {
   addCustomerPostComment,
   getCustomerPostComments,
   deleteCustomerPostComment,
+  updateRentalOrderStatus,
 };

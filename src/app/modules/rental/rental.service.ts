@@ -238,6 +238,135 @@ const bookRentalSpace = async (spaceId: string, customerId: string) => {
   return updated;
 };
 
+const createRentalOrder = async (customerId: string, spaceId: number, totalPrice: number, duration?: number) => {
+  const customerIdNumber = parseInt(customerId, 10);
+  if (isNaN(customerIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid customer ID');
+  }
+
+  // Check if rental space exists and is available
+  const rentalSpace = await prisma.rentalSpace.findUnique({
+    where: { id: spaceId },
+    include: {
+      vendor: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
+
+  if (!rentalSpace) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
+  }
+
+  if (!rentalSpace.availability) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Rental space is not available');
+  }
+
+  // Create the rental order
+  const order = await prisma.order.create({
+    data: {
+      userId: customerId,
+      rentalSpaceId: spaceId,
+      totalPrice: totalPrice,
+      status: 'Pending',
+    },
+    include: {
+      user: true,
+      rentalSpace: {
+        include: {
+          vendor: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
+      produce: true,
+    },
+  });
+
+  return order;
+};
+
+const getVendorRentalOrders = async (vendorId: string) => {
+  const vendorIdNumber = parseInt(vendorId, 10);
+  if (isNaN(vendorIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
+  }
+
+  const orders = await prisma.order.findMany({
+    where: {
+      rentalSpace: {
+        vendorId: vendorIdNumber,
+      },
+    },
+    include: {
+      user: true,
+      rentalSpace: {
+        include: {
+          vendor: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
+      produce: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return orders;
+};
+
+const updateRentalOrderStatus = async (orderId: number, status: string, vendorId: string) => {
+  const vendorIdNumber = parseInt(vendorId, 10);
+  if (isNaN(vendorIdNumber)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
+  }
+
+  // First check if the order belongs to this vendor
+  const order = await prisma.order.findUnique({
+    where: { id: orderId },
+    include: {
+      rentalSpace: true,
+    },
+  });
+
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+  }
+
+  if (order.rentalSpace?.vendorId !== vendorIdNumber) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'You can only update orders for your rental spaces');
+  }
+
+  // Update the order status
+  const updatedOrder = await prisma.order.update({
+    where: { id: orderId },
+    data: { status },
+    include: {
+      user: true,
+      rentalSpace: {
+        include: {
+          vendor: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
+      produce: true,
+    },
+  });
+
+  return updatedOrder;
+};
+
 export const RentalService = {
   getAllRentalSpaces,
   searchRentalSpaces,
@@ -247,4 +376,7 @@ export const RentalService = {
   deleteRentalSpace,
   toggleAvailability,
   bookRentalSpace,
+  createRentalOrder,
+  getVendorRentalOrders,
+  updateRentalOrderStatus,
 };

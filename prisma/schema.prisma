@@ -389,13 +389,13 @@ model SustainabilityCert {
 }
 
 model Chat {
-  id        Int      @id @default(autoincrement())
-  userId    Int
+  id        Int       @id @default(autoincrement())
+  userId    Int?
   message   String
-  isBot     Boolean  @default(false)
-  timestamp DateTime @default(now())
+  isBot     Boolean   @default(false)
+  timestamp DateTime  @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
 
   @@map("chats")
 }

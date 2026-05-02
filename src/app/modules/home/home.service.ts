@@ -172,6 +172,23 @@ const getApprovedVendorCertificates = async () => {
           name: true,
           email: true
         }
+      },
+      produces: {
+        where: {
+          certificationStatus: 'Approved'
+        },
+        select: {
+          id: true,
+          name: true,
+          category: true
+        }
+      },
+      rentalSpaces: {
+        select: {
+          id: true,
+          location: true,
+          availability: true
+        }
       }
     },
     orderBy: { createdAt: 'desc' }
@@ -186,7 +203,9 @@ const getApprovedVendorCertificates = async () => {
     certifications: vendor.certifications,
     createdAt: vendor.createdAt,
     updatedAt: vendor.updatedAt,
-    user: vendor.user
+    user: vendor.user,
+    produces: vendor.produces,
+    rentalSpaces: vendor.rentalSpaces
   }));
 };
 

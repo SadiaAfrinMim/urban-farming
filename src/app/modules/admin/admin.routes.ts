@@ -14,6 +14,7 @@ router.use(auth('Admin'));
 // User Management Routes
 router.get('/users', validateRequest(AdminValidation.getUsersQuerySchema), AdminController.getAllUsers);
 router.get('/users/all', AdminController.getAllUsersData);
+router.get('/profiles', AdminController.getAllProfiles);
 router.get('/vendors/all', AdminController.getAllVendorsData);
 router.get('/customers/all', AdminController.getAllCustomersData);
 router.patch('/users/:userId/role', validateRequest(AdminValidation.updateUserRoleZodSchema), AdminController.updateUserRole);

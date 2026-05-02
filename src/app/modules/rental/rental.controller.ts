@@ -95,6 +95,48 @@ const bookRentalSpace = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const createRentalOrder = catchAsync(async (req: Request, res: Response) => {
+  const { spaceId, totalPrice, duration } = req.body;
+  const user = (req as any).user;
+  const result = await RentalService.createRentalOrder(user.id, spaceId, totalPrice, duration);
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: 'Rental order created successfully',
+    data: result,
+  });
+});
+
+const getVendorRentalOrders = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await RentalService.getVendorRentalOrders(user.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Vendor rental orders retrieved successfully',
+    data: result,
+  });
+});
+
+const updateRentalOrderStatus = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const user = (req as any).user;
+
+  const orderId = parseInt(id, 10);
+  if (isNaN(orderId)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid order ID');
+  }
+
+  const result = await RentalService.updateRentalOrderStatus(orderId, status, user.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Rental order status updated successfully',
+    data: result,
+  });
+});
+
 export const RentalController = {
   getAllRentalSpaces,
   searchRentalSpaces,
@@ -104,4 +146,7 @@ export const RentalController = {
   deleteRentalSpace,
   toggleAvailability,
   bookRentalSpace,
+  createRentalOrder,
+  getVendorRentalOrders,
+  updateRentalOrderStatus,
 };

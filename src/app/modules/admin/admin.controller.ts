@@ -35,6 +35,18 @@ const getAllUsersData = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllProfiles = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ['searchTerm', 'role', 'status']);
+  const result = await AdminService.getAllProfiles(filters);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All profiles retrieved successfully',
+    data: result,
+  });
+});
+
 const getAllVendorsData = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, ['searchTerm', 'certificationStatus']);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
@@ -318,6 +330,7 @@ export const AdminController = {
   // User Management
   getAllUsers,
   getAllUsersData,
+  getAllProfiles,
   getAllVendorsData,
   getAllCustomersData,
   updateUserRole,

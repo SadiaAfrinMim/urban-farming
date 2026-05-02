@@ -123,6 +123,19 @@ const deleteCustomerPostComment = catchAsync(async (req: Request & { user?: IJWT
   });
 });
 
+const updateRentalOrderStatus = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const user = req.user!;
+  const result = await CustomerService.updateRentalOrderStatus(id, user.id, status);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Rental order status updated successfully',
+    data: result,
+  });
+});
+
 export const CustomerController = {
   getCustomerPosts,
   createCustomerPost,
@@ -134,4 +147,5 @@ export const CustomerController = {
   addCustomerPostComment,
   getCustomerPostComments,
   deleteCustomerPostComment,
+  updateRentalOrderStatus,
 };

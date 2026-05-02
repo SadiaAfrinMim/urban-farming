@@ -499,6 +499,81 @@ const getAllUsersData = async (filters: any, options: any) => {
   };
 };
 
+const getAllProfiles = async (filters: any) => {
+  const { searchTerm, role, status } = filters;
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: [
+        { name: { contains: searchTerm, mode: 'insensitive' } },
+        { email: { contains: searchTerm, mode: 'insensitive' } },
+      ],
+    });
+  }
+
+  if (role) {
+    andConditions.push({ role });
+  }
+
+  if (status) {
+    andConditions.push({ status });
+  }
+
+  const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+
+  // Get all users with their profiles
+  const users = await prisma.user.findMany({
+    where: whereConditions,
+    include: {
+      vendorProfile: {
+        include: {
+          _count: {
+            select: {
+              produces: true,
+              rentalSpaces: true,
+            }
+          }
+        }
+      },
+      _count: {
+        select: {
+          customerPosts: true,
+          orders: true,
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  // Format the response
+  const formattedUsers = users.map(user => ({
+    id: user.id.toString(),
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    status: user.status,
+    createdAt: user.createdAt.toISOString(),
+    vendorProfile: user.vendorProfile ? {
+      farmName: user.vendorProfile.farmName,
+      farmLocation: user.vendorProfile.farmLocation,
+      certificationStatus: user.vendorProfile.certificationStatus,
+      certifications: user.vendorProfile.certifications || [],
+      producesCount: user.vendorProfile._count.produces,
+      rentalSpacesCount: user.vendorProfile._count.rentalSpaces,
+    } : undefined,
+    customerStats: user.role === 'Customer' ? {
+      postsCount: user._count.customerPosts,
+      ordersCount: user._count.orders,
+    } : undefined,
+  }));
+
+  return formattedUsers;
+};
+
 const getAllVendorsData = async (filters: any, options: any) => {
   const { searchTerm, certificationStatus, ...filterData } = filters;
   const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
@@ -667,6 +742,7 @@ export const AdminService = {
   // User Management
   getAllUsers,
   getAllUsersData,
+  getAllProfiles,
   getAllVendorsData,
   getAllCustomersData,
   updateUserRole,

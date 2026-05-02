@@ -243,4 +243,34 @@ router.get('/dashboard', auth(UserRole.Customer), CustomerController.getCustomer
  */
 router.get('/orders', auth(UserRole.Customer), CustomerController.getCustomerOrders);
 
+/**
+ * @swagger
+ * /customer/rental-orders/{id}/status:
+ *   patch:
+ *     summary: Update rental order status
+ *     tags: [Customer]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [Pending, Confirmed, Shipped, Delivered, Cancelled]
+ *     responses:
+ *       200:
+ *         description: Rental order status updated successfully
+ */
+router.patch('/rental-orders/:id/status', auth(UserRole.Customer), CustomerController.updateRentalOrderStatus);
+
 export const customerRoutes = router;

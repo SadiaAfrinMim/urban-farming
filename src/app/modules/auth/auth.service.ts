@@ -1,7 +1,5 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 
-import type { SignOptions } from 'jsonwebtoken';
 import { prisma } from '../../shared/prisma.js';
 import { UserRole, UserStatus, CertificationStatus } from '@prisma/client';
 import httpStatus from 'http-status';
@@ -86,7 +84,7 @@ const registerUser = async (payload: {
     process.nextTick(async () => {
       try {
         console.log('Creating vendor registration notification for user:', user.name);
-        const NotificationService = (await import('../notification/notification.service')).NotificationService;
+        const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
         const admins = await prisma.user.findMany({
           where: { role: UserRole.Admin },
         });
@@ -118,7 +116,7 @@ const registerUser = async (payload: {
     process.nextTick(async () => {
       try {
         console.log('Creating customer registration notification for user:', user.name);
-        const NotificationService = (await import('../notification/notification.service')).NotificationService;
+        const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
         const admins = await prisma.user.findMany({
           where: { role: UserRole.Admin },
         });

@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "prisma generate",
-    "start": "node server.js",
+    "start": "node dist/src/server.js",
     "dev": "node --max-old-space-size=4096 --import tsx ./src/server.ts",
-    "build": "prisma generate --schema=./prisma/schema.prisma",
+    "build": "tsc && prisma generate --schema=./prisma/schema.prisma",
     "db:generate": "prisma generate --schema=./prisma/schema.prisma",
     "db:migrate": "prisma migrate --schema=./prisma/schema.prisma",
     "db:push": "prisma db push --schema=./prisma/schema.prisma",

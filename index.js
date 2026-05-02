@@ -1,3 +1,2 @@
 #!/usr/bin/env node
-import 'tsx/cjs';
-import './src/server.ts';
+import './dist/src/server.js';

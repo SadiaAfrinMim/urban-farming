@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { AuthenticatedRequest } from '../../types/common.js';
+
 import httpStatus from 'http-status';
 import catchAsync from '../../../app/shared/catchAsync.js';
 import sendResponse from '../../../app/shared/sendResponse.js';

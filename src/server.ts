@@ -7,7 +7,7 @@ const isRailway = process.env.RAILWAY_ENVIRONMENT;
 
 // For local development or Railway (not serverless)
 if (!isVercel) {
-    import('./local-server');
+    import('./local-server.ts');
 } else {
     // For Vercel serverless functions, just export the app
     console.log('🚀 Running in serverless mode (Vercel)');

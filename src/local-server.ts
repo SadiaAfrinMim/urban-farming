@@ -1,11 +1,11 @@
 import { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
 import cron from 'node-cron';
-import app from './app';
-import config from './config';
-import { OrderService } from './app/modules/order/order.service';
-import { NotificationService } from './app/modules/notification/notification.service';
-import { prisma } from './app/shared/prisma';
+import app from './app.js';
+import config from './config/index.js';
+import { OrderService } from './app/modules/order/order.service.js';
+import { NotificationService } from './app/modules/notification/notification.service.js';
+import { prisma } from './app/shared/prisma.js';
 import { NotificationType } from '@prisma/client';
 
 async function bootstrap() {

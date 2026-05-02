@@ -1,9 +1,7 @@
 import express from 'express';
-import { CustomerController } from './customer.controller';
-import auth from '../../middlewares/auth';
-import { UserRole } from '../../types/common';
-import validateRequest from '../../middlewares/ValidateRequest';
-import { CustomerValidation } from './customer.validation';
+import { CustomerController } from './customer.controller.js';
+
+import { CustomerValidation } from './customer.validation.js';
 
 /**
  * @swagger

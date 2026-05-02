@@ -1,8 +1,7 @@
 import express from 'express';
-import { AdminController } from './admin.controller';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/ValidateRequest';
-import { AdminValidation } from './admin.validation';
+import { AdminController } from './admin.controller.js';
+
+import { AdminValidation } from './admin.validation.js';
 
 
 

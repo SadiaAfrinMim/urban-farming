@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../app/shared/catchAsync';
 import sendResponse from '../../../app/shared/sendResponse';
-import { RentalService } from './rental.service';
+import { RentalService } from './rental.service.js';
 
 const getAllRentalSpaces = catchAsync(async (req: Request, res: Response) => {
   const result = await RentalService.getAllRentalSpaces();

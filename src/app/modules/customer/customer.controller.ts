@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import sendResponse from '../../shared/sendResponse';
-import { CustomerService } from './customer.service';
+import { CustomerService } from './customer.service.js';
 import catchAsync from '../../shared/catchAsync';
 import { IJWTPayload } from '../../types/common';
 

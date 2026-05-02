@@ -2,10 +2,9 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import sendResponse from '../../shared/sendResponse';
 import catchAsync from '../../shared/catchAsync';
-import { AdminService } from './admin.service';
-import { AuthenticatedRequest } from '../../types/common';
-import pick from '../../helpers/pick';
-import { adminFilterableFields } from './admin.constants';
+import { AdminService } from './admin.service.js';
+
+import { adminFilterableFields } from './admin.constants.js';
 
 // User Management
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {

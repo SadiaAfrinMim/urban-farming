@@ -3,35 +3,24 @@ export declare const ProduceService: {
         data: ({
             vendor: {
                 user: {
-                    id: number;
                     name: string;
-                    email: string;
-                    password: string;
-                    role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                    status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
-                    profileImage: string | null;
-                    createdAt: Date;
                 };
-            } & {
-                id: number;
-                createdAt: Date;
                 farmName: string;
-                farmLocation: string;
-                certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
-                profilePhoto: string | null;
-                certifications: string[];
-                userId: number;
+                sustainabilityCerts: {
+                    certifyingAgency: string;
+                    certificationDate: Date;
+                }[];
             };
         } & {
+            createdAt: Date;
             id: number;
             name: string;
-            createdAt: Date;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             vendorId: number;
             price: number;
             image: string | null;
             description: string;
-            category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+            category: import(".prisma/client").$Enums.ProduceCategory;
             availableQuantity: number;
             unit: string | null;
             isOrganic: boolean | null;
@@ -46,35 +35,24 @@ export declare const ProduceService: {
     searchProduces: (query?: string) => Promise<({
         vendor: {
             user: {
-                id: number;
                 name: string;
-                email: string;
-                password: string;
-                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
-                profileImage: string | null;
-                createdAt: Date;
             };
-        } & {
-            id: number;
-            createdAt: Date;
             farmName: string;
-            farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
-            profilePhoto: string | null;
-            certifications: string[];
-            userId: number;
+            sustainabilityCerts: {
+                certifyingAgency: string;
+                certificationDate: Date;
+            }[];
         };
     } & {
+        createdAt: Date;
         id: number;
         name: string;
-        createdAt: Date;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -82,35 +60,35 @@ export declare const ProduceService: {
     getProduceById: (id: string) => Promise<{
         vendor: {
             user: {
+                createdAt: Date;
                 id: number;
                 name: string;
                 email: string;
                 password: string;
-                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+                role: import(".prisma/client").$Enums.UserRole;
+                status: import(".prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
-                createdAt: Date;
             };
         } & {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         };
     } & {
+        createdAt: Date;
         id: number;
         name: string;
-        createdAt: Date;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -123,15 +101,15 @@ export declare const ProduceService: {
         availableQuantity: number;
         unit?: string;
     }) => Promise<{
+        createdAt: Date;
         id: number;
         name: string;
-        createdAt: Date;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -144,15 +122,15 @@ export declare const ProduceService: {
         availableQuantity: number;
         unit?: string;
     }>) => Promise<{
+        createdAt: Date;
         id: number;
         name: string;
-        createdAt: Date;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;

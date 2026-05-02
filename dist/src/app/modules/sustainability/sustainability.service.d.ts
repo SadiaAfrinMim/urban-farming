@@ -3,25 +3,14 @@ import { IJWTPayload } from '../../types/common';
 export declare const SustainabilityService: {
     getAllCerts: () => Promise<({
         vendor: {
-            user: {
-                id: number;
-                name: string;
-                email: string;
-                password: string;
-                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
-                profileImage: string | null;
-                createdAt: Date;
-            };
-        } & {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         };
     } & {
         id: number;
@@ -35,10 +24,7 @@ export declare const SustainabilityService: {
         certifyingAgency: string;
         certificationDate: Date;
     }>;
-    createCert: (userId: string, payload: {
-        certifyingAgency: string;
-        certificationDate: string;
-    }) => Promise<{
+    createCert: (userId: string, payload: any, userRole?: string) => Promise<{
         id: number;
         vendorId: number;
         certifyingAgency: string;

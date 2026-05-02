@@ -1,5 +1,5 @@
-import { IJWTPayload } from '../../types/common';
 export declare const AuthService: {
+    ensureAdminExists: () => Promise<void>;
     registerUser: (payload: {
         name?: string;
         email: string;
@@ -9,14 +9,18 @@ export declare const AuthService: {
         farmName?: string;
         farmLocation?: string;
     }) => Promise<{
-        id: number;
-        name: string;
-        email: string;
-        password: string;
-        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
-        profileImage: string | null;
-        createdAt: Date;
+        user: {
+            createdAt: Date;
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
+            profileImage: string | null;
+        };
+        accessToken: string;
+        refreshToken: string;
     }>;
     loginUser: (payload: {
         email: string;
@@ -28,16 +32,18 @@ export declare const AuthService: {
             id: number;
             name: string;
             email: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
+            role: import(".prisma/client").$Enums.UserRole;
         };
     }>;
     refreshToken: (token: string) => Promise<{
         accessToken: string;
     }>;
-    changePassword: (user: IJWTPayload, payload: {
+    changePassword: (user: {
+        id: string;
+        role: string;
+    }, payload: {
         oldPassword: string;
         newPassword: string;
     }) => Promise<void>;
-    ensureAdminExists: () => Promise<void>;
 };
 //# sourceMappingURL=auth.service.d.ts.map

@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // Seed approved products for marketplace testing
-const prisma_1 = require("../../shared/prisma");
+import { prisma } from '../../shared/prisma.js';
 async function seedApprovedProducts() {
     try {
         console.log('🌱 Seeding approved products for marketplace...');
         // First, create a vendor profile if it doesn't exist
-        const vendor = await prisma_1.prisma.vendorProfile.upsert({
+        const vendor = await prisma.vendorProfile.upsert({
             where: { userId: 2 }, // Assuming user ID 2 is a vendor
             update: {},
             create: {
@@ -19,6 +17,42 @@ async function seedApprovedProducts() {
             },
         });
         console.log('✅ Vendor profile created/updated');
+        // Create sustainability certificates for the vendor
+        const sustainabilityCerts = [
+            {
+                certifyingAgency: 'Organic Farming Bangladesh',
+                certificationDate: new Date('2024-01-15'),
+                vendorId: vendor.id,
+            },
+            {
+                certifyingAgency: 'Global GAP Certification',
+                certificationDate: new Date('2024-03-20'),
+                vendorId: vendor.id,
+            },
+            {
+                certifyingAgency: 'Fair Trade Association',
+                certificationDate: new Date('2024-06-10'),
+                vendorId: vendor.id,
+            },
+        ];
+        for (const cert of sustainabilityCerts) {
+            // Check if certificate already exists
+            const existingCert = await prisma.sustainabilityCert.findFirst({
+                where: {
+                    certifyingAgency: cert.certifyingAgency,
+                    vendorId: cert.vendorId,
+                },
+            });
+            if (!existingCert) {
+                await prisma.sustainabilityCert.create({
+                    data: cert,
+                });
+            }
+            else {
+                console.log(`Certificate "${cert.certifyingAgency}" already exists, skipping...`);
+            }
+        }
+        console.log('✅ Sustainability certificates created/updated');
         // Create some approved products
         const products = [
             {
@@ -96,14 +130,14 @@ async function seedApprovedProducts() {
         ];
         for (const product of products) {
             // Check if product already exists
-            const existingProduct = await prisma_1.prisma.produce.findFirst({
+            const existingProduct = await prisma.produce.findFirst({
                 where: {
                     name: product.name,
                     vendorId: product.vendorId,
                 },
             });
             if (!existingProduct) {
-                await prisma_1.prisma.produce.create({
+                await prisma.produce.create({
                     data: product,
                 });
             }
@@ -118,7 +152,7 @@ async function seedApprovedProducts() {
         console.error('❌ Error seeding products:', error);
     }
     finally {
-        await prisma_1.prisma.$disconnect();
+        await prisma.$disconnect();
     }
 }
 // Run the seeding function

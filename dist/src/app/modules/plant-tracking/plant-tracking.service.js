@@ -1,15 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PlantTrackingService = void 0;
-const prisma_1 = require("../../shared/prisma");
-const paginationHelper_1 = require("../../helpers/paginationHelper");
-const ApiError_1 = __importDefault(require("../../errors/ApiError"));
-const http_status_1 = __importDefault(require("http-status"));
+import { prisma } from '../../shared/prisma';
+import { paginationHelper } from '../../helpers/paginationHelper';
+import ApiError from '../../errors/ApiError';
+import httpStatus from 'http-status';
 const createPlantTracking = async (userId, payload) => {
-    const result = await prisma_1.prisma.plantTracking.create({
+    const result = await prisma.plantTracking.create({
         data: {
             userId,
             ...payload,
@@ -27,9 +21,9 @@ const createPlantTracking = async (userId, payload) => {
     return result;
 };
 const getAllPlantTrackings = async (userId, options) => {
-    const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
+    const { page, limit, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(options);
     const whereConditions = { userId };
-    const result = await prisma_1.prisma.plantTracking.findMany({
+    const result = await prisma.plantTracking.findMany({
         where: whereConditions,
         skip,
         take: limit,
@@ -45,7 +39,7 @@ const getAllPlantTrackings = async (userId, options) => {
             },
         },
     });
-    const total = await prisma_1.prisma.plantTracking.count({
+    const total = await prisma.plantTracking.count({
         where: whereConditions,
     });
     return {
@@ -58,7 +52,7 @@ const getAllPlantTrackings = async (userId, options) => {
     };
 };
 const getPlantTrackingById = async (id, userId) => {
-    const result = await prisma_1.prisma.plantTracking.findUnique({
+    const result = await prisma.plantTracking.findUnique({
         where: {
             id,
             userId,
@@ -73,21 +67,21 @@ const getPlantTrackingById = async (id, userId) => {
         },
     });
     if (!result) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Plant tracking not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
     }
     return result;
 };
 const updatePlantTracking = async (id, userId, payload) => {
-    const plantTracking = await prisma_1.prisma.plantTracking.findUnique({
+    const plantTracking = await prisma.plantTracking.findUnique({
         where: {
             id,
             userId,
         },
     });
     if (!plantTracking) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Plant tracking not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
     }
-    const result = await prisma_1.prisma.plantTracking.update({
+    const result = await prisma.plantTracking.update({
         where: {
             id,
         },
@@ -104,16 +98,16 @@ const updatePlantTracking = async (id, userId, payload) => {
     return result;
 };
 const updatePlantHealth = async (id, userId, healthStatus, notes) => {
-    const plantTracking = await prisma_1.prisma.plantTracking.findUnique({
+    const plantTracking = await prisma.plantTracking.findUnique({
         where: {
             id,
             userId,
         },
     });
     if (!plantTracking) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Plant tracking not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
     }
-    const result = await prisma_1.prisma.plantTracking.update({
+    const result = await prisma.plantTracking.update({
         where: {
             id,
         },
@@ -133,16 +127,16 @@ const updatePlantHealth = async (id, userId, healthStatus, notes) => {
     return result;
 };
 const waterPlant = async (id, userId) => {
-    const plantTracking = await prisma_1.prisma.plantTracking.findUnique({
+    const plantTracking = await prisma.plantTracking.findUnique({
         where: {
             id,
             userId,
         },
     });
     if (!plantTracking) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Plant tracking not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
     }
-    const result = await prisma_1.prisma.plantTracking.update({
+    const result = await prisma.plantTracking.update({
         where: {
             id,
         },
@@ -153,16 +147,16 @@ const waterPlant = async (id, userId) => {
     return result;
 };
 const fertilizePlant = async (id, userId) => {
-    const plantTracking = await prisma_1.prisma.plantTracking.findUnique({
+    const plantTracking = await prisma.plantTracking.findUnique({
         where: {
             id,
             userId,
         },
     });
     if (!plantTracking) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Plant tracking not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
     }
-    const result = await prisma_1.prisma.plantTracking.update({
+    const result = await prisma.plantTracking.update({
         where: {
             id,
         },
@@ -173,23 +167,23 @@ const fertilizePlant = async (id, userId) => {
     return result;
 };
 const deletePlantTracking = async (id, userId) => {
-    const plantTracking = await prisma_1.prisma.plantTracking.findUnique({
+    const plantTracking = await prisma.plantTracking.findUnique({
         where: {
             id,
             userId,
         },
     });
     if (!plantTracking) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Plant tracking not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
     }
-    await prisma_1.prisma.plantTracking.delete({
+    await prisma.plantTracking.delete({
         where: {
             id,
         },
     });
     return null;
 };
-exports.PlantTrackingService = {
+export const PlantTrackingService = {
     createPlantTracking,
     getAllPlantTrackings,
     getPlantTrackingById,

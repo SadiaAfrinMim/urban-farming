@@ -70,24 +70,24 @@ export declare const AdminValidation: {
             content: z.ZodString;
             target: z.ZodDefault<z.ZodEnum<["All", "Vendors", "Customers", "Admins"]>>;
         }, "strip", z.ZodTypeAny, {
-            content: string;
             title: string;
+            content: string;
             target: "All" | "Vendors" | "Customers" | "Admins";
         }, {
-            content: string;
             title: string;
+            content: string;
             target?: "All" | "Vendors" | "Customers" | "Admins" | undefined;
         }>;
     }, "strip", z.ZodTypeAny, {
         body: {
-            content: string;
             title: string;
+            content: string;
             target: "All" | "Vendors" | "Customers" | "Admins";
         };
     }, {
         body: {
-            content: string;
             title: string;
+            content: string;
             target?: "All" | "Vendors" | "Customers" | "Admins" | undefined;
         };
     }>;
@@ -220,40 +220,40 @@ export declare const AdminValidation: {
             sortBy: z.ZodOptional<z.ZodEnum<["createdAt", "name", "email"]>>;
             sortOrder: z.ZodOptional<z.ZodEnum<["asc", "desc"]>>;
         }, "strip", z.ZodTypeAny, {
+            limit?: number | undefined;
             role?: "Admin" | "Vendor" | "Customer" | undefined;
             status?: "Active" | "Pending" | "Suspended" | undefined;
-            limit?: number | undefined;
             page?: number | undefined;
             searchTerm?: string | undefined;
-            sortBy?: "name" | "email" | "createdAt" | undefined;
+            sortBy?: "createdAt" | "name" | "email" | undefined;
             sortOrder?: "asc" | "desc" | undefined;
         }, {
+            limit?: string | undefined;
             role?: "Admin" | "Vendor" | "Customer" | undefined;
             status?: "Active" | "Pending" | "Suspended" | undefined;
-            limit?: string | undefined;
             page?: string | undefined;
             searchTerm?: string | undefined;
-            sortBy?: "name" | "email" | "createdAt" | undefined;
+            sortBy?: "createdAt" | "name" | "email" | undefined;
             sortOrder?: "asc" | "desc" | undefined;
         }>;
     }, "strip", z.ZodTypeAny, {
         query: {
+            limit?: number | undefined;
             role?: "Admin" | "Vendor" | "Customer" | undefined;
             status?: "Active" | "Pending" | "Suspended" | undefined;
-            limit?: number | undefined;
             page?: number | undefined;
             searchTerm?: string | undefined;
-            sortBy?: "name" | "email" | "createdAt" | undefined;
+            sortBy?: "createdAt" | "name" | "email" | undefined;
             sortOrder?: "asc" | "desc" | undefined;
         };
     }, {
         query: {
+            limit?: string | undefined;
             role?: "Admin" | "Vendor" | "Customer" | undefined;
             status?: "Active" | "Pending" | "Suspended" | undefined;
-            limit?: string | undefined;
             page?: string | undefined;
             searchTerm?: string | undefined;
-            sortBy?: "name" | "email" | "createdAt" | undefined;
+            sortBy?: "createdAt" | "name" | "email" | undefined;
             sortOrder?: "asc" | "desc" | undefined;
         };
     }>;

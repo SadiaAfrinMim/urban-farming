@@ -10,5 +10,6 @@ export declare const CustomerController: {
     addCustomerPostComment: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     getCustomerPostComments: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     deleteCustomerPostComment: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    updateRentalOrderStatus: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
 };
 //# sourceMappingURL=customer.controller.d.ts.map

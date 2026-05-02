@@ -1,4 +1,4 @@
-import { PlantHealth } from '../../../../prisma/prisma/generated';
+import { PlantHealth } from '@prisma/client';
 import { IPaginationOptions } from '../../types/common';
 export declare const PlantTrackingService: {
     createPlantTracking: (userId: string, payload: any) => Promise<any>;

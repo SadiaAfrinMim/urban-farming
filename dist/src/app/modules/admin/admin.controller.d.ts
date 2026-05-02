@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 export declare const AdminController: {
     getAllUsers: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     getAllUsersData: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    getAllProfiles: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     getAllVendorsData: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     getAllCustomersData: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     updateUserRole: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;

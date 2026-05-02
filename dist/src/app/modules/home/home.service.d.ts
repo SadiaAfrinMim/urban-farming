@@ -4,14 +4,14 @@ export declare const HomeService: {
         name: string;
         description: string;
         price: number;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         image: string | null;
         availableQuantity: number;
         vendorName: string;
         createdAt: Date;
     }[]>;
     getCategories: () => Promise<{
-        key: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        key: import(".prisma/client").$Enums.ProduceCategory;
         name: string;
         icon: string;
         color: string;
@@ -37,6 +37,30 @@ export declare const HomeService: {
         products: string;
         rating: number;
         totalProducts: number;
+    }[]>;
+    getApprovedVendorCertificates: () => Promise<{
+        id: number;
+        farmName: string;
+        farmLocation: string;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        profilePhoto: string | null;
+        certifications: string[];
+        createdAt: Date;
+        updatedAt: any;
+        user: {
+            name: string;
+            email: string;
+        };
+        produces: {
+            id: number;
+            name: string;
+            category: import(".prisma/client").$Enums.ProduceCategory;
+        }[];
+        rentalSpaces: {
+            id: number;
+            location: string;
+            availability: boolean;
+        }[];
     }[]>;
 };
 //# sourceMappingURL=home.service.d.ts.map

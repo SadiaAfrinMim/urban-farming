@@ -5,5 +5,6 @@ export declare const HomeController: {
     getStatistics: (req: Request, res: Response) => Promise<void>;
     getTestimonials: (req: Request, res: Response) => Promise<void>;
     getFeaturedVendors: (req: Request, res: Response) => Promise<void>;
+    getApprovedVendorCertificates: (req: Request, res: Response) => Promise<void>;
 };
 //# sourceMappingURL=home.controller.d.ts.map

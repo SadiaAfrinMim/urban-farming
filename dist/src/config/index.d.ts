@@ -8,6 +8,7 @@ declare const _default: {
         api_key: string | undefined;
     };
     openRouterApiKey: string | undefined;
+    openaiApiKey: string | undefined;
     stripeSecretKey: string | undefined;
     emailSender: {
         email: string | undefined;

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import catchAsync from '../../shared/catchAsync';
-import sendResponse from '../../shared/sendResponse';
-import { VendorService } from './vendor.service';
-import { IJWTPayload } from '../../types/common';
+import catchAsync from '../../shared/catchAsync.js';
+import sendResponse from '../../shared/sendResponse.js';
+import { VendorService } from './vendor.service.js';
+import { IJWTPayload } from '../../types/common.js';
 
 const createOrUpdateProfile = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
     const user = req.user!;

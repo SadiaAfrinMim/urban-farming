@@ -20,5 +20,6 @@ export declare const VendorController: {
     deleteVendorPost: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     toggleVendorPostLike: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     addVendorPostComment: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    getVendorDashboardStats: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
 };
 //# sourceMappingURL=vendor.controller.d.ts.map

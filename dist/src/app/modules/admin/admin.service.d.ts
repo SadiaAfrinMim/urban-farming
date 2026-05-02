@@ -2,14 +2,14 @@ import { UserRole, UserStatus } from '../../types/common';
 export declare const AdminService: {
     getAllUsers: (filters: any, options: any) => Promise<{
         data: {
+            createdAt: Date;
             id: number;
             name: string;
             email: string;
             password: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-            createdAt: Date;
         }[];
         meta: {
             page: any;
@@ -20,14 +20,14 @@ export declare const AdminService: {
     }>;
     getAllUsersData: (filters: any, options: any) => Promise<{
         data: {
+            createdAt: Date;
             id: number;
             name: string;
             email: string;
             password: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-            createdAt: Date;
         }[];
         meta: {
             page: number;
@@ -36,16 +36,36 @@ export declare const AdminService: {
             totalPages: number;
         };
     }>;
+    getAllProfiles: (filters: any) => Promise<{
+        id: string;
+        name: string;
+        email: string;
+        role: import(".prisma/client").$Enums.UserRole;
+        status: import(".prisma/client").$Enums.UserStatus;
+        createdAt: string;
+        vendorProfile: {
+            farmName: any;
+            farmLocation: any;
+            certificationStatus: any;
+            certifications: any;
+            producesCount: any;
+            rentalSpacesCount: any;
+        } | undefined;
+        customerStats: {
+            postsCount: any;
+            ordersCount: any;
+        } | undefined;
+    }[]>;
     getAllVendorsData: (filters: any, options: any) => Promise<{
         data: {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         }[];
         meta: {
             page: any;
@@ -58,14 +78,14 @@ export declare const AdminService: {
         data: {
             postsCount: number;
             ordersCount: any;
+            createdAt: Date;
             id: number;
             name: string;
             email: string;
             password: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-            createdAt: Date;
         }[];
         meta: {
             page: number;
@@ -76,141 +96,141 @@ export declare const AdminService: {
     }>;
     updateUserRole: (userId: string, role: UserRole) => Promise<{
         vendorProfile: {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         } | null;
     } & {
+        createdAt: Date;
         id: number;
         name: string;
         email: string;
         password: string;
-        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+        role: import(".prisma/client").$Enums.UserRole;
+        status: import(".prisma/client").$Enums.UserStatus;
         profileImage: string | null;
-        createdAt: Date;
     }>;
     updateUserStatus: (userId: string, status: UserStatus) => Promise<{
         vendorProfile: {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         } | null;
     } & {
+        createdAt: Date;
         id: number;
         name: string;
         email: string;
         password: string;
-        role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-        status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+        role: import(".prisma/client").$Enums.UserRole;
+        status: import(".prisma/client").$Enums.UserStatus;
         profileImage: string | null;
-        createdAt: Date;
     }>;
     getPendingCertifications: () => Promise<({
         user: {
+            createdAt: Date;
             id: number;
             name: string;
             email: string;
             password: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-            createdAt: Date;
         };
     } & {
-        id: number;
         createdAt: Date;
+        id: number;
+        userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
-        userId: number;
     })[]>;
     approveCertification: (vendorId: string) => Promise<{
         user: {
+            createdAt: Date;
             id: number;
             name: string;
             email: string;
             password: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-            createdAt: Date;
         };
     } & {
-        id: number;
         createdAt: Date;
+        id: number;
+        userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
-        userId: number;
     }>;
     rejectCertification: (vendorId: string, reason?: string) => Promise<{
         user: {
+            createdAt: Date;
             id: number;
             name: string;
             email: string;
             password: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-            createdAt: Date;
         };
     } & {
-        id: number;
         createdAt: Date;
+        id: number;
+        userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
-        userId: number;
     }>;
     approveProduce: (produceId: string) => Promise<{
         vendor: {
             user: {
+                createdAt: Date;
                 id: number;
                 name: string;
                 email: string;
                 password: string;
-                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+                role: import(".prisma/client").$Enums.UserRole;
+                status: import(".prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
-                createdAt: Date;
             };
         } & {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         };
     } & {
+        createdAt: Date;
         id: number;
         name: string;
-        createdAt: Date;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -218,35 +238,35 @@ export declare const AdminService: {
     rejectProduce: (produceId: string) => Promise<{
         vendor: {
             user: {
+                createdAt: Date;
                 id: number;
                 name: string;
                 email: string;
                 password: string;
-                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+                role: import(".prisma/client").$Enums.UserRole;
+                status: import(".prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
-                createdAt: Date;
             };
         } & {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         };
     } & {
+        createdAt: Date;
         id: number;
         name: string;
-        createdAt: Date;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -254,61 +274,61 @@ export declare const AdminService: {
     getPendingProduces: () => Promise<({
         vendor: {
             user: {
+                createdAt: Date;
                 id: number;
                 name: string;
                 email: string;
                 password: string;
-                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+                role: import(".prisma/client").$Enums.UserRole;
+                status: import(".prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
-                createdAt: Date;
             };
         } & {
-            id: number;
             createdAt: Date;
+            id: number;
+            userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-            userId: number;
         };
     } & {
+        createdAt: Date;
         id: number;
         name: string;
-        createdAt: Date;
-        certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+        category: import(".prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
     })[]>;
     getAllPosts: () => Promise<({
         comments: {
-            id: number;
             createdAt: Date;
+            updatedAt: Date;
+            id: number;
             userId: number;
             postId: number;
             content: string;
-            updatedAt: Date;
         }[];
         user: {
+            createdAt: Date;
             id: number;
             name: string;
             email: string;
             password: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-            createdAt: Date;
         };
         likes: {
-            id: number;
             createdAt: Date;
+            id: number;
             userId: number;
             postId: number;
         }[];
@@ -318,13 +338,28 @@ export declare const AdminService: {
         postContent: string;
         postDate: Date;
         isApproved: boolean;
+        moderatedBy: number | null;
+        moderatedAt: Date | null;
     })[]>;
     approvePost: (postId: string, adminId: string) => Promise<{
+        user: {
+            createdAt: Date;
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
+            profileImage: string | null;
+        };
+    } & {
         id: number;
         userId: number;
         postContent: string;
         postDate: Date;
         isApproved: boolean;
+        moderatedBy: number | null;
+        moderatedAt: Date | null;
     }>;
     deletePost: (postId: string) => Promise<{
         message: string;
@@ -340,60 +375,60 @@ export declare const AdminService: {
     getAllOrders: (filters: any, options: any) => Promise<{
         data: ({
             user: {
+                createdAt: Date;
                 id: number;
                 name: string;
                 email: string;
                 password: string;
-                role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+                role: import(".prisma/client").$Enums.UserRole;
+                status: import(".prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
-                createdAt: Date;
             };
             vendor: {
                 user: {
+                    createdAt: Date;
                     id: number;
                     name: string;
                     email: string;
                     password: string;
-                    role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-                    status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+                    role: import(".prisma/client").$Enums.UserRole;
+                    status: import(".prisma/client").$Enums.UserStatus;
                     profileImage: string | null;
-                    createdAt: Date;
                 };
             } & {
-                id: number;
                 createdAt: Date;
+                id: number;
+                userId: number;
                 farmName: string;
                 farmLocation: string;
-                certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
                 profilePhoto: string | null;
                 certifications: string[];
-                userId: number;
             };
             produce: {
+                createdAt: Date;
                 id: number;
                 name: string;
-                createdAt: Date;
-                certificationStatus: import("../../../../prisma/prisma/generated").$Enums.CertificationStatus;
+                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
                 vendorId: number;
                 price: number;
                 image: string | null;
                 description: string;
-                category: import("../../../../prisma/prisma/generated").$Enums.ProduceCategory;
+                category: import(".prisma/client").$Enums.ProduceCategory;
                 availableQuantity: number;
                 unit: string | null;
                 isOrganic: boolean | null;
             } | null;
         } & {
             id: number;
-            status: import("../../../../prisma/prisma/generated").$Enums.OrderStatus;
             userId: number;
+            status: import(".prisma/client").$Enums.OrderStatus;
             vendorId: number;
-            produceId: number | null;
-            rentalSpaceId: number | null;
             quantity: number;
             totalPrice: number;
             orderDate: Date;
+            produceId: number | null;
+            rentalSpaceId: number | null;
         })[];
         meta: {
             page: number;
@@ -441,8 +476,24 @@ export declare const AdminService: {
         title: string;
         content: string;
         target: string;
-    }) => Promise<any>;
-    getAnnouncements: () => Promise<any>;
+    }) => Promise<{
+        title: string;
+        createdAt: Date;
+        updatedAt: Date;
+        id: number;
+        content: string;
+        target: string;
+    }>;
+    getAnnouncements: () => Promise<({
+        admin: never;
+    } & {
+        title: string;
+        createdAt: Date;
+        updatedAt: Date;
+        id: number;
+        content: string;
+        target: string;
+    })[]>;
     deleteAnnouncement: (announcementId: string) => Promise<{
         message: string;
     }>;

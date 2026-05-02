@@ -3,12 +3,12 @@ export declare const CustomerService: {
         likeCount: number;
         commentCount: number;
         comments: {
+            createdAt: Date;
             user: {
                 id: number;
                 name: string;
             };
             id: number;
-            createdAt: Date;
             content: string;
         }[];
         user: {
@@ -20,14 +20,14 @@ export declare const CustomerService: {
             id: number;
             userId: number;
         }[];
-        id: number;
+        title: string;
         createdAt: Date;
+        updatedAt: Date;
+        id: number;
         userId: number;
-        category: import("../../../../prisma/prisma/generated").$Enums.PostCategory;
+        category: import(".prisma/client").$Enums.PostCategory;
         isApproved: boolean;
         content: string;
-        updatedAt: Date;
-        title: string;
     }[]>;
     createCustomerPost: (userId: string, payload: {
         title: string;
@@ -40,28 +40,28 @@ export declare const CustomerService: {
             email: string;
         };
     } & {
-        id: number;
+        title: string;
         createdAt: Date;
+        updatedAt: Date;
+        id: number;
         userId: number;
-        category: import("../../../../prisma/prisma/generated").$Enums.PostCategory;
+        category: import(".prisma/client").$Enums.PostCategory;
         isApproved: boolean;
         content: string;
-        updatedAt: Date;
-        title: string;
     }>;
     updateCustomerPost: (postId: string, userId: string, payload: Partial<{
         title: string;
         content: string;
         category: string;
     }>) => Promise<{
-        id: number;
+        title: string;
         createdAt: Date;
+        updatedAt: Date;
+        id: number;
         userId: number;
-        category: import("../../../../prisma/prisma/generated").$Enums.PostCategory;
+        category: import(".prisma/client").$Enums.PostCategory;
         isApproved: boolean;
         content: string;
-        updatedAt: Date;
-        title: string;
     }>;
     deleteCustomerPost: (postId: string, userId: string) => Promise<void>;
     getCustomerDashboard: (userId: string) => Promise<{
@@ -69,8 +69,8 @@ export declare const CustomerService: {
             id: number;
             name: string;
             email: string;
-            role: import("../../../../prisma/prisma/generated").$Enums.UserRole;
-            status: import("../../../../prisma/prisma/generated").$Enums.UserStatus;
+            role: import(".prisma/client").$Enums.UserRole;
+            status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
         stats: {
@@ -78,24 +78,65 @@ export declare const CustomerService: {
             ordersCount: number;
         };
         recentPosts: {
-            id: number;
-            createdAt: Date;
-            category: import("../../../../prisma/prisma/generated").$Enums.PostCategory;
-            isApproved: boolean;
             title: string;
+            createdAt: Date;
+            id: number;
+            category: import(".prisma/client").$Enums.PostCategory;
+            isApproved: boolean;
         }[];
     }>;
-    getCustomerOrders: (userId: string) => Promise<{
+    getCustomerOrders: (userId: string) => Promise<({
+        rentalSpace: ({
+            vendor: {
+                user: {
+                    name: string;
+                };
+                farmName: string;
+            };
+        } & {
+            createdAt: Date;
+            id: number;
+            vendorId: number;
+            location: string;
+            size: string;
+            price: number;
+            availability: boolean;
+            image: string | null;
+            plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+            lastWatered: Date | null;
+        }) | null;
+        produce: ({
+            vendor: {
+                user: {
+                    name: string;
+                };
+                farmName: string;
+            };
+        } & {
+            createdAt: Date;
+            id: number;
+            name: string;
+            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            vendorId: number;
+            price: number;
+            image: string | null;
+            description: string;
+            category: import(".prisma/client").$Enums.ProduceCategory;
+            availableQuantity: number;
+            unit: string | null;
+            isOrganic: boolean | null;
+        }) | null;
+    } & {
         id: number;
-        status: import("../../../../prisma/prisma/generated").$Enums.OrderStatus;
         userId: number;
+        status: import(".prisma/client").$Enums.OrderStatus;
         vendorId: number;
-        produceId: number | null;
-        rentalSpaceId: number | null;
         quantity: number;
         totalPrice: number;
         orderDate: Date;
-    }[]>;
+        produceId: number | null;
+        rentalSpaceId: number | null;
+    })[]>;
     toggleCustomerPostLike: (postId: string, userId: string) => Promise<{
         liked: boolean;
     }>;
@@ -105,12 +146,12 @@ export declare const CustomerService: {
             name: string;
         };
     } & {
-        id: number;
         createdAt: Date;
+        updatedAt: Date;
+        id: number;
         userId: number;
         postId: number;
         content: string;
-        updatedAt: Date;
     }>;
     getCustomerPostComments: (postId: string) => Promise<({
         user: {
@@ -118,13 +159,24 @@ export declare const CustomerService: {
             name: string;
         };
     } & {
-        id: number;
         createdAt: Date;
+        updatedAt: Date;
+        id: number;
         userId: number;
         postId: number;
         content: string;
-        updatedAt: Date;
     })[]>;
     deleteCustomerPostComment: (commentId: string, userId: string) => Promise<void>;
+    updateRentalOrderStatus: (orderId: string, userId: string, status: string) => Promise<{
+        id: number;
+        userId: number;
+        status: import(".prisma/client").$Enums.OrderStatus;
+        vendorId: number;
+        quantity: number;
+        totalPrice: number;
+        orderDate: Date;
+        produceId: number | null;
+        rentalSpaceId: number | null;
+    }>;
 };
 //# sourceMappingURL=customer.service.d.ts.map

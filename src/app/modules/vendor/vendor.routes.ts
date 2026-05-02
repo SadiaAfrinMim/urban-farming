@@ -1,10 +1,10 @@
 import express from 'express';
 import path from 'path';
-import { VendorController } from './vendor.controller';
-import auth from '../../middlewares/auth';
-import { UserRole } from '../../types/common';
+import { VendorController } from './vendor.controller.js';
+import auth from '../../middlewares/auth.js';
+import { UserRole } from '../../types/common.js';
 import multer from 'multer';
-import { fileUploader } from '../../helpers/fileUploader';
+import { fileUploader } from '../../helpers/fileUploader.js';
 
 
 

@@ -1,7 +1,7 @@
 import express from 'express';
-import { ProduceController } from './produce.controller';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/ValidateRequest';
+import { ProduceController } from './produce.controller.js';
+import auth from '../../middlewares/auth.js';
+import validateRequest from '../../middlewares/ValidateRequest.js';
 import { UserRole } from '@prisma/client';
 
 

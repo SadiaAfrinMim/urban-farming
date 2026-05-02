@@ -1,6 +1,6 @@
 import express from 'express';
 import { RentalController } from './rental.controller.js';
-import auth from '../../middlewares/auth';
+import auth from '../../middlewares/auth.js';
 import { UserRole } from '@prisma/client';
 
 

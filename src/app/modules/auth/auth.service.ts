@@ -2,12 +2,12 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import type { SignOptions } from 'jsonwebtoken';
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 import { UserRole, UserStatus, CertificationStatus } from '@prisma/client';
 import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError';
-import { jwtHelper } from '../../helpers/jwtHelper';
-import config from '../../../config';
+import ApiError from '../../errors/ApiError.js';
+import { jwtHelper } from '../../helpers/jwtHelper.js';
+import config from '../../../config/index.js';
 
 const ensureAdminExists = async () => {
   const adminExists = await prisma.user.findFirst({

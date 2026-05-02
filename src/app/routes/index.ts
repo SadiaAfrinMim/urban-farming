@@ -1,20 +1,20 @@
 import express from 'express';
 
-import { authRoutes } from '../modules/auth/auth.routes';
-import { rentalRoutes } from '../modules/rental/rental.routes';
-import { produceRoutes } from '../modules/produce/produce.routes';
-import { orderRoutes } from '../modules/order/order.routes';
-import { communityRoutes } from '../modules/community/community.routes';
-import { sustainabilityRoutes } from '../modules/sustainability/sustainability.routes';
-import { userRoutes } from '../modules/user/user.routes';
-import { VendorRoutes } from '../modules/vendor/vendor.routes';
-import { AdminRoutes } from '../modules/admin/admin.routes';
-import { paymentRoutes } from '../modules/payment/payment.routes';
-import { customerRoutes } from '../modules/customer/customer.routes';
-import { homeRoutes } from '../modules/home/home.routes';
-import { notificationRoutes } from '../modules/notification/notification.routes';
-import { chatRoutes } from '../modules/chat/chat.routes';
-import { plantTrackingRoutes } from '../modules/plant-tracking/plant-tracking.routes';
+import { authRoutes } from '../modules/auth/auth.routes.ts';
+import { rentalRoutes } from '../modules/rental/rental.routes.ts';
+import { produceRoutes } from '../modules/produce/produce.routes.ts';
+import { orderRoutes } from '../modules/order/order.routes.ts';
+import { communityRoutes } from '../modules/community/community.routes.ts';
+import { sustainabilityRoutes } from '../modules/sustainability/sustainability.routes.ts';
+import { userRoutes } from '../modules/user/user.routes.ts';
+import { VendorRoutes } from '../modules/vendor/vendor.routes.ts';
+import { AdminRoutes } from '../modules/admin/admin.routes.ts';
+import { paymentRoutes } from '../modules/payment/payment.routes.ts';
+import { customerRoutes } from '../modules/customer/customer.routes.ts';
+import { homeRoutes } from '../modules/home/home.routes.ts';
+import { notificationRoutes } from '../modules/notification/notification.routes.ts';
+import { chatRoutes } from '../modules/chat/chat.routes.ts';
+import { plantTrackingRoutes } from '../modules/plant-tracking/plant-tracking.routes.ts';
 
 const router = express.Router();
 

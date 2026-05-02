@@ -1,7 +1,7 @@
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 
 import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError';
+import ApiError from '../../errors/ApiError.js';
 
 const getAllProduces = async (page: number, limit: number) => {
   const skip = (page - 1) * limit;

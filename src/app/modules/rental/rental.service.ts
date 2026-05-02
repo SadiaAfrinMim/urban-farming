@@ -1,9 +1,9 @@
 import { prisma } from '../../shared/prisma';
-import { NotificationService } from '../notification/notification.service';
+import { NotificationService } from '../notification/notification.service.js';
 import { NotificationType } from '@prisma/client';
 
 import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError';
+import ApiError from '../../errors/ApiError.js';
 
 const getAllRentalSpaces = async () => {
   const rentalSpaces = await prisma.rentalSpace.findMany({

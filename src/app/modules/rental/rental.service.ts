@@ -1,4 +1,4 @@
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 import { NotificationService } from '../notification/notification.service.js';
 import { NotificationType } from '@prisma/client';
 

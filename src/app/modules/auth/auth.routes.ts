@@ -1,10 +1,10 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
-import { AuthController } from './auth.controller';
-import validateRequest from '../../middlewares/ValidateRequest';
-import { AuthValidation } from './auth.validation';
+import { AuthController } from './auth.controller.js';
+import validateRequest from '../../middlewares/ValidateRequest.js';
+import { AuthValidation } from './auth.validation.js';
 
-import auth from '../../middlewares/auth';
+import auth from '../../middlewares/auth.js';
 import { UserRole } from '@prisma/client';
   
 

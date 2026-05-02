@@ -1,6 +1,6 @@
 import express from 'express';
-import { OrderController } from './order.controller';
-import auth from '../../middlewares/auth';
+import { OrderController } from './order.controller.js';
+import auth from '../../middlewares/auth.js';
 import { UserRole } from '@prisma/client';
 
 /**

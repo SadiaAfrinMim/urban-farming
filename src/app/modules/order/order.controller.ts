@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import catchAsync from '../../../app/shared/catchAsync';
-import sendResponse from '../../../app/shared/sendResponse';
-import { OrderService } from './order.service';
+import catchAsync from '../../../app/shared/catchAsync.js';
+import sendResponse from '../../../app/shared/sendResponse.js';
+import { OrderService } from './order.service.js';
 
 const getOrders = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;

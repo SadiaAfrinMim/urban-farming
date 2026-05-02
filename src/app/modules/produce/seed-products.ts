@@ -1,5 +1,5 @@
 // Seed approved products for marketplace testing
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 
 async function seedApprovedProducts() {
   try {

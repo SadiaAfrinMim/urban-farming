@@ -1,11 +1,11 @@
 import { Request } from 'express';
-import { prisma } from '../../shared/prisma';
-import { NotificationService } from '../notification/notification.service';
+import { prisma } from '../../shared/prisma.js';
+import { NotificationService } from '../notification/notification.service.js';
 import { NotificationType } from '@prisma/client';
 
 import httpStatus from 'http-status';
-import { IJWTPayload } from '../../types/common';
-import ApiError from '../../errors/ApiError';
+import { IJWTPayload } from '../../types/common.js';
+import ApiError from '../../errors/ApiError.js';
 
 const createOrUpdateProfile = async (user: IJWTPayload, req: Request) => {
     console.log('=== PROFILE SERVICE START ===');

@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import catchAsync from "../../shared/catchAsync";
+import catchAsync from "../../shared/catchAsync.js";
 
-import sendResponse from "../../shared/sendResponse";
-import { userFilterableFields } from "./user.constant";
-import { IJWTPayload } from "../../types/common";
+import sendResponse from "../../shared/sendResponse.js";
+import { userFilterableFields } from "./user.constant.js";
+import { IJWTPayload } from "../../types/common.js";
 import httpStatus from "http-status";
-import { UserService } from "./user.service";
-import pick from "../../helpers/pick";
+import { UserService } from "./user.service.js";
+import pick from "../../helpers/pick.js";
 
 const createCustomer = catchAsync(async (req: Request, res: Response) => {
     const result = await UserService.createCustomer(req);

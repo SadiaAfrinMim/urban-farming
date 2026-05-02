@@ -1,9 +1,27 @@
-import config from '../../config';
-import { PrismaClient } from "@prisma/client";
+// import config from '../../config';
+// import { PrismaClient } from "@prisma/client";
 
-// Check if DATABASE_URL is available
-if (!config.database_url) {
+// // Check if DATABASE_URL is available
+// if (!config.database_url) {
+//   throw new Error('DATABASE_URL environment variable is required but not set');
+// }
+
+// export const prisma = new PrismaClient();
+
+
+import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
+
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
   throw new Error('DATABASE_URL environment variable is required but not set');
 }
 
-export const prisma = new PrismaClient();
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+
+const prisma = new PrismaClient({ adapter });
+
+export default prisma;

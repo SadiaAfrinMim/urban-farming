@@ -13,7 +13,7 @@ const createNotification = async (userId, type, title, message, data) => {
     const io = global.io;
     if (io) {
         console.log(`Emitting notification to user ${userId}:`, notification);
-        io.emit(`notification-${userId}`, notification);
+        io.to(`user_${userId}`).emit('notification', notification);
     }
     else {
         console.log('WebSocket io instance not available');

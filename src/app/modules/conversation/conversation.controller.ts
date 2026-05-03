@@ -50,7 +50,7 @@ const getOrCreateConversation = async (req: Request, res: Response) => {
       });
     }
 
-    const otherUserIdNum = parseInt(otherUserId);
+    const otherUserIdNum = parseInt(otherUserId as string);
     if (isNaN(otherUserIdNum)) {
       return sendResponse(res, {
         statusCode: httpStatus.BAD_REQUEST,
@@ -103,7 +103,7 @@ const sendMessage = async (req: Request, res: Response) => {
       });
     }
 
-    const conversationIdNum = parseInt(conversationId);
+    const conversationIdNum = parseInt(conversationId as string);
     if (isNaN(conversationIdNum)) {
       return sendResponse(res, {
         statusCode: httpStatus.BAD_REQUEST,
@@ -146,7 +146,7 @@ const getConversationMessages = async (req: Request, res: Response) => {
       });
     }
 
-    const conversationIdNum = parseInt(conversationId);
+    const conversationIdNum = parseInt(conversationId as string);
     if (isNaN(conversationIdNum)) {
       return sendResponse(res, {
         statusCode: httpStatus.BAD_REQUEST,
@@ -189,7 +189,7 @@ const markMessagesAsRead = async (req: Request, res: Response) => {
       });
     }
 
-    const conversationIdNum = parseInt(conversationId);
+    const conversationIdNum = parseInt(conversationId as string);
     if (isNaN(conversationIdNum)) {
       return sendResponse(res, {
         statusCode: httpStatus.BAD_REQUEST,

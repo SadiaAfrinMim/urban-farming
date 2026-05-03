@@ -1,5 +1,4 @@
 import { prisma } from '../../shared/prisma.js';
-import { io } from '../../../local-server.js';
 import { NotificationService } from '../notification/notification.service.js';
 import { NotificationType } from '@prisma/client';
 
@@ -150,6 +149,7 @@ const sendMessage = async (conversationId: number, senderId: number, content: st
   );
 
   // Emit real-time events via Socket.IO
+  const io = (global as any).io;
   if (io) {
     // Emit to conversation room for real-time messaging
     io.to(`conversation_${conversationId}`).emit('new_message', {

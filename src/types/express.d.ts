@@ -1,4 +1,5 @@
 import 'express-serve-static-core';
+import { IJWTPayload } from '../app/types/common.js';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -10,5 +11,6 @@ declare module 'express-serve-static-core' {
     profilePhotoUrl?: string;
     certificationUrls?: string[];
     imageUrl?: string;
+    user?: IJWTPayload;
   }
 }

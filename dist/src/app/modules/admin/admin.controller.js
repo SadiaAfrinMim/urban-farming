@@ -63,7 +63,7 @@ const getAllCustomersData = catchAsync(async (req, res) => {
 const updateUserRole = catchAsync(async (req, res) => {
     const { userId } = req.params;
     const { role } = req.body;
-    const result = await AdminService.updateUserRole(Number(userId), role);
+    const result = await AdminService.updateUserRole(userId, role);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -74,7 +74,7 @@ const updateUserRole = catchAsync(async (req, res) => {
 const updateUserStatus = catchAsync(async (req, res) => {
     const { userId } = req.params;
     const { status } = req.body;
-    const result = await AdminService.updateUserStatus(Number(userId), status);
+    const result = await AdminService.updateUserStatus(userId, status);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -94,7 +94,7 @@ const getPendingCertifications = catchAsync(async (req, res) => {
 });
 const approveCertification = catchAsync(async (req, res) => {
     const { vendorId } = req.params;
-    const result = await AdminService.approveCertification(Number(vendorId));
+    const result = await AdminService.approveCertification(vendorId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -105,7 +105,7 @@ const approveCertification = catchAsync(async (req, res) => {
 const rejectCertification = catchAsync(async (req, res) => {
     const { vendorId } = req.params;
     const { reason } = req.body;
-    const result = await AdminService.rejectCertification(Number(vendorId), reason);
+    const result = await AdminService.rejectCertification(vendorId, reason);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -115,7 +115,7 @@ const rejectCertification = catchAsync(async (req, res) => {
 });
 const approveProduce = catchAsync(async (req, res) => {
     const { produceId } = req.params;
-    const result = await AdminService.approveProduce(Number(produceId));
+    const result = await AdminService.approveProduce(produceId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -125,7 +125,7 @@ const approveProduce = catchAsync(async (req, res) => {
 });
 const rejectProduce = catchAsync(async (req, res) => {
     const { produceId } = req.params;
-    const result = await AdminService.rejectProduce(Number(produceId));
+    const result = await AdminService.rejectProduce(produceId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

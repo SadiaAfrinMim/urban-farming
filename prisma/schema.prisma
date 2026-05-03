@@ -364,6 +364,7 @@ enum NotificationType {
   COMMUNITY_POST_COMMENT
   PRODUCE_UPDATE
   SYSTEM
+  MESSAGE
 }
 
 model Notification {

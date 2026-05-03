@@ -1,5 +1,4 @@
 import { prisma } from '../../shared/prisma.js';
-import { io } from '../../../local-server.js';
 import { NotificationService } from '../notification/notification.service.js';
 import { NotificationType } from '@prisma/client';
 // Create or get existing conversation between two users
@@ -126,6 +125,7 @@ const sendMessage = async (conversationId, senderId, content) => {
         senderName: message.sender.name,
     });
     // Emit real-time events via Socket.IO
+    const io = global.io;
     if (io) {
         // Emit to conversation room for real-time messaging
         io.to(`conversation_${conversationId}`).emit('new_message', {

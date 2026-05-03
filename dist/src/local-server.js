@@ -6,6 +6,13 @@ import { OrderService } from './app/modules/order/order.service.js';
 import { NotificationService } from './app/modules/notification/notification.service.js';
 import { prisma } from './app/shared/prisma.js';
 import { NotificationType } from '@prisma/client';
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://urban-farming.vercel.app',
+    'https://urban-farming-sable.vercel.app',
+    'https://urban-farming-rt02.onrender.com',
+];
 async function bootstrap() {
     // This variable will hold our server instance
     let server;
@@ -18,7 +25,7 @@ async function bootstrap() {
         // Initialize Socket.IO
         io = new SocketServer(server, {
             cors: {
-                origin: ['http://localhost:3000', 'http://localhost:3001'],
+                origin: allowedOrigins,
                 credentials: true
             }
         });

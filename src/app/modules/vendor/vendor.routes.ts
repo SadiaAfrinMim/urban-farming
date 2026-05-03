@@ -227,7 +227,7 @@ router.get('/dashboard/stats', auth(UserRole.Vendor), VendorController.getVendor
  *       201:
  *         description: Rental space created
  */
-router.post('/rental-spaces', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+router.post('/rental-spaces', auth(UserRole.Vendor), (req: any, res: any, next: any) => {
   // Check if request has multipart data
   if (req.headers['content-type']?.includes('multipart/form-data')) {
     // Use multer to parse multipart data
@@ -283,7 +283,7 @@ router.get('/rental-spaces', auth(UserRole.Vendor), VendorController.getRentalSp
  *       200:
  *         description: Rental space updated
  */
-router.patch('/rental-spaces/:id', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+router.patch('/rental-spaces/:id', auth(UserRole.Vendor), (req: any, res: any, next: any) => {
   // Check if request has multipart data
   if (req.headers['content-type']?.includes('multipart/form-data')) {
     // Use multer to parse multipart data
@@ -390,7 +390,7 @@ router.get('/produces', auth(UserRole.Vendor), VendorController.getProduces);
  *       200:
  *         description: Produce updated
  */
-router.patch('/produces/:id', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+router.patch('/produces/:id', auth(UserRole.Vendor), (req: any, res: any, next: any) => {
   // Check if request has multipart data
   if (req.headers['content-type']?.includes('multipart/form-data')) {
     // Use multer to parse multipart data
@@ -518,7 +518,7 @@ router.get('/orders', auth(UserRole.Vendor), VendorController.getOrders);
  *       201:
  *         description: Vendor post created
  */
-router.post('/posts', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+router.post('/posts', auth(UserRole.Vendor), (req: any, res: any, next: any) => {
   // Check if request has multipart data
   if (req.headers['content-type']?.includes('multipart/form-data')) {
     // Use multer to parse multipart data
@@ -574,7 +574,7 @@ router.get('/posts', auth(UserRole.Vendor), VendorController.getVendorPosts);
  *       200:
  *         description: Vendor post updated
  */
-router.patch('/posts/:id', auth(UserRole.Vendor), (req: Request, res: Response, next: any) => {
+router.patch('/posts/:id', auth(UserRole.Vendor), (req: any, res: any, next: any) => {
   // Check if request has multipart data
   if (req.headers['content-type']?.includes('multipart/form-data')) {
     // Use multer to parse multipart data

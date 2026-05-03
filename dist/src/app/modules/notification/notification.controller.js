@@ -17,7 +17,7 @@ const getUserNotifications = catchAsync(async (req, res) => {
 const markAsRead = catchAsync(async (req, res) => {
     const user = req.user;
     const { id } = req.params;
-    const result = await NotificationService.markAsRead(parseInt(id), user.id);
+    const result = await NotificationService.markAsRead(parseInt(id, 10), user.id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

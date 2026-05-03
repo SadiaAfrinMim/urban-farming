@@ -7,7 +7,7 @@ import { IJWTPayload } from '../../types/common.js';
 
 const getCustomerPosts = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const user = req.user!;
-  const result = await CustomerService.getCustomerPosts(user.id);
+  const result = await CustomerService.getCustomerPosts(String(user.id));
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -19,7 +19,7 @@ const getCustomerPosts = catchAsync(async (req: Request & { user?: IJWTPayload }
 const createCustomerPost = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const user = req.user!;
   const payload = req.body;
-  const result = await CustomerService.createCustomerPost(user.id, payload);
+  const result = await CustomerService.createCustomerPost(String(user.id), payload);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
@@ -32,7 +32,7 @@ const updateCustomerPost = catchAsync(async (req: Request & { user?: IJWTPayload
   const user = req.user!;
   const { id } = req.params;
   const payload = req.body;
-  const result = await CustomerService.updateCustomerPost(id, user.id, payload);
+  const result = await CustomerService.updateCustomerPost(id as string, String(user.id), payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -44,7 +44,7 @@ const updateCustomerPost = catchAsync(async (req: Request & { user?: IJWTPayload
 const deleteCustomerPost = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const user = req.user!;
   const { id } = req.params;
-  await CustomerService.deleteCustomerPost(id, user.id);
+  await CustomerService.deleteCustomerPost(id as string, String(user.id));
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -55,7 +55,7 @@ const deleteCustomerPost = catchAsync(async (req: Request & { user?: IJWTPayload
 
 const getCustomerDashboard = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const user = req.user!;
-  const result = await CustomerService.getCustomerDashboard(user.id);
+  const result = await CustomerService.getCustomerDashboard(String(user.id));
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -66,7 +66,7 @@ const getCustomerDashboard = catchAsync(async (req: Request & { user?: IJWTPaylo
 
 const getCustomerOrders = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const user = req.user!;
-  const result = await CustomerService.getCustomerOrders(user.id);
+  const result = await CustomerService.getCustomerOrders(String(user.id));
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -78,7 +78,7 @@ const getCustomerOrders = catchAsync(async (req: Request & { user?: IJWTPayload 
 const toggleCustomerPostLike = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const { id } = req.params;
   const user = req.user!;
-  const result = await CustomerService.toggleCustomerPostLike(id, user.id);
+  const result = await CustomerService.toggleCustomerPostLike(id as string, String(user.id));
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -91,7 +91,7 @@ const addCustomerPostComment = catchAsync(async (req: Request & { user?: IJWTPay
   const { id } = req.params;
   const user = req.user!;
   const { content } = req.body;
-  const result = await CustomerService.addCustomerPostComment(id, user.id, content);
+  const result = await CustomerService.addCustomerPostComment(id as string, String(user.id), content);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
@@ -102,7 +102,7 @@ const addCustomerPostComment = catchAsync(async (req: Request & { user?: IJWTPay
 
 const getCustomerPostComments = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await CustomerService.getCustomerPostComments(id);
+  const result = await CustomerService.getCustomerPostComments(id as string);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -114,7 +114,7 @@ const getCustomerPostComments = catchAsync(async (req: Request, res: Response) =
 const deleteCustomerPostComment = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const { commentId } = req.params;
   const user = req.user!;
-  await CustomerService.deleteCustomerPostComment(commentId, user.id);
+  await CustomerService.deleteCustomerPostComment(commentId as string, String(user.id));
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -127,7 +127,7 @@ const updateRentalOrderStatus = catchAsync(async (req: Request & { user?: IJWTPa
   const { id } = req.params;
   const { status } = req.body;
   const user = req.user!;
-  const result = await CustomerService.updateRentalOrderStatus(id, user.id, status);
+  const result = await CustomerService.updateRentalOrderStatus(id as string, String(user.id), status);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

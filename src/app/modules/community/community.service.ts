@@ -122,7 +122,7 @@ const createPost = async (userId: number, payload: {
   // Notify admins about new post for moderation (async, non-blocking)
   process.nextTick(async () => {
     try {
-      const NotificationService = (await import('../notification/notification.service')).NotificationService;
+      const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
       const admins = await prisma.user.findMany({
         where: { role: UserRole.Admin },
       });
@@ -159,7 +159,7 @@ const updatePost = async (id: string, user: IJWTPayload, payload: Partial<{
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
-  if (post.userId !== parseInt(user.id) && user.role !== 'Admin') {
+  if (post.userId !== user.id && user.role !== 'Admin') {
     throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
   }
   const updated = await prisma.communityPost.update({
@@ -222,7 +222,7 @@ const deletePost = async (id: string, user: IJWTPayload) => {
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
-  if (post.userId !== parseInt(user.id) && user.role !== 'Admin') {
+  if (post.userId !== user.id && user.role !== 'Admin') {
     throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
   }
   await prisma.communityPost.delete({
@@ -285,7 +285,7 @@ const toggleLike = async (postId: string, userId: string) => {
     // Create notification for post author (if not the same user) (async, non-blocking)
     process.nextTick(async () => {
       try {
-        const NotificationService = (await import('../notification/notification.service')).NotificationService;
+        const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
         const post = await prisma.communityPost.findUnique({
           where: { id: parseInt(postId) },
           include: { user: true },
@@ -356,7 +356,7 @@ const addComment = async (postId: string, userId: string, content: string) => {
   // Create notification for post author (if not the same user) (async, non-blocking)
   process.nextTick(async () => {
     try {
-      const NotificationService = (await import('../notification/notification.service')).NotificationService;
+      const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
       const post = await prisma.communityPost.findUnique({
         where: { id: parseInt(postId) },
         include: { user: true },

@@ -27,7 +27,7 @@ const getAllPlantTrackings = catchAsync(async (req, res) => {
 });
 const getPlantTrackingById = catchAsync(async (req, res) => {
     const userId = req.user?.id;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await PlantTrackingService.getPlantTrackingById(id, userId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -38,7 +38,7 @@ const getPlantTrackingById = catchAsync(async (req, res) => {
 });
 const updatePlantTracking = catchAsync(async (req, res) => {
     const userId = req.user?.id;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await PlantTrackingService.updatePlantTracking(id, userId, req.body);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -49,7 +49,7 @@ const updatePlantTracking = catchAsync(async (req, res) => {
 });
 const updatePlantHealth = catchAsync(async (req, res) => {
     const userId = req.user?.id;
-    const { id } = req.params;
+    const id = req.params.id;
     const { healthStatus, notes } = req.body;
     const result = await PlantTrackingService.updatePlantHealth(id, userId, healthStatus, notes);
     sendResponse(res, {
@@ -61,7 +61,7 @@ const updatePlantHealth = catchAsync(async (req, res) => {
 });
 const waterPlant = catchAsync(async (req, res) => {
     const userId = req.user?.id;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await PlantTrackingService.waterPlant(id, userId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -72,7 +72,7 @@ const waterPlant = catchAsync(async (req, res) => {
 });
 const fertilizePlant = catchAsync(async (req, res) => {
     const userId = req.user?.id;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await PlantTrackingService.fertilizePlant(id, userId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -83,7 +83,7 @@ const fertilizePlant = catchAsync(async (req, res) => {
 });
 const deletePlantTracking = catchAsync(async (req, res) => {
     const userId = req.user?.id;
-    const { id } = req.params;
+    const id = req.params.id;
     await PlantTrackingService.deletePlantTracking(id, userId);
     sendResponse(res, {
         statusCode: httpStatus.OK,

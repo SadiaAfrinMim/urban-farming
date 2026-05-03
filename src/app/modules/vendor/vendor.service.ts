@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { prisma } from '../../shared/prisma.js';
 import { NotificationService } from '../notification/notification.service.js';
-import { NotificationType } from '@prisma/client';
+import { NotificationType, ProduceCategory, VendorPostCategory } from '@prisma/client';
 
 import httpStatus from 'http-status';
 import { IJWTPayload } from '../../types/common.js';
@@ -31,7 +31,7 @@ const createOrUpdateProfile = async (user: IJWTPayload, req: Request) => {
                     }
                 }
             }
-            throw new ApiError('Farm name and farm location are required', 400);
+            throw new ApiError(400, 'Farm name and farm location are required');
         }
 
         console.log('✅ Validation passed');
@@ -202,13 +202,13 @@ const createRentalSpace = async (user: IJWTPayload, req: Request) => {
     // Validate required fields
     const { location, size, price } = req.body;
     if (!location || !size || !price) {
-        throw new ApiError('Location, size, and price are required', 400);
+        throw new ApiError(400, 'Location, size, and price are required');
     }
 
     // Validate price is a valid number
     const parsedPrice = parseFloat(price);
     if (isNaN(parsedPrice) || parsedPrice <= 0) {
-        throw new ApiError('Price must be a valid positive number', 400);
+        throw new ApiError(400, 'Price must be a valid positive number');
     }
 
     const profile = await prisma.vendorProfile.findUnique({
@@ -218,7 +218,7 @@ const createRentalSpace = async (user: IJWTPayload, req: Request) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     // Extract only valid RentalSpace fields from request body
@@ -286,7 +286,7 @@ const updateRentalSpace = async (user: IJWTPayload, id: string, req: any) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     const data = req.body;
@@ -331,7 +331,7 @@ const deleteRentalSpace = async (user: IJWTPayload, id: string) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     const rentalSpace = await prisma.rentalSpace.delete({
@@ -355,20 +355,20 @@ const createProduce = async (user: IJWTPayload, req: Request) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     // Validate category
     const validCategories = ['Vegetables', 'Fruits', 'Grains', 'Dairy'];
     if (!validCategories.includes(req.body.category)) {
-        throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+        throw new ApiError(400, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
     }
 
     const produceData = {
         name: req.body.name,
         description: req.body.description,
         price: parseFloat(req.body.price),
-        category: req.body.category,
+        category: req.body.category as ProduceCategory,
         availableQuantity: parseInt(req.body.availableQuantity),
         certificationStatus: req.body.certificationStatus || 'Pending',
         unit: req.body.unit || 'kg',
@@ -394,7 +394,7 @@ const createProduce = async (user: IJWTPayload, req: Request) => {
     if (produce.certificationStatus === 'Pending') {
         process.nextTick(async () => {
             try {
-                const NotificationService = (await import('../notification/notification.service')).NotificationService;
+                const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
                 const admins = await prisma.user.findMany({
                     where: { role: 'Admin' },
                 });
@@ -453,7 +453,7 @@ const updateProduce = async (user: IJWTPayload, id: string, req: any) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     const data = req.body;
@@ -462,7 +462,7 @@ const updateProduce = async (user: IJWTPayload, id: string, req: any) => {
     if (data.category) {
         const validCategories = ['Vegetables', 'Fruits', 'Grains', 'Dairy'];
         if (!validCategories.includes(data.category)) {
-            throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+            throw new ApiError(400, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
         }
     }
 
@@ -497,7 +497,7 @@ const deleteProduce = async (user: IJWTPayload, id: string) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     const produce = await prisma.produce.delete({
@@ -621,20 +621,20 @@ const createVendorPost = async (user: IJWTPayload, req: Request) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     // Validate category
     const validCategories = ['FarmUpdate', 'ProductShowcase', 'Sustainability', 'Community'];
     if (!validCategories.includes(req.body.category)) {
-        throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+        throw new ApiError(400, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
     }
 
     const postData = {
         vendorId: profile.id,
         title: req.body.title,
         content: req.body.content,
-        category: req.body.category,
+        category: req.body.category as VendorPostCategory,
         image: req.body.imageUrl || null,
         isApproved: req.body.isApproved || false,
     };
@@ -721,7 +721,7 @@ const updateVendorPost = async (user: IJWTPayload, id: string, req: any) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     const post = await prisma.vendorPost.findUnique({
@@ -731,19 +731,19 @@ const updateVendorPost = async (user: IJWTPayload, id: string, req: any) => {
     });
 
     if (!post) {
-        throw new ApiError('Vendor post not found', 404);
+        throw new ApiError(404, 'Vendor post not found');
     }
 
     // Check if the post belongs to the user
     if (post.vendorId !== profile.id) {
-        throw new ApiError('You can only update your own posts', 403);
+        throw new ApiError(403, 'You can only update your own posts');
     }
 
     // Validate category if provided
     if (req.body.category) {
         const validCategories = ['FarmUpdate', 'ProductShowcase', 'Sustainability', 'Community'];
         if (!validCategories.includes(req.body.category)) {
-            throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+            throw new ApiError(400, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
         }
     }
 
@@ -788,7 +788,7 @@ const deleteVendorPost = async (user: IJWTPayload, id: string) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     const post = await prisma.vendorPost.findUnique({
@@ -798,12 +798,12 @@ const deleteVendorPost = async (user: IJWTPayload, id: string) => {
     });
 
     if (!post) {
-        throw new ApiError('Vendor post not found', 404);
+        throw new ApiError(404, 'Vendor post not found');
     }
 
     // Check if the post belongs to the user
     if (post.vendorId !== profile.id) {
-        throw new ApiError('You can only delete your own posts', 403);
+        throw new ApiError(403, 'You can only delete your own posts');
     }
 
     await prisma.vendorPost.delete({
@@ -818,7 +818,7 @@ const toggleVendorPostLike = async (user: IJWTPayload, postId: string) => {
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError('Vendor post not found', 404);
+        throw new ApiError(404, 'Vendor post not found');
     }
 
     // Check if user already liked the post
@@ -854,11 +854,11 @@ const addVendorPostComment = async (user: IJWTPayload, postId: string, content: 
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError('Vendor post not found', 404);
+        throw new ApiError(404, 'Vendor post not found');
     }
 
     if (!content.trim()) {
-        throw new ApiError('Comment content cannot be empty', 400);
+        throw new ApiError(400, 'Comment content cannot be empty');
     }
 
     const comment = await prisma.vendorPostComment.create({
@@ -888,7 +888,7 @@ const getVendorDashboardStats = async (user: IJWTPayload) => {
     });
 
     if (!profile) {
-        throw new ApiError('Vendor profile not found', 404);
+        throw new ApiError(404, 'Vendor profile not found');
     }
 
     // Get total sales (sum of all completed orders)

@@ -36,7 +36,7 @@ const registerUser = async (payload) => {
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await prisma.user.create({
         data: {
-            name,
+            name: name ?? email.split('@')[0] ?? 'User',
             email,
             password: hashedPassword,
             role,

@@ -20,9 +20,9 @@ export declare const PaymentService: {
                 status: import("@prisma/client").$Enums.PaymentStatus;
                 orderId: number;
                 originalAmount: number;
+                paymentIntentId: string;
                 amount: number;
                 currency: string;
-                paymentIntentId: string;
                 paymentDate: Date;
             }[];
             rentalSpace: {
@@ -68,9 +68,9 @@ export declare const PaymentService: {
             status: import("@prisma/client").$Enums.PaymentStatus;
             orderId: number;
             originalAmount: number;
+            paymentIntentId: string;
             amount: number;
             currency: string;
-            paymentIntentId: string;
             paymentDate: Date;
         };
     }>;

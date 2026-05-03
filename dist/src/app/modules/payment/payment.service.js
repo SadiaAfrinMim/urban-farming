@@ -4,6 +4,7 @@ import ApiError from '../../errors/ApiError.js';
 import httpStatus from 'http-status';
 import { OrderStatus } from '../../types/common.js';
 const createPaymentIntent = async (orderId, userId) => {
+    const userIdNumber = parseInt(userId, 10);
     const order = await prisma.order.findUnique({
         where: { id: parseInt(orderId) },
         include: {
@@ -14,7 +15,7 @@ const createPaymentIntent = async (orderId, userId) => {
     if (!order) {
         throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
     }
-    if (order.userId !== userId) {
+    if (order.userId !== userIdNumber) {
         throw new ApiError(httpStatus.FORBIDDEN, 'You are not authorized to pay for this order');
     }
     if (order.status === 'Confirmed' || order.status === 'Delivered') {
@@ -31,8 +32,8 @@ const createPaymentIntent = async (orderId, userId) => {
         metadata: {
             orderId: order.id,
             userId: userId,
-            produceId: order.produceId?.toString(),
-            rentalSpaceId: order.rentalSpaceId?.toString(),
+            produceId: order.produceId?.toString() ?? null,
+            rentalSpaceId: order.rentalSpaceId?.toString() ?? null,
             originalAmount: amount.toString(),
             originalCurrency: 'bdt',
         },
@@ -91,6 +92,7 @@ const confirmPayment = async (paymentIntentId) => {
     return { order: updatedOrder, payment };
 };
 const createCheckoutSession = async (orderId, userId) => {
+    const userIdNumber = parseInt(userId, 10);
     const order = await prisma.order.findUnique({
         where: { id: parseInt(orderId) },
         include: {
@@ -101,7 +103,7 @@ const createCheckoutSession = async (orderId, userId) => {
     if (!order) {
         throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
     }
-    if (order.userId !== userId) {
+    if (order.userId !== userIdNumber) {
         throw new ApiError(httpStatus.FORBIDDEN, 'You are not authorized to pay for this order');
     }
     const amount = order.totalPrice;
@@ -166,7 +168,7 @@ const handleWebhook = async (signature, payload) => {
             });
             // If this is a rental order, mark the space as booked
             if (rentalSpaceId && updatedOrder.rentalSpace) {
-                const { RentalService } = await import('../rental/rental.service');
+                const { RentalService } = await import('../rental/rental.service.js');
                 await RentalService.bookRentalSpace(rentalSpaceId, updatedOrder.userId.toString());
                 // Emit real-time update for rental booking completion
                 const io = global.io;

@@ -61,9 +61,10 @@ const getAllPlantTrackings = async (userId: number, options: IPaginationOptions)
 };
 
 const getPlantTrackingById = async (id: string, userId: number) => {
-  const result = await prisma.plantTracking.findUnique({
+  const plantTrackingId = Number(id);
+  const result = await prisma.plantTracking.findFirst({
     where: {
-      id,
+      id: plantTrackingId,
       userId,
     },
     include: {
@@ -84,9 +85,10 @@ const getPlantTrackingById = async (id: string, userId: number) => {
 };
 
 const updatePlantTracking = async (id: string, userId: number, payload: any) => {
-  const plantTracking = await prisma.plantTracking.findUnique({
+  const plantTrackingId = Number(id);
+  const plantTracking = await prisma.plantTracking.findFirst({
     where: {
-      id,
+      id: plantTrackingId,
       userId,
     },
   });
@@ -97,7 +99,7 @@ const updatePlantTracking = async (id: string, userId: number, payload: any) => 
 
   const result = await prisma.plantTracking.update({
     where: {
-      id,
+      id: plantTrackingId,
     },
     data: payload,
     include: {
@@ -113,9 +115,10 @@ const updatePlantTracking = async (id: string, userId: number, payload: any) => 
 };
 
 const updatePlantHealth = async (id: string, userId: number, healthStatus: PlantHealth, notes?: string) => {
-  const plantTracking = await prisma.plantTracking.findUnique({
+  const plantTrackingId = Number(id);
+  const plantTracking = await prisma.plantTracking.findFirst({
     where: {
-      id,
+      id: plantTrackingId,
       userId,
     },
   });
@@ -126,10 +129,10 @@ const updatePlantHealth = async (id: string, userId: number, healthStatus: Plant
 
   const result = await prisma.plantTracking.update({
     where: {
-      id,
+      id: plantTrackingId,
     },
     data: {
-      healthStatus,
+      plantHealth: healthStatus,
       notes,
     },
     include: {
@@ -145,9 +148,10 @@ const updatePlantHealth = async (id: string, userId: number, healthStatus: Plant
 };
 
 const waterPlant = async (id: string, userId: number) => {
-  const plantTracking = await prisma.plantTracking.findUnique({
+  const plantTrackingId = Number(id);
+  const plantTracking = await prisma.plantTracking.findFirst({
     where: {
-      id,
+      id: plantTrackingId,
       userId,
     },
   });
@@ -158,19 +162,20 @@ const waterPlant = async (id: string, userId: number) => {
 
   const result = await prisma.plantTracking.update({
     where: {
-      id,
+      id: plantTrackingId,
     },
     data: {
-      lastWatered: new Date(),
+      notes: `Watered at ${new Date().toISOString()}`,
     },
   });
   return result;
 };
 
 const fertilizePlant = async (id: string, userId: number) => {
-  const plantTracking = await prisma.plantTracking.findUnique({
+  const plantTrackingId = Number(id);
+  const plantTracking = await prisma.plantTracking.findFirst({
     where: {
-      id,
+      id: plantTrackingId,
       userId,
     },
   });
@@ -181,19 +186,20 @@ const fertilizePlant = async (id: string, userId: number) => {
 
   const result = await prisma.plantTracking.update({
     where: {
-      id,
+      id: plantTrackingId,
     },
     data: {
-      lastFertilized: new Date(),
+      notes: `Fertilized at ${new Date().toISOString()}`,
     },
   });
   return result;
 };
 
 const deletePlantTracking = async (id: string, userId: number) => {
-  const plantTracking = await prisma.plantTracking.findUnique({
+  const plantTrackingId = Number(id);
+  const plantTracking = await prisma.plantTracking.findFirst({
     where: {
-      id,
+      id: plantTrackingId,
       userId,
     },
   });
@@ -204,7 +210,7 @@ const deletePlantTracking = async (id: string, userId: number) => {
 
   await prisma.plantTracking.delete({
     where: {
-      id,
+      id: plantTrackingId,
     },
   });
   return null;

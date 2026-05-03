@@ -14,7 +14,7 @@ const validateRequest = (schema: ZodObject<any>) => {
             });
             next();
         } catch (error: any) {
-            next(new ApiError(error.errors?.[0]?.message || 'Validation Error', httpStatus.BAD_REQUEST));
+            next(new ApiError(httpStatus.BAD_REQUEST, error.errors?.[0]?.message || 'Validation Error'));
         }
     };
 };

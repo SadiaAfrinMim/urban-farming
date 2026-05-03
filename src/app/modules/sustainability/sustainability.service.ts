@@ -26,8 +26,9 @@ const getAllCerts = async () => {
 
 const getCertById = async (id: string, user: IJWTPayload) => {
   try {
+    const certId = Number(id);
     const cert = await prisma.sustainabilityCert.findUnique({
-      where: { id },
+      where: { id: certId },
       include: {
         vendor: true,
       },
@@ -36,12 +37,8 @@ const getCertById = async (id: string, user: IJWTPayload) => {
       throw new ApiError(httpStatus.NOT_FOUND, 'Certificate not found');
     }
     if (user.role === 'Vendor') {
-      const userIdNumber = parseInt(user.id, 10);
-      if (isNaN(userIdNumber)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
-      }
       const vendorProfile = await prisma.vendorProfile.findUnique({
-        where: { userId: userIdNumber },
+        where: { userId: user.id },
       });
       if (!vendorProfile || cert.vendorId !== vendorProfile.id) {
         throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
@@ -110,9 +107,10 @@ const createCert = async (userId: string, payload: any, userRole?: string) => {
 
 const updateCertStatus = async (id: string, certificationStatus: CertificationStatus) => {
   try {
+    const certId = Number(id);
     // Update vendor profile status too?
     const cert = await prisma.sustainabilityCert.findUnique({
-      where: { id },
+      where: { id: certId },
     });
     if (!cert) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Certificate not found');
@@ -122,7 +120,7 @@ const updateCertStatus = async (id: string, certificationStatus: CertificationSt
       data: { certificationStatus },
     });
     const updated = await prisma.sustainabilityCert.update({
-      where: { id },
+      where: { id: certId },
       data: { }, // No status on cert, perhaps add
     });
     return updated;

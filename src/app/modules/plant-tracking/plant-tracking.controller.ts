@@ -35,7 +35,7 @@ const getAllPlantTrackings = catchAsync(async (req: Request & { user?: IJWTPaylo
 
 const getPlantTrackingById = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.id as number;
-  const { id } = req.params;
+  const id = req.params.id as string;
   const result = await PlantTrackingService.getPlantTrackingById(id, userId);
 
   sendResponse(res, {
@@ -48,7 +48,7 @@ const getPlantTrackingById = catchAsync(async (req: Request & { user?: IJWTPaylo
 
 const updatePlantTracking = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.id as number;
-  const { id } = req.params;
+  const id = req.params.id as string;
   const result = await PlantTrackingService.updatePlantTracking(id, userId, req.body);
 
   sendResponse(res, {
@@ -61,7 +61,7 @@ const updatePlantTracking = catchAsync(async (req: Request & { user?: IJWTPayloa
 
 const updatePlantHealth = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.id as number;
-  const { id } = req.params;
+  const id = req.params.id as string;
   const { healthStatus, notes } = req.body;
   const result = await PlantTrackingService.updatePlantHealth(id, userId, healthStatus as PlantHealth, notes);
 
@@ -75,7 +75,7 @@ const updatePlantHealth = catchAsync(async (req: Request & { user?: IJWTPayload 
 
 const waterPlant = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.id as number;
-  const { id } = req.params;
+  const id = req.params.id as string;
   const result = await PlantTrackingService.waterPlant(id, userId);
 
   sendResponse(res, {
@@ -88,7 +88,7 @@ const waterPlant = catchAsync(async (req: Request & { user?: IJWTPayload }, res:
 
 const fertilizePlant = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.id as number;
-  const { id } = req.params;
+  const id = req.params.id as string;
   const result = await PlantTrackingService.fertilizePlant(id, userId);
 
   sendResponse(res, {
@@ -101,7 +101,7 @@ const fertilizePlant = catchAsync(async (req: Request & { user?: IJWTPayload }, 
 
 const deletePlantTracking = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const userId = req.user?.id as number;
-  const { id } = req.params;
+  const id = req.params.id as string;
   await PlantTrackingService.deletePlantTracking(id, userId);
 
   sendResponse(res, {

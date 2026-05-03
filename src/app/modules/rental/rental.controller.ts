@@ -27,7 +27,7 @@ const searchRentalSpaces = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getRentalSpaceById = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const result = await RentalService.getRentalSpaceById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -50,7 +50,7 @@ const createRentalSpace = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateRentalSpace = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const payload = req.body;
   const result = await RentalService.updateRentalSpace(id as string, payload);
   sendResponse(res, {
@@ -62,7 +62,7 @@ const updateRentalSpace = catchAsync(async (req: Request, res: Response) => {
 });
 
 const deleteRentalSpace = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   await RentalService.deleteRentalSpace(id as string);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -73,7 +73,7 @@ const deleteRentalSpace = catchAsync(async (req: Request, res: Response) => {
 });
 
 const toggleAvailability = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const { availability } = req.body;
   const result = await RentalService.toggleAvailability(id as string, availability);
   sendResponse(res, {
@@ -120,7 +120,7 @@ const getVendorRentalOrders = catchAsync(async (req: Request, res: Response) => 
 });
 
 const updateRentalOrderStatus = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const { status } = req.body;
   const user = (req as any).user;
 

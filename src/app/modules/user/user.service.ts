@@ -209,7 +209,7 @@ const getAllFromDB = async (params: any, options: IOptions) => {
 const getMyProfile = async (user: IJWTPayload) => {
     const userInfo = await prisma.user.findFirstOrThrow({
         where: {
-            id: parseInt(user.id),
+            id: user.id,
         },
         select: {
             id: true,

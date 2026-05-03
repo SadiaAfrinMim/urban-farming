@@ -8,7 +8,7 @@ import auth from '../../middlewares/auth.js';
 import { UserRole } from '../../types/common.js';
 
 const createPaymentIntent = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.id as string;
+  const userId = String(req.user?.id ?? '');
   const { orderId } = req.body;
 
   console.log('Payment intent request:', { orderId, userId, user: req.user });
@@ -41,7 +41,7 @@ const confirmPayment = catchAsync(async (req: Request, res: Response) => {
 });
 
 const createCheckoutSession = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.id as string;
+  const userId = String(req.user?.id ?? '');
   const { orderId } = req.body;
   const result = await PaymentService.createCheckoutSession(orderId, userId);
 

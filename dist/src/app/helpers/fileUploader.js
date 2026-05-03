@@ -70,7 +70,8 @@ const uploadToCloudinary = async (file) => {
     }
     catch (error) {
         console.error('Cloudinary upload error:', error);
-        throw new Error(`Failed to upload file to Cloudinary: ${error.message || error}`);
+        const message = error instanceof Error ? error.message : String(error);
+        throw new Error(`Failed to upload file to Cloudinary: ${message}`);
     }
 };
 // Delete from Cloudinary

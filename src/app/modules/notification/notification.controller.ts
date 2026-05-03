@@ -22,7 +22,7 @@ const markAsRead = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const { id } = req.params;
 
-  const result = await NotificationService.markAsRead(parseInt(id), user.id);
+  const result = await NotificationService.markAsRead(parseInt(id as string, 10), user.id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

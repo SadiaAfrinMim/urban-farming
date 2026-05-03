@@ -172,7 +172,7 @@ const getAllFromDB = async (params, options) => {
 const getMyProfile = async (user) => {
     const userInfo = await prisma.user.findFirstOrThrow({
         where: {
-            id: parseInt(user.id),
+            id: user.id,
         },
         select: {
             id: true,

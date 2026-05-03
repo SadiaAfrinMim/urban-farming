@@ -4,7 +4,7 @@ import { CustomerService } from './customer.service.js';
 import catchAsync from '../../shared/catchAsync.js';
 const getCustomerPosts = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await CustomerService.getCustomerPosts(user.id);
+    const result = await CustomerService.getCustomerPosts(String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -15,7 +15,7 @@ const getCustomerPosts = catchAsync(async (req, res) => {
 const createCustomerPost = catchAsync(async (req, res) => {
     const user = req.user;
     const payload = req.body;
-    const result = await CustomerService.createCustomerPost(user.id, payload);
+    const result = await CustomerService.createCustomerPost(String(user.id), payload);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -27,7 +27,7 @@ const updateCustomerPost = catchAsync(async (req, res) => {
     const user = req.user;
     const { id } = req.params;
     const payload = req.body;
-    const result = await CustomerService.updateCustomerPost(id, user.id, payload);
+    const result = await CustomerService.updateCustomerPost(id, String(user.id), payload);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -38,7 +38,7 @@ const updateCustomerPost = catchAsync(async (req, res) => {
 const deleteCustomerPost = catchAsync(async (req, res) => {
     const user = req.user;
     const { id } = req.params;
-    await CustomerService.deleteCustomerPost(id, user.id);
+    await CustomerService.deleteCustomerPost(id, String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -48,7 +48,7 @@ const deleteCustomerPost = catchAsync(async (req, res) => {
 });
 const getCustomerDashboard = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await CustomerService.getCustomerDashboard(user.id);
+    const result = await CustomerService.getCustomerDashboard(String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -58,7 +58,7 @@ const getCustomerDashboard = catchAsync(async (req, res) => {
 });
 const getCustomerOrders = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await CustomerService.getCustomerOrders(user.id);
+    const result = await CustomerService.getCustomerOrders(String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -69,7 +69,7 @@ const getCustomerOrders = catchAsync(async (req, res) => {
 const toggleCustomerPostLike = catchAsync(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
-    const result = await CustomerService.toggleCustomerPostLike(id, user.id);
+    const result = await CustomerService.toggleCustomerPostLike(id, String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -81,7 +81,7 @@ const addCustomerPostComment = catchAsync(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
     const { content } = req.body;
-    const result = await CustomerService.addCustomerPostComment(id, user.id, content);
+    const result = await CustomerService.addCustomerPostComment(id, String(user.id), content);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -102,7 +102,7 @@ const getCustomerPostComments = catchAsync(async (req, res) => {
 const deleteCustomerPostComment = catchAsync(async (req, res) => {
     const { commentId } = req.params;
     const user = req.user;
-    await CustomerService.deleteCustomerPostComment(commentId, user.id);
+    await CustomerService.deleteCustomerPostComment(commentId, String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -114,7 +114,7 @@ const updateRentalOrderStatus = catchAsync(async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
     const user = req.user;
-    const result = await CustomerService.updateRentalOrderStatus(id, user.id, status);
+    const result = await CustomerService.updateRentalOrderStatus(id, String(user.id), status);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

@@ -58,7 +58,7 @@ const deletePost = catchAsync(async (req, res) => {
 const toggleLike = catchAsync(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
-    const result = await CommunityService.toggleLike(id, user.id);
+    const result = await CommunityService.toggleLike(id, String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -70,7 +70,7 @@ const addComment = catchAsync(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
     const { content } = req.body;
-    const result = await CommunityService.addComment(id, user.id, content);
+    const result = await CommunityService.addComment(id, String(user.id), content);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -91,7 +91,7 @@ const getPostComments = catchAsync(async (req, res) => {
 const deleteComment = catchAsync(async (req, res) => {
     const { commentId } = req.params;
     const user = req.user;
-    await CommunityService.deleteComment(commentId, user.id);
+    await CommunityService.deleteComment(commentId, String(user.id));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

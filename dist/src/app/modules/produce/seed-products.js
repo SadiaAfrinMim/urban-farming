@@ -138,7 +138,11 @@ async function seedApprovedProducts() {
             });
             if (!existingProduct) {
                 await prisma.produce.create({
-                    data: product,
+                    data: {
+                        ...product,
+                        category: product.category,
+                        certificationStatus: product.certificationStatus,
+                    },
                 });
             }
             else {

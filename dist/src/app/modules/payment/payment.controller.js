@@ -3,7 +3,7 @@ import catchAsync from '../../shared/catchAsync.js';
 import sendResponse from '../../shared/sendResponse.js';
 import { PaymentService } from './payment.service.js';
 const createPaymentIntent = catchAsync(async (req, res) => {
-    const userId = req.user?.id;
+    const userId = String(req.user?.id ?? '');
     const { orderId } = req.body;
     console.log('Payment intent request:', { orderId, userId, user: req.user });
     if (!userId) {
@@ -29,7 +29,7 @@ const confirmPayment = catchAsync(async (req, res) => {
     });
 });
 const createCheckoutSession = catchAsync(async (req, res) => {
-    const userId = req.user?.id;
+    const userId = String(req.user?.id ?? '');
     const { orderId } = req.body;
     const result = await PaymentService.createCheckoutSession(orderId, userId);
     sendResponse(res, {

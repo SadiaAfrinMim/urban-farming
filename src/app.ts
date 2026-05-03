@@ -1,6 +1,7 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import config from './config/index.js';
 
 // @ts-ignore
@@ -10,44 +11,40 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import globalErrorHandler from './app/middlewares/globalErrorHandler.js';
 import notFound from './app/middlewares/notFound.js';
 import { openRouter } from './app/helpers/open-router.js';
-
 import router from './app/routes/index.js';
-import cookieParser from 'cookie-parser'
 
-// Test OpenRouter configuration on startup
 try {
-  console.log('🚀 App startup - OpenRouter status check');
+  console.log('App startup - OpenRouter status check');
   if (openRouter) {
-    console.log('✅ OpenRouter client initialized successfully');
+    console.log('OpenRouter client initialized successfully');
   } else {
-    console.log('⚠️ OpenRouter client is null - chatbot will use fallback responses');
+    console.log('OpenRouter client is null - chatbot will use fallback responses');
   }
 } catch (error) {
-  console.log('❌ Error checking OpenRouter configuration:', error?.message);
+  const message = error instanceof Error ? error.message : 'Unknown error';
+  console.log('OpenRouter configuration check failed:', message);
 }
 
 const app: Application = express();
 
-
-app.use(cors({
+app.use(
+  cors({
     origin: [
-        'http://localhost:3000',
-        'http://localhost:3001',
-        'https://urban-farming.vercel.app',
-        'https://urban-farming-sable.vercel.app',
-        // Add any additional frontend deployment URLs here
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://urban-farming.vercel.app',
+      'https://urban-farming-sable.vercel.app',
+      'https://urban-farming-rt02.onrender.com',
     ],
-     credentials: true,
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+  })
+);
 
-//parser
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-
-// API logging
 app.use(morgan('combined'));
 
 const swaggerOptions = {
@@ -61,11 +58,11 @@ const swaggerOptions = {
     servers: [
       {
         url: 'https://urban-farming-backend-pink.vercel.app/api/v1',
-        description: 'Local development server'
+        description: 'Local development server',
       },
       {
         url: 'https://urban-farming-backend-lntnpv71y-sadia660s-projects.vercel.app/api/v1',
-        description: 'Production server'
+        description: 'Production server',
       },
     ],
     components: {
@@ -78,26 +75,24 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ['./src/app/modules/**/*.routes.ts'], // Path to the API docs
+  apis: ['./src/app/modules/**/*.routes.ts'],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/v1', router);
 
-app.use("/api/v1", router);
-
-app.get('/', (req: Request, res: Response) => {
-    res.send({
-        message: "Server is running..",
-        environment: config.node_env,
-        uptime: process.uptime().toFixed(2) + " sec",
-        timeStamp: new Date().toISOString()
-    })
+app.get('/', (_req: Request, res: Response) => {
+  res.send({
+    message: 'Server is running..',
+    environment: config.node_env,
+    uptime: `${process.uptime().toFixed(2)} sec`,
+    timeStamp: new Date().toISOString(),
+  });
 });
 
 app.use(globalErrorHandler);
-
 app.use(notFound);
 
 export default app;

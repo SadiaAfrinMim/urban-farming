@@ -1,4 +1,5 @@
 import { prisma } from '../../shared/prisma.js';
+import { OrderStatus } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 const getAllRentalSpaces = async () => {
@@ -187,7 +188,7 @@ const bookRentalSpace = async (spaceId, customerId) => {
     // Create notification for the vendor (async, non-blocking)
     process.nextTick(async () => {
         try {
-            const NotificationService = (await import('../notification/notification.service')).NotificationService;
+            const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
             await NotificationService.createNotification(updated.vendor.userId, 'RENTAL_SPACE_BOOKED', 'Rental Space Booked', `Your rental space "${updated.location}" has been booked.`, {
                 rentalSpaceId: updated.id,
                 customerId: customerId,
@@ -225,10 +226,12 @@ const createRentalOrder = async (customerId, spaceId, totalPrice, duration) => {
     // Create the rental order
     const order = await prisma.order.create({
         data: {
-            userId: customerId,
+            userId: customerIdNumber,
+            vendorId: rentalSpace.vendorId,
             rentalSpaceId: spaceId,
+            quantity: duration ?? 1,
             totalPrice: totalPrice,
-            status: 'Pending',
+            status: OrderStatus.Pending,
         },
         include: {
             user: true,
@@ -251,10 +254,16 @@ const getVendorRentalOrders = async (vendorId) => {
     if (isNaN(vendorIdNumber)) {
         throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
     }
+    const vendorProfile = await prisma.vendorProfile.findUnique({
+        where: { userId: vendorIdNumber },
+    });
+    if (!vendorProfile) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');
+    }
     const orders = await prisma.order.findMany({
         where: {
             rentalSpace: {
-                vendorId: vendorIdNumber,
+                vendorId: vendorProfile.id,
             },
         },
         include: {
@@ -271,7 +280,7 @@ const getVendorRentalOrders = async (vendorId) => {
             produce: true,
         },
         orderBy: {
-            createdAt: 'desc',
+            orderDate: 'desc',
         },
     });
     return orders;
@@ -297,7 +306,7 @@ const updateRentalOrderStatus = async (orderId, status, vendorId) => {
     // Update the order status
     const updatedOrder = await prisma.order.update({
         where: { id: orderId },
-        data: { status },
+        data: { status: status },
         include: {
             user: true,
             rentalSpace: {

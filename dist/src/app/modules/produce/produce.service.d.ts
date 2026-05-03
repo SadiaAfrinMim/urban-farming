@@ -101,6 +101,28 @@ export declare const ProduceService: {
         availableQuantity: number;
         unit?: string;
     }) => Promise<{
+        vendor: {
+            user: {
+                createdAt: Date;
+                id: number;
+                name: string;
+                email: string;
+                password: string;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
+                profileImage: string | null;
+            };
+        } & {
+            createdAt: Date;
+            id: number;
+            userId: number;
+            farmName: string;
+            farmLocation: string;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
+            profilePhoto: string | null;
+            certifications: string[];
+        };
+    } & {
         createdAt: Date;
         id: number;
         name: string;
@@ -122,6 +144,28 @@ export declare const ProduceService: {
         availableQuantity: number;
         unit?: string;
     }>) => Promise<{
+        vendor: {
+            user: {
+                createdAt: Date;
+                id: number;
+                name: string;
+                email: string;
+                password: string;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
+                profileImage: string | null;
+            };
+        } & {
+            createdAt: Date;
+            id: number;
+            userId: number;
+            farmName: string;
+            farmLocation: string;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
+            profilePhoto: string | null;
+            certifications: string[];
+        };
+    } & {
         createdAt: Date;
         id: number;
         name: string;

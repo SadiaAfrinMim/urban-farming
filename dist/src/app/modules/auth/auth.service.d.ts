@@ -14,10 +14,7 @@ export declare const AuthService: {
             id: number;
             name: string;
             email: string;
-            password: string;
             role: import("@prisma/client").$Enums.UserRole;
-            status: import("@prisma/client").$Enums.UserStatus;
-            profileImage: string | null;
         };
         accessToken: string;
         refreshToken: string;

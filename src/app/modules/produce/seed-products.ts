@@ -1,5 +1,6 @@
 // Seed approved products for marketplace testing
 import { prisma } from '../../shared/prisma.js';
+import { CertificationStatus, ProduceCategory } from '@prisma/client';
 
 async function seedApprovedProducts() {
   try {
@@ -147,7 +148,11 @@ async function seedApprovedProducts() {
 
     if (!existingProduct) {
       await prisma.produce.create({
-        data: product,
+        data: {
+          ...product,
+          category: product.category as ProduceCategory,
+          certificationStatus: product.certificationStatus as CertificationStatus,
+        },
       });
     } else {
       console.log(`Product "${product.name}" already exists, skipping...`);

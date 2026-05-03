@@ -1,4 +1,5 @@
 import { prisma } from '../../shared/prisma.js';
+import { CertificationStatus } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 const getAllProduces = async (page, limit) => {
@@ -122,7 +123,13 @@ const createProduce = async (vendorId, payload) => {
     const produce = await prisma.produce.create({
         data: {
             vendorId: vendorProfile.id,
-            ...payload,
+            name: payload.name,
+            description: payload.description ?? '',
+            price: payload.price,
+            category: payload.category,
+            availableQuantity: payload.availableQuantity,
+            unit: payload.unit,
+            certificationStatus: CertificationStatus.Pending,
         },
         include: {
             vendor: {
@@ -148,7 +155,14 @@ const updateProduce = async (id, payload) => {
     }
     const updated = await prisma.produce.update({
         where: { id: parseInt(id) },
-        data: payload,
+        data: {
+            ...(payload.name !== undefined ? { name: payload.name } : {}),
+            ...(payload.description !== undefined ? { description: payload.description } : {}),
+            ...(payload.price !== undefined ? { price: payload.price } : {}),
+            ...(payload.category !== undefined ? { category: payload.category } : {}),
+            ...(payload.availableQuantity !== undefined ? { availableQuantity: payload.availableQuantity } : {}),
+            ...(payload.unit !== undefined ? { unit: payload.unit } : {}),
+        },
         include: {
             vendor: {
                 include: {

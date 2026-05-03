@@ -44,6 +44,11 @@ export declare const PlantTrackingService: {
         })[];
     }>;
     getPlantTrackingById: (id: string, userId: number) => Promise<{
+        user: {
+            id: number;
+            name: string;
+        };
+    } & {
         createdAt: Date;
         updatedAt: Date;
         id: number;
@@ -56,6 +61,11 @@ export declare const PlantTrackingService: {
         notes: string | null;
     }>;
     updatePlantTracking: (id: string, userId: number, payload: any) => Promise<{
+        user: {
+            id: number;
+            name: string;
+        };
+    } & {
         createdAt: Date;
         updatedAt: Date;
         id: number;
@@ -68,6 +78,11 @@ export declare const PlantTrackingService: {
         notes: string | null;
     }>;
     updatePlantHealth: (id: string, userId: number, healthStatus: PlantHealth, notes?: string) => Promise<{
+        user: {
+            id: number;
+            name: string;
+        };
+    } & {
         createdAt: Date;
         updatedAt: Date;
         id: number;

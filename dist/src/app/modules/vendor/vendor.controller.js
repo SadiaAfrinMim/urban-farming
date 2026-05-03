@@ -54,7 +54,7 @@ const getRentalSpaces = catchAsync(async (req, res) => {
 });
 const updateRentalSpace = catchAsync(async (req, res) => {
     const user = req.user;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await VendorService.updateRentalSpace(user, id, req);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -65,7 +65,7 @@ const updateRentalSpace = catchAsync(async (req, res) => {
 });
 const deleteRentalSpace = catchAsync(async (req, res) => {
     const user = req.user;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await VendorService.deleteRentalSpace(user, id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -96,7 +96,7 @@ const getProduces = catchAsync(async (req, res) => {
 });
 const updateProduce = catchAsync(async (req, res) => {
     const user = req.user;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await VendorService.updateProduce(user, id, req);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -107,7 +107,7 @@ const updateProduce = catchAsync(async (req, res) => {
 });
 const deleteProduce = catchAsync(async (req, res) => {
     const user = req.user;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await VendorService.deleteProduce(user, id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -128,7 +128,7 @@ const updatePlantStatus = catchAsync(async (req, res) => {
 });
 const updateOrderStatus = catchAsync(async (req, res) => {
     const user = req.user;
-    const { id } = req.params;
+    const id = req.params.id;
     const { status } = req.body;
     const result = await VendorService.updateOrderStatus(user, id, status);
     sendResponse(res, {
@@ -170,7 +170,7 @@ const getVendorPosts = catchAsync(async (req, res) => {
 });
 const updateVendorPost = catchAsync(async (req, res) => {
     const user = req.user;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await VendorService.updateVendorPost(user, id, req);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -181,7 +181,7 @@ const updateVendorPost = catchAsync(async (req, res) => {
 });
 const deleteVendorPost = catchAsync(async (req, res) => {
     const user = req.user;
-    const { id } = req.params;
+    const id = req.params.id;
     const result = await VendorService.deleteVendorPost(user, id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -192,7 +192,7 @@ const deleteVendorPost = catchAsync(async (req, res) => {
 });
 const toggleVendorPostLike = catchAsync(async (req, res) => {
     const user = req.user;
-    const { postId } = req.params;
+    const postId = req.params.postId;
     const result = await VendorService.toggleVendorPostLike(user, postId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -203,7 +203,7 @@ const toggleVendorPostLike = catchAsync(async (req, res) => {
 });
 const addVendorPostComment = catchAsync(async (req, res) => {
     const user = req.user;
-    const { postId } = req.params;
+    const postId = req.params.postId;
     const { content } = req.body;
     const result = await VendorService.addVendorPostComment(user, postId, content);
     sendResponse(res, {

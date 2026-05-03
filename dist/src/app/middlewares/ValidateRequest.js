@@ -12,7 +12,7 @@ const validateRequest = (schema) => {
             next();
         }
         catch (error) {
-            next(new ApiError(error.errors?.[0]?.message || 'Validation Error', httpStatus.BAD_REQUEST));
+            next(new ApiError(httpStatus.BAD_REQUEST, error.errors?.[0]?.message || 'Validation Error'));
         }
     };
 };

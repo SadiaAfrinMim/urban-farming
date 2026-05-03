@@ -6,6 +6,7 @@ import httpStatus from 'http-status';
 import { OrderStatus } from '../../types/common.js';
 
 const createPaymentIntent = async (orderId: string, userId: string) => {
+  const userIdNumber = parseInt(userId, 10);
   const order = await prisma.order.findUnique({
     where: { id: parseInt(orderId) },
     include: {
@@ -18,7 +19,7 @@ const createPaymentIntent = async (orderId: string, userId: string) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
   }
 
-  if (order.userId !== userId) {
+  if (order.userId !== userIdNumber) {
     throw new ApiError(httpStatus.FORBIDDEN, 'You are not authorized to pay for this order');
   }
 
@@ -40,8 +41,8 @@ const createPaymentIntent = async (orderId: string, userId: string) => {
     metadata: {
       orderId: order.id,
       userId: userId,
-      produceId: order.produceId?.toString(),
-      rentalSpaceId: order.rentalSpaceId?.toString(),
+      produceId: order.produceId?.toString() ?? null,
+      rentalSpaceId: order.rentalSpaceId?.toString() ?? null,
       originalAmount: amount.toString(),
       originalCurrency: 'bdt',
     },
@@ -109,6 +110,7 @@ const confirmPayment = async (paymentIntentId: string) => {
 };
 
 const createCheckoutSession = async (orderId: string, userId: string) => {
+  const userIdNumber = parseInt(userId, 10);
   const order = await prisma.order.findUnique({
     where: { id: parseInt(orderId) },
     include: {
@@ -121,7 +123,7 @@ const createCheckoutSession = async (orderId: string, userId: string) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
   }
 
-  if (order.userId !== userId) {
+  if (order.userId !== userIdNumber) {
     throw new ApiError(httpStatus.FORBIDDEN, 'You are not authorized to pay for this order');
   }
 
@@ -137,7 +139,7 @@ const createCheckoutSession = async (orderId: string, userId: string) => {
   const productDescription = order.produce ? (order.produce.description || 'Organic produce purchase') : 'Monthly rental space booking';
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
+    payment_method_types: ['card'] as any,
     line_items: [
       {
         price_data: {
@@ -162,7 +164,7 @@ const createCheckoutSession = async (orderId: string, userId: string) => {
       originalAmount: amount.toString(),
       originalCurrency: 'bdt',
     },
-  });
+  } as any);
 
   return {
     sessionId: session.id,
@@ -200,7 +202,7 @@ const handleWebhook = async (signature: string, payload: Buffer) => {
 
       // If this is a rental order, mark the space as booked
       if (rentalSpaceId && updatedOrder.rentalSpace) {
-        const { RentalService } = await import('../rental/rental.service');
+        const { RentalService } = await import('../rental/rental.service.js');
         await RentalService.bookRentalSpace(rentalSpaceId, updatedOrder.userId.toString());
 
         // Emit real-time update for rental booking completion

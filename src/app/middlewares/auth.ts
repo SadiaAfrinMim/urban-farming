@@ -103,10 +103,10 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { Secret } from "jsonwebtoken";
-import config from "../../config";
-import ApiError from "../errors/ApiError";
-import { jwtHelper } from "../helpers/jwtHelper";
-import { IJWTPayload } from "../types/common";
+import config from "../../config/index.js";
+import ApiError from "../errors/ApiError.js";
+import { jwtHelper } from "../helpers/jwtHelper.js";
+import { IJWTPayload } from "../types/common.js";
 
 
 const auth = (...roles: string[]) => {

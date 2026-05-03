@@ -2,8 +2,8 @@ import { CertificationStatus } from '../../types/common';
 import { prisma } from '../../shared/prisma';
 
 import httpStatus from 'http-status';
-import { IJWTPayload } from '../../types/common';
-import ApiError from '../../errors/ApiError';
+import { IJWTPayload } from '../../types/common.js';
+import ApiError from '../../errors/ApiError.js';
 
 const getAllCerts = async () => {
   try {

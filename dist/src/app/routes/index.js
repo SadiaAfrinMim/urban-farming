@@ -13,7 +13,6 @@ import { customerRoutes } from '../modules/customer/customer.routes.js';
 import { homeRoutes } from '../modules/home/home.routes.js';
 import { notificationRoutes } from '../modules/notification/notification.routes.js';
 import { chatRoutes } from '../modules/chat/chat.routes.js';
-import { conversationRoutes } from '../modules/conversation/conversation.routes.js';
 import { plantTrackingRoutes } from '../modules/plant-tracking/plant-tracking.routes.js';
 const router = express.Router();
 const moduleRoutes = [
@@ -80,10 +79,6 @@ const moduleRoutes = [
     {
         path: '/chat',
         route: chatRoutes
-    },
-    {
-        path: '/conversations',
-        route: conversationRoutes
     },
     {
         path: '/plant-tracking',

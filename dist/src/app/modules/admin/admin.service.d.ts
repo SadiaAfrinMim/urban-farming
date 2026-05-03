@@ -19,7 +19,18 @@ export declare const AdminService: {
         };
     }>;
     getAllUsersData: (filters: any, options: any) => Promise<{
-        data: {
+        data: ({
+            vendorProfile: {
+                createdAt: Date;
+                id: number;
+                userId: number;
+                farmName: string;
+                farmLocation: string;
+                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+                profilePhoto: string | null;
+                certifications: string[];
+            } | null;
+        } & {
             createdAt: Date;
             id: number;
             name: string;
@@ -28,7 +39,7 @@ export declare const AdminService: {
             role: import(".prisma/client").$Enums.UserRole;
             status: import(".prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-        }[];
+        })[];
         meta: {
             page: number;
             limit: number;
@@ -57,7 +68,27 @@ export declare const AdminService: {
         } | undefined;
     }[]>;
     getAllVendorsData: (filters: any, options: any) => Promise<{
-        data: {
+        data: ({
+            user: {
+                createdAt: Date;
+                id: number;
+                name: string;
+                email: string;
+                status: import(".prisma/client").$Enums.UserStatus;
+            };
+            produces: {
+                id: number;
+                name: string;
+                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+                price: number;
+            }[];
+            rentalSpaces: {
+                id: number;
+                location: string;
+                price: number;
+                availability: boolean;
+            }[];
+        } & {
             createdAt: Date;
             id: number;
             userId: number;
@@ -66,7 +97,7 @@ export declare const AdminService: {
             certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
-        }[];
+        })[];
         meta: {
             page: any;
             limit: any;
@@ -77,7 +108,10 @@ export declare const AdminService: {
     getAllCustomersData: (filters: any, options: any) => Promise<{
         data: {
             postsCount: number;
-            ordersCount: any;
+            ordersCount: number;
+            _count: {
+                orders: number;
+            };
             createdAt: Date;
             id: number;
             name: string;

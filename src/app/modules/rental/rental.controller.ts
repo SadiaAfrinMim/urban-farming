@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import catchAsync from '../../../app/shared/catchAsync';
-import sendResponse from '../../../app/shared/sendResponse';
+import ApiError from '../../../app/errors/ApiError.js';
+import catchAsync from '../../../app/shared/catchAsync.js';
+import sendResponse from '../../../app/shared/sendResponse.js';
 import { RentalService } from './rental.service.js';
 
 const getAllRentalSpaces = catchAsync(async (req: Request, res: Response) => {
@@ -27,7 +28,7 @@ const searchRentalSpaces = catchAsync(async (req: Request, res: Response) => {
 
 const getRentalSpaceById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await RentalService.getRentalSpaceById(id as string);
+  const result = await RentalService.getRentalSpaceById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

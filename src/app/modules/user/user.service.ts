@@ -1,13 +1,15 @@
 import { Request } from "express";
-import { prisma } from "../../shared/prisma";
+import httpStatus from "http-status";
+import ApiError from "../../errors/ApiError.js";
+import { prisma } from "../../shared/prisma.js";
 import bcrypt from "bcryptjs";
 
 import { UserRole, UserStatus } from "../../types/common";
 
 import { IJWTPayload } from "../../types/common";
-import { fileUploader } from "../../helpers/fileUploader";
-import { userSearchAbleFields } from "./user.constant";
-import { IOptions, paginationHelper } from "../../helpers/paginationHelper";
+import { fileUploader } from "../../helpers/fileUploader.js";
+import { userSearchAbleFields } from "./user.constant.js";
+import { IOptions, paginationHelper } from "../../helpers/paginationHelper.js";
 
 const createCustomer = async (req: Request) => {
 
@@ -18,7 +20,8 @@ const createCustomer = async (req: Request) => {
             name: req.body.name,
             email: req.body.email,
             password: hashPassword,
-            role: UserRole.Customer
+            role: UserRole.Customer,
+            status: UserStatus.Active
         },
         select: {
             id: true,
@@ -40,7 +43,8 @@ const createAdmin = async (req: Request) => {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
-        role: UserRole.Admin
+        role: UserRole.Admin,
+        status: UserStatus.Active
     }
 
     const result = await prisma.user.create({
@@ -76,7 +80,8 @@ const createVendor = async (req: Request) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            role: UserRole.Vendor
+            role: UserRole.Vendor,
+            status: UserStatus.Pending
         };
 
         // 2. Keep transaction ONLY for DB ops
@@ -113,7 +118,8 @@ const createVendorPublic = async (req: Request) => {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
-        role: UserRole.Vendor
+        role: UserRole.Vendor,
+        status: UserStatus.Pending
     };
 
     const result = await prisma.$transaction(async (tx) => {

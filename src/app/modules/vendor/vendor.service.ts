@@ -6,6 +6,7 @@ import { NotificationType } from '@prisma/client';
 import httpStatus from 'http-status';
 import { IJWTPayload } from '../../types/common.js';
 import ApiError from '../../errors/ApiError.js';
+import { fileUploader } from '../../helpers/fileUploader.js';
 
 const createOrUpdateProfile = async (user: IJWTPayload, req: Request) => {
     console.log('=== PROFILE SERVICE START ===');

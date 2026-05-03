@@ -1,27 +1,21 @@
 import { Request } from "express";
 import { UserStatus } from "../../types/common";
 import { IJWTPayload } from "../../types/common";
-import { IOptions } from "../../helpers/paginationHelper";
+import { IOptions } from "../../helpers/paginationHelper.js";
 export declare const UserService: {
     createCustomer: (req: Request) => Promise<{
         createdAt: Date;
         id: number;
         name: string;
         email: string;
-        password: string;
         role: import(".prisma/client").$Enums.UserRole;
-        status: import(".prisma/client").$Enums.UserStatus;
-        profileImage: string | null;
     }>;
     createAdmin: (req: Request) => Promise<{
         createdAt: Date;
         id: number;
         name: string;
         email: string;
-        password: string;
         role: import(".prisma/client").$Enums.UserRole;
-        status: import(".prisma/client").$Enums.UserStatus;
-        profileImage: string | null;
     }>;
     createVendor: (req: Request) => Promise<{
         user: {

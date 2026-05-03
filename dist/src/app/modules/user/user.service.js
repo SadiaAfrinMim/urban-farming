@@ -1,9 +1,11 @@
-import { prisma } from "../../shared/prisma";
+import httpStatus from "http-status";
+import ApiError from "../../errors/ApiError.js";
+import { prisma } from "../../shared/prisma.js";
 import bcrypt from "bcryptjs";
 import { UserRole, UserStatus } from "../../types/common";
-import { fileUploader } from "../../helpers/fileUploader";
-import { userSearchAbleFields } from "./user.constant";
-import { paginationHelper } from "../../helpers/paginationHelper";
+import { fileUploader } from "../../helpers/fileUploader.js";
+import { userSearchAbleFields } from "./user.constant.js";
+import { paginationHelper } from "../../helpers/paginationHelper.js";
 const createCustomer = async (req) => {
     const hashPassword = await bcrypt.hash(req.body.password, 10);
     const result = await prisma.user.create({
@@ -11,7 +13,8 @@ const createCustomer = async (req) => {
             name: req.body.name,
             email: req.body.email,
             password: hashPassword,
-            role: UserRole.Customer
+            role: UserRole.Customer,
+            status: UserStatus.Active
         },
         select: {
             id: true,
@@ -29,7 +32,8 @@ const createAdmin = async (req) => {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
-        role: UserRole.Admin
+        role: UserRole.Admin,
+        status: UserStatus.Active
     };
     const result = await prisma.user.create({
         data: userData,
@@ -58,7 +62,8 @@ const createVendor = async (req) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            role: UserRole.Vendor
+            role: UserRole.Vendor,
+            status: UserStatus.Pending
         };
         // 2. Keep transaction ONLY for DB ops
         const result = await prisma.$transaction(async (tx) => {
@@ -90,7 +95,8 @@ const createVendorPublic = async (req) => {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
-        role: UserRole.Vendor
+        role: UserRole.Vendor,
+        status: UserStatus.Pending
     };
     const result = await prisma.$transaction(async (tx) => {
         const createdUser = await tx.user.create({

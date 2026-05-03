@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import config from './config/index.ts';
+import config from './config/index.js';
 // @ts-ignore
 import swaggerUi from 'swagger-ui-express';
 // @ts-ignore
 import swaggerJsdoc from 'swagger-jsdoc';
-import globalErrorHandler from './app/middlewares/globalErrorHandler.ts';
-import notFound from './app/middlewares/notFound.ts';
-import router from './app/routes/index.ts';
+import globalErrorHandler from './app/middlewares/globalErrorHandler.js';
+import notFound from './app/middlewares/notFound.js';
+import router from './app/routes/index.js';
 import cookieParser from 'cookie-parser';
 // Test OpenRouter configuration on startup
 try {

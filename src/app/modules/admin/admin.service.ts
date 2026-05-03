@@ -1,7 +1,7 @@
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 import { UserRole, UserStatus, CertificationStatus } from '../../types/common';
 import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError';
+import ApiError from '../../errors/ApiError.js';
 
 // User Management
 const getAllUsers = async (filters: any, options: any) => {
@@ -450,8 +450,8 @@ const getAllUsersData = async (filters: any, options: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { name: { contains: searchTerm, mode: 'insensitive' } },
-        { email: { contains: searchTerm, mode: 'insensitive' } },
+        { name: { contains: searchTerm, mode: 'insensitive' as any } },
+        { email: { contains: searchTerm, mode: 'insensitive' as any } },
       ],
     });
   }
@@ -585,10 +585,10 @@ const getAllVendorsData = async (filters: any, options: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { user: { name: { contains: searchTerm, mode: 'insensitive' } } },
-        { user: { email: { contains: searchTerm, mode: 'insensitive' } } },
-        { farmName: { contains: searchTerm, mode: 'insensitive' } },
-        { farmLocation: { contains: searchTerm, mode: 'insensitive' } },
+        { user: { name: { contains: searchTerm, mode: 'insensitive' as any } } },
+        { user: { email: { contains: searchTerm, mode: 'insensitive' as any } } },
+        { farmName: { contains: searchTerm, mode: 'insensitive' as any } },
+        { farmLocation: { contains: searchTerm, mode: 'insensitive' as any } },
       ],
     });
   }
@@ -671,8 +671,8 @@ const getAllCustomersData = async (filters: any, options: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { name: { contains: searchTerm, mode: 'insensitive' } },
-        { email: { contains: searchTerm, mode: 'insensitive' } },
+        { name: { contains: searchTerm, mode: 'insensitive' as any } },
+        { email: { contains: searchTerm, mode: 'insensitive' as any } },
       ],
     });
   }

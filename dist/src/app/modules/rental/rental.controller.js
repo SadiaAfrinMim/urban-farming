@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../../app/shared/catchAsync';
-import sendResponse from '../../../app/shared/sendResponse';
+import ApiError from '../../../app/errors/ApiError.js';
+import catchAsync from '../../../app/shared/catchAsync.js';
+import sendResponse from '../../../app/shared/sendResponse.js';
 import { RentalService } from './rental.service.js';
 const getAllRentalSpaces = catchAsync(async (req, res) => {
     const result = await RentalService.getAllRentalSpaces();

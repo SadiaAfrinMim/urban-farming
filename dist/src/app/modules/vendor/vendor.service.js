@@ -1,5 +1,6 @@
 import { prisma } from '../../shared/prisma.js';
 import ApiError from '../../errors/ApiError.js';
+import { fileUploader } from '../../helpers/fileUploader.js';
 const createOrUpdateProfile = async (user, req) => {
     console.log('=== PROFILE SERVICE START ===');
     console.log('Raw body:', req.body);

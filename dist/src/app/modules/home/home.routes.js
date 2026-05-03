@@ -1,5 +1,5 @@
 import express from 'express';
-import { HomeController } from './home.controller';
+import { HomeController } from './home.controller.js';
 const router = express.Router();
 /**
  * @swagger

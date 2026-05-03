@@ -1,8 +1,8 @@
-import { stripe } from '../../helpers/stripe';
-import { prisma } from '../../shared/prisma';
-import ApiError from '../../errors/ApiError';
+import { stripe } from '../../helpers/stripe.js';
+import { prisma } from '../../shared/prisma.js';
+import ApiError from '../../errors/ApiError.js';
 import httpStatus from 'http-status';
-import { OrderStatus } from '../../types/common';
+import { OrderStatus } from '../../types/common.js';
 const createPaymentIntent = async (orderId, userId) => {
     const order = await prisma.order.findUnique({
         where: { id: parseInt(orderId) },

@@ -1,7 +1,7 @@
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 import { UserRole } from '@prisma/client';
 import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError';
+import ApiError from '../../errors/ApiError.js';
 const getAllPosts = async () => {
     const posts = await prisma.communityPost.findMany({
         include: {

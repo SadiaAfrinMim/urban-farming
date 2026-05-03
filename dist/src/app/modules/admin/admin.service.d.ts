@@ -1,4 +1,4 @@
-import { UserRole, UserStatus } from '../../types/common';
+import { UserRole, UserStatus } from '../../types/common.js';
 export declare const AdminService: {
     getAllUsers: (filters: any, options: any) => Promise<{
         data: {
@@ -7,8 +7,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         }[];
         meta: {
@@ -26,7 +26,7 @@ export declare const AdminService: {
                 userId: number;
                 farmName: string;
                 farmLocation: string;
-                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+                certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
                 profilePhoto: string | null;
                 certifications: string[];
             } | null;
@@ -36,8 +36,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         })[];
         meta: {
@@ -51,8 +51,8 @@ export declare const AdminService: {
         id: string;
         name: string;
         email: string;
-        role: import(".prisma/client").$Enums.UserRole;
-        status: import(".prisma/client").$Enums.UserStatus;
+        role: import("@prisma/client").$Enums.UserRole;
+        status: import("@prisma/client").$Enums.UserStatus;
         createdAt: string;
         vendorProfile: {
             farmName: any;
@@ -74,12 +74,12 @@ export declare const AdminService: {
                 id: number;
                 name: string;
                 email: string;
-                status: import(".prisma/client").$Enums.UserStatus;
+                status: import("@prisma/client").$Enums.UserStatus;
             };
             produces: {
                 id: number;
                 name: string;
-                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+                certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
                 price: number;
             }[];
             rentalSpaces: {
@@ -94,7 +94,7 @@ export declare const AdminService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         })[];
@@ -117,8 +117,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         }[];
         meta: {
@@ -135,7 +135,7 @@ export declare const AdminService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         } | null;
@@ -145,8 +145,8 @@ export declare const AdminService: {
         name: string;
         email: string;
         password: string;
-        role: import(".prisma/client").$Enums.UserRole;
-        status: import(".prisma/client").$Enums.UserStatus;
+        role: import("@prisma/client").$Enums.UserRole;
+        status: import("@prisma/client").$Enums.UserStatus;
         profileImage: string | null;
     }>;
     updateUserStatus: (userId: string, status: UserStatus) => Promise<{
@@ -156,7 +156,7 @@ export declare const AdminService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         } | null;
@@ -166,8 +166,8 @@ export declare const AdminService: {
         name: string;
         email: string;
         password: string;
-        role: import(".prisma/client").$Enums.UserRole;
-        status: import(".prisma/client").$Enums.UserStatus;
+        role: import("@prisma/client").$Enums.UserRole;
+        status: import("@prisma/client").$Enums.UserStatus;
         profileImage: string | null;
     }>;
     getPendingCertifications: () => Promise<({
@@ -177,8 +177,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
     } & {
@@ -187,7 +187,7 @@ export declare const AdminService: {
         userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
     })[]>;
@@ -198,8 +198,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
     } & {
@@ -208,7 +208,7 @@ export declare const AdminService: {
         userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
     }>;
@@ -219,8 +219,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
     } & {
@@ -229,7 +229,7 @@ export declare const AdminService: {
         userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
     }>;
@@ -241,8 +241,8 @@ export declare const AdminService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -251,7 +251,7 @@ export declare const AdminService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -259,12 +259,12 @@ export declare const AdminService: {
         createdAt: Date;
         id: number;
         name: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import(".prisma/client").$Enums.ProduceCategory;
+        category: import("@prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -277,8 +277,8 @@ export declare const AdminService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -287,7 +287,7 @@ export declare const AdminService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -295,12 +295,12 @@ export declare const AdminService: {
         createdAt: Date;
         id: number;
         name: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import(".prisma/client").$Enums.ProduceCategory;
+        category: import("@prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -313,8 +313,8 @@ export declare const AdminService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -323,7 +323,7 @@ export declare const AdminService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -331,12 +331,12 @@ export declare const AdminService: {
         createdAt: Date;
         id: number;
         name: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import(".prisma/client").$Enums.ProduceCategory;
+        category: import("@prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -356,8 +356,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
         likes: {
@@ -382,8 +382,8 @@ export declare const AdminService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
     } & {
@@ -414,8 +414,8 @@ export declare const AdminService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
             vendor: {
@@ -425,8 +425,8 @@ export declare const AdminService: {
                     name: string;
                     email: string;
                     password: string;
-                    role: import(".prisma/client").$Enums.UserRole;
-                    status: import(".prisma/client").$Enums.UserStatus;
+                    role: import("@prisma/client").$Enums.UserRole;
+                    status: import("@prisma/client").$Enums.UserStatus;
                     profileImage: string | null;
                 };
             } & {
@@ -435,7 +435,7 @@ export declare const AdminService: {
                 userId: number;
                 farmName: string;
                 farmLocation: string;
-                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+                certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
                 profilePhoto: string | null;
                 certifications: string[];
             };
@@ -443,12 +443,12 @@ export declare const AdminService: {
                 createdAt: Date;
                 id: number;
                 name: string;
-                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+                certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
                 vendorId: number;
                 price: number;
                 image: string | null;
                 description: string;
-                category: import(".prisma/client").$Enums.ProduceCategory;
+                category: import("@prisma/client").$Enums.ProduceCategory;
                 availableQuantity: number;
                 unit: string | null;
                 isOrganic: boolean | null;
@@ -456,7 +456,7 @@ export declare const AdminService: {
         } & {
             id: number;
             userId: number;
-            status: import(".prisma/client").$Enums.OrderStatus;
+            status: import("@prisma/client").$Enums.OrderStatus;
             vendorId: number;
             quantity: number;
             totalPrice: number;

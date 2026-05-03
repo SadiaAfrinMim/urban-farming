@@ -26,5 +26,5 @@ export declare const communityRoutes: import("express-serve-static-core").Router
  *         - userId
  *         - postContent
  *         - postDate
- */ 
+ */
 //# sourceMappingURL=community.routes.d.ts.map

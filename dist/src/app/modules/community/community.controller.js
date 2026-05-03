@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import sendResponse from '../../shared/sendResponse';
-import { CommunityService } from './community.service';
-import catchAsync from '../../shared/catchAsync';
+import sendResponse from '../../shared/sendResponse.js';
+import { CommunityService } from './community.service.js';
+import catchAsync from '../../shared/catchAsync.js';
 const getAllPosts = catchAsync(async (req, res) => {
     const result = await CommunityService.getAllPosts();
     sendResponse(res, {

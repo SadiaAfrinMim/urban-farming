@@ -25,7 +25,7 @@ export declare const CustomerService: {
         updatedAt: Date;
         id: number;
         userId: number;
-        category: import(".prisma/client").$Enums.PostCategory;
+        category: import("@prisma/client").$Enums.PostCategory;
         isApproved: boolean;
         content: string;
     }[]>;
@@ -45,7 +45,7 @@ export declare const CustomerService: {
         updatedAt: Date;
         id: number;
         userId: number;
-        category: import(".prisma/client").$Enums.PostCategory;
+        category: import("@prisma/client").$Enums.PostCategory;
         isApproved: boolean;
         content: string;
     }>;
@@ -59,7 +59,7 @@ export declare const CustomerService: {
         updatedAt: Date;
         id: number;
         userId: number;
-        category: import(".prisma/client").$Enums.PostCategory;
+        category: import("@prisma/client").$Enums.PostCategory;
         isApproved: boolean;
         content: string;
     }>;
@@ -69,8 +69,8 @@ export declare const CustomerService: {
             id: number;
             name: string;
             email: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
         stats: {
@@ -81,7 +81,7 @@ export declare const CustomerService: {
             title: string;
             createdAt: Date;
             id: number;
-            category: import(".prisma/client").$Enums.PostCategory;
+            category: import("@prisma/client").$Enums.PostCategory;
             isApproved: boolean;
         }[];
     }>;
@@ -102,7 +102,7 @@ export declare const CustomerService: {
             price: number;
             availability: boolean;
             image: string | null;
-            plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+            plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
             lastWatered: Date | null;
         }) | null;
         produce: ({
@@ -116,12 +116,12 @@ export declare const CustomerService: {
             createdAt: Date;
             id: number;
             name: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             vendorId: number;
             price: number;
             image: string | null;
             description: string;
-            category: import(".prisma/client").$Enums.ProduceCategory;
+            category: import("@prisma/client").$Enums.ProduceCategory;
             availableQuantity: number;
             unit: string | null;
             isOrganic: boolean | null;
@@ -129,7 +129,7 @@ export declare const CustomerService: {
     } & {
         id: number;
         userId: number;
-        status: import(".prisma/client").$Enums.OrderStatus;
+        status: import("@prisma/client").$Enums.OrderStatus;
         vendorId: number;
         quantity: number;
         totalPrice: number;
@@ -170,7 +170,7 @@ export declare const CustomerService: {
     updateRentalOrderStatus: (orderId: string, userId: string, status: string) => Promise<{
         id: number;
         userId: number;
-        status: import(".prisma/client").$Enums.OrderStatus;
+        status: import("@prisma/client").$Enums.OrderStatus;
         vendorId: number;
         quantity: number;
         totalPrice: number;

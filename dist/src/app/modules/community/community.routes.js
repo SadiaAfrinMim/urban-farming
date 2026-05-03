@@ -1,6 +1,6 @@
 import express from 'express';
-import { CommunityController } from './community.controller';
-import auth from '../../middlewares/auth';
+import { CommunityController } from './community.controller.js';
+import auth from '../../middlewares/auth.js';
 import { UserRole } from '@prisma/client';
 /**
  * @swagger
@@ -300,5 +300,5 @@ export const communityRoutes = router;
  *         - userId
  *         - postContent
  *         - postDate
- */ 
+ */
 //# sourceMappingURL=community.routes.js.map

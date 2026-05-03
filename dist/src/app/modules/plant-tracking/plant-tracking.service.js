@@ -1,6 +1,6 @@
-import { prisma } from '../../shared/prisma';
-import { paginationHelper } from '../../helpers/paginationHelper';
-import ApiError from '../../errors/ApiError';
+import { prisma } from '../../shared/prisma.js';
+import { paginationHelper } from '../../helpers/paginationHelper.js';
+import ApiError from '../../errors/ApiError.js';
 import httpStatus from 'http-status';
 const createPlantTracking = async (userId, payload) => {
     const result = await prisma.plantTracking.create({

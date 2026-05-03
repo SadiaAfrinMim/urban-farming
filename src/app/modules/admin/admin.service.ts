@@ -1,5 +1,5 @@
 import { prisma } from '../../shared/prisma.js';
-import { UserRole, UserStatus, CertificationStatus } from '../../types/common';
+import { UserRole, UserStatus, CertificationStatus } from '../../types/common.js';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 

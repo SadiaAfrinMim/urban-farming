@@ -1,8 +1,8 @@
 import express from 'express';
-import { AdminController } from './admin.controller';
-import validateRequest from '../../middlewares/ValidateRequest';
-import auth from '../../middlewares/auth';
-import { AdminValidation } from './admin.validation';
+import { AdminController } from './admin.controller.js';
+import validateRequest from '../../middlewares/ValidateRequest.js';
+import auth from '../../middlewares/auth.js';
+import { AdminValidation } from './admin.validation.js';
 const router = express.Router();
 // All admin routes require Admin role authentication
 router.use(auth('Admin'));

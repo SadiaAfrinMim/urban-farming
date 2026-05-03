@@ -7,7 +7,7 @@ export declare const VendorService: {
         userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
     }>;
@@ -17,7 +17,7 @@ export declare const VendorService: {
         userId: number;
         farmName: string;
         farmLocation: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         profilePhoto: string | null;
         certifications: string[];
     } | null>;
@@ -29,7 +29,7 @@ export declare const VendorService: {
         farmLocation: string;
         profilePhoto: string | null;
         certifications: string[];
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         totalProduces: number;
         totalRentalSpaces: number;
         recentProduces: {
@@ -37,7 +37,7 @@ export declare const VendorService: {
             name: string;
             price: number;
             image: string | null;
-            category: import(".prisma/client").$Enums.ProduceCategory;
+            category: import("@prisma/client").$Enums.ProduceCategory;
         }[];
         recentRentalSpaces: {
             id: number;
@@ -57,7 +57,7 @@ export declare const VendorService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     getRentalSpaces: (user: IJWTPayload) => Promise<{
@@ -69,7 +69,7 @@ export declare const VendorService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }[]>;
     updateRentalSpace: (user: IJWTPayload, id: string, req: any) => Promise<{
@@ -81,7 +81,7 @@ export declare const VendorService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     deleteRentalSpace: (user: IJWTPayload, id: string) => Promise<{
@@ -93,7 +93,7 @@ export declare const VendorService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     createProduce: (user: IJWTPayload, req: Request) => Promise<{
@@ -104,8 +104,8 @@ export declare const VendorService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -114,7 +114,7 @@ export declare const VendorService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -122,12 +122,12 @@ export declare const VendorService: {
         createdAt: Date;
         id: number;
         name: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import(".prisma/client").$Enums.ProduceCategory;
+        category: import("@prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -136,12 +136,12 @@ export declare const VendorService: {
         createdAt: Date;
         id: number;
         name: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import(".prisma/client").$Enums.ProduceCategory;
+        category: import("@prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -150,12 +150,12 @@ export declare const VendorService: {
         createdAt: Date;
         id: number;
         name: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import(".prisma/client").$Enums.ProduceCategory;
+        category: import("@prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -164,12 +164,12 @@ export declare const VendorService: {
         createdAt: Date;
         id: number;
         name: string;
-        certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+        certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
         vendorId: number;
         price: number;
         image: string | null;
         description: string;
-        category: import(".prisma/client").$Enums.ProduceCategory;
+        category: import("@prisma/client").$Enums.ProduceCategory;
         availableQuantity: number;
         unit: string | null;
         isOrganic: boolean | null;
@@ -183,7 +183,7 @@ export declare const VendorService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     updateOrderStatus: (user: IJWTPayload, orderId: string, status: string) => Promise<{
@@ -193,20 +193,20 @@ export declare const VendorService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
         produce: {
             createdAt: Date;
             id: number;
             name: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             vendorId: number;
             price: number;
             image: string | null;
             description: string;
-            category: import(".prisma/client").$Enums.ProduceCategory;
+            category: import("@prisma/client").$Enums.ProduceCategory;
             availableQuantity: number;
             unit: string | null;
             isOrganic: boolean | null;
@@ -214,7 +214,7 @@ export declare const VendorService: {
     } & {
         id: number;
         userId: number;
-        status: import(".prisma/client").$Enums.OrderStatus;
+        status: import("@prisma/client").$Enums.OrderStatus;
         vendorId: number;
         quantity: number;
         totalPrice: number;
@@ -229,8 +229,8 @@ export declare const VendorService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
         vendor: {
@@ -240,8 +240,8 @@ export declare const VendorService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -250,7 +250,7 @@ export declare const VendorService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -258,12 +258,12 @@ export declare const VendorService: {
             createdAt: Date;
             id: number;
             name: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             vendorId: number;
             price: number;
             image: string | null;
             description: string;
-            category: import(".prisma/client").$Enums.ProduceCategory;
+            category: import("@prisma/client").$Enums.ProduceCategory;
             availableQuantity: number;
             unit: string | null;
             isOrganic: boolean | null;
@@ -271,7 +271,7 @@ export declare const VendorService: {
     } & {
         id: number;
         userId: number;
-        status: import(".prisma/client").$Enums.OrderStatus;
+        status: import("@prisma/client").$Enums.OrderStatus;
         vendorId: number;
         quantity: number;
         totalPrice: number;
@@ -291,7 +291,7 @@ export declare const VendorService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -302,7 +302,7 @@ export declare const VendorService: {
         id: number;
         vendorId: number;
         image: string | null;
-        category: import(".prisma/client").$Enums.VendorPostCategory;
+        category: import("@prisma/client").$Enums.VendorPostCategory;
         isApproved: boolean;
         content: string;
     }>;
@@ -328,7 +328,7 @@ export declare const VendorService: {
         id: number;
         vendorId: number;
         image: string | null;
-        category: import(".prisma/client").$Enums.VendorPostCategory;
+        category: import("@prisma/client").$Enums.VendorPostCategory;
         isApproved: boolean;
         content: string;
     }[]>;
@@ -344,7 +344,7 @@ export declare const VendorService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -355,7 +355,7 @@ export declare const VendorService: {
         id: number;
         vendorId: number;
         image: string | null;
-        category: import(".prisma/client").$Enums.VendorPostCategory;
+        category: import("@prisma/client").$Enums.VendorPostCategory;
         isApproved: boolean;
         content: string;
     }>;

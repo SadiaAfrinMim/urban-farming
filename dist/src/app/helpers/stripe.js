@@ -1,5 +1,5 @@
 // @ts-ignore
 import Stripe from "stripe";
-import config from "../../config";
+import config from "../../config/index.js";
 export const stripe = new Stripe(config.stripeSecretKey);
 //# sourceMappingURL=stripe.js.map

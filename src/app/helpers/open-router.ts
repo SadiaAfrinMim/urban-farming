@@ -1,6 +1,6 @@
 // @ts-ignore
 import OpenAI from 'openai';
-import config from '../../config';
+import config from '../../config/index.js';
 
 // Check if OpenRouter API key is available
 const openRouterApiKey = config.openRouterApiKey;

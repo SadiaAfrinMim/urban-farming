@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 
-import sendResponse from '../../shared/sendResponse';
-import { CommunityService } from './community.service';
-import catchAsync from '../../shared/catchAsync';
-import { AuthenticatedRequest } from '../../types/common';
+import sendResponse from '../../shared/sendResponse.js';
+import { CommunityService } from './community.service.js';
+import catchAsync from '../../shared/catchAsync.js';
+import { AuthenticatedRequest } from '../../types/common.js';
 
 
 const getAllPosts = catchAsync(async (req: Request, res: Response) => {

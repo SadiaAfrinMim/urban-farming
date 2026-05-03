@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import sendResponse from '../../shared/sendResponse';
-import { ChatService } from './chat.service';
+import sendResponse from '../../shared/sendResponse.js';
+import { ChatService } from './chat.service.js';
+import { hasOpenRouterKey, openRouter } from '../../helpers/open-router.js';
 
 
 // Send Message
@@ -70,7 +71,6 @@ const handleChatMessage = async (req: Request, res: Response) => {
 // Health check endpoint
 const healthCheck = async (req: Request, res: Response) => {
   try {
-    const { openRouter, hasOpenRouterKey } = require('../../helpers/open-router');
     const openRouterStatus = !!openRouter;
 
     // Test database connection - temporarily disable chat count check

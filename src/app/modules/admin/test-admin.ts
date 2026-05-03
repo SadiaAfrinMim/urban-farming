@@ -1,7 +1,7 @@
 // Test file to verify admin module APIs and connections
-import { AdminController } from './admin.controller';
-import { AdminService } from './admin.service';
-import { AdminRoutes } from './admin.routes';
+import { AdminController } from './admin.controller.js';
+import { AdminService } from './admin.service.js';
+import { AdminRoutes } from './admin.routes.js';
 
 console.log('=== Admin Module API Connection Test ===');
 console.log('✅ Admin module imports successful');

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import sendResponse from '../../shared/sendResponse';
-import catchAsync from '../../shared/catchAsync';
+import sendResponse from '../../shared/sendResponse.js';
+import catchAsync from '../../shared/catchAsync.js';
 import { AdminService } from './admin.service.js';
 import pick from '../../helpers/pick.js';
 import { AuthenticatedRequest } from '../../types/common.js';

@@ -2,7 +2,7 @@ import httpStatus from "http-status";
 import ApiError from "../../errors/ApiError.js";
 import { prisma } from "../../shared/prisma.js";
 import bcrypt from "bcryptjs";
-import { UserRole, UserStatus } from "../../types/common";
+import { UserRole, UserStatus } from "../../types/common.js";
 import { fileUploader } from "../../helpers/fileUploader.js";
 import { userSearchAbleFields } from "./user.constant.js";
 import { paginationHelper } from "../../helpers/paginationHelper.js";

@@ -4,7 +4,7 @@ import app from './app.js';
 import config from './config/index.js';
 import { OrderService } from './app/modules/order/order.service.js';
 import { NotificationService } from './app/modules/notification/notification.service.js';
-import { prisma } from './app/shared/prisma';
+import { prisma } from './app/shared/prisma.js';
 import { NotificationType } from '@prisma/client';
 async function bootstrap() {
     // This variable will hold our server instance

@@ -1,7 +1,7 @@
 import express from 'express';
-import { PlantTrackingController } from './plant-tracking.controller';
-import auth from '../../middlewares/auth';
-import { UserRole } from '../../types/common';
+import { PlantTrackingController } from './plant-tracking.controller.js';
+import auth from '../../middlewares/auth.js';
+import { UserRole } from '../../types/common.js';
 /**
  * @swagger
  * tags:

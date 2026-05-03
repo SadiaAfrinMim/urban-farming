@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
-import sendResponse from '../../shared/sendResponse';
-import { HomeService } from './home.service';
+import sendResponse from '../../shared/sendResponse.js';
+import { HomeService } from './home.service.js';
 // Featured Products
 const getFeaturedProducts = async (req, res) => {
     const result = await HomeService.getFeaturedProducts();

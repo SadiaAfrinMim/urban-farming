@@ -17,7 +17,7 @@ export declare const PaymentService: {
             payments: {
                 id: number;
                 userId: number;
-                status: import(".prisma/client").$Enums.PaymentStatus;
+                status: import("@prisma/client").$Enums.PaymentStatus;
                 orderId: number;
                 originalAmount: number;
                 amount: number;
@@ -34,19 +34,19 @@ export declare const PaymentService: {
                 price: number;
                 availability: boolean;
                 image: string | null;
-                plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+                plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
                 lastWatered: Date | null;
             } | null;
             produce: {
                 createdAt: Date;
                 id: number;
                 name: string;
-                certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+                certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
                 vendorId: number;
                 price: number;
                 image: string | null;
                 description: string;
-                category: import(".prisma/client").$Enums.ProduceCategory;
+                category: import("@prisma/client").$Enums.ProduceCategory;
                 availableQuantity: number;
                 unit: string | null;
                 isOrganic: boolean | null;
@@ -54,7 +54,7 @@ export declare const PaymentService: {
         } & {
             id: number;
             userId: number;
-            status: import(".prisma/client").$Enums.OrderStatus;
+            status: import("@prisma/client").$Enums.OrderStatus;
             vendorId: number;
             quantity: number;
             totalPrice: number;
@@ -65,7 +65,7 @@ export declare const PaymentService: {
         payment: {
             id: number;
             userId: number;
-            status: import(".prisma/client").$Enums.PaymentStatus;
+            status: import("@prisma/client").$Enums.PaymentStatus;
             orderId: number;
             originalAmount: number;
             amount: number;

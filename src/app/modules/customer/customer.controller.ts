@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import sendResponse from '../../shared/sendResponse';
+import sendResponse from '../../shared/sendResponse.js';
 import { CustomerService } from './customer.service.js';
-import catchAsync from '../../shared/catchAsync';
-import { IJWTPayload } from '../../types/common';
+import catchAsync from '../../shared/catchAsync.js';
+import { IJWTPayload } from '../../types/common.js';
 
 const getCustomerPosts = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
   const user = req.user!;

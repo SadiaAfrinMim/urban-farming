@@ -15,8 +15,8 @@ export declare const AuthService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
         accessToken: string;
@@ -32,7 +32,7 @@ export declare const AuthService: {
             id: number;
             name: string;
             email: string;
-            role: import(".prisma/client").$Enums.UserRole;
+            role: import("@prisma/client").$Enums.UserRole;
         };
     }>;
     refreshToken: (token: string) => Promise<{

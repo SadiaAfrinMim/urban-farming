@@ -1,5 +1,5 @@
-import { prisma } from '../../shared/prisma';
-import { openRouter } from '../../helpers/open-router';
+import { prisma } from '../../shared/prisma.js';
+import { openRouter } from '../../helpers/open-router.js';
 // Send Message
 const sendMessage = async (payload) => {
     try {

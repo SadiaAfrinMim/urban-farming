@@ -2,7 +2,7 @@ import { NotificationType } from '@prisma/client';
 export declare const NotificationService: {
     createNotification: (userId: number, type: NotificationType, title: string, message: string, data?: any) => Promise<{
         data: import("@prisma/client/runtime/client").JsonValue | null;
-        type: import(".prisma/client").$Enums.NotificationType;
+        type: import("@prisma/client").$Enums.NotificationType;
         title: string;
         message: string;
         isRead: boolean;
@@ -14,7 +14,7 @@ export declare const NotificationService: {
     getUserNotifications: (userId: number, page?: number, limit?: number) => Promise<{
         data: {
             data: import("@prisma/client/runtime/client").JsonValue | null;
-            type: import(".prisma/client").$Enums.NotificationType;
+            type: import("@prisma/client").$Enums.NotificationType;
             title: string;
             message: string;
             isRead: boolean;
@@ -32,7 +32,7 @@ export declare const NotificationService: {
     }>;
     markAsRead: (notificationId: number, userId: number) => Promise<{
         data: import("@prisma/client/runtime/client").JsonValue | null;
-        type: import(".prisma/client").$Enums.NotificationType;
+        type: import("@prisma/client").$Enums.NotificationType;
         title: string;
         message: string;
         isRead: boolean;
@@ -41,7 +41,7 @@ export declare const NotificationService: {
         id: number;
         userId: number;
     }>;
-    markAllAsRead: (userId: number) => Promise<import(".prisma/client").Prisma.BatchPayload>;
+    markAllAsRead: (userId: number) => Promise<import("@prisma/client").Prisma.BatchPayload>;
     getUnreadCount: (userId: number) => Promise<number>;
 };
 //# sourceMappingURL=notification.service.d.ts.map

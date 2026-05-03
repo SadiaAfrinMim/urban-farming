@@ -1,5 +1,5 @@
-import { prisma } from '../../shared/prisma';
-import ApiError from '../../errors/ApiError';
+import { prisma } from '../../shared/prisma.js';
+import ApiError from '../../errors/ApiError.js';
 import httpStatus from 'http-status';
 const getCustomerPosts = async (userId) => {
     const posts = await prisma.customerPost.findMany({

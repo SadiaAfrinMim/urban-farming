@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../../app/shared/catchAsync';
-import sendResponse from '../../../app/shared/sendResponse';
-import { ProduceService } from './produce.service';
+import catchAsync from '../../../app/shared/catchAsync.js';
+import sendResponse from '../../../app/shared/sendResponse.js';
+import { ProduceService } from './produce.service.js';
 const getAllProduces = catchAsync(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 12;

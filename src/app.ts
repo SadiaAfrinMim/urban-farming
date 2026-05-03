@@ -9,13 +9,13 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import globalErrorHandler from './app/middlewares/globalErrorHandler.js';
 import notFound from './app/middlewares/notFound.js';
+import { openRouter } from './app/helpers/open-router.js';
 
 import router from './app/routes/index.js';
 import cookieParser from 'cookie-parser'
 
 // Test OpenRouter configuration on startup
 try {
-  const { openRouter } = require('./app/helpers/open-router');
   console.log('🚀 App startup - OpenRouter status check');
   if (openRouter) {
     console.log('✅ OpenRouter client initialized successfully');

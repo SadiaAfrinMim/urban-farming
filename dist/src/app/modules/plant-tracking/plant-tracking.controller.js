@@ -1,8 +1,8 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../shared/catchAsync';
-import sendResponse from '../../shared/sendResponse';
-import { PlantTrackingService } from './plant-tracking.service';
-import pick from '../../helpers/pick';
+import catchAsync from '../../shared/catchAsync.js';
+import sendResponse from '../../shared/sendResponse.js';
+import { PlantTrackingService } from './plant-tracking.service.js';
+import pick from '../../helpers/pick.js';
 const createPlantTracking = catchAsync(async (req, res) => {
     const userId = req.user?.id;
     const result = await PlantTrackingService.createPlantTracking(userId, req.body);

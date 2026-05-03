@@ -1,4 +1,4 @@
-import { CertificationStatus } from '../../types/common';
+import { CertificationStatus } from '../../types/common.js';
 import { IJWTPayload } from '../../types/common.js';
 export declare const SustainabilityService: {
     getAllCerts: () => Promise<({
@@ -8,7 +8,7 @@ export declare const SustainabilityService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };

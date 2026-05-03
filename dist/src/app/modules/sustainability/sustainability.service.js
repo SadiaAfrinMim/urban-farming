@@ -1,4 +1,4 @@
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 const getAllCerts = async () => {

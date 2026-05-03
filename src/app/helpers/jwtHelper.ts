@@ -1,5 +1,5 @@
 import jwt, { JwtPayload, Secret, SignOptions } from "jsonwebtoken";
-import { IJWTPayload } from "../types/common";
+import { IJWTPayload } from "../types/common.js";
 
 const generateToken = (payload: any, secret: Secret, expiresIn: string) => {
     const token = jwt.sign(payload, secret, {

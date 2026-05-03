@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import sendResponse from '../../shared/sendResponse';
+import sendResponse from '../../shared/sendResponse.js';
 import { CustomerService } from './customer.service.js';
-import catchAsync from '../../shared/catchAsync';
+import catchAsync from '../../shared/catchAsync.js';
 const getCustomerPosts = catchAsync(async (req, res) => {
     const user = req.user;
     const result = await CustomerService.getCustomerPosts(user.id);

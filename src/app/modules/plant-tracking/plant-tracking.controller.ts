@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import catchAsync from '../../shared/catchAsync';
-import sendResponse from '../../shared/sendResponse';
-import { PlantTrackingService } from './plant-tracking.service';
-import { IJWTPayload } from '../../types/common';
-import pick from '../../helpers/pick';
+import catchAsync from '../../shared/catchAsync.js';
+import sendResponse from '../../shared/sendResponse.js';
+import { PlantTrackingService } from './plant-tracking.service.js';
+import { IJWTPayload } from '../../types/common.js';
+import pick from '../../helpers/pick.js';
 import { PlantHealth } from '@prisma/client';
 
 const createPlantTracking = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {

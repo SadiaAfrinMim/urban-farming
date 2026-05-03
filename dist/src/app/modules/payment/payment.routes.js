@@ -1,7 +1,7 @@
 import express from 'express';
-import { PaymentController } from './payment.controller';
-import auth from '../../middlewares/auth';
-import { UserRole } from '../../types/common';
+import { PaymentController } from './payment.controller.js';
+import auth from '../../middlewares/auth.js';
+import { UserRole } from '../../types/common.js';
 /**
  * @swagger
  * tags:

@@ -1,4 +1,4 @@
-import { IJWTPayload } from '../../types/common';
+import { IJWTPayload } from '../../types/common.js';
 export declare const CommunityService: {
     getAllPosts: () => Promise<{
         likeCount: number;
@@ -36,8 +36,8 @@ export declare const CommunityService: {
             name: string;
             email: string;
             password: string;
-            role: import(".prisma/client").$Enums.UserRole;
-            status: import(".prisma/client").$Enums.UserStatus;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
         };
     } & {

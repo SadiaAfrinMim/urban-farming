@@ -1,5 +1,5 @@
-import { CertificationStatus } from '../../types/common';
-import { prisma } from '../../shared/prisma';
+import { CertificationStatus } from '../../types/common.js';
+import { prisma } from '../../shared/prisma.js';
 
 import httpStatus from 'http-status';
 import { IJWTPayload } from '../../types/common.js';

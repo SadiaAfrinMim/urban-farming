@@ -1,4 +1,4 @@
-import { prisma } from '../../shared/prisma';
+import { prisma } from '../../shared/prisma.js';
 const createNotification = async (userId, type, title, message, data) => {
     const notification = await prisma.notification.create({
         data: {

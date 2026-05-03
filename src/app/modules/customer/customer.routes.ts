@@ -1,9 +1,9 @@
 import express from 'express';
-import { CustomerController } from './customer.controller';
-import validateRequest from '../../middlewares/ValidateRequest';
-import auth from '../../middlewares/auth';
+import { CustomerController } from './customer.controller.js';
+import validateRequest from '../../middlewares/ValidateRequest.js';
+import auth from '../../middlewares/auth.js';
 import { UserRole } from '@prisma/client';
-import { CustomerValidation } from './customer.validation';
+import { CustomerValidation } from './customer.validation.js';
 
 /**
  * @swagger

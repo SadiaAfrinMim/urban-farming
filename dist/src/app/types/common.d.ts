@@ -29,4 +29,10 @@ export type IJWTPayload = {
 export interface AuthenticatedRequest extends Request {
     user: IJWTPayload;
 }
+export type IPaginationOptions = {
+    page?: string | number;
+    limit?: string | number;
+    sortBy?: string;
+    sortOrder?: string;
+};
 //# sourceMappingURL=common.d.ts.map

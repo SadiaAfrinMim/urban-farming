@@ -7,8 +7,8 @@ export declare const RentalService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -17,7 +17,7 @@ export declare const RentalService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -30,7 +30,7 @@ export declare const RentalService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     })[]>;
     searchRentalSpaces: (location?: string) => Promise<({
@@ -41,8 +41,8 @@ export declare const RentalService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -51,7 +51,7 @@ export declare const RentalService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -64,7 +64,7 @@ export declare const RentalService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     })[]>;
     getRentalSpaceById: (id: string) => Promise<{
@@ -75,8 +75,8 @@ export declare const RentalService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -85,7 +85,7 @@ export declare const RentalService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -98,7 +98,7 @@ export declare const RentalService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     createRentalSpace: (vendorId: string, payload: {
@@ -114,8 +114,8 @@ export declare const RentalService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -124,7 +124,7 @@ export declare const RentalService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -137,7 +137,7 @@ export declare const RentalService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     updateRentalSpace: (id: string, payload: Partial<{
@@ -153,8 +153,8 @@ export declare const RentalService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -163,7 +163,7 @@ export declare const RentalService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -176,7 +176,7 @@ export declare const RentalService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     deleteRentalSpace: (id: string) => Promise<void>;
@@ -188,8 +188,8 @@ export declare const RentalService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -198,7 +198,7 @@ export declare const RentalService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -211,7 +211,7 @@ export declare const RentalService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     bookRentalSpace: (spaceId: string, customerId: string) => Promise<{
@@ -222,8 +222,8 @@ export declare const RentalService: {
                 name: string;
                 email: string;
                 password: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                status: import(".prisma/client").$Enums.UserStatus;
+                role: import("@prisma/client").$Enums.UserRole;
+                status: import("@prisma/client").$Enums.UserStatus;
                 profileImage: string | null;
             };
         } & {
@@ -232,7 +232,7 @@ export declare const RentalService: {
             userId: number;
             farmName: string;
             farmLocation: string;
-            certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
             profilePhoto: string | null;
             certifications: string[];
         };
@@ -245,13 +245,13 @@ export declare const RentalService: {
         price: number;
         availability: boolean;
         image: string | null;
-        plantStatus: import(".prisma/client").$Enums.PlantHealth | null;
+        plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
         lastWatered: Date | null;
     }>;
     createRentalOrder: (customerId: string, spaceId: number, totalPrice: number, duration?: number) => Promise<{
         id: number;
         userId: number;
-        status: import(".prisma/client").$Enums.OrderStatus;
+        status: import("@prisma/client").$Enums.OrderStatus;
         vendorId: number;
         quantity: number;
         totalPrice: number;
@@ -262,7 +262,7 @@ export declare const RentalService: {
     getVendorRentalOrders: (vendorId: string) => Promise<{
         id: number;
         userId: number;
-        status: import(".prisma/client").$Enums.OrderStatus;
+        status: import("@prisma/client").$Enums.OrderStatus;
         vendorId: number;
         quantity: number;
         totalPrice: number;
@@ -273,7 +273,7 @@ export declare const RentalService: {
     updateRentalOrderStatus: (orderId: number, status: string, vendorId: string) => Promise<{
         id: number;
         userId: number;
-        status: import(".prisma/client").$Enums.OrderStatus;
+        status: import("@prisma/client").$Enums.OrderStatus;
         vendorId: number;
         quantity: number;
         totalPrice: number;

@@ -1,6 +1,6 @@
 import express from 'express';
-import { SustainabilityController } from './sustainability.controller';
-import auth from '../../middlewares/auth';
+import { SustainabilityController } from './sustainability.controller.js';
+import auth from '../../middlewares/auth.js';
 import { UserRole } from '@prisma/client';
 
 

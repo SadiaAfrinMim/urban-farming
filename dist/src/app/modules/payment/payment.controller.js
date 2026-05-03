@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../shared/catchAsync';
-import sendResponse from '../../shared/sendResponse';
-import { PaymentService } from './payment.service';
+import catchAsync from '../../shared/catchAsync.js';
+import sendResponse from '../../shared/sendResponse.js';
+import { PaymentService } from './payment.service.js';
 const createPaymentIntent = catchAsync(async (req, res) => {
     const userId = req.user?.id;
     const { orderId } = req.body;

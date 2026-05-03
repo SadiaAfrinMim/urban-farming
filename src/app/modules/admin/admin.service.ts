@@ -1,5 +1,6 @@
 import { prisma } from '../../shared/prisma.js';
-import { UserRole, UserStatus, CertificationStatus, QueryMode } from '@prisma/client';
+import pkg from '@prisma/client';
+const { UserRole, UserStatus, CertificationStatus, QueryMode } = pkg;
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 

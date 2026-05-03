@@ -4,7 +4,7 @@ import sendResponse from '../../shared/sendResponse';
 import { PlantTrackingService } from './plant-tracking.service';
 import pick from '../../helpers/pick';
 const createPlantTracking = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const result = await PlantTrackingService.createPlantTracking(userId, req.body);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
@@ -14,7 +14,7 @@ const createPlantTracking = catchAsync(async (req, res) => {
     });
 });
 const getAllPlantTrackings = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const options = pick(req.query, ['page', 'limit', 'sortBy', 'sortOrder']);
     const result = await PlantTrackingService.getAllPlantTrackings(userId, options);
     sendResponse(res, {
@@ -26,7 +26,7 @@ const getAllPlantTrackings = catchAsync(async (req, res) => {
     });
 });
 const getPlantTrackingById = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const { id } = req.params;
     const result = await PlantTrackingService.getPlantTrackingById(id, userId);
     sendResponse(res, {
@@ -37,7 +37,7 @@ const getPlantTrackingById = catchAsync(async (req, res) => {
     });
 });
 const updatePlantTracking = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const { id } = req.params;
     const result = await PlantTrackingService.updatePlantTracking(id, userId, req.body);
     sendResponse(res, {
@@ -48,7 +48,7 @@ const updatePlantTracking = catchAsync(async (req, res) => {
     });
 });
 const updatePlantHealth = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const { id } = req.params;
     const { healthStatus, notes } = req.body;
     const result = await PlantTrackingService.updatePlantHealth(id, userId, healthStatus, notes);
@@ -60,7 +60,7 @@ const updatePlantHealth = catchAsync(async (req, res) => {
     });
 });
 const waterPlant = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const { id } = req.params;
     const result = await PlantTrackingService.waterPlant(id, userId);
     sendResponse(res, {
@@ -71,7 +71,7 @@ const waterPlant = catchAsync(async (req, res) => {
     });
 });
 const fertilizePlant = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const { id } = req.params;
     const result = await PlantTrackingService.fertilizePlant(id, userId);
     sendResponse(res, {
@@ -82,7 +82,7 @@ const fertilizePlant = catchAsync(async (req, res) => {
     });
 });
 const deletePlantTracking = catchAsync(async (req, res) => {
-    const userId = req.user?.userId;
+    const userId = req.user?.id;
     const { id } = req.params;
     await PlantTrackingService.deletePlantTracking(id, userId);
     sendResponse(res, {

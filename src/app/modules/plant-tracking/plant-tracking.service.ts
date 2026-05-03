@@ -5,7 +5,7 @@ import { paginationHelper } from '../../helpers/paginationHelper';
 import ApiError from '../../errors/ApiError';
 import httpStatus from 'http-status';
 
-const createPlantTracking = async (userId: string, payload: any) => {
+const createPlantTracking = async (userId: number, payload: any) => {
   const result = await prisma.plantTracking.create({
     data: {
       userId,
@@ -24,7 +24,7 @@ const createPlantTracking = async (userId: string, payload: any) => {
   return result;
 };
 
-const getAllPlantTrackings = async (userId: string, options: IPaginationOptions) => {
+const getAllPlantTrackings = async (userId: number, options: IPaginationOptions) => {
   const { page, limit, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(options);
 
   const whereConditions = { userId };
@@ -60,7 +60,7 @@ const getAllPlantTrackings = async (userId: string, options: IPaginationOptions)
   };
 };
 
-const getPlantTrackingById = async (id: string, userId: string) => {
+const getPlantTrackingById = async (id: string, userId: number) => {
   const result = await prisma.plantTracking.findUnique({
     where: {
       id,
@@ -83,7 +83,7 @@ const getPlantTrackingById = async (id: string, userId: string) => {
   return result;
 };
 
-const updatePlantTracking = async (id: string, userId: string, payload: any) => {
+const updatePlantTracking = async (id: string, userId: number, payload: any) => {
   const plantTracking = await prisma.plantTracking.findUnique({
     where: {
       id,
@@ -112,7 +112,7 @@ const updatePlantTracking = async (id: string, userId: string, payload: any) => 
   return result;
 };
 
-const updatePlantHealth = async (id: string, userId: string, healthStatus: PlantHealth, notes?: string) => {
+const updatePlantHealth = async (id: string, userId: number, healthStatus: PlantHealth, notes?: string) => {
   const plantTracking = await prisma.plantTracking.findUnique({
     where: {
       id,
@@ -144,7 +144,7 @@ const updatePlantHealth = async (id: string, userId: string, healthStatus: Plant
   return result;
 };
 
-const waterPlant = async (id: string, userId: string) => {
+const waterPlant = async (id: string, userId: number) => {
   const plantTracking = await prisma.plantTracking.findUnique({
     where: {
       id,
@@ -167,7 +167,7 @@ const waterPlant = async (id: string, userId: string) => {
   return result;
 };
 
-const fertilizePlant = async (id: string, userId: string) => {
+const fertilizePlant = async (id: string, userId: number) => {
   const plantTracking = await prisma.plantTracking.findUnique({
     where: {
       id,
@@ -190,7 +190,7 @@ const fertilizePlant = async (id: string, userId: string) => {
   return result;
 };
 
-const deletePlantTracking = async (id: string, userId: string) => {
+const deletePlantTracking = async (id: string, userId: number) => {
   const plantTracking = await prisma.plantTracking.findUnique({
     where: {
       id,

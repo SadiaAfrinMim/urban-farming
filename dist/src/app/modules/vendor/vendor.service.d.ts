@@ -23,8 +23,8 @@ export declare const VendorService: {
     } | null>;
     getVendorCard: (user: IJWTPayload) => Promise<{
         id: number;
-        vendorName: any;
-        vendorEmail: any;
+        vendorName: string;
+        vendorEmail: string;
         farmName: string;
         farmLocation: string;
         profilePhoto: string | null;
@@ -32,8 +32,21 @@ export declare const VendorService: {
         certificationStatus: import(".prisma/client").$Enums.CertificationStatus;
         totalProduces: number;
         totalRentalSpaces: number;
-        recentProduces: any;
-        recentRentalSpaces: any;
+        recentProduces: {
+            id: number;
+            name: string;
+            price: number;
+            image: string | null;
+            category: import(".prisma/client").$Enums.ProduceCategory;
+        }[];
+        recentRentalSpaces: {
+            id: number;
+            location: string;
+            size: string;
+            price: number;
+            availability: boolean;
+            image: string | null;
+        }[];
     }>;
     createRentalSpace: (user: IJWTPayload, req: Request) => Promise<{
         createdAt: Date;
@@ -351,6 +364,11 @@ export declare const VendorService: {
         liked: boolean;
     }>;
     addVendorPostComment: (user: IJWTPayload, postId: string, content: string) => Promise<{
+        user: {
+            id: number;
+            name: string;
+        };
+    } & {
         createdAt: Date;
         updatedAt: Date;
         id: number;

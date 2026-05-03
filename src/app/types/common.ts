@@ -27,11 +27,18 @@ export enum OrderStatus {
 }
 
 export type IJWTPayload = {
-    id: string;
+    id: number;
     role: UserRole;
     email?: string;
 }
 
 export interface AuthenticatedRequest extends Request {
     user: IJWTPayload;
+}
+
+export type IPaginationOptions = {
+    page?: string | number;
+    limit?: string | number;
+    sortBy?: string;
+    sortOrder?: string;
 }

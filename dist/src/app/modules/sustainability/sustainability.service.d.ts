@@ -1,5 +1,5 @@
 import { CertificationStatus } from '../../types/common';
-import { IJWTPayload } from '../../types/common';
+import { IJWTPayload } from '../../types/common.js';
 export declare const SustainabilityService: {
     getAllCerts: () => Promise<({
         vendor: {

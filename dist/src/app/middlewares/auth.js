@@ -6,9 +6,9 @@
 // import { jwtHelper } from "../helpers/jwtHelper";
 // import { IJWTPayload } from "../types/common";
 import httpStatus from "http-status";
-import config from "../../config";
-import ApiError from "../errors/ApiError";
-import { jwtHelper } from "../helpers/jwtHelper";
+import config from "../../config/index.js";
+import ApiError from "../errors/ApiError.js";
+import { jwtHelper } from "../helpers/jwtHelper.js";
 const auth = (...roles) => {
     return async (req, res, next) => {
         try {

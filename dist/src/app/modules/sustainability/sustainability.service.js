@@ -1,6 +1,6 @@
 import { prisma } from '../../shared/prisma';
 import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError';
+import ApiError from '../../errors/ApiError.js';
 const getAllCerts = async () => {
     try {
         const certs = await prisma.sustainabilityCert.findMany({

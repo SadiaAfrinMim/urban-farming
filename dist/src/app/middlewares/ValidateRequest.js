@@ -1,4 +1,4 @@
-import ApiError from "../errors/ApiError";
+import ApiError from "../errors/ApiError.js";
 import httpStatus from "http-status";
 const validateRequest = (schema) => {
     return async (req, res, next) => {

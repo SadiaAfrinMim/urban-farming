@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import sendResponse from '../../shared/sendResponse';
 import catchAsync from '../../shared/catchAsync';
 import { AdminService } from './admin.service.js';
+import pick from '../../helpers/pick.js';
 import { adminFilterableFields } from './admin.constants.js';
 // User Management
 const getAllUsers = catchAsync(async (req, res) => {
@@ -62,7 +63,7 @@ const getAllCustomersData = catchAsync(async (req, res) => {
 const updateUserRole = catchAsync(async (req, res) => {
     const { userId } = req.params;
     const { role } = req.body;
-    const result = await AdminService.updateUserRole(userId, role);
+    const result = await AdminService.updateUserRole(Number(userId), role);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -73,7 +74,7 @@ const updateUserRole = catchAsync(async (req, res) => {
 const updateUserStatus = catchAsync(async (req, res) => {
     const { userId } = req.params;
     const { status } = req.body;
-    const result = await AdminService.updateUserStatus(userId, status);
+    const result = await AdminService.updateUserStatus(Number(userId), status);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -93,7 +94,7 @@ const getPendingCertifications = catchAsync(async (req, res) => {
 });
 const approveCertification = catchAsync(async (req, res) => {
     const { vendorId } = req.params;
-    const result = await AdminService.approveCertification(vendorId);
+    const result = await AdminService.approveCertification(Number(vendorId));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -104,7 +105,7 @@ const approveCertification = catchAsync(async (req, res) => {
 const rejectCertification = catchAsync(async (req, res) => {
     const { vendorId } = req.params;
     const { reason } = req.body;
-    const result = await AdminService.rejectCertification(vendorId, reason);
+    const result = await AdminService.rejectCertification(Number(vendorId), reason);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -114,7 +115,7 @@ const rejectCertification = catchAsync(async (req, res) => {
 });
 const approveProduce = catchAsync(async (req, res) => {
     const { produceId } = req.params;
-    const result = await AdminService.approveProduce(produceId);
+    const result = await AdminService.approveProduce(Number(produceId));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -124,7 +125,7 @@ const approveProduce = catchAsync(async (req, res) => {
 });
 const rejectProduce = catchAsync(async (req, res) => {
     const { produceId } = req.params;
-    const result = await AdminService.rejectProduce(produceId);
+    const result = await AdminService.rejectProduce(Number(produceId));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -154,7 +155,7 @@ const getAllPosts = catchAsync(async (req, res) => {
 const approvePost = catchAsync(async (req, res) => {
     const { postId } = req.params;
     const user = req.user;
-    const result = await AdminService.approvePost(postId, user.id);
+    const result = await AdminService.approvePost(Number(postId), user.id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -164,7 +165,7 @@ const approvePost = catchAsync(async (req, res) => {
 });
 const deletePost = catchAsync(async (req, res) => {
     const { postId } = req.params;
-    const result = await AdminService.deletePost(postId);
+    const result = await AdminService.deletePost(Number(postId));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -184,7 +185,7 @@ const getReports = catchAsync(async (req, res) => {
 const resolveReport = catchAsync(async (req, res) => {
     const { reportId } = req.params;
     const user = req.user;
-    const result = await AdminService.resolveReport(reportId, user.id);
+    const result = await AdminService.resolveReport(Number(reportId), user.id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -253,7 +254,7 @@ const getAnnouncements = catchAsync(async (req, res) => {
 });
 const deleteAnnouncement = catchAsync(async (req, res) => {
     const { announcementId } = req.params;
-    const result = await AdminService.deleteAnnouncement(announcementId);
+    const result = await AdminService.deleteAnnouncement(Number(announcementId));
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

@@ -1,6 +1,5 @@
 import { prisma } from '../../shared/prisma.js';
 import { UserRole, CertificationStatus } from '../../types/common';
-import { QueryMode } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 // User Management
@@ -370,8 +369,8 @@ const getAllUsersData = async (filters, options) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { name: { contains: searchTerm, mode: QueryMode.insensitive } },
-                { email: { contains: searchTerm, mode: QueryMode.insensitive } },
+                { name: { contains: searchTerm, mode: 'insensitive' } },
+                { email: { contains: searchTerm, mode: 'insensitive' } },
             ],
         });
     }
@@ -486,10 +485,10 @@ const getAllVendorsData = async (filters, options) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { user: { name: { contains: searchTerm, mode: QueryMode.insensitive } } },
-                { user: { email: { contains: searchTerm, mode: QueryMode.insensitive } } },
-                { farmName: { contains: searchTerm, mode: QueryMode.insensitive } },
-                { farmLocation: { contains: searchTerm, mode: QueryMode.insensitive } },
+                { user: { name: { contains: searchTerm, mode: 'insensitive' } } },
+                { user: { email: { contains: searchTerm, mode: 'insensitive' } } },
+                { farmName: { contains: searchTerm, mode: 'insensitive' } },
+                { farmLocation: { contains: searchTerm, mode: 'insensitive' } },
             ],
         });
     }
@@ -563,8 +562,8 @@ const getAllCustomersData = async (filters, options) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { name: { contains: searchTerm, mode: QueryMode.insensitive } },
-                { email: { contains: searchTerm, mode: QueryMode.insensitive } },
+                { name: { contains: searchTerm, mode: 'insensitive' } },
+                { email: { contains: searchTerm, mode: 'insensitive' } },
             ],
         });
     }

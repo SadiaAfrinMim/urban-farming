@@ -22,7 +22,7 @@ export declare enum OrderStatus {
     Cancelled = "Cancelled"
 }
 export type IJWTPayload = {
-    id: string;
+    id: number;
     role: UserRole;
     email?: string;
 };

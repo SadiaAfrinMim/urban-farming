@@ -8,7 +8,7 @@ import pick from '../../helpers/pick';
 import { PlantHealth } from '@prisma/client';
 
 const createPlantTracking = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const result = await PlantTrackingService.createPlantTracking(userId, req.body);
 
   sendResponse(res, {
@@ -20,7 +20,7 @@ const createPlantTracking = catchAsync(async (req: Request & { user?: IJWTPayloa
 });
 
 const getAllPlantTrackings = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const options = pick(req.query, ['page', 'limit', 'sortBy', 'sortOrder']);
   const result = await PlantTrackingService.getAllPlantTrackings(userId, options);
 
@@ -34,7 +34,7 @@ const getAllPlantTrackings = catchAsync(async (req: Request & { user?: IJWTPaylo
 });
 
 const getPlantTrackingById = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const { id } = req.params;
   const result = await PlantTrackingService.getPlantTrackingById(id, userId);
 
@@ -47,7 +47,7 @@ const getPlantTrackingById = catchAsync(async (req: Request & { user?: IJWTPaylo
 });
 
 const updatePlantTracking = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const { id } = req.params;
   const result = await PlantTrackingService.updatePlantTracking(id, userId, req.body);
 
@@ -60,7 +60,7 @@ const updatePlantTracking = catchAsync(async (req: Request & { user?: IJWTPayloa
 });
 
 const updatePlantHealth = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const { id } = req.params;
   const { healthStatus, notes } = req.body;
   const result = await PlantTrackingService.updatePlantHealth(id, userId, healthStatus as PlantHealth, notes);
@@ -74,7 +74,7 @@ const updatePlantHealth = catchAsync(async (req: Request & { user?: IJWTPayload 
 });
 
 const waterPlant = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const { id } = req.params;
   const result = await PlantTrackingService.waterPlant(id, userId);
 
@@ -87,7 +87,7 @@ const waterPlant = catchAsync(async (req: Request & { user?: IJWTPayload }, res:
 });
 
 const fertilizePlant = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const { id } = req.params;
   const result = await PlantTrackingService.fertilizePlant(id, userId);
 
@@ -100,7 +100,7 @@ const fertilizePlant = catchAsync(async (req: Request & { user?: IJWTPayload }, 
 });
 
 const deletePlantTracking = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
-  const userId = req.user?.userId as string;
+  const userId = req.user?.id as number;
   const { id } = req.params;
   await PlantTrackingService.deletePlantTracking(id, userId);
 

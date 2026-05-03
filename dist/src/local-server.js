@@ -33,6 +33,21 @@ async function bootstrap() {
         global.io = io;
         io.on('connection', (socket) => {
             console.log('User connected:', socket.id);
+            // Handle user joining their personal room for notifications
+            socket.on('join_user_room', (userId) => {
+                socket.join(`user_${userId}`);
+                console.log(`User ${userId} joined room user_${userId}`);
+            });
+            // Handle joining conversation room for real-time messaging
+            socket.on('join_conversation', (conversationId) => {
+                socket.join(`conversation_${conversationId}`);
+                console.log(`User joined conversation room: conversation_${conversationId}`);
+            });
+            // Handle leaving conversation room
+            socket.on('leave_conversation', (conversationId) => {
+                socket.leave(`conversation_${conversationId}`);
+                console.log(`User left conversation room: conversation_${conversationId}`);
+            });
             socket.on('disconnect', () => {
                 console.log('User disconnected:', socket.id);
             });

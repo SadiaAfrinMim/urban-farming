@@ -57,7 +57,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'https://urban-farming-backend-pink.vercel.app/api/v1',
+         url: 'https://urban-farming-rt02.onrender.com/api/v1',
+        // url: 'https://urban-farming-backend-pink.vercel.app/api/v1',
         description: 'Local development server',
       },
       {

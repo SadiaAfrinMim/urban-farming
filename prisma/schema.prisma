@@ -390,6 +390,35 @@ model SustainabilityCert {
   @@map("sustainability_certs")
 }
 
+model Conversation {
+  id            Int       @id @default(autoincrement())
+  participant1Id Int
+  participant2Id Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  participant1   User      @relation("ConversationParticipant1", fields: [participant1Id], references: [id])
+  participant2   User      @relation("ConversationParticipant2", fields: [participant2Id], references: [id])
+  messages      Message[]
+
+  @@unique([participant1Id, participant2Id])
+  @@map("conversations")
+}
+
+model Message {
+  id             Int       @id @default(autoincrement())
+  conversationId Int
+  senderId       Int
+  content        String
+  isRead         Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation(fields: [senderId], references: [id])
+
+  @@map("messages")
+}
+
 model Chat {
   id        Int       @id @default(autoincrement())
   userId    Int?

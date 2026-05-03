@@ -104,6 +104,7 @@ const updateCustomerPost = async (postId, userId, payload) => {
         },
         data: {
             ...payload,
+            category: payload.category,
             updatedAt: new Date(),
         },
         include: {
@@ -340,13 +341,13 @@ const updateRentalOrderStatus = async (orderId, userId, status) => {
     if (!order) {
         throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
     }
-    if (order.userId !== userId) {
+    if (order.userId !== parseInt(userId)) {
         throw new ApiError(httpStatus.FORBIDDEN, 'You can only update your own orders');
     }
     // Update the order status
     const updatedOrder = await prisma.order.update({
         where: { id: orderIdNumber },
-        data: { status },
+        data: { status: status },
         include: {
             user: true,
             rentalSpace: {

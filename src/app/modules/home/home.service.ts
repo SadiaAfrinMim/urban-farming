@@ -202,7 +202,7 @@ const getApprovedVendorCertificates = async () => {
     profilePhoto: vendor.profilePhoto,
     certifications: vendor.certifications,
     createdAt: vendor.createdAt,
-    updatedAt: vendor.updatedAt,
+    updatedAt: (vendor as any).updatedAt,
     user: vendor.user,
     produces: vendor.produces,
     rentalSpaces: vendor.rentalSpaces

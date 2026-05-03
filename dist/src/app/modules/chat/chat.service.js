@@ -25,7 +25,7 @@ const sendMessage = async (payload) => {
             console.warn('Chat table not found, returning mock message');
             return {
                 id: Date.now(),
-                userId,
+                userId: userId,
                 message: payload.message,
                 isBot: payload.isBot || false,
                 timestamp: new Date(),

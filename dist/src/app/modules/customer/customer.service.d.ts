@@ -54,6 +54,12 @@ export declare const CustomerService: {
         content: string;
         category: string;
     }>) => Promise<{
+        user: {
+            id: number;
+            name: string;
+            email: string;
+        };
+    } & {
         title: string;
         createdAt: Date;
         updatedAt: Date;
@@ -168,6 +174,65 @@ export declare const CustomerService: {
     })[]>;
     deleteCustomerPostComment: (commentId: string, userId: string) => Promise<void>;
     updateRentalOrderStatus: (orderId: string, userId: string, status: string) => Promise<{
+        user: {
+            createdAt: Date;
+            id: number;
+            name: string;
+            email: string;
+            password: string;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
+            profileImage: string | null;
+        };
+        rentalSpace: ({
+            vendor: {
+                user: {
+                    createdAt: Date;
+                    id: number;
+                    name: string;
+                    email: string;
+                    password: string;
+                    role: import("@prisma/client").$Enums.UserRole;
+                    status: import("@prisma/client").$Enums.UserStatus;
+                    profileImage: string | null;
+                };
+            } & {
+                createdAt: Date;
+                id: number;
+                userId: number;
+                farmName: string;
+                farmLocation: string;
+                certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
+                profilePhoto: string | null;
+                certifications: string[];
+            };
+        } & {
+            createdAt: Date;
+            id: number;
+            vendorId: number;
+            location: string;
+            size: string;
+            price: number;
+            availability: boolean;
+            image: string | null;
+            plantStatus: import("@prisma/client").$Enums.PlantHealth | null;
+            lastWatered: Date | null;
+        }) | null;
+        produce: {
+            createdAt: Date;
+            id: number;
+            name: string;
+            certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
+            vendorId: number;
+            price: number;
+            image: string | null;
+            description: string;
+            category: import("@prisma/client").$Enums.ProduceCategory;
+            availableQuantity: number;
+            unit: string | null;
+            isOrganic: boolean | null;
+        } | null;
+    } & {
         id: number;
         userId: number;
         status: import("@prisma/client").$Enums.OrderStatus;

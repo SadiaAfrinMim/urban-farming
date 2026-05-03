@@ -7,6 +7,7 @@ import { OrderService } from './app/modules/order/order.service.js';
 import { NotificationService } from './app/modules/notification/notification.service.js';
 import { prisma } from './app/shared/prisma.js';
 import { NotificationType } from '@prisma/client';
+import { io } from '../../../local-server.js';
 
 const allowedOrigins = [
     'http://localhost:3000',

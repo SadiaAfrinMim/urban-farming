@@ -10,7 +10,7 @@ const getOrders = async (user) => {
         where.userId = user.id;
     }
     else if (user.role === 'Vendor') {
-        const userIdNumber = parseInt(user.id, 10);
+        const userIdNumber = parseInt(user.id.toString(), 10);
         if (isNaN(userIdNumber)) {
             throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
         }
@@ -63,7 +63,7 @@ const getOrderById = async (id, user) => {
         throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
     }
     if (user.role === 'Vendor') {
-        const userIdNumber = parseInt(user.id, 10);
+        const userIdNumber = parseInt(user.id.toString(), 10);
         if (isNaN(userIdNumber)) {
             throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
         }
@@ -183,7 +183,6 @@ const createOrder = async (userId, payload) => {
     // Notify customer and admins about new order (async, non-blocking)
     process.nextTick(async () => {
         try {
-            const NotificationService = (await import('../notification/notification.service')).NotificationService;
             const itemName = result.produce ? result.produce.name : result.rentalSpace ? result.rentalSpace.location : 'Unknown item';
             // Notify customer
             await NotificationService.createNotification(result.userId, 'ORDER_PLACED', 'Order Placed Successfully', `Your order #${result.id} for ${itemName} has been placed successfully. Total: ৳${result.totalPrice}`, {
@@ -229,14 +228,16 @@ const updateOrderStatus = async (id, status) => {
     if (status === OrderStatus.Cancelled && order.status === OrderStatus.Pending) {
         const updated = await prisma.$transaction(async (tx) => {
             // Restore the stock
-            await tx.produce.update({
-                where: { id: order.produceId },
-                data: {
-                    availableQuantity: {
-                        increment: order.quantity,
+            if (order.produceId) {
+                await tx.produce.update({
+                    where: { id: order.produceId },
+                    data: {
+                        availableQuantity: {
+                            increment: order.quantity,
+                        },
                     },
-                },
-            });
+                });
+            }
             // Update order status
             const updatedOrder = await tx.order.update({
                 where: { id },

@@ -1,5 +1,5 @@
 import { prisma } from '../../shared/prisma.js';
-import { UserRole, CertificationStatus } from '../../types/common.js';
+import { UserRole, CertificationStatus, QueryMode } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 // User Management
@@ -12,8 +12,8 @@ const getAllUsers = async (filters, options) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { name: { contains: searchTerm, mode: 'insensitive' } },
-                { email: { contains: searchTerm, mode: 'insensitive' } },
+                { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+                { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
             ],
         });
     }
@@ -278,7 +278,7 @@ const getRevenueAnalytics = async () => {
         where: { status: 'Delivered' },
         include: { produce: true },
     });
-    const totalRevenue = orders.reduce((sum, order) => sum + order.produce.price, 0);
+    const totalRevenue = orders.reduce((sum, order) => sum + (order.produce?.price || 0), 0);
     // Commission assuming 10%
     const commission = totalRevenue * 0.1;
     return {
@@ -369,8 +369,8 @@ const getAllUsersData = async (filters, options) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { name: { contains: searchTerm, mode: 'insensitive' } },
-                { email: { contains: searchTerm, mode: 'insensitive' } },
+                { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+                { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
             ],
         });
     }
@@ -416,8 +416,8 @@ const getAllProfiles = async (filters) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { name: { contains: searchTerm, mode: 'insensitive' } },
-                { email: { contains: searchTerm, mode: 'insensitive' } },
+                { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+                { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
             ],
         });
     }
@@ -454,7 +454,7 @@ const getAllProfiles = async (filters) => {
         },
     });
     // Format the response
-    const formattedUsers = users.map(user => ({
+    const formattedUsers = users.map((user) => ({
         id: user.id.toString(),
         name: user.name,
         email: user.email,
@@ -485,10 +485,10 @@ const getAllVendorsData = async (filters, options) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { user: { name: { contains: searchTerm, mode: 'insensitive' } } },
-                { user: { email: { contains: searchTerm, mode: 'insensitive' } } },
-                { farmName: { contains: searchTerm, mode: 'insensitive' } },
-                { farmLocation: { contains: searchTerm, mode: 'insensitive' } },
+                { user: { name: { contains: searchTerm, mode: QueryMode.Insensitive } } },
+                { user: { email: { contains: searchTerm, mode: QueryMode.Insensitive } } },
+                { farmName: { contains: searchTerm, mode: QueryMode.Insensitive } },
+                { farmLocation: { contains: searchTerm, mode: QueryMode.Insensitive } },
             ],
         });
     }
@@ -562,8 +562,8 @@ const getAllCustomersData = async (filters, options) => {
     if (searchTerm) {
         andConditions.push({
             OR: [
-                { name: { contains: searchTerm, mode: 'insensitive' } },
-                { email: { contains: searchTerm, mode: 'insensitive' } },
+                { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+                { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
             ],
         });
     }
@@ -611,12 +611,12 @@ const getAllCustomersData = async (filters, options) => {
         },
     });
     return {
-        data: customersWithPosts,
+        data: result,
         meta: {
-            page: parsedPage,
-            limit: parsedLimit,
-            total,
-            totalPages: Math.ceil(total / parsedLimit),
+            page: parseInt(page.toString(), 10) || 1,
+            limit: parseInt(limit.toString(), 10) || 50,
+            total: result.length,
+            totalPages: Math.ceil(result.length / (parseInt(limit.toString(), 10) || 50)),
         },
     };
 };

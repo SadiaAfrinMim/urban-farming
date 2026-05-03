@@ -1,7 +1,18 @@
-import { UserRole, UserStatus } from '../../types/common.js';
+import { UserRole, UserStatus } from '@prisma/client';
 export declare const AdminService: {
     getAllUsers: (filters: any, options: any) => Promise<{
-        data: {
+        data: ({
+            vendorProfile: {
+                createdAt: Date;
+                id: number;
+                userId: number;
+                farmName: string;
+                farmLocation: string;
+                certificationStatus: import("@prisma/client").$Enums.CertificationStatus;
+                profilePhoto: string | null;
+                certifications: string[];
+            } | null;
+        } & {
             createdAt: Date;
             id: number;
             name: string;
@@ -10,7 +21,7 @@ export declare const AdminService: {
             role: import("@prisma/client").$Enums.UserRole;
             status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-        }[];
+        })[];
         meta: {
             page: any;
             limit: any;
@@ -48,12 +59,12 @@ export declare const AdminService: {
         };
     }>;
     getAllProfiles: (filters: any) => Promise<{
-        id: string;
-        name: string;
-        email: string;
-        role: import("@prisma/client").$Enums.UserRole;
-        status: import("@prisma/client").$Enums.UserStatus;
-        createdAt: string;
+        id: any;
+        name: any;
+        email: any;
+        role: any;
+        status: any;
+        createdAt: any;
         vendorProfile: {
             farmName: any;
             farmLocation: any;
@@ -106,12 +117,11 @@ export declare const AdminService: {
         };
     }>;
     getAllCustomersData: (filters: any, options: any) => Promise<{
-        data: {
-            postsCount: number;
-            ordersCount: number;
+        data: ({
             _count: {
                 orders: number;
             };
+        } & {
             createdAt: Date;
             id: number;
             name: string;
@@ -120,7 +130,7 @@ export declare const AdminService: {
             role: import("@prisma/client").$Enums.UserRole;
             status: import("@prisma/client").$Enums.UserStatus;
             profileImage: string | null;
-        }[];
+        })[];
         meta: {
             page: number;
             limit: number;

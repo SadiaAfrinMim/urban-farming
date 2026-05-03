@@ -155,7 +155,7 @@ const getAllPosts = catchAsync(async (req, res) => {
 const approvePost = catchAsync(async (req, res) => {
     const { postId } = req.params;
     const user = req.user;
-    const result = await AdminService.approvePost(Number(postId), user.id);
+    const result = await AdminService.approvePost(postId, user.id.toString());
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -165,7 +165,7 @@ const approvePost = catchAsync(async (req, res) => {
 });
 const deletePost = catchAsync(async (req, res) => {
     const { postId } = req.params;
-    const result = await AdminService.deletePost(Number(postId));
+    const result = await AdminService.deletePost(postId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -185,7 +185,7 @@ const getReports = catchAsync(async (req, res) => {
 const resolveReport = catchAsync(async (req, res) => {
     const { reportId } = req.params;
     const user = req.user;
-    const result = await AdminService.resolveReport(Number(reportId), user.id);
+    const result = await AdminService.resolveReport(reportId, user.id.toString());
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -235,7 +235,7 @@ const getRateLimitLogs = catchAsync(async (req, res) => {
 });
 const createAnnouncement = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await AdminService.createAnnouncement(user.id, req.body);
+    const result = await AdminService.createAnnouncement(user.id.toString(), req.body);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -254,7 +254,7 @@ const getAnnouncements = catchAsync(async (req, res) => {
 });
 const deleteAnnouncement = catchAsync(async (req, res) => {
     const { announcementId } = req.params;
-    const result = await AdminService.deleteAnnouncement(Number(announcementId));
+    const result = await AdminService.deleteAnnouncement(announcementId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

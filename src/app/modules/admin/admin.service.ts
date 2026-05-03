@@ -1,5 +1,5 @@
 import { prisma } from '../../shared/prisma.js';
-import { UserRole, UserStatus, CertificationStatus } from '../../types/common.js';
+import { UserRole, UserStatus, CertificationStatus, QueryMode } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError.js';
 
@@ -15,8 +15,8 @@ const getAllUsers = async (filters: any, options: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { name: { contains: searchTerm, mode: 'insensitive' } },
-        { email: { contains: searchTerm, mode: 'insensitive' } },
+        { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+        { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
       ],
     });
   }
@@ -29,7 +29,7 @@ const getAllUsers = async (filters: any, options: any) => {
     });
   }
 
-  const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+  const whereConditions: any = andConditions.length > 0 ? { AND: andConditions } : {};
 
   const result = await prisma.user.findMany({
     where: whereConditions,
@@ -334,7 +334,7 @@ const getRevenueAnalytics = async () => {
     include: { produce: true },
   });
 
-  const totalRevenue = orders.reduce((sum, order) => sum + order.produce.price, 0);
+  const totalRevenue = orders.reduce((sum, order) => sum + (order.produce?.price || 0), 0);
 
   // Commission assuming 10%
   const commission = totalRevenue * 0.1;
@@ -450,8 +450,8 @@ const getAllUsersData = async (filters: any, options: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { name: { contains: searchTerm, mode: 'insensitive' as any } },
-        { email: { contains: searchTerm, mode: 'insensitive' as any } },
+        { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+        { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
       ],
     });
   }
@@ -472,7 +472,7 @@ const getAllUsersData = async (filters: any, options: any) => {
     });
   }
 
-  const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+  const whereConditions: any = andConditions.length > 0 ? { AND: andConditions } : {};
 
   const result = await prisma.user.findMany({
     where: whereConditions,
@@ -507,8 +507,8 @@ const getAllProfiles = async (filters: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { name: { contains: searchTerm, mode: 'insensitive' } },
-        { email: { contains: searchTerm, mode: 'insensitive' } },
+        { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+        { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
       ],
     });
   }
@@ -521,7 +521,7 @@ const getAllProfiles = async (filters: any) => {
     andConditions.push({ status });
   }
 
-  const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+  const whereConditions: any = andConditions.length > 0 ? { AND: andConditions } : {};
 
   // Get all users with their profiles
   const users = await prisma.user.findMany({
@@ -550,7 +550,7 @@ const getAllProfiles = async (filters: any) => {
   });
 
   // Format the response
-  const formattedUsers = users.map(user => ({
+  const formattedUsers = users.map((user: any) => ({
     id: user.id.toString(),
     name: user.name,
     email: user.email,
@@ -585,10 +585,10 @@ const getAllVendorsData = async (filters: any, options: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { user: { name: { contains: searchTerm, mode: 'insensitive' as any } } },
-        { user: { email: { contains: searchTerm, mode: 'insensitive' as any } } },
-        { farmName: { contains: searchTerm, mode: 'insensitive' as any } },
-        { farmLocation: { contains: searchTerm, mode: 'insensitive' as any } },
+        { user: { name: { contains: searchTerm, mode: QueryMode.Insensitive } } },
+        { user: { email: { contains: searchTerm, mode: QueryMode.Insensitive } } },
+        { farmName: { contains: searchTerm, mode: QueryMode.Insensitive } },
+        { farmLocation: { contains: searchTerm, mode: QueryMode.Insensitive } },
       ],
     });
   }
@@ -671,8 +671,8 @@ const getAllCustomersData = async (filters: any, options: any) => {
   if (searchTerm) {
     andConditions.push({
       OR: [
-        { name: { contains: searchTerm, mode: 'insensitive' as any } },
-        { email: { contains: searchTerm, mode: 'insensitive' as any } },
+        { name: { contains: searchTerm, mode: QueryMode.Insensitive } },
+        { email: { contains: searchTerm, mode: QueryMode.Insensitive } },
       ],
     });
   }
@@ -728,12 +728,12 @@ const getAllCustomersData = async (filters: any, options: any) => {
   });
 
   return {
-    data: customersWithPosts,
+    data: result,
     meta: {
-      page: parsedPage,
-      limit: parsedLimit,
-      total,
-      totalPages: Math.ceil(total / parsedLimit),
+      page: parseInt(page.toString(), 10) || 1,
+      limit: parseInt(limit.toString(), 10) || 50,
+      total: result.length,
+      totalPages: Math.ceil(result.length / (parseInt(limit.toString(), 10) || 50)),
     },
   };
 };

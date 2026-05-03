@@ -23,7 +23,7 @@ const sendMessage = async (req: Request, res: Response) => {
 const getMessages = async (req: Request, res: Response) => {
   const { userId } = req.params;
 
-  const result = await ChatService.getMessages(userId);
+  const result = await ChatService.getMessages(userId as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

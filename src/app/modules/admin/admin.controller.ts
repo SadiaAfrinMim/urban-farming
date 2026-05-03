@@ -223,7 +223,7 @@ const getReports = catchAsync(async (req: Request, res: Response) => {
 const resolveReport = catchAsync(async (req: Request, res: Response) => {
   const { reportId } = req.params;
   const user = (req as AuthenticatedRequest).user;
-  const result = await AdminService.resolveReport(Number(reportId), user.id);
+  const result = await AdminService.resolveReport(reportId, user.id.toString());
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -283,7 +283,7 @@ const getRateLimitLogs = catchAsync(async (req: Request, res: Response) => {
 
 const createAnnouncement = catchAsync(async (req: Request, res: Response) => {
   const user = (req as AuthenticatedRequest).user;
-  const result = await AdminService.createAnnouncement(user.id, req.body);
+  const result = await AdminService.createAnnouncement(user.id.toString(), req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
@@ -306,7 +306,7 @@ const getAnnouncements = catchAsync(async (req: Request, res: Response) => {
 
 const deleteAnnouncement = catchAsync(async (req: Request, res: Response) => {
   const { announcementId } = req.params;
-  const result = await AdminService.deleteAnnouncement(Number(announcementId));
+  const result = await AdminService.deleteAnnouncement(announcementId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

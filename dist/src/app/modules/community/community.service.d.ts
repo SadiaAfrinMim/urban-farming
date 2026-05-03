@@ -82,6 +82,25 @@ export declare const CommunityService: {
     updatePost: (id: string, user: IJWTPayload, payload: Partial<{
         postContent: string;
     }>) => Promise<{
+        comments: {
+            createdAt: Date;
+            user: {
+                id: number;
+                name: string;
+            };
+            id: number;
+            content: string;
+        }[];
+        user: {
+            id: number;
+            name: string;
+            email: string;
+        };
+        likes: {
+            id: number;
+            userId: number;
+        }[];
+    } & {
         id: number;
         userId: number;
         postContent: string;

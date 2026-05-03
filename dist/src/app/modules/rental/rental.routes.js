@@ -1,14 +1,20 @@
-import express from 'express';
-import { RentalController } from './rental.controller.js';
-import auth from '../../middlewares/auth.js';
-import { UserRole } from '@prisma/client';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.rentalRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const rental_controller_js_1 = require("./rental.controller.js");
+const auth_js_1 = __importDefault(require("../../middlewares/auth.js"));
+const client_1 = require("@prisma/client");
 /**
  * @swagger
  * tags:
  *   name: Rentals
  *   description: Rental space management
  */
-const router = express.Router();
+const router = express_1.default.Router();
 /**
  * @swagger
  * /rentals:
@@ -19,7 +25,7 @@ const router = express.Router();
  *       200:
  *         description: List of rental spaces
  */
-router.get('/', RentalController.getAllRentalSpaces);
+router.get('/', rental_controller_js_1.RentalController.getAllRentalSpaces);
 /**
  * @swagger
  * /rentals/search:
@@ -35,7 +41,7 @@ router.get('/', RentalController.getAllRentalSpaces);
  *       200:
  *         description: Search results
  */
-router.get('/search', RentalController.searchRentalSpaces);
+router.get('/search', rental_controller_js_1.RentalController.searchRentalSpaces);
 /**
  * @swagger
  * /rentals/{id}:
@@ -52,7 +58,7 @@ router.get('/search', RentalController.searchRentalSpaces);
  *       200:
  *         description: Rental space details
  */
-router.get('/:id', RentalController.getRentalSpaceById);
+router.get('/:id', rental_controller_js_1.RentalController.getRentalSpaceById);
 /**
  * @swagger
  * /rentals:
@@ -78,7 +84,7 @@ router.get('/:id', RentalController.getRentalSpaceById);
  *       201:
  *         description: Rental space created
  */
-router.post('/', auth(UserRole.Vendor), RentalController.createRentalSpace);
+router.post('/', (0, auth_js_1.default)(client_1.UserRole.Vendor), rental_controller_js_1.RentalController.createRentalSpace);
 /**
  * @swagger
  * /rentals/{id}:
@@ -108,7 +114,7 @@ router.post('/', auth(UserRole.Vendor), RentalController.createRentalSpace);
  *       200:
  *         description: Rental space updated
  */
-router.patch('/:id', auth(UserRole.Vendor), RentalController.updateRentalSpace);
+router.patch('/:id', (0, auth_js_1.default)(client_1.UserRole.Vendor), rental_controller_js_1.RentalController.updateRentalSpace);
 /**
  * @swagger
  * /rentals/{id}:
@@ -127,7 +133,7 @@ router.patch('/:id', auth(UserRole.Vendor), RentalController.updateRentalSpace);
  *       200:
  *         description: Rental space deleted
  */
-router.delete('/:id', auth(UserRole.Vendor), RentalController.deleteRentalSpace);
+router.delete('/:id', (0, auth_js_1.default)(client_1.UserRole.Vendor), rental_controller_js_1.RentalController.deleteRentalSpace);
 /**
  * @swagger
  * /rentals/{id}/availability:
@@ -146,7 +152,7 @@ router.delete('/:id', auth(UserRole.Vendor), RentalController.deleteRentalSpace)
  *       200:
  *         description: Availability toggled
  */
-router.patch('/:id/availability', auth(UserRole.Vendor), RentalController.toggleAvailability);
+router.patch('/:id/availability', (0, auth_js_1.default)(client_1.UserRole.Vendor), rental_controller_js_1.RentalController.toggleAvailability);
 /**
  * @swagger
  * /rentals/book:
@@ -168,7 +174,7 @@ router.patch('/:id/availability', auth(UserRole.Vendor), RentalController.toggle
  *       200:
  *         description: Rental space booked
  */
-router.post('/book', auth(UserRole.Customer), RentalController.bookRentalSpace);
+router.post('/book', (0, auth_js_1.default)(client_1.UserRole.Customer), rental_controller_js_1.RentalController.bookRentalSpace);
 /**
  * @swagger
  * /rentals/order:
@@ -194,7 +200,7 @@ router.post('/book', auth(UserRole.Customer), RentalController.bookRentalSpace);
  *       200:
  *         description: Rental order created
  */
-router.post('/order', auth(UserRole.Customer), RentalController.createRentalOrder);
+router.post('/order', (0, auth_js_1.default)(client_1.UserRole.Customer), rental_controller_js_1.RentalController.createRentalOrder);
 /**
  * @swagger
  * /rentals/vendor/orders:
@@ -207,7 +213,7 @@ router.post('/order', auth(UserRole.Customer), RentalController.createRentalOrde
  *       200:
  *         description: Vendor rental orders retrieved successfully
  */
-router.get('/vendor/orders', auth(UserRole.Vendor), RentalController.getVendorRentalOrders);
+router.get('/vendor/orders', (0, auth_js_1.default)(client_1.UserRole.Vendor), rental_controller_js_1.RentalController.getVendorRentalOrders);
 /**
  * @swagger
  * /rentals/vendor/orders/{id}/status:
@@ -236,6 +242,6 @@ router.get('/vendor/orders', auth(UserRole.Vendor), RentalController.getVendorRe
  *       200:
  *         description: Rental order status updated successfully
  */
-router.patch('/vendor/orders/:id/status', auth(UserRole.Vendor), RentalController.updateRentalOrderStatus);
-export const rentalRoutes = router;
+router.patch('/vendor/orders/:id/status', (0, auth_js_1.default)(client_1.UserRole.Vendor), rental_controller_js_1.RentalController.updateRentalOrderStatus);
+exports.rentalRoutes = router;
 //# sourceMappingURL=rental.routes.js.map

@@ -1,105 +1,111 @@
-import httpStatus from 'http-status';
-import sendResponse from '../../shared/sendResponse';
-import { CommunityService } from './community.service';
-import catchAsync from '../../shared/catchAsync';
-const getAllPosts = catchAsync(async (req, res) => {
-    const result = await CommunityService.getAllPosts();
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CommunityController = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const sendResponse_1 = __importDefault(require("../../shared/sendResponse"));
+const community_service_1 = require("./community.service");
+const catchAsync_1 = __importDefault(require("../../shared/catchAsync"));
+const getAllPosts = (0, catchAsync_1.default)(async (req, res) => {
+    const result = await community_service_1.CommunityService.getAllPosts();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Posts retrieved successfully',
         data: result,
     });
 });
-const getPostById = catchAsync(async (req, res) => {
+const getPostById = (0, catchAsync_1.default)(async (req, res) => {
     const { id } = req.params;
-    const result = await CommunityService.getPostById(id);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await community_service_1.CommunityService.getPostById(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Post retrieved successfully',
         data: result,
     });
 });
-const createPost = catchAsync(async (req, res) => {
+const createPost = (0, catchAsync_1.default)(async (req, res) => {
     const user = req.user;
     const payload = req.body;
-    const result = await CommunityService.createPost(user.id, payload);
-    sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+    const result = await community_service_1.CommunityService.createPost(user.id, payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.CREATED,
         success: true,
         message: 'Post created successfully',
         data: result,
     });
 });
-const updatePost = catchAsync(async (req, res) => {
+const updatePost = (0, catchAsync_1.default)(async (req, res) => {
     const { id } = req.params;
     const payload = req.body;
     const user = req.user;
-    const result = await CommunityService.updatePost(id, user, payload);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await community_service_1.CommunityService.updatePost(id, user, payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Post updated successfully',
         data: result,
     });
 });
-const deletePost = catchAsync(async (req, res) => {
+const deletePost = (0, catchAsync_1.default)(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
-    await CommunityService.deletePost(id, user);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    await community_service_1.CommunityService.deletePost(id, user);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Post deleted successfully',
         data: null,
     });
 });
-const toggleLike = catchAsync(async (req, res) => {
+const toggleLike = (0, catchAsync_1.default)(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
-    const result = await CommunityService.toggleLike(id, user.id);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await community_service_1.CommunityService.toggleLike(id, user.id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: result.liked ? 'Post liked successfully' : 'Post unliked successfully',
         data: result,
     });
 });
-const addComment = catchAsync(async (req, res) => {
+const addComment = (0, catchAsync_1.default)(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
     const { content } = req.body;
-    const result = await CommunityService.addComment(id, user.id, content);
-    sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+    const result = await community_service_1.CommunityService.addComment(id, user.id, content);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.CREATED,
         success: true,
         message: 'Comment added successfully',
         data: result,
     });
 });
-const getPostComments = catchAsync(async (req, res) => {
+const getPostComments = (0, catchAsync_1.default)(async (req, res) => {
     const { id } = req.params;
-    const result = await CommunityService.getPostComments(id);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await community_service_1.CommunityService.getPostComments(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Comments retrieved successfully',
         data: result,
     });
 });
-const deleteComment = catchAsync(async (req, res) => {
+const deleteComment = (0, catchAsync_1.default)(async (req, res) => {
     const { commentId } = req.params;
     const user = req.user;
-    await CommunityService.deleteComment(commentId, user.id);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    await community_service_1.CommunityService.deleteComment(commentId, user.id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Comment deleted successfully',
         data: null,
     });
 });
-export const CommunityController = {
+exports.CommunityController = {
     getAllPosts,
     getPostById,
     createPost,

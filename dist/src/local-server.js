@@ -1,22 +1,27 @@
-import { Server as SocketServer } from 'socket.io';
-import cron from 'node-cron';
-import app from './app.js';
-import config from './config/index.js';
-import { OrderService } from './app/modules/order/order.service.js';
-import { NotificationService } from './app/modules/notification/notification.service.js';
-import { prisma } from './app/shared/prisma';
-import { NotificationType } from '@prisma/client';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const socket_io_1 = require("socket.io");
+const node_cron_1 = __importDefault(require("node-cron"));
+const app_js_1 = __importDefault(require("./app.js"));
+const index_js_1 = __importDefault(require("./config/index.js"));
+const order_service_js_1 = require("./app/modules/order/order.service.js");
+const notification_service_js_1 = require("./app/modules/notification/notification.service.js");
+const prisma_1 = require("./app/shared/prisma");
+const client_1 = require("@prisma/client");
 async function bootstrap() {
     // This variable will hold our server instance
     let server;
     let io;
     try {
         // Start the server
-        server = app.listen(config.port, () => {
-            console.log(`🚀 Server is running on http://localhost:${config.port}`);
+        server = app_js_1.default.listen(index_js_1.default.port, () => {
+            console.log(`🚀 Server is running on http://localhost:${index_js_1.default.port}`);
         });
         // Initialize Socket.IO
-        io = new SocketServer(server, {
+        io = new socket_io_1.Server(server, {
             cors: {
                 origin: ['http://localhost:3000', 'http://localhost:3001'],
                 credentials: true
@@ -31,18 +36,18 @@ async function bootstrap() {
             });
         });
         // Schedule cron job to cancel expired orders every 15 minutes
-        cron.schedule('*/15 * * * *', async () => {
+        node_cron_1.default.schedule('*/15 * * * *', async () => {
             try {
-                const cancelledCount = await OrderService.cancelExpiredOrders();
+                const cancelledCount = await order_service_js_1.OrderService.cancelExpiredOrders();
                 if (cancelledCount > 0) {
                     console.log(`🧹 Cancelled ${cancelledCount} expired orders and restored stock`);
                     // Notify admins about expired orders cleanup
                     try {
-                        const admins = await prisma.user.findMany({
+                        const admins = await prisma_1.prisma.user.findMany({
                             where: { role: 'Admin' },
                         });
                         for (const admin of admins) {
-                            await NotificationService.createNotification(admin.id, NotificationType.SYSTEM, 'Expired Orders Cleaned Up', `${cancelledCount} expired pending orders were cancelled and stock was restored.`, {
+                            await notification_service_js_1.NotificationService.createNotification(admin.id, client_1.NotificationType.SYSTEM, 'Expired Orders Cleaned Up', `${cancelledCount} expired pending orders were cancelled and stock was restored.`, {
                                 cancelledCount,
                                 type: 'expired_orders_cleanup',
                                 timestamp: new Date().toISOString(),

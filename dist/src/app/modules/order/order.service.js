@@ -1,9 +1,48 @@
-import { OrderStatus } from '../../types/common.js';
-import { prisma } from '../../shared/prisma.js';
-import { NotificationService } from '../notification/notification.service.js';
-import { NotificationType } from '@prisma/client';
-import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError.js';
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.OrderService = void 0;
+const common_js_1 = require("../../types/common.js");
+const prisma_js_1 = require("../../shared/prisma.js");
+const notification_service_js_1 = require("../notification/notification.service.js");
+const client_1 = require("@prisma/client");
+const http_status_1 = __importDefault(require("http-status"));
+const ApiError_js_1 = __importDefault(require("../../errors/ApiError.js"));
 const getOrders = async (user) => {
     let where = {};
     if (user.role === 'Customer') {
@@ -12,9 +51,9 @@ const getOrders = async (user) => {
     else if (user.role === 'Vendor') {
         const userIdNumber = parseInt(user.id, 10);
         if (isNaN(userIdNumber)) {
-            throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+            throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
         }
-        const vendorProfile = await prisma.vendorProfile.findUnique({
+        const vendorProfile = await prisma_js_1.prisma.vendorProfile.findUnique({
             where: { userId: userIdNumber },
         });
         if (vendorProfile) {
@@ -22,7 +61,7 @@ const getOrders = async (user) => {
         }
     }
     // Admin can see all
-    const orders = await prisma.order.findMany({
+    const orders = await prisma_js_1.prisma.order.findMany({
         where,
         include: {
             user: true,
@@ -40,9 +79,9 @@ const getOrders = async (user) => {
 const getOrderById = async (id, user) => {
     const orderId = parseInt(id);
     if (isNaN(orderId)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid order ID');
+        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid order ID');
     }
-    const order = await prisma.order.findUnique({
+    const order = await prisma_js_1.prisma.order.findUnique({
         where: { id: orderId },
         include: {
             user: true,
@@ -56,22 +95,22 @@ const getOrderById = async (id, user) => {
         },
     });
     if (!order) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Order not found');
     }
     // Check permissions
     if (user.role === 'Customer' && order.userId !== user.id) {
-        throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+        throw new ApiError_js_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
     }
     if (user.role === 'Vendor') {
         const userIdNumber = parseInt(user.id, 10);
         if (isNaN(userIdNumber)) {
-            throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+            throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
         }
-        const vendorProfile = await prisma.vendorProfile.findUnique({
+        const vendorProfile = await prisma_js_1.prisma.vendorProfile.findUnique({
             where: { userId: userIdNumber },
         });
         if (!vendorProfile || order.vendorId !== vendorProfile.id) {
-            throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+            throw new ApiError_js_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
         }
     }
     return order;
@@ -84,19 +123,19 @@ const createOrder = async (userId, payload) => {
     let rentalSpaceId = null;
     if (payload.produceId) {
         const produceIdNum = typeof payload.produceId === 'string' ? parseInt(payload.produceId) : payload.produceId;
-        const produce = await prisma.produce.findUnique({
+        const produce = await prisma_js_1.prisma.produce.findUnique({
             where: { id: produceIdNum },
         });
         if (!produce) {
-            throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
+            throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Produce not found');
         }
         // Check if product is approved
         if (produce.certificationStatus !== 'Approved') {
-            throw new ApiError(httpStatus.BAD_REQUEST, 'Product is not available for purchase');
+            throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Product is not available for purchase');
         }
         // Check if enough stock is available
         if (produce.availableQuantity < quantity) {
-            throw new ApiError(httpStatus.BAD_REQUEST, 'Insufficient stock available');
+            throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Insufficient stock available');
         }
         // Calculate total price (always use price * quantity to ensure accuracy)
         totalPrice = totalPrice || produce.price * quantity;
@@ -105,15 +144,15 @@ const createOrder = async (userId, payload) => {
     }
     else if (payload.rentalSpaceId) {
         const rentalSpaceIdNum = typeof payload.rentalSpaceId === 'string' ? parseInt(payload.rentalSpaceId) : payload.rentalSpaceId;
-        const rentalSpace = await prisma.rentalSpace.findUnique({
+        const rentalSpace = await prisma_js_1.prisma.rentalSpace.findUnique({
             where: { id: rentalSpaceIdNum },
         });
         if (!rentalSpace) {
-            throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
+            throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
         }
         // Check if rental space is available
         if (!rentalSpace.availability) {
-            throw new ApiError(httpStatus.BAD_REQUEST, 'Rental space is not available');
+            throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Rental space is not available');
         }
         // For rentals, quantity is 1 (one month rental), totalPrice is the monthly price
         totalPrice = totalPrice || rentalSpace.price;
@@ -121,15 +160,15 @@ const createOrder = async (userId, payload) => {
         rentalSpaceId = rentalSpaceIdNum;
     }
     else {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Either produceId or rentalSpaceId must be provided');
+        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Either produceId or rentalSpaceId must be provided');
     }
     // Use a transaction to ensure both order creation and stock/rental update happen atomically
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma_js_1.prisma.$transaction(async (tx) => {
         if (produceId) {
             // Decrease the available quantity for produce
             const produce = await tx.produce.findUnique({ where: { id: produceId } });
             if (!produce)
-                throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
+                throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Produce not found');
             const updatedProduce = await tx.produce.update({
                 where: { id: produceId },
                 data: {
@@ -144,7 +183,7 @@ const createOrder = async (userId, payload) => {
             // Set rental space availability to false
             const rentalSpace = await tx.rentalSpace.findUnique({ where: { id: rentalSpaceId } });
             if (!rentalSpace)
-                throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
+                throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
             await tx.rentalSpace.update({
                 where: { id: rentalSpaceId },
                 data: { availability: false },
@@ -183,7 +222,7 @@ const createOrder = async (userId, payload) => {
     // Notify customer and admins about new order (async, non-blocking)
     process.nextTick(async () => {
         try {
-            const NotificationService = (await import('../notification/notification.service')).NotificationService;
+            const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service')))).NotificationService;
             const itemName = result.produce ? result.produce.name : result.rentalSpace ? result.rentalSpace.location : 'Unknown item';
             // Notify customer
             await NotificationService.createNotification(result.userId, 'ORDER_PLACED', 'Order Placed Successfully', `Your order #${result.id} for ${itemName} has been placed successfully. Total: ৳${result.totalPrice}`, {
@@ -193,7 +232,7 @@ const createOrder = async (userId, payload) => {
                 status: result.status,
             });
             // Notify admins
-            const admins = await prisma.user.findMany({
+            const admins = await prisma_js_1.prisma.user.findMany({
                 where: { role: 'Admin' },
             });
             for (const admin of admins) {
@@ -217,17 +256,17 @@ const createOrder = async (userId, payload) => {
 const updateOrderStatus = async (id, status) => {
     const orderId = parseInt(id);
     if (isNaN(orderId)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid order ID');
+        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid order ID');
     }
-    const order = await prisma.order.findUnique({
+    const order = await prisma_js_1.prisma.order.findUnique({
         where: { id: orderId },
     });
     if (!order) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Order not found');
     }
     // If cancelling a pending order, restore the stock
-    if (status === OrderStatus.Cancelled && order.status === OrderStatus.Pending) {
-        const updated = await prisma.$transaction(async (tx) => {
+    if (status === common_js_1.OrderStatus.Cancelled && order.status === common_js_1.OrderStatus.Pending) {
+        const updated = await prisma_js_1.prisma.$transaction(async (tx) => {
             // Restore the stock
             await tx.produce.update({
                 where: { id: order.produceId },
@@ -261,12 +300,12 @@ const updateOrderStatus = async (id, status) => {
         }
         // Create notifications
         try {
-            await NotificationService.createNotification(updated.userId, NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Your order #${updated.id} status has been updated to ${status}.`, {
+            await notification_service_js_1.NotificationService.createNotification(updated.userId, client_1.NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Your order #${updated.id} status has been updated to ${status}.`, {
                 orderId: updated.id,
                 status: status,
                 produceName: updated.produce.name,
             });
-            await NotificationService.createNotification(updated.vendor.userId, NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Order #${updated.id} status has been updated to ${status}.`, {
+            await notification_service_js_1.NotificationService.createNotification(updated.vendor.userId, client_1.NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Order #${updated.id} status has been updated to ${status}.`, {
                 orderId: updated.id,
                 status: status,
                 customerName: updated.user.name,
@@ -278,7 +317,7 @@ const updateOrderStatus = async (id, status) => {
         return updated;
     }
     else {
-        const updated = await prisma.order.update({
+        const updated = await prisma_js_1.prisma.order.update({
             where: { id },
             data: { status },
             include: {
@@ -298,12 +337,12 @@ const updateOrderStatus = async (id, status) => {
         }
         // Create notifications
         try {
-            await NotificationService.createNotification(updated.userId, NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Your order #${updated.id} status has been updated to ${status}.`, {
+            await notification_service_js_1.NotificationService.createNotification(updated.userId, client_1.NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Your order #${updated.id} status has been updated to ${status}.`, {
                 orderId: updated.id,
                 status: status,
                 produceName: updated.produce.name,
             });
-            await NotificationService.createNotification(updated.vendor.userId, NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Order #${updated.id} status has been updated to ${status}.`, {
+            await notification_service_js_1.NotificationService.createNotification(updated.vendor.userId, client_1.NotificationType.ORDER_STATUS_UPDATE, 'Order Status Updated', `Order #${updated.id} status has been updated to ${status}.`, {
                 orderId: updated.id,
                 status: status,
                 customerName: updated.user.name,
@@ -318,21 +357,21 @@ const updateOrderStatus = async (id, status) => {
 // Function to cancel expired pending orders and restore stock
 const cancelExpiredOrders = async () => {
     const expiryTime = new Date(Date.now() - 30 * 60 * 1000); // 30 minutes ago
-    const expiredOrders = await prisma.order.findMany({
+    const expiredOrders = await prisma_js_1.prisma.order.findMany({
         where: {
-            status: OrderStatus.Pending,
+            status: common_js_1.OrderStatus.Pending,
             orderDate: {
                 lt: expiryTime,
             },
         },
     });
     for (const order of expiredOrders) {
-        await updateOrderStatus(order.id.toString(), OrderStatus.Cancelled);
+        await updateOrderStatus(order.id.toString(), common_js_1.OrderStatus.Cancelled);
         console.log(`Auto-cancelled expired order ${order.id}`);
     }
     return expiredOrders.length;
 };
-export const OrderService = {
+exports.OrderService = {
     getOrders,
     getOrderById,
     createOrder,

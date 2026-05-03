@@ -1,6 +1,12 @@
-import express from 'express';
-import { HomeController } from './home.controller';
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.homeRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const home_controller_1 = require("./home.controller");
+const router = express_1.default.Router();
 /**
  * @swagger
  * tags:
@@ -17,7 +23,7 @@ const router = express.Router();
  *       200:
  *         description: Featured products retrieved successfully
  */
-router.get('/featured-products', HomeController.getFeaturedProducts);
+router.get('/featured-products', home_controller_1.HomeController.getFeaturedProducts);
 /**
  * @swagger
  * /home/categories:
@@ -28,7 +34,7 @@ router.get('/featured-products', HomeController.getFeaturedProducts);
  *       200:
  *         description: Categories retrieved successfully
  */
-router.get('/categories', HomeController.getCategories);
+router.get('/categories', home_controller_1.HomeController.getCategories);
 /**
  * @swagger
  * /home/statistics:
@@ -39,7 +45,7 @@ router.get('/categories', HomeController.getCategories);
  *       200:
  *         description: Statistics retrieved successfully
  */
-router.get('/statistics', HomeController.getStatistics);
+router.get('/statistics', home_controller_1.HomeController.getStatistics);
 /**
  * @swagger
  * /home/testimonials:
@@ -50,7 +56,7 @@ router.get('/statistics', HomeController.getStatistics);
  *       200:
  *         description: Testimonials retrieved successfully
  */
-router.get('/testimonials', HomeController.getTestimonials);
+router.get('/testimonials', home_controller_1.HomeController.getTestimonials);
 /**
  * @swagger
  * /home/featured-vendors:
@@ -61,7 +67,7 @@ router.get('/testimonials', HomeController.getTestimonials);
  *       200:
  *         description: Featured vendors retrieved successfully
  */
-router.get('/featured-vendors', HomeController.getFeaturedVendors);
+router.get('/featured-vendors', home_controller_1.HomeController.getFeaturedVendors);
 /**
  * @swagger
  * /home/approved-vendors-certificates:
@@ -72,6 +78,6 @@ router.get('/featured-vendors', HomeController.getFeaturedVendors);
  *       200:
  *         description: Approved vendors certificates retrieved successfully
  */
-router.get('/approved-vendors-certificates', HomeController.getApprovedVendorCertificates);
-export const homeRoutes = router;
+router.get('/approved-vendors-certificates', home_controller_1.HomeController.getApprovedVendorCertificates);
+exports.homeRoutes = router;
 //# sourceMappingURL=home.routes.js.map

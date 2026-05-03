@@ -1,23 +1,62 @@
-import bcrypt from 'bcryptjs';
-import { prisma } from '../../shared/prisma.js';
-import { UserRole, UserStatus, CertificationStatus } from '@prisma/client';
-import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError.js';
-import { jwtHelper } from '../../helpers/jwtHelper.js';
-import config from '../../../config/index.js';
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthService = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const prisma_js_1 = require("../../shared/prisma.js");
+const client_1 = require("@prisma/client");
+const http_status_1 = __importDefault(require("http-status"));
+const ApiError_js_1 = __importDefault(require("../../errors/ApiError.js"));
+const jwtHelper_js_1 = require("../../helpers/jwtHelper.js");
+const index_js_1 = __importDefault(require("../../../config/index.js"));
 const ensureAdminExists = async () => {
-    const adminExists = await prisma.user.findFirst({
-        where: { role: UserRole.Admin },
+    const adminExists = await prisma_js_1.prisma.user.findFirst({
+        where: { role: client_1.UserRole.Admin },
     });
     if (!adminExists) {
-        const hashedPassword = await bcrypt.hash('password123', 12);
-        await prisma.user.create({
+        const hashedPassword = await bcryptjs_1.default.hash('password123', 12);
+        await prisma_js_1.prisma.user.create({
             data: {
                 name: 'Admin User',
                 email: 'admin@example.com',
                 password: hashedPassword,
-                role: UserRole.Admin,
-                status: UserStatus.Active,
+                role: client_1.UserRole.Admin,
+                status: client_1.UserStatus.Active,
             },
         });
         console.log('Default admin user created: admin@example.com / password123');
@@ -25,22 +64,22 @@ const ensureAdminExists = async () => {
 };
 const registerUser = async (payload) => {
     const { name, email, password, role: roleString = 'Customer', adminCode, farmName, farmLocation } = payload;
-    const role = roleString === 'Admin' ? UserRole.Admin : roleString === 'Vendor' ? UserRole.Vendor : UserRole.Customer;
+    const role = roleString === 'Admin' ? client_1.UserRole.Admin : roleString === 'Vendor' ? client_1.UserRole.Vendor : client_1.UserRole.Customer;
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma_js_1.prisma.user.findUnique({
         where: { email },
     });
     if (existingUser) {
-        throw new ApiError(httpStatus.CONFLICT, 'User with this email already exists');
+        throw new ApiError_js_1.default(http_status_1.default.CONFLICT, 'User with this email already exists');
     }
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const user = await prisma.user.create({
+    const hashedPassword = await bcryptjs_1.default.hash(password, 12);
+    const user = await prisma_js_1.prisma.user.create({
         data: {
             name,
             email,
             password: hashedPassword,
             role,
-            status: UserStatus.Active,
+            status: client_1.UserStatus.Active,
         },
         select: {
             id: true,
@@ -51,21 +90,21 @@ const registerUser = async (payload) => {
         },
     });
     if (roleString === 'Vendor') {
-        await prisma.vendorProfile.create({
+        await prisma_js_1.prisma.vendorProfile.create({
             data: {
                 farmName: farmName || '',
                 farmLocation: farmLocation || '',
                 userId: user.id,
-                certificationStatus: CertificationStatus.Pending,
+                certificationStatus: client_1.CertificationStatus.Pending,
             },
         });
         // Notify admins about new vendor registration (async, non-blocking)
         process.nextTick(async () => {
             try {
                 console.log('Creating vendor registration notification for user:', user.name);
-                const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
-                const admins = await prisma.user.findMany({
-                    where: { role: UserRole.Admin },
+                const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service.js')))).NotificationService;
+                const admins = await prisma_js_1.prisma.user.findMany({
+                    where: { role: client_1.UserRole.Admin },
                 });
                 console.log('Found admins:', admins.length);
                 for (const admin of admins) {
@@ -88,9 +127,9 @@ const registerUser = async (payload) => {
         process.nextTick(async () => {
             try {
                 console.log('Creating customer registration notification for user:', user.name);
-                const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
-                const admins = await prisma.user.findMany({
-                    where: { role: UserRole.Admin },
+                const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service.js')))).NotificationService;
+                const admins = await prisma_js_1.prisma.user.findMany({
+                    where: { role: client_1.UserRole.Admin },
                 });
                 console.log('Found admins for customer notification:', admins.length);
                 for (const admin of admins) {
@@ -109,11 +148,11 @@ const registerUser = async (payload) => {
         });
     }
     // Generate JWT tokens
-    const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-    const accessExpiresIn = config.jwt.expires_in || '7d';
-    const refreshExpiresIn = config.jwt.refresh_token_expires_in || '30d';
-    const accessToken = jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, accessExpiresIn);
-    const refreshToken = jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, refreshExpiresIn);
+    const jwtSecret = index_js_1.default.jwt.jwt_secret || 'default-secret';
+    const accessExpiresIn = index_js_1.default.jwt.expires_in || '7d';
+    const refreshExpiresIn = index_js_1.default.jwt.refresh_token_expires_in || '30d';
+    const accessToken = jwtHelper_js_1.jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, accessExpiresIn);
+    const refreshToken = jwtHelper_js_1.jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, refreshExpiresIn);
     return {
         user,
         accessToken,
@@ -124,25 +163,25 @@ const loginUser = async (payload) => {
     const { email, password } = payload;
     // Ensure admin user exists before login attempt
     await ensureAdminExists();
-    const user = await prisma.user.findUnique({
+    const user = await prisma_js_1.prisma.user.findUnique({
         where: { email },
     });
     if (!user) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'User not found');
     }
-    if (user.status !== UserStatus.Active) {
-        throw new ApiError(httpStatus.FORBIDDEN, 'Account is not active');
+    if (user.status !== client_1.UserStatus.Active) {
+        throw new ApiError_js_1.default(http_status_1.default.FORBIDDEN, 'Account is not active');
     }
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcryptjs_1.default.compare(password, user.password);
     if (!isPasswordValid) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid credentials');
+        throw new ApiError_js_1.default(http_status_1.default.UNAUTHORIZED, 'Invalid credentials');
     }
     // Generate JWT tokens
-    const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-    const accessExpiresIn = config.jwt.expires_in || '7d';
-    const refreshExpiresIn = config.jwt.refresh_token_expires_in || '30d';
-    const accessToken = jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, accessExpiresIn);
-    const refreshToken = jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, refreshExpiresIn);
+    const jwtSecret = index_js_1.default.jwt.jwt_secret || 'default-secret';
+    const accessExpiresIn = index_js_1.default.jwt.expires_in || '7d';
+    const refreshExpiresIn = index_js_1.default.jwt.refresh_token_expires_in || '30d';
+    const accessToken = jwtHelper_js_1.jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, accessExpiresIn);
+    const refreshToken = jwtHelper_js_1.jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, refreshExpiresIn);
     console.log('Generated Tokens:', {
         accessTokenLength: accessToken.length,
         accessTokenStart: accessToken.substring(0, 20) + '...',
@@ -163,24 +202,24 @@ const loginUser = async (payload) => {
 const refreshToken = async (token) => {
     let decoded;
     try {
-        decoded = jwtHelper.verifyToken(token, config.jwt.refresh_token_secret);
+        decoded = jwtHelper_js_1.jwtHelper.verifyToken(token, index_js_1.default.jwt.refresh_token_secret);
     }
     catch (error) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid refresh token');
+        throw new ApiError_js_1.default(http_status_1.default.UNAUTHORIZED, 'Invalid refresh token');
     }
-    const user = await prisma.user.findUnique({
+    const user = await prisma_js_1.prisma.user.findUnique({
         where: { id: decoded.id },
     });
     if (!user) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'User not found');
     }
-    if (user.status !== UserStatus.Active) {
-        throw new ApiError(httpStatus.FORBIDDEN, 'Account is not active');
+    if (user.status !== client_1.UserStatus.Active) {
+        throw new ApiError_js_1.default(http_status_1.default.FORBIDDEN, 'Account is not active');
     }
     // Generate new access token
-    const jwtSecret = config.jwt.jwt_secret || 'default-secret';
-    const accessExpiresIn = config.jwt.expires_in || '7d';
-    const accessToken = jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, accessExpiresIn);
+    const jwtSecret = index_js_1.default.jwt.jwt_secret || 'default-secret';
+    const accessExpiresIn = index_js_1.default.jwt.expires_in || '7d';
+    const accessToken = jwtHelper_js_1.jwtHelper.generateToken({ id: user.id, role: user.role, email: user.email }, jwtSecret, accessExpiresIn);
     return {
         accessToken,
     };
@@ -189,25 +228,25 @@ const changePassword = async (user, payload) => {
     const { oldPassword, newPassword } = payload;
     const userIdNumber = parseInt(user.id, 10);
     if (isNaN(userIdNumber)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
+        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
     }
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma_js_1.prisma.user.findUnique({
         where: { id: userIdNumber },
     });
     if (!existingUser) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'User not found');
     }
-    const isOldPasswordValid = await bcrypt.compare(oldPassword, existingUser.password);
+    const isOldPasswordValid = await bcryptjs_1.default.compare(oldPassword, existingUser.password);
     if (!isOldPasswordValid) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Old password is incorrect');
+        throw new ApiError_js_1.default(http_status_1.default.UNAUTHORIZED, 'Old password is incorrect');
     }
-    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
-    await prisma.user.update({
+    const hashedNewPassword = await bcryptjs_1.default.hash(newPassword, 12);
+    await prisma_js_1.prisma.user.update({
         where: { id: userIdNumber },
         data: { password: hashedNewPassword },
     });
 };
-export const AuthService = {
+exports.AuthService = {
     ensureAdminExists,
     registerUser,
     loginUser,

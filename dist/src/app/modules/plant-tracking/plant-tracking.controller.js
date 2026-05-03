@@ -1,98 +1,104 @@
-import httpStatus from 'http-status';
-import catchAsync from '../../shared/catchAsync';
-import sendResponse from '../../shared/sendResponse';
-import { PlantTrackingService } from './plant-tracking.service';
-import pick from '../../helpers/pick';
-const createPlantTracking = catchAsync(async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PlantTrackingController = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const catchAsync_1 = __importDefault(require("../../shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../shared/sendResponse"));
+const plant_tracking_service_1 = require("./plant-tracking.service");
+const pick_1 = __importDefault(require("../../helpers/pick"));
+const createPlantTracking = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
-    const result = await PlantTrackingService.createPlantTracking(userId, req.body);
-    sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+    const result = await plant_tracking_service_1.PlantTrackingService.createPlantTracking(userId, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.CREATED,
         success: true,
         message: 'Plant tracking created successfully',
         data: result,
     });
 });
-const getAllPlantTrackings = catchAsync(async (req, res) => {
+const getAllPlantTrackings = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
-    const options = pick(req.query, ['page', 'limit', 'sortBy', 'sortOrder']);
-    const result = await PlantTrackingService.getAllPlantTrackings(userId, options);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const options = (0, pick_1.default)(req.query, ['page', 'limit', 'sortBy', 'sortOrder']);
+    const result = await plant_tracking_service_1.PlantTrackingService.getAllPlantTrackings(userId, options);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Plant trackings retrieved successfully',
         meta: result.meta,
         data: result.data,
     });
 });
-const getPlantTrackingById = catchAsync(async (req, res) => {
+const getPlantTrackingById = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
     const { id } = req.params;
-    const result = await PlantTrackingService.getPlantTrackingById(id, userId);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await plant_tracking_service_1.PlantTrackingService.getPlantTrackingById(id, userId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Plant tracking retrieved successfully',
         data: result,
     });
 });
-const updatePlantTracking = catchAsync(async (req, res) => {
+const updatePlantTracking = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
     const { id } = req.params;
-    const result = await PlantTrackingService.updatePlantTracking(id, userId, req.body);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await plant_tracking_service_1.PlantTrackingService.updatePlantTracking(id, userId, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Plant tracking updated successfully',
         data: result,
     });
 });
-const updatePlantHealth = catchAsync(async (req, res) => {
+const updatePlantHealth = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
     const { id } = req.params;
     const { healthStatus, notes } = req.body;
-    const result = await PlantTrackingService.updatePlantHealth(id, userId, healthStatus, notes);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await plant_tracking_service_1.PlantTrackingService.updatePlantHealth(id, userId, healthStatus, notes);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Plant health updated successfully',
         data: result,
     });
 });
-const waterPlant = catchAsync(async (req, res) => {
+const waterPlant = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
     const { id } = req.params;
-    const result = await PlantTrackingService.waterPlant(id, userId);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await plant_tracking_service_1.PlantTrackingService.waterPlant(id, userId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Plant watered successfully',
         data: result,
     });
 });
-const fertilizePlant = catchAsync(async (req, res) => {
+const fertilizePlant = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
     const { id } = req.params;
-    const result = await PlantTrackingService.fertilizePlant(id, userId);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    const result = await plant_tracking_service_1.PlantTrackingService.fertilizePlant(id, userId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Plant fertilized successfully',
         data: result,
     });
 });
-const deletePlantTracking = catchAsync(async (req, res) => {
+const deletePlantTracking = (0, catchAsync_1.default)(async (req, res) => {
     const userId = req.user?.userId;
     const { id } = req.params;
-    await PlantTrackingService.deletePlantTracking(id, userId);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    await plant_tracking_service_1.PlantTrackingService.deletePlantTracking(id, userId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Plant tracking deleted successfully',
         data: null,
     });
 });
-export const PlantTrackingController = {
+exports.PlantTrackingController = {
     createPlantTracking,
     getAllPlantTrackings,
     getPlantTrackingById,

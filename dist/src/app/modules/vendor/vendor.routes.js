@@ -1,13 +1,19 @@
-import express from 'express';
-import path from 'path';
-import { VendorController } from './vendor.controller.js';
-import auth from '../../middlewares/auth.js';
-import { UserRole } from '../../types/common.js';
-import multer from 'multer';
-import { fileUploader } from '../../helpers/fileUploader.js';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.VendorRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
+const vendor_controller_js_1 = require("./vendor.controller.js");
+const auth_js_1 = __importDefault(require("../../middlewares/auth.js"));
+const common_js_1 = require("../../types/common.js");
+const multer_1 = __importDefault(require("multer"));
+const fileUploader_js_1 = require("../../helpers/fileUploader.js");
 // Configure multer for file uploads
-const storage = multer.memoryStorage();
-const upload = multer({
+const storage = multer_1.default.memoryStorage();
+const upload = (0, multer_1.default)({
     storage,
     limits: {
         fileSize: 5 * 1024 * 1024, // 5MB
@@ -26,7 +32,7 @@ const upload = multer({
             // For other files, allow images
             allowedTypes = /jpeg|jpg|png|gif/;
         }
-        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const extname = allowedTypes.test(path_1.default.extname(file.originalname).toLowerCase());
         const mimetype = allowedTypes.test(file.mimetype);
         if (mimetype && extname) {
             console.log(`File ${file.originalname} accepted`);
@@ -55,7 +61,7 @@ const uploadToCloudinary = async (req, res, next) => {
         // Handle profile photo upload
         if (req.files && req.files.profilePhoto && req.files.profilePhoto[0]) {
             console.log('Uploading profile photo:', req.files.profilePhoto[0].originalname);
-            const uploadResult = await fileUploader.uploadToCloudinary(req.files.profilePhoto[0]);
+            const uploadResult = await fileUploader_js_1.fileUploader.uploadToCloudinary(req.files.profilePhoto[0]);
             uploadedImages.push(uploadResult);
             req.body.profilePhotoUrl = uploadResult.secure_url;
             console.log('✅ Profile photo uploaded:', uploadResult.secure_url);
@@ -66,7 +72,7 @@ const uploadToCloudinary = async (req, res, next) => {
             req.body.certificationUrls = [];
             for (const certFile of req.files.certification) {
                 console.log('Uploading cert:', certFile.originalname);
-                const uploadResult = await fileUploader.uploadToCloudinary(certFile);
+                const uploadResult = await fileUploader_js_1.fileUploader.uploadToCloudinary(certFile);
                 uploadedImages.push(uploadResult);
                 req.body.certificationUrls.push(uploadResult.secure_url);
             }
@@ -75,7 +81,7 @@ const uploadToCloudinary = async (req, res, next) => {
         // Handle single image upload (for rental spaces and produces)
         if (req.file) {
             console.log('Uploading single image:', req.file.originalname);
-            const uploadResult = await fileUploader.uploadToCloudinary(req.file);
+            const uploadResult = await fileUploader_js_1.fileUploader.uploadToCloudinary(req.file);
             uploadedImages.push(uploadResult);
             req.body.imageUrl = uploadResult.secure_url;
             console.log('✅ Single image uploaded:', uploadResult.secure_url);
@@ -90,7 +96,7 @@ const uploadToCloudinary = async (req, res, next) => {
         if (req.uploadedImages) {
             for (const img of req.uploadedImages) {
                 try {
-                    await fileUploader.deleteFromCloudinary(img.public_id);
+                    await fileUploader_js_1.fileUploader.deleteFromCloudinary(img.public_id);
                 }
                 catch (cleanupError) {
                     console.error('Failed to cleanup uploaded image:', cleanupError);
@@ -106,7 +112,7 @@ const uploadToCloudinary = async (req, res, next) => {
  *   name: Vendor
  *   description: Vendor operations and management
  */
-const router = express.Router();
+const router = express_1.default.Router();
 // Debug endpoint to check what's being received
 router.post('/debug-upload', uploadFields, (req, res) => {
     console.log('=== DEBUG UPLOAD ENDPOINT ===');
@@ -141,7 +147,7 @@ router.post('/debug-upload', uploadFields, (req, res) => {
  *       200:
  *         description: Profile updated
  */
-router.post('/profile', auth(UserRole.Vendor), uploadFields, uploadToCloudinary, VendorController.createOrUpdateProfile);
+router.post('/profile', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), uploadFields, uploadToCloudinary, vendor_controller_js_1.VendorController.createOrUpdateProfile);
 /**
  * @swagger
  * /vendor/profile:
@@ -154,7 +160,7 @@ router.post('/profile', auth(UserRole.Vendor), uploadFields, uploadToCloudinary,
  *       200:
  *         description: Profile retrieved
  */
-router.get('/profile', auth(UserRole.Vendor), VendorController.getProfile);
+router.get('/profile', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.getProfile);
 /**
  * @swagger
  * /vendor/card:
@@ -167,7 +173,7 @@ router.get('/profile', auth(UserRole.Vendor), VendorController.getProfile);
  *       200:
  *         description: Vendor card retrieved
  */
-router.get('/card', auth(UserRole.Vendor), VendorController.getVendorCard);
+router.get('/card', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.getVendorCard);
 /**
  * @swagger
  * /vendor/dashboard/stats:
@@ -180,7 +186,7 @@ router.get('/card', auth(UserRole.Vendor), VendorController.getVendorCard);
  *       200:
  *         description: Dashboard stats retrieved successfully
  */
-router.get('/dashboard/stats', auth(UserRole.Vendor), VendorController.getVendorDashboardStats);
+router.get('/dashboard/stats', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.getVendorDashboardStats);
 // Rental space routes
 /**
  * @swagger
@@ -204,7 +210,7 @@ router.get('/dashboard/stats', auth(UserRole.Vendor), VendorController.getVendor
  *       201:
  *         description: Rental space created
  */
-router.post('/rental-spaces', auth(UserRole.Vendor), (req, res, next) => {
+router.post('/rental-spaces', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), (req, res, next) => {
     // Check if request has multipart data
     if (req.headers['content-type']?.includes('multipart/form-data')) {
         // Use multer to parse multipart data
@@ -218,7 +224,7 @@ router.post('/rental-spaces', auth(UserRole.Vendor), (req, res, next) => {
         // Regular JSON request, proceed directly
         next();
     }
-}, VendorController.createRentalSpace);
+}, vendor_controller_js_1.VendorController.createRentalSpace);
 /**
  * @swagger
  * /vendor/rental-spaces:
@@ -231,7 +237,7 @@ router.post('/rental-spaces', auth(UserRole.Vendor), (req, res, next) => {
  *       200:
  *         description: Rental spaces retrieved
  */
-router.get('/rental-spaces', auth(UserRole.Vendor), VendorController.getRentalSpaces);
+router.get('/rental-spaces', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.getRentalSpaces);
 /**
  * @swagger
  * /vendor/rental-spaces/{id}:
@@ -260,7 +266,7 @@ router.get('/rental-spaces', auth(UserRole.Vendor), VendorController.getRentalSp
  *       200:
  *         description: Rental space updated
  */
-router.patch('/rental-spaces/:id', auth(UserRole.Vendor), (req, res, next) => {
+router.patch('/rental-spaces/:id', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), (req, res, next) => {
     // Check if request has multipart data
     if (req.headers['content-type']?.includes('multipart/form-data')) {
         // Use multer to parse multipart data
@@ -274,7 +280,7 @@ router.patch('/rental-spaces/:id', auth(UserRole.Vendor), (req, res, next) => {
         // Regular JSON request, proceed directly
         next();
     }
-}, VendorController.updateRentalSpace);
+}, vendor_controller_js_1.VendorController.updateRentalSpace);
 /**
  * @swagger
  * /vendor/rental-spaces/{id}:
@@ -293,7 +299,7 @@ router.patch('/rental-spaces/:id', auth(UserRole.Vendor), (req, res, next) => {
  *       200:
  *         description: Rental space deleted
  */
-router.delete('/rental-spaces/:id', auth(UserRole.Vendor), VendorController.deleteRentalSpace);
+router.delete('/rental-spaces/:id', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.deleteRentalSpace);
 // Produce routes
 /**
  * @swagger
@@ -317,7 +323,7 @@ router.delete('/rental-spaces/:id', auth(UserRole.Vendor), VendorController.dele
  *       201:
  *         description: Produce created
  */
-router.post('/produces', auth(UserRole.Vendor), uploadSingle, uploadToCloudinary, VendorController.createProduce);
+router.post('/produces', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), uploadSingle, uploadToCloudinary, vendor_controller_js_1.VendorController.createProduce);
 /**
  * @swagger
  * /vendor/produces:
@@ -330,7 +336,7 @@ router.post('/produces', auth(UserRole.Vendor), uploadSingle, uploadToCloudinary
  *       200:
  *         description: Produces retrieved
  */
-router.get('/produces', auth(UserRole.Vendor), VendorController.getProduces);
+router.get('/produces', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.getProduces);
 /**
  * @swagger
  * /vendor/produces/{id}:
@@ -359,7 +365,7 @@ router.get('/produces', auth(UserRole.Vendor), VendorController.getProduces);
  *       200:
  *         description: Produce updated
  */
-router.patch('/produces/:id', auth(UserRole.Vendor), (req, res, next) => {
+router.patch('/produces/:id', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), (req, res, next) => {
     // Check if request has multipart data
     if (req.headers['content-type']?.includes('multipart/form-data')) {
         // Use multer to parse multipart data
@@ -373,7 +379,7 @@ router.patch('/produces/:id', auth(UserRole.Vendor), (req, res, next) => {
         // Regular JSON request, proceed directly
         next();
     }
-}, VendorController.updateProduce);
+}, vendor_controller_js_1.VendorController.updateProduce);
 /**
  * @swagger
  * /vendor/produces/{id}:
@@ -392,7 +398,7 @@ router.patch('/produces/:id', auth(UserRole.Vendor), (req, res, next) => {
  *       200:
  *         description: Produce deleted
  */
-router.delete('/produces/:id', auth(UserRole.Vendor), VendorController.deleteProduce);
+router.delete('/produces/:id', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.deleteProduce);
 // Plant update route
 /**
  * @swagger
@@ -417,7 +423,7 @@ router.delete('/produces/:id', auth(UserRole.Vendor), VendorController.deletePro
  *       200:
  *         description: Plant status updated
  */
-router.patch('/plant-update', auth(UserRole.Vendor), VendorController.updatePlantStatus);
+router.patch('/plant-update', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.updatePlantStatus);
 // Orders route
 /**
  * @swagger
@@ -447,7 +453,7 @@ router.patch('/plant-update', auth(UserRole.Vendor), VendorController.updatePlan
  *       200:
  *         description: Order status updated
  */
-router.patch('/orders/:id/status', auth(UserRole.Vendor), VendorController.updateOrderStatus);
+router.patch('/orders/:id/status', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.updateOrderStatus);
 /**
  * @swagger
  * /vendor/orders:
@@ -460,7 +466,7 @@ router.patch('/orders/:id/status', auth(UserRole.Vendor), VendorController.updat
  *       200:
  *         description: Orders retrieved
  */
-router.get('/orders', auth(UserRole.Vendor), VendorController.getOrders);
+router.get('/orders', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.getOrders);
 // Vendor posts routes
 /**
  * @swagger
@@ -484,7 +490,7 @@ router.get('/orders', auth(UserRole.Vendor), VendorController.getOrders);
  *       201:
  *         description: Vendor post created
  */
-router.post('/posts', auth(UserRole.Vendor), (req, res, next) => {
+router.post('/posts', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), (req, res, next) => {
     // Check if request has multipart data
     if (req.headers['content-type']?.includes('multipart/form-data')) {
         // Use multer to parse multipart data
@@ -498,7 +504,7 @@ router.post('/posts', auth(UserRole.Vendor), (req, res, next) => {
         // Regular JSON request, proceed directly
         next();
     }
-}, VendorController.createVendorPost);
+}, vendor_controller_js_1.VendorController.createVendorPost);
 /**
  * @swagger
  * /vendor/posts:
@@ -511,7 +517,7 @@ router.post('/posts', auth(UserRole.Vendor), (req, res, next) => {
  *       200:
  *         description: Vendor posts retrieved
  */
-router.get('/posts', auth(UserRole.Vendor), VendorController.getVendorPosts);
+router.get('/posts', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.getVendorPosts);
 /**
  * @swagger
  * /vendor/posts/{id}:
@@ -540,7 +546,7 @@ router.get('/posts', auth(UserRole.Vendor), VendorController.getVendorPosts);
  *       200:
  *         description: Vendor post updated
  */
-router.patch('/posts/:id', auth(UserRole.Vendor), (req, res, next) => {
+router.patch('/posts/:id', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), (req, res, next) => {
     // Check if request has multipart data
     if (req.headers['content-type']?.includes('multipart/form-data')) {
         // Use multer to parse multipart data
@@ -554,7 +560,7 @@ router.patch('/posts/:id', auth(UserRole.Vendor), (req, res, next) => {
         // Regular JSON request, proceed directly
         next();
     }
-}, VendorController.updateVendorPost);
+}, vendor_controller_js_1.VendorController.updateVendorPost);
 /**
  * @swagger
  * /vendor/posts/{id}:
@@ -573,7 +579,7 @@ router.patch('/posts/:id', auth(UserRole.Vendor), (req, res, next) => {
  *       200:
  *         description: Vendor post deleted
  */
-router.delete('/posts/:id', auth(UserRole.Vendor), VendorController.deleteVendorPost);
+router.delete('/posts/:id', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.deleteVendorPost);
 /**
  * @swagger
  * /vendor/posts/{postId}/like:
@@ -592,7 +598,7 @@ router.delete('/posts/:id', auth(UserRole.Vendor), VendorController.deleteVendor
  *       200:
  *         description: Like toggled
  */
-router.post('/posts/:postId/like', auth(UserRole.Vendor), VendorController.toggleVendorPostLike);
+router.post('/posts/:postId/like', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.toggleVendorPostLike);
 /**
  * @swagger
  * /vendor/posts/{postId}/comments:
@@ -620,6 +626,6 @@ router.post('/posts/:postId/like', auth(UserRole.Vendor), VendorController.toggl
  *       201:
  *         description: Comment added
  */
-router.post('/posts/:postId/comments', auth(UserRole.Vendor), VendorController.addVendorPostComment);
-export const VendorRoutes = router;
+router.post('/posts/:postId/comments', (0, auth_js_1.default)(common_js_1.UserRole.Vendor), vendor_controller_js_1.VendorController.addVendorPostComment);
+exports.VendorRoutes = router;
 //# sourceMappingURL=vendor.routes.js.map

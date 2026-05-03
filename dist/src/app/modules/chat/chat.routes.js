@@ -1,6 +1,12 @@
-import express from 'express';
-import { ChatController } from './chat.controller';
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.chatRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const chat_controller_1 = require("./chat.controller");
+const router = express_1.default.Router();
 /**
  * @swagger
  * tags:
@@ -31,7 +37,7 @@ const router = express.Router();
  *       201:
  *         description: Message sent successfully
  */
-router.post('/send', ChatController.sendMessage);
+router.post('/send', chat_controller_1.ChatController.sendMessage);
 /**
  * @swagger
  * /chat/messages/{userId}:
@@ -48,7 +54,7 @@ router.post('/send', ChatController.sendMessage);
  *       200:
  *         description: Messages retrieved successfully
  */
-router.get('/messages/:userId', ChatController.getMessages);
+router.get('/messages/:userId', chat_controller_1.ChatController.getMessages);
 /**
  * @swagger
  * /chat/handle:
@@ -73,9 +79,9 @@ router.get('/messages/:userId', ChatController.getMessages);
  *       201:
  *         description: Chat handled successfully
  */
-router.post('/handle', ChatController.handleChatMessage);
+router.post('/handle', chat_controller_1.ChatController.handleChatMessage);
 // Health check route
-router.get('/health', ChatController.healthCheck);
+router.get('/health', chat_controller_1.ChatController.healthCheck);
 // Environment check route (for debugging)
 router.get('/env-check', (req, res) => {
     res.json({
@@ -86,5 +92,5 @@ router.get('/env-check', (req, res) => {
         timestamp: new Date().toISOString()
     });
 });
-export const chatRoutes = router;
+exports.chatRoutes = router;
 //# sourceMappingURL=chat.routes.js.map

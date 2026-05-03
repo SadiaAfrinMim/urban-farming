@@ -1,16 +1,22 @@
-import express from 'express';
-import { CustomerController } from './customer.controller';
-import validateRequest from '../../middlewares/ValidateRequest';
-import auth from '../../middlewares/auth';
-import { UserRole } from '@prisma/client';
-import { CustomerValidation } from './customer.validation';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.customerRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const customer_controller_1 = require("./customer.controller");
+const ValidateRequest_1 = __importDefault(require("../../middlewares/ValidateRequest"));
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const client_1 = require("@prisma/client");
+const customer_validation_1 = require("./customer.validation");
 /**
  * @swagger
  * tags:
  *   name: Customer
  *   description: Customer post management
  */
-const router = express.Router();
+const router = express_1.default.Router();
 /**
  * @swagger
  * /customer/posts:
@@ -23,7 +29,7 @@ const router = express.Router();
  *       200:
  *         description: Posts retrieved successfully
  */
-router.get('/posts', auth(UserRole.Customer), CustomerController.getCustomerPosts);
+router.get('/posts', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.getCustomerPosts);
 /**
  * @swagger
  * /customer/posts:
@@ -56,7 +62,7 @@ router.get('/posts', auth(UserRole.Customer), CustomerController.getCustomerPost
  *       201:
  *         description: Post created successfully
  */
-router.post('/posts', validateRequest(CustomerValidation.createCustomerPostZodSchema), auth(UserRole.Customer), CustomerController.createCustomerPost);
+router.post('/posts', (0, ValidateRequest_1.default)(customer_validation_1.CustomerValidation.createCustomerPostZodSchema), (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.createCustomerPost);
 /**
  * @swagger
  * /customer/posts/{id}:
@@ -93,7 +99,7 @@ router.post('/posts', validateRequest(CustomerValidation.createCustomerPostZodSc
  *       200:
  *         description: Post updated successfully
  */
-router.patch('/posts/:id', validateRequest(CustomerValidation.updateCustomerPostZodSchema), auth(UserRole.Customer), CustomerController.updateCustomerPost);
+router.patch('/posts/:id', (0, ValidateRequest_1.default)(customer_validation_1.CustomerValidation.updateCustomerPostZodSchema), (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.updateCustomerPost);
 /**
  * @swagger
  * /customer/posts/{id}:
@@ -113,7 +119,7 @@ router.patch('/posts/:id', validateRequest(CustomerValidation.updateCustomerPost
  *       200:
  *         description: Post deleted successfully
  */
-router.delete('/posts/:id', auth(UserRole.Customer), CustomerController.deleteCustomerPost);
+router.delete('/posts/:id', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.deleteCustomerPost);
 /**
  * @swagger
  * /customer/posts/{id}/like:
@@ -133,7 +139,7 @@ router.delete('/posts/:id', auth(UserRole.Customer), CustomerController.deleteCu
  *       200:
  *         description: Like toggled successfully
  */
-router.post('/posts/:id/like', auth(UserRole.Customer), CustomerController.toggleCustomerPostLike);
+router.post('/posts/:id/like', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.toggleCustomerPostLike);
 /**
  * @swagger
  * /customer/posts/{id}/comments:
@@ -165,7 +171,7 @@ router.post('/posts/:id/like', auth(UserRole.Customer), CustomerController.toggl
  *       201:
  *         description: Comment added successfully
  */
-router.post('/posts/:id/comments', auth(UserRole.Customer), CustomerController.addCustomerPostComment);
+router.post('/posts/:id/comments', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.addCustomerPostComment);
 /**
  * @swagger
  * /customer/posts/{id}/comments:
@@ -183,7 +189,7 @@ router.post('/posts/:id/comments', auth(UserRole.Customer), CustomerController.a
  *       200:
  *         description: Comments retrieved successfully
  */
-router.get('/posts/:id/comments', CustomerController.getCustomerPostComments);
+router.get('/posts/:id/comments', customer_controller_1.CustomerController.getCustomerPostComments);
 /**
  * @swagger
  * /customer/posts/comments/{commentId}:
@@ -203,7 +209,7 @@ router.get('/posts/:id/comments', CustomerController.getCustomerPostComments);
  *       200:
  *         description: Comment deleted successfully
  */
-router.delete('/posts/comments/:commentId', auth(UserRole.Customer), CustomerController.deleteCustomerPostComment);
+router.delete('/posts/comments/:commentId', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.deleteCustomerPostComment);
 /**
  * @swagger
  * /customer/dashboard:
@@ -216,7 +222,7 @@ router.delete('/posts/comments/:commentId', auth(UserRole.Customer), CustomerCon
  *       200:
  *         description: Dashboard data retrieved successfully
  */
-router.get('/dashboard', auth(UserRole.Customer), CustomerController.getCustomerDashboard);
+router.get('/dashboard', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.getCustomerDashboard);
 /**
  * @swagger
  * /customer/orders:
@@ -229,7 +235,7 @@ router.get('/dashboard', auth(UserRole.Customer), CustomerController.getCustomer
  *       200:
  *         description: Orders retrieved successfully
  */
-router.get('/orders', auth(UserRole.Customer), CustomerController.getCustomerOrders);
+router.get('/orders', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.getCustomerOrders);
 /**
  * @swagger
  * /customer/rental-orders/{id}/status:
@@ -258,6 +264,6 @@ router.get('/orders', auth(UserRole.Customer), CustomerController.getCustomerOrd
  *       200:
  *         description: Rental order status updated successfully
  */
-router.patch('/rental-orders/:id/status', auth(UserRole.Customer), CustomerController.updateRentalOrderStatus);
-export const customerRoutes = router;
+router.patch('/rental-orders/:id/status', (0, auth_1.default)(client_1.UserRole.Customer), customer_controller_1.CustomerController.updateRentalOrderStatus);
+exports.customerRoutes = router;
 //# sourceMappingURL=customer.routes.js.map

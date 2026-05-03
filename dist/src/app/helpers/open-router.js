@@ -1,17 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.openai = exports.openRouter = exports.hasOpenRouterKey = void 0;
 // @ts-ignore
-import OpenAI from 'openai';
-import config from '../../config';
+const openai_1 = __importDefault(require("openai"));
+const config_1 = __importDefault(require("../../config"));
 // Check if OpenRouter API key is available
-const openRouterApiKey = config.openRouterApiKey;
-export const hasOpenRouterKey = openRouterApiKey &&
+const openRouterApiKey = config_1.default.openRouterApiKey;
+exports.hasOpenRouterKey = openRouterApiKey &&
     openRouterApiKey !== 'your-openrouter-api-key-here' &&
     openRouterApiKey !== '' &&
     openRouterApiKey !== 'undefined' &&
     openRouterApiKey !== 'null';
-console.log('🔧 OpenRouter API Key Status:', hasOpenRouterKey ? '✅ Available' : '❌ Missing');
+console.log('🔧 OpenRouter API Key Status:', exports.hasOpenRouterKey ? '✅ Available' : '❌ Missing');
 console.log('🔧 OpenRouter API Key Value:', openRouterApiKey ? 'Set' : 'Not set');
 // OpenRouter client for AI chatbot
-export const openRouter = hasOpenRouterKey ? new OpenAI({
+exports.openRouter = exports.hasOpenRouterKey ? new openai_1.default({
     baseURL: 'https://openrouter.ai/api/v1',
     apiKey: openRouterApiKey,
     defaultHeaders: {
@@ -21,7 +27,7 @@ export const openRouter = hasOpenRouterKey ? new OpenAI({
 }) : null;
 // Export the key status for health checks
 // Legacy OpenAI client (if needed)
-export const openai = new OpenAI({
-    apiKey: config.openaiApiKey || config.openRouterApiKey,
+exports.openai = new openai_1.default({
+    apiKey: config_1.default.openaiApiKey || config_1.default.openRouterApiKey,
 });
 //# sourceMappingURL=open-router.js.map

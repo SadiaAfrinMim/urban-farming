@@ -1,17 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // Test file to verify admin module APIs and connections
-import { AdminController } from './admin.controller';
-import { AdminService } from './admin.service';
-import { AdminRoutes } from './admin.routes';
+const admin_controller_1 = require("./admin.controller");
+const admin_service_1 = require("./admin.service");
+const admin_routes_1 = require("./admin.routes");
 console.log('=== Admin Module API Connection Test ===');
 console.log('✅ Admin module imports successful');
 // Check all controller methods exist
-const controllerMethods = Object.keys(AdminController);
+const controllerMethods = Object.keys(admin_controller_1.AdminController);
 console.log(`✅ AdminController has ${controllerMethods.length} methods:`, controllerMethods);
 // Check all service methods exist
-const serviceMethods = Object.keys(AdminService);
+const serviceMethods = Object.keys(admin_service_1.AdminService);
 console.log(`✅ AdminService has ${serviceMethods.length} methods:`, serviceMethods);
 // Check routes type
-console.log('✅ AdminRoutes type:', typeof AdminRoutes);
+console.log('✅ AdminRoutes type:', typeof admin_routes_1.AdminRoutes);
 // API Routes and their corresponding controller methods
 const apiRoutes = [
     { route: 'GET /admin/users', method: 'getAllUsers' },

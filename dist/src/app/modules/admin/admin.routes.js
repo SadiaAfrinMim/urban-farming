@@ -1,44 +1,50 @@
-import express from 'express';
-import { AdminController } from './admin.controller';
-import validateRequest from '../../middlewares/ValidateRequest';
-import auth from '../../middlewares/auth';
-import { AdminValidation } from './admin.validation';
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AdminRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const admin_controller_1 = require("./admin.controller");
+const ValidateRequest_1 = __importDefault(require("../../middlewares/ValidateRequest"));
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const admin_validation_1 = require("./admin.validation");
+const router = express_1.default.Router();
 // All admin routes require Admin role authentication
-router.use(auth('Admin'));
+router.use((0, auth_1.default)('Admin'));
 // User Management Routes
-router.get('/users', validateRequest(AdminValidation.getUsersQuerySchema), AdminController.getAllUsers);
-router.get('/users/all', AdminController.getAllUsersData);
-router.get('/profiles', AdminController.getAllProfiles);
-router.get('/vendors/all', AdminController.getAllVendorsData);
-router.get('/customers/all', AdminController.getAllCustomersData);
-router.patch('/users/:userId/role', validateRequest(AdminValidation.updateUserRoleZodSchema), AdminController.updateUserRole);
-router.patch('/users/:userId/status', validateRequest(AdminValidation.updateUserStatusZodSchema), AdminController.updateUserStatus);
+router.get('/users', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.getUsersQuerySchema), admin_controller_1.AdminController.getAllUsers);
+router.get('/users/all', admin_controller_1.AdminController.getAllUsersData);
+router.get('/profiles', admin_controller_1.AdminController.getAllProfiles);
+router.get('/vendors/all', admin_controller_1.AdminController.getAllVendorsData);
+router.get('/customers/all', admin_controller_1.AdminController.getAllCustomersData);
+router.patch('/users/:userId/role', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.updateUserRoleZodSchema), admin_controller_1.AdminController.updateUserRole);
+router.patch('/users/:userId/status', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.updateUserStatusZodSchema), admin_controller_1.AdminController.updateUserStatus);
 // Certification and Verification Routes
-router.get('/certifications/pending', AdminController.getPendingCertifications);
-router.patch('/certifications/:vendorId/approve', validateRequest(AdminValidation.approveCertificationZodSchema), AdminController.approveCertification);
-router.patch('/certifications/:vendorId/reject', validateRequest(AdminValidation.rejectCertificationZodSchema), AdminController.rejectCertification);
+router.get('/certifications/pending', admin_controller_1.AdminController.getPendingCertifications);
+router.patch('/certifications/:vendorId/approve', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.approveCertificationZodSchema), admin_controller_1.AdminController.approveCertification);
+router.patch('/certifications/:vendorId/reject', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.rejectCertificationZodSchema), admin_controller_1.AdminController.rejectCertification);
 // Produce Approval Routes
-router.get('/produces/pending', AdminController.getPendingProduces);
-router.patch('/produces/:produceId/approve', validateRequest(AdminValidation.approveProduceZodSchema), AdminController.approveProduce);
-router.patch('/produces/:produceId/reject', validateRequest(AdminValidation.rejectProduceZodSchema), AdminController.rejectProduce);
+router.get('/produces/pending', admin_controller_1.AdminController.getPendingProduces);
+router.patch('/produces/:produceId/approve', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.approveProduceZodSchema), admin_controller_1.AdminController.approveProduce);
+router.patch('/produces/:produceId/reject', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.rejectProduceZodSchema), admin_controller_1.AdminController.rejectProduce);
 // Content Moderation Routes
-router.get('/posts', AdminController.getAllPosts);
-router.patch('/posts/:postId/approve', validateRequest(AdminValidation.approvePostZodSchema), AdminController.approvePost);
-router.delete('/posts/:postId', validateRequest(AdminValidation.deletePostZodSchema), AdminController.deletePost);
+router.get('/posts', admin_controller_1.AdminController.getAllPosts);
+router.patch('/posts/:postId/approve', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.approvePostZodSchema), admin_controller_1.AdminController.approvePost);
+router.delete('/posts/:postId', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.deletePostZodSchema), admin_controller_1.AdminController.deletePost);
 // Report Handling Routes
-router.get('/reports', AdminController.getReports);
-router.patch('/reports/:reportId/resolve', validateRequest(AdminValidation.resolveReportZodSchema), AdminController.resolveReport);
+router.get('/reports', admin_controller_1.AdminController.getReports);
+router.patch('/reports/:reportId/resolve', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.resolveReportZodSchema), admin_controller_1.AdminController.resolveReport);
 // Transaction and Order Monitoring Routes
-router.get('/orders', validateRequest(AdminValidation.getOrdersQuerySchema), AdminController.getAllOrders);
-router.get('/analytics/rental', AdminController.getRentalAnalytics);
-router.get('/analytics/revenue', AdminController.getRevenueAnalytics);
+router.get('/orders', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.getOrdersQuerySchema), admin_controller_1.AdminController.getAllOrders);
+router.get('/analytics/rental', admin_controller_1.AdminController.getRentalAnalytics);
+router.get('/analytics/revenue', admin_controller_1.AdminController.getRevenueAnalytics);
 // System Settings Routes
-router.get('/logs/rate-limit', AdminController.getRateLimitLogs);
-router.post('/announcements', validateRequest(AdminValidation.createAnnouncementZodSchema), AdminController.createAnnouncement);
-router.get('/announcements', AdminController.getAnnouncements);
-router.delete('/announcements/:announcementId', validateRequest(AdminValidation.deleteAnnouncementZodSchema), AdminController.deleteAnnouncement);
+router.get('/logs/rate-limit', admin_controller_1.AdminController.getRateLimitLogs);
+router.post('/announcements', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.createAnnouncementZodSchema), admin_controller_1.AdminController.createAnnouncement);
+router.get('/announcements', admin_controller_1.AdminController.getAnnouncements);
+router.delete('/announcements/:announcementId', (0, ValidateRequest_1.default)(admin_validation_1.AdminValidation.deleteAnnouncementZodSchema), admin_controller_1.AdminController.deleteAnnouncement);
 // Dashboard Routes
-router.get('/dashboard/stats', AdminController.getDashboardStats);
-export const AdminRoutes = router;
+router.get('/dashboard/stats', admin_controller_1.AdminController.getDashboardStats);
+exports.AdminRoutes = router;
 //# sourceMappingURL=admin.routes.js.map

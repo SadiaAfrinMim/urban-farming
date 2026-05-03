@@ -1,9 +1,48 @@
-import { prisma } from '../../shared/prisma';
-import { UserRole } from '@prisma/client';
-import httpStatus from 'http-status';
-import ApiError from '../../errors/ApiError';
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CommunityService = void 0;
+const prisma_1 = require("../../shared/prisma");
+const client_1 = require("@prisma/client");
+const http_status_1 = __importDefault(require("http-status"));
+const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const getAllPosts = async () => {
-    const posts = await prisma.communityPost.findMany({
+    const posts = await prisma_1.prisma.communityPost.findMany({
         include: {
             user: {
                 select: {
@@ -47,19 +86,19 @@ const getAllPosts = async () => {
     }));
 };
 const getPostById = async (id) => {
-    const post = await prisma.communityPost.findUnique({
+    const post = await prisma_1.prisma.communityPost.findUnique({
         where: { id: parseInt(id) },
         include: {
             user: true,
         },
     });
     if (!post) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
     }
     return post;
 };
 const createPost = async (userId, payload) => {
-    const post = await prisma.communityPost.create({
+    const post = await prisma_1.prisma.communityPost.create({
         data: {
             userId,
             postContent: payload.postContent,
@@ -110,9 +149,9 @@ const createPost = async (userId, payload) => {
     // Notify admins about new post for moderation (async, non-blocking)
     process.nextTick(async () => {
         try {
-            const NotificationService = (await import('../notification/notification.service')).NotificationService;
-            const admins = await prisma.user.findMany({
-                where: { role: UserRole.Admin },
+            const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service')))).NotificationService;
+            const admins = await prisma_1.prisma.user.findMany({
+                where: { role: client_1.UserRole.Admin },
             });
             for (const admin of admins) {
                 await NotificationService.createNotification(admin.id, 'SYSTEM', 'New Post for Moderation', `New community post by ${post.user.name} needs approval.`, {
@@ -131,16 +170,16 @@ const createPost = async (userId, payload) => {
     return post;
 };
 const updatePost = async (id, user, payload) => {
-    const post = await prisma.communityPost.findUnique({
+    const post = await prisma_1.prisma.communityPost.findUnique({
         where: { id: parseInt(id) },
     });
     if (!post) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
     }
     if (post.userId !== parseInt(user.id) && user.role !== 'Admin') {
-        throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
     }
-    const updated = await prisma.communityPost.update({
+    const updated = await prisma_1.prisma.communityPost.update({
         where: { id: parseInt(id) },
         data: {
             postContent: payload.postContent,
@@ -190,16 +229,16 @@ const updatePost = async (id, user, payload) => {
     return updated;
 };
 const deletePost = async (id, user) => {
-    const post = await prisma.communityPost.findUnique({
+    const post = await prisma_1.prisma.communityPost.findUnique({
         where: { id: parseInt(id) },
     });
     if (!post) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
     }
     if (post.userId !== parseInt(user.id) && user.role !== 'Admin') {
-        throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
     }
-    await prisma.communityPost.delete({
+    await prisma_1.prisma.communityPost.delete({
         where: { id: parseInt(id) },
     });
     // Emit real-time update
@@ -209,14 +248,14 @@ const deletePost = async (id, user) => {
     }
 };
 const toggleLike = async (postId, userId) => {
-    const post = await prisma.communityPost.findUnique({
+    const post = await prisma_1.prisma.communityPost.findUnique({
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
     }
     // Check if user already liked the post
-    const existingLike = await prisma.postLike.findUnique({
+    const existingLike = await prisma_1.prisma.postLike.findUnique({
         where: {
             userId_postId: {
                 userId: parseInt(userId),
@@ -226,7 +265,7 @@ const toggleLike = async (postId, userId) => {
     });
     if (existingLike) {
         // Unlike the post
-        await prisma.postLike.delete({
+        await prisma_1.prisma.postLike.delete({
             where: { id: existingLike.id },
         });
         // Emit real-time update
@@ -238,7 +277,7 @@ const toggleLike = async (postId, userId) => {
     }
     else {
         // Like the post
-        await prisma.postLike.create({
+        await prisma_1.prisma.postLike.create({
             data: {
                 userId: parseInt(userId),
                 postId: parseInt(postId),
@@ -252,13 +291,13 @@ const toggleLike = async (postId, userId) => {
         // Create notification for post author (if not the same user) (async, non-blocking)
         process.nextTick(async () => {
             try {
-                const NotificationService = (await import('../notification/notification.service')).NotificationService;
-                const post = await prisma.communityPost.findUnique({
+                const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service')))).NotificationService;
+                const post = await prisma_1.prisma.communityPost.findUnique({
                     where: { id: parseInt(postId) },
                     include: { user: true },
                 });
                 if (post && post.userId !== parseInt(userId)) {
-                    const liker = await prisma.user.findUnique({
+                    const liker = await prisma_1.prisma.user.findUnique({
                         where: { id: parseInt(userId) },
                         select: { name: true },
                     });
@@ -278,16 +317,16 @@ const toggleLike = async (postId, userId) => {
     }
 };
 const addComment = async (postId, userId, content) => {
-    const post = await prisma.communityPost.findUnique({
+    const post = await prisma_1.prisma.communityPost.findUnique({
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
     }
     if (!content.trim()) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Comment content cannot be empty');
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Comment content cannot be empty');
     }
-    const comment = await prisma.postComment.create({
+    const comment = await prisma_1.prisma.postComment.create({
         data: {
             userId: parseInt(userId),
             postId: parseInt(postId),
@@ -310,13 +349,13 @@ const addComment = async (postId, userId, content) => {
     // Create notification for post author (if not the same user) (async, non-blocking)
     process.nextTick(async () => {
         try {
-            const NotificationService = (await import('../notification/notification.service')).NotificationService;
-            const post = await prisma.communityPost.findUnique({
+            const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service')))).NotificationService;
+            const post = await prisma_1.prisma.communityPost.findUnique({
                 where: { id: parseInt(postId) },
                 include: { user: true },
             });
             if (post && post.userId !== parseInt(userId)) {
-                const commenter = await prisma.user.findUnique({
+                const commenter = await prisma_1.prisma.user.findUnique({
                     where: { id: parseInt(userId) },
                     select: { name: true },
                 });
@@ -337,7 +376,7 @@ const addComment = async (postId, userId, content) => {
     return comment;
 };
 const getPostComments = async (postId) => {
-    const comments = await prisma.postComment.findMany({
+    const comments = await prisma_1.prisma.postComment.findMany({
         where: { postId: parseInt(postId) },
         include: {
             user: {
@@ -354,16 +393,16 @@ const getPostComments = async (postId) => {
     return comments;
 };
 const deleteComment = async (commentId, userId) => {
-    const comment = await prisma.postComment.findUnique({
+    const comment = await prisma_1.prisma.postComment.findUnique({
         where: { id: parseInt(commentId) },
     });
     if (!comment) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Comment not found');
     }
     if (comment.userId !== parseInt(userId)) {
-        throw new ApiError(httpStatus.FORBIDDEN, 'You can only delete your own comments');
+        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'You can only delete your own comments');
     }
-    await prisma.postComment.delete({
+    await prisma_1.prisma.postComment.delete({
         where: { id: parseInt(commentId) },
     });
     // Emit real-time update
@@ -372,7 +411,7 @@ const deleteComment = async (commentId, userId) => {
         io.emit('community-comment-deleted', { commentId, postId: comment.postId });
     }
 };
-export const CommunityService = {
+exports.CommunityService = {
     getAllPosts,
     getPostById,
     createPost,

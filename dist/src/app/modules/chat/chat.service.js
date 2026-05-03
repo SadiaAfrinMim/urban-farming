@@ -1,5 +1,8 @@
-import { prisma } from '../../shared/prisma';
-import { openRouter } from '../../helpers/open-router';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ChatService = void 0;
+const prisma_1 = require("../../shared/prisma");
+const open_router_1 = require("../../helpers/open-router");
 // Send Message
 const sendMessage = async (payload) => {
     try {
@@ -10,7 +13,7 @@ const sendMessage = async (payload) => {
                 throw new Error('Invalid userId: must be a number');
             }
         }
-        const chat = await prisma.chat.create({
+        const chat = await prisma_1.prisma.chat.create({
             data: {
                 userId,
                 message: payload.message,
@@ -49,7 +52,7 @@ const getMessages = async (userId) => {
             }
             whereCondition = { userId: parsedUserId };
         }
-        const messages = await prisma.chat.findMany({
+        const messages = await prisma_1.prisma.chat.findMany({
             where: whereCondition,
             orderBy: { timestamp: 'asc' },
         });
@@ -67,7 +70,7 @@ const getMessages = async (userId) => {
 // Generate Bot Response using OpenRouter (AI-powered)
 const generateBotResponse = async (userMessage) => {
     const isProduction = process.env.NODE_ENV === 'production';
-    const useAI = !!openRouter;
+    const useAI = !!open_router_1.openRouter;
     console.log('🤖 Generating response for:', userMessage.substring(0, 50) + '...');
     console.log('🔧 Environment:', isProduction ? 'Production' : 'Development');
     console.log('🔧 AI Mode:', useAI ? 'Enabled' : 'Disabled (Fallback)');
@@ -77,7 +80,7 @@ const generateBotResponse = async (userMessage) => {
     }
     try {
         console.log('🔧 Attempting OpenRouter API call...');
-        const completion = await openRouter.chat.completions.create({
+        const completion = await open_router_1.openRouter.chat.completions.create({
             model: "anthropic/claude-3-haiku",
             messages: [
                 {
@@ -185,7 +188,7 @@ const handleChatMessage = async (payload) => {
         throw error;
     }
 };
-export const ChatService = {
+exports.ChatService = {
     sendMessage,
     getMessages,
     generateBotResponse,

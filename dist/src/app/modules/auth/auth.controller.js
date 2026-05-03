@@ -1,18 +1,24 @@
-import httpStatus from 'http-status';
-import catchAsync from '../../../app/shared/catchAsync.js';
-import sendResponse from '../../../app/shared/sendResponse.js';
-import { AuthService } from './auth.service.js';
-const registerUser = catchAsync(async (req, res) => {
-    const result = await AuthService.registerUser(req.body);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthController = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const catchAsync_js_1 = __importDefault(require("../../../app/shared/catchAsync.js"));
+const sendResponse_js_1 = __importDefault(require("../../../app/shared/sendResponse.js"));
+const auth_service_js_1 = require("./auth.service.js");
+const registerUser = (0, catchAsync_js_1.default)(async (req, res) => {
+    const result = await auth_service_js_1.AuthService.registerUser(req.body);
+    (0, sendResponse_js_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'User registered successfully',
         data: result,
     });
 });
-const loginUser = catchAsync(async (req, res) => {
-    const result = await AuthService.loginUser(req.body);
+const loginUser = (0, catchAsync_js_1.default)(async (req, res) => {
+    const result = await auth_service_js_1.AuthService.loginUser(req.body);
     // Set cookies
     res.cookie('accessToken', result.accessToken, {
         httpOnly: true,
@@ -26,8 +32,8 @@ const loginUser = catchAsync(async (req, res) => {
         sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
         maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
     });
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    (0, sendResponse_js_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'User logged in successfully',
         data: {
@@ -37,9 +43,9 @@ const loginUser = catchAsync(async (req, res) => {
         },
     });
 });
-const refreshToken = catchAsync(async (req, res) => {
+const refreshToken = (0, catchAsync_js_1.default)(async (req, res) => {
     const refreshToken = req.body.refreshToken || req.cookies.refreshToken;
-    const result = await AuthService.refreshToken(refreshToken);
+    const result = await auth_service_js_1.AuthService.refreshToken(refreshToken);
     // Set new access token cookie
     res.cookie('accessToken', result.accessToken, {
         httpOnly: true,
@@ -47,8 +53,8 @@ const refreshToken = catchAsync(async (req, res) => {
         sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    (0, sendResponse_js_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Token refreshed successfully',
         data: {
@@ -56,18 +62,18 @@ const refreshToken = catchAsync(async (req, res) => {
         },
     });
 });
-const changePassword = catchAsync(async (req, res) => {
+const changePassword = (0, catchAsync_js_1.default)(async (req, res) => {
     const user = req.user;
     const { ...passwordData } = req.body;
-    await AuthService.changePassword(user, passwordData);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    await auth_service_js_1.AuthService.changePassword(user, passwordData);
+    (0, sendResponse_js_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Password changed successfully',
         data: null,
     });
 });
-const logout = catchAsync(async (req, res) => {
+const logout = (0, catchAsync_js_1.default)(async (req, res) => {
     // Clear cookies
     res.clearCookie('accessToken', {
         httpOnly: true,
@@ -79,14 +85,14 @@ const logout = catchAsync(async (req, res) => {
         secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
     });
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
+    (0, sendResponse_js_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'User logged out successfully',
         data: null,
     });
 });
-export const AuthController = {
+exports.AuthController = {
     registerUser,
     loginUser,
     refreshToken,

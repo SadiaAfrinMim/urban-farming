@@ -1,15 +1,19 @@
-import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import config from './config/index.ts';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const index_js_1 = __importDefault(require("./config/index.js"));
 // @ts-ignore
-import swaggerUi from 'swagger-ui-express';
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 // @ts-ignore
-import swaggerJsdoc from 'swagger-jsdoc';
-import globalErrorHandler from './app/middlewares/globalErrorHandler.ts';
-import notFound from './app/middlewares/notFound.ts';
-import router from './app/routes/index.ts';
-import cookieParser from 'cookie-parser';
+const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const globalErrorHandler_js_1 = __importDefault(require("./app/middlewares/globalErrorHandler.js"));
+const notFound_js_1 = __importDefault(require("./app/middlewares/notFound.js"));
+const index_js_2 = __importDefault(require("./app/routes/index.js"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 // Test OpenRouter configuration on startup
 try {
     const { openRouter } = require('./app/helpers/open-router');
@@ -24,8 +28,8 @@ try {
 catch (error) {
     console.log('❌ Error checking OpenRouter configuration:', error?.message);
 }
-const app = express();
-app.use(cors({
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)({
     origin: [
         'http://localhost:3000',
         'http://localhost:3001',
@@ -38,9 +42,9 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 //parser
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+app.use(express_1.default.json());
+app.use((0, cookie_parser_1.default)());
+app.use(express_1.default.urlencoded({ extended: true }));
 // API logging
 app.use(morgan('combined'));
 const swaggerOptions = {
@@ -73,18 +77,18 @@ const swaggerOptions = {
     },
     apis: ['./src/app/modules/**/*.routes.ts'], // Path to the API docs
 };
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/api/v1", router);
+const swaggerSpec = (0, swagger_jsdoc_1.default)(swaggerOptions);
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerSpec));
+app.use("/api/v1", index_js_2.default);
 app.get('/', (req, res) => {
     res.send({
         message: "Server is running..",
-        environment: config.node_env,
+        environment: index_js_1.default.node_env,
         uptime: process.uptime().toFixed(2) + " sec",
         timeStamp: new Date().toISOString()
     });
 });
-app.use(globalErrorHandler);
-app.use(notFound);
-export default app;
+app.use(globalErrorHandler_js_1.default);
+app.use(notFound_js_1.default);
+exports.default = app;
 //# sourceMappingURL=app.js.map

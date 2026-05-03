@@ -1,19 +1,25 @@
-import express from 'express';
-import rateLimit from 'express-rate-limit';
-import { AuthController } from './auth.controller.js';
-import validateRequest from '../../middlewares/ValidateRequest.js';
-import { AuthValidation } from './auth.validation.js';
-import auth from '../../middlewares/auth.js';
-import { UserRole } from '@prisma/client';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
+const auth_controller_js_1 = require("./auth.controller.js");
+const ValidateRequest_js_1 = __importDefault(require("../../middlewares/ValidateRequest.js"));
+const auth_validation_js_1 = require("./auth.validation.js");
+const auth_js_1 = __importDefault(require("../../middlewares/auth.js"));
+const client_1 = require("@prisma/client");
 /**
  * @swagger
  * tags:
  *   name: Auth
  *   description: Authentication management
  */
-const router = express.Router();
+const router = express_1.default.Router();
 // Public authentication routes
-const authLimiter = rateLimit({
+const authLimiter = (0, express_rate_limit_1.default)({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
     message: 'Too many authentication attempts, please try again later.',
@@ -36,7 +42,7 @@ const authLimiter = rateLimit({
  *       400:
  *         description: Bad request
  */
-router.post('/register', authLimiter, AuthController.registerUser);
+router.post('/register', authLimiter, auth_controller_js_1.AuthController.registerUser);
 /**
  * @swagger
  * /auth/login:
@@ -64,7 +70,7 @@ router.post('/register', authLimiter, AuthController.registerUser);
  *       401:
  *         description: Unauthorized
  */
-router.post('/login', validateRequest(AuthValidation.loginUserZodSchema), authLimiter, AuthController.loginUser);
+router.post('/login', (0, ValidateRequest_js_1.default)(auth_validation_js_1.AuthValidation.loginUserZodSchema), authLimiter, auth_controller_js_1.AuthController.loginUser);
 /**
  * @swagger
  * /auth/refresh-token:
@@ -88,7 +94,7 @@ router.post('/login', validateRequest(AuthValidation.loginUserZodSchema), authLi
  *       401:
  *         description: Unauthorized
  */
-router.post('/refresh-token', AuthController.refreshToken);
+router.post('/refresh-token', auth_controller_js_1.AuthController.refreshToken);
 /**
  * @swagger
  * /auth/change-password:
@@ -117,7 +123,7 @@ router.post('/refresh-token', AuthController.refreshToken);
  *       401:
  *         description: Unauthorized
  */
-router.post('/change-password', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), AuthController.changePassword);
+router.post('/change-password', (0, auth_js_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), auth_controller_js_1.AuthController.changePassword);
 /**
  * @swagger
  * /auth/logout:
@@ -128,8 +134,8 @@ router.post('/change-password', auth(UserRole.Admin, UserRole.Vendor, UserRole.C
  *       200:
  *         description: Logout successful
  */
-router.post('/logout', AuthController.logout);
-export const authRoutes = router;
+router.post('/logout', auth_controller_js_1.AuthController.logout);
+exports.authRoutes = router;
 /**
  * @swagger
  * components:

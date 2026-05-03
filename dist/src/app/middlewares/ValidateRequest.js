@@ -1,5 +1,10 @@
-import ApiError from "../errors/ApiError";
-import httpStatus from "http-status";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const ApiError_1 = __importDefault(require("../errors/ApiError"));
+const http_status_1 = __importDefault(require("http-status"));
 const validateRequest = (schema) => {
     return async (req, res, next) => {
         try {
@@ -12,9 +17,9 @@ const validateRequest = (schema) => {
             next();
         }
         catch (error) {
-            next(new ApiError(error.errors?.[0]?.message || 'Validation Error', httpStatus.BAD_REQUEST));
+            next(new ApiError_1.default(error.errors?.[0]?.message || 'Validation Error', http_status_1.default.BAD_REQUEST));
         }
     };
 };
-export default validateRequest;
+exports.default = validateRequest;
 //# sourceMappingURL=ValidateRequest.js.map

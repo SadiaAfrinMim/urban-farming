@@ -1,13 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AdminService = void 0;
-const prisma_1 = require("../../shared/prisma");
-const common_1 = require("../../types/common");
-const http_status_1 = __importDefault(require("http-status"));
-const ApiError_1 = __importDefault(require("../../errors/ApiError"));
+import { prisma } from '../../shared/prisma';
+import { UserRole, CertificationStatus } from '../../types/common';
+import httpStatus from 'http-status';
+import ApiError from '../../errors/ApiError';
 // User Management
 const getAllUsers = async (filters, options) => {
     const { searchTerm, ...filterData } = filters;
@@ -31,7 +25,7 @@ const getAllUsers = async (filters, options) => {
         });
     }
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = await prisma_1.prisma.user.findMany({
+    const result = await prisma.user.findMany({
         where: whereConditions,
         skip: (parsedPage - 1) * parsedLimit,
         take: parsedLimit,
@@ -42,7 +36,7 @@ const getAllUsers = async (filters, options) => {
             vendorProfile: true,
         },
     });
-    const total = await prisma_1.prisma.user.count({ where: whereConditions });
+    const total = await prisma.user.count({ where: whereConditions });
     return {
         data: result,
         meta: {
@@ -56,13 +50,13 @@ const getAllUsers = async (filters, options) => {
 const updateUserRole = async (userId, role) => {
     const userIdNumber = parseInt(userId, 10);
     if (isNaN(userIdNumber)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
     }
-    const user = await prisma_1.prisma.user.findUnique({ where: { id: userIdNumber } });
+    const user = await prisma.user.findUnique({ where: { id: userIdNumber } });
     if (!user) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
-    const updatedUser = await prisma_1.prisma.user.update({
+    const updatedUser = await prisma.user.update({
         where: { id: userIdNumber },
         data: { role },
         include: { vendorProfile: true },
@@ -72,13 +66,13 @@ const updateUserRole = async (userId, role) => {
 const updateUserStatus = async (userId, status) => {
     const userIdNumber = parseInt(userId, 10);
     if (isNaN(userIdNumber)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
     }
-    const user = await prisma_1.prisma.user.findUnique({ where: { id: userIdNumber } });
+    const user = await prisma.user.findUnique({ where: { id: userIdNumber } });
     if (!user) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
-    const updatedUser = await prisma_1.prisma.user.update({
+    const updatedUser = await prisma.user.update({
         where: { id: userIdNumber },
         data: { status },
         include: { vendorProfile: true },
@@ -87,8 +81,8 @@ const updateUserStatus = async (userId, status) => {
 };
 // Certification and Verification
 const getPendingCertifications = async () => {
-    const vendors = await prisma_1.prisma.vendorProfile.findMany({
-        where: { certificationStatus: common_1.CertificationStatus.Pending },
+    const vendors = await prisma.vendorProfile.findMany({
+        where: { certificationStatus: CertificationStatus.Pending },
         include: {
             user: true,
         },
@@ -98,15 +92,15 @@ const getPendingCertifications = async () => {
 const approveCertification = async (vendorId) => {
     const id = parseInt(vendorId);
     if (isNaN(id)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid vendor ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
     }
-    const vendor = await prisma_1.prisma.vendorProfile.findUnique({ where: { id } });
+    const vendor = await prisma.vendorProfile.findUnique({ where: { id } });
     if (!vendor) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Vendor not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Vendor not found');
     }
-    const updatedVendor = await prisma_1.prisma.vendorProfile.update({
+    const updatedVendor = await prisma.vendorProfile.update({
         where: { id },
-        data: { certificationStatus: common_1.CertificationStatus.Approved },
+        data: { certificationStatus: CertificationStatus.Approved },
         include: { user: true },
     });
     return updatedVendor;
@@ -114,15 +108,15 @@ const approveCertification = async (vendorId) => {
 const rejectCertification = async (vendorId, reason) => {
     const id = parseInt(vendorId);
     if (isNaN(id)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid vendor ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
     }
-    const vendor = await prisma_1.prisma.vendorProfile.findUnique({ where: { id } });
+    const vendor = await prisma.vendorProfile.findUnique({ where: { id } });
     if (!vendor) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Vendor not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Vendor not found');
     }
-    const updatedVendor = await prisma_1.prisma.vendorProfile.update({
+    const updatedVendor = await prisma.vendorProfile.update({
         where: { id },
-        data: { certificationStatus: common_1.CertificationStatus.Rejected },
+        data: { certificationStatus: CertificationStatus.Rejected },
         include: { user: true },
     });
     // TODO: Send notification to vendor with reason
@@ -131,15 +125,15 @@ const rejectCertification = async (vendorId, reason) => {
 const approveProduce = async (produceId) => {
     const id = parseInt(produceId);
     if (isNaN(id)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid produce ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid produce ID');
     }
-    const produce = await prisma_1.prisma.produce.findUnique({ where: { id } });
+    const produce = await prisma.produce.findUnique({ where: { id } });
     if (!produce) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Produce not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
     }
-    const updatedProduce = await prisma_1.prisma.produce.update({
+    const updatedProduce = await prisma.produce.update({
         where: { id },
-        data: { certificationStatus: common_1.CertificationStatus.Approved },
+        data: { certificationStatus: CertificationStatus.Approved },
         include: { vendor: { include: { user: true } } },
     });
     return updatedProduce;
@@ -147,23 +141,23 @@ const approveProduce = async (produceId) => {
 const rejectProduce = async (produceId) => {
     const id = parseInt(produceId);
     if (isNaN(id)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid produce ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid produce ID');
     }
-    const produce = await prisma_1.prisma.produce.findUnique({ where: { id } });
+    const produce = await prisma.produce.findUnique({ where: { id } });
     if (!produce) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Produce not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Produce not found');
     }
-    const updatedProduce = await prisma_1.prisma.produce.update({
+    const updatedProduce = await prisma.produce.update({
         where: { id },
-        data: { certificationStatus: common_1.CertificationStatus.Rejected },
+        data: { certificationStatus: CertificationStatus.Rejected },
         include: { vendor: { include: { user: true } } },
     });
     return updatedProduce;
 };
 // Content Moderation
 const getPendingProduces = async () => {
-    const produces = await prisma_1.prisma.produce.findMany({
-        where: { certificationStatus: common_1.CertificationStatus.Pending },
+    const produces = await prisma.produce.findMany({
+        where: { certificationStatus: CertificationStatus.Pending },
         include: {
             vendor: { include: { user: true } },
         },
@@ -171,7 +165,7 @@ const getPendingProduces = async () => {
     return produces;
 };
 const getAllPosts = async () => {
-    const posts = await prisma_1.prisma.communityPost.findMany({
+    const posts = await prisma.communityPost.findMany({
         include: {
             user: true,
             likes: true,
@@ -185,16 +179,16 @@ const approvePost = async (postId, adminId) => {
     const id = parseInt(postId);
     const adminIdNumber = parseInt(adminId);
     if (isNaN(id)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid post ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid post ID');
     }
     if (isNaN(adminIdNumber)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid admin ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid admin ID');
     }
-    const post = await prisma_1.prisma.communityPost.findUnique({ where: { id } });
+    const post = await prisma.communityPost.findUnique({ where: { id } });
     if (!post) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
     }
-    const updatedPost = await prisma_1.prisma.communityPost.update({
+    const updatedPost = await prisma.communityPost.update({
         where: { id },
         data: {
             isApproved: true,
@@ -208,17 +202,17 @@ const approvePost = async (postId, adminId) => {
 const deletePost = async (postId) => {
     const id = parseInt(postId);
     if (isNaN(id)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid post ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid post ID');
     }
-    const post = await prisma_1.prisma.communityPost.findUnique({ where: { id } });
+    const post = await prisma.communityPost.findUnique({ where: { id } });
     if (!post) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Post not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
     }
     // Delete related likes and comments first
-    await prisma_1.prisma.postLike.deleteMany({ where: { postId: id } });
-    await prisma_1.prisma.postComment.deleteMany({ where: { postId: id } });
+    await prisma.postLike.deleteMany({ where: { postId: id } });
+    await prisma.postComment.deleteMany({ where: { postId: id } });
     // Now delete the post
-    await prisma_1.prisma.communityPost.delete({ where: { id } });
+    await prisma.communityPost.delete({ where: { id } });
     return { message: 'Post deleted successfully' };
 };
 const getReports = async () => {
@@ -244,7 +238,7 @@ const getAllOrders = async (filters, options) => {
     const { page = 1, limit = 10, sortBy = 'orderDate', sortOrder = 'desc' } = options;
     const parsedPage = parseInt(page.toString(), 10) || 1;
     const parsedLimit = parseInt(limit.toString(), 10) || 10;
-    const result = await prisma_1.prisma.order.findMany({
+    const result = await prisma.order.findMany({
         skip: (parsedPage - 1) * parsedLimit,
         take: parsedLimit,
         orderBy: {
@@ -256,7 +250,7 @@ const getAllOrders = async (filters, options) => {
             vendor: { include: { user: true } },
         },
     });
-    const total = await prisma_1.prisma.order.count();
+    const total = await prisma.order.count();
     return {
         data: result,
         meta: {
@@ -268,8 +262,8 @@ const getAllOrders = async (filters, options) => {
     };
 };
 const getRentalAnalytics = async () => {
-    const totalSpaces = await prisma_1.prisma.rentalSpace.count();
-    const rentedSpaces = await prisma_1.prisma.rentalSpace.count({
+    const totalSpaces = await prisma.rentalSpace.count();
+    const rentedSpaces = await prisma.rentalSpace.count({
         where: { availability: false },
     });
     const rentedPercentage = totalSpaces > 0 ? (rentedSpaces / totalSpaces) * 100 : 0;
@@ -280,7 +274,7 @@ const getRentalAnalytics = async () => {
     };
 };
 const getRevenueAnalytics = async () => {
-    const orders = await prisma_1.prisma.order.findMany({
+    const orders = await prisma.order.findMany({
         where: { status: 'Delivered' },
         include: { produce: true },
     });
@@ -320,7 +314,7 @@ const getRateLimitLogs = async (options) => {
     };
 };
 const createAnnouncement = async (adminId, data) => {
-    const announcement = await prisma_1.prisma.announcement.create({
+    const announcement = await prisma.announcement.create({
         data: {
             ...data,
             adminId,
@@ -329,7 +323,7 @@ const createAnnouncement = async (adminId, data) => {
     return announcement;
 };
 const getAnnouncements = async () => {
-    const announcements = await prisma_1.prisma.announcement.findMany({
+    const announcements = await prisma.announcement.findMany({
         include: { admin: { select: { name: true, email: true } } },
         orderBy: { createdAt: 'desc' },
     });
@@ -338,24 +332,24 @@ const getAnnouncements = async () => {
 const deleteAnnouncement = async (announcementId) => {
     const id = parseInt(announcementId, 10);
     if (isNaN(id)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid announcement ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid announcement ID');
     }
-    const announcement = await prisma_1.prisma.announcement.findUnique({ where: { id } });
+    const announcement = await prisma.announcement.findUnique({ where: { id } });
     if (!announcement) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Announcement not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Announcement not found');
     }
-    await prisma_1.prisma.announcement.delete({ where: { id } });
+    await prisma.announcement.delete({ where: { id } });
     return { message: 'Announcement deleted successfully' };
 };
 const getDashboardStats = async () => {
     const [totalUsers, totalVendors, totalCustomers, pendingCertifications, pendingProducts, pendingVendorPosts, pendingCustomerPosts,] = await Promise.all([
-        prisma_1.prisma.user.count(),
-        prisma_1.prisma.user.count({ where: { role: common_1.UserRole.Vendor } }),
-        prisma_1.prisma.user.count({ where: { role: common_1.UserRole.Customer } }),
-        prisma_1.prisma.vendorProfile.count({ where: { certificationStatus: common_1.CertificationStatus.Pending } }),
-        prisma_1.prisma.produce.count({ where: { certificationStatus: common_1.CertificationStatus.Pending } }),
-        prisma_1.prisma.vendorPost.count({ where: { isApproved: false } }),
-        prisma_1.prisma.customerPost.count({ where: { isApproved: false } }),
+        prisma.user.count(),
+        prisma.user.count({ where: { role: UserRole.Vendor } }),
+        prisma.user.count({ where: { role: UserRole.Customer } }),
+        prisma.vendorProfile.count({ where: { certificationStatus: CertificationStatus.Pending } }),
+        prisma.produce.count({ where: { certificationStatus: CertificationStatus.Pending } }),
+        prisma.vendorPost.count({ where: { isApproved: false } }),
+        prisma.customerPost.count({ where: { isApproved: false } }),
     ]);
     return {
         totalUsers,
@@ -394,7 +388,7 @@ const getAllUsersData = async (filters, options) => {
         });
     }
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = await prisma_1.prisma.user.findMany({
+    const result = await prisma.user.findMany({
         where: whereConditions,
         skip: (parsedPage - 1) * parsedLimit,
         take: parsedLimit,
@@ -405,7 +399,7 @@ const getAllUsersData = async (filters, options) => {
             vendorProfile: true,
         },
     });
-    const total = await prisma_1.prisma.user.count({ where: whereConditions });
+    const total = await prisma.user.count({ where: whereConditions });
     return {
         data: result,
         meta: {
@@ -435,7 +429,7 @@ const getAllProfiles = async (filters) => {
     }
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
     // Get all users with their profiles
-    const users = await prisma_1.prisma.user.findMany({
+    const users = await prisma.user.findMany({
         where: whereConditions,
         include: {
             vendorProfile: {
@@ -509,7 +503,7 @@ const getAllVendorsData = async (filters, options) => {
         });
     }
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = await prisma_1.prisma.vendorProfile.findMany({
+    const result = await prisma.vendorProfile.findMany({
         where: whereConditions,
         skip: (parsedPage - 1) * parsedLimit,
         take: parsedLimit,
@@ -548,7 +542,7 @@ const getAllVendorsData = async (filters, options) => {
             },
         },
     });
-    const total = await prisma_1.prisma.vendorProfile.count({ where: whereConditions });
+    const total = await prisma.vendorProfile.count({ where: whereConditions });
     return {
         data: result,
         meta: {
@@ -581,10 +575,10 @@ const getAllCustomersData = async (filters, options) => {
         });
     }
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = await prisma_1.prisma.user.findMany({
+    const result = await prisma.user.findMany({
         where: {
             ...whereConditions,
-            role: common_1.UserRole.Customer,
+            role: UserRole.Customer,
         },
         skip: (parsedPage - 1) * parsedLimit,
         take: parsedLimit,
@@ -601,7 +595,7 @@ const getAllCustomersData = async (filters, options) => {
     });
     // Get posts count for each customer
     const customersWithPosts = await Promise.all(result.map(async (customer) => {
-        const postsCount = await prisma_1.prisma.customerPost.count({
+        const postsCount = await prisma.customerPost.count({
             where: { userId: customer.id },
         });
         return {
@@ -610,10 +604,10 @@ const getAllCustomersData = async (filters, options) => {
             ordersCount: customer._count.orders,
         };
     }));
-    const total = await prisma_1.prisma.user.count({
+    const total = await prisma.user.count({
         where: {
             ...whereConditions,
-            role: common_1.UserRole.Customer,
+            role: UserRole.Customer,
         },
     });
     return {
@@ -626,7 +620,7 @@ const getAllCustomersData = async (filters, options) => {
         },
     };
 };
-exports.AdminService = {
+export const AdminService = {
     // User Management
     getAllUsers,
     getAllUsersData,

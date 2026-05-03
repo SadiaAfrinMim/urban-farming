@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.HomeService = void 0;
-const prisma_1 = require("../../shared/prisma");
-const client_1 = require("@prisma/client");
+import { prisma } from '../../shared/prisma';
+import { UserRole } from '@prisma/client';
 // Featured Products
 const getFeaturedProducts = async () => {
-    const products = await prisma_1.prisma.produce.findMany({
+    const products = await prisma.produce.findMany({
         where: {
             certificationStatus: 'Approved'
         },
@@ -39,7 +36,7 @@ const getFeaturedProducts = async () => {
 // Categories
 const getCategories = async () => {
     // Get unique categories from produces
-    const categories = await prisma_1.prisma.produce.findMany({
+    const categories = await prisma.produce.findMany({
         where: {
             certificationStatus: 'Approved'
         },
@@ -65,10 +62,10 @@ const getCategories = async () => {
 // Statistics
 const getStatistics = async () => {
     const [totalUsers, totalVendors, totalProducts, totalOrders] = await Promise.all([
-        prisma_1.prisma.user.count(),
-        prisma_1.prisma.user.count({ where: { role: client_1.UserRole.Vendor } }),
-        prisma_1.prisma.produce.count({ where: { certificationStatus: 'Approved' } }),
-        prisma_1.prisma.order.count()
+        prisma.user.count(),
+        prisma.user.count({ where: { role: UserRole.Vendor } }),
+        prisma.produce.count({ where: { certificationStatus: 'Approved' } }),
+        prisma.order.count()
     ]);
     return {
         totalUsers: totalUsers + 500, // Add some buffer for display
@@ -109,7 +106,7 @@ const getTestimonials = async () => {
 };
 // Featured Vendors
 const getFeaturedVendors = async () => {
-    const vendors = await prisma_1.prisma.vendorProfile.findMany({
+    const vendors = await prisma.vendorProfile.findMany({
         where: {
             certificationStatus: 'Approved'
         },
@@ -148,7 +145,7 @@ const getFeaturedVendors = async () => {
 };
 // Approved Vendors Certificates
 const getApprovedVendorCertificates = async () => {
-    const vendors = await prisma_1.prisma.vendorProfile.findMany({
+    const vendors = await prisma.vendorProfile.findMany({
         where: {
             certificationStatus: 'Approved'
         },
@@ -193,7 +190,7 @@ const getApprovedVendorCertificates = async () => {
         rentalSpaces: vendor.rentalSpaces
     }));
 };
-exports.HomeService = {
+export const HomeService = {
     getFeaturedProducts,
     getCategories,
     getStatistics,

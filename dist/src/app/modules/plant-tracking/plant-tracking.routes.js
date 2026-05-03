@@ -1,20 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.plantTrackingRoutes = void 0;
-const express_1 = __importDefault(require("express"));
-const plant_tracking_controller_1 = require("./plant-tracking.controller");
-const auth_1 = __importDefault(require("../../middlewares/auth"));
-const common_1 = require("../../types/common");
+import express from 'express';
+import { PlantTrackingController } from './plant-tracking.controller';
+import auth from '../../middlewares/auth';
+import { UserRole } from '../../types/common';
 /**
  * @swagger
  * tags:
  *   name: Plant Tracking
  *   description: Plant tracking and management
  */
-const router = express_1.default.Router();
+const router = express.Router();
 /**
  * @swagger
  * /plant-tracking:
@@ -27,7 +21,7 @@ const router = express_1.default.Router();
  *       200:
  *         description: Plant trackings retrieved
  */
-router.get('/', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor, common_1.UserRole.Admin), plant_tracking_controller_1.PlantTrackingController.getAllPlantTrackings);
+router.get('/', auth(UserRole.Customer, UserRole.Vendor, UserRole.Admin), PlantTrackingController.getAllPlantTrackings);
 /**
  * @swagger
  * /plant-tracking:
@@ -51,7 +45,7 @@ router.get('/', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRol
  *       201:
  *         description: Plant tracking created
  */
-router.post('/', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), plant_tracking_controller_1.PlantTrackingController.createPlantTracking);
+router.post('/', auth(UserRole.Customer, UserRole.Vendor), PlantTrackingController.createPlantTracking);
 /**
  * @swagger
  * /plant-tracking/{id}:
@@ -70,7 +64,7 @@ router.post('/', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRo
  *       200:
  *         description: Plant tracking details
  */
-router.get('/:id', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor, common_1.UserRole.Admin), plant_tracking_controller_1.PlantTrackingController.getPlantTrackingById);
+router.get('/:id', auth(UserRole.Customer, UserRole.Vendor, UserRole.Admin), PlantTrackingController.getPlantTrackingById);
 /**
  * @swagger
  * /plant-tracking/{id}:
@@ -89,7 +83,7 @@ router.get('/:id', (0, auth_1.default)(common_1.UserRole.Customer, common_1.User
  *       200:
  *         description: Plant tracking updated
  */
-router.patch('/:id', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), plant_tracking_controller_1.PlantTrackingController.updatePlantTracking);
+router.patch('/:id', auth(UserRole.Customer, UserRole.Vendor), PlantTrackingController.updatePlantTracking);
 /**
  * @swagger
  * /plant-tracking/{id}/health:
@@ -108,7 +102,7 @@ router.patch('/:id', (0, auth_1.default)(common_1.UserRole.Customer, common_1.Us
  *       200:
  *         description: Plant health updated
  */
-router.patch('/:id/health', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), plant_tracking_controller_1.PlantTrackingController.updatePlantHealth);
+router.patch('/:id/health', auth(UserRole.Customer, UserRole.Vendor), PlantTrackingController.updatePlantHealth);
 /**
  * @swagger
  * /plant-tracking/{id}/water:
@@ -127,7 +121,7 @@ router.patch('/:id/health', (0, auth_1.default)(common_1.UserRole.Customer, comm
  *       200:
  *         description: Plant watered
  */
-router.patch('/:id/water', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), plant_tracking_controller_1.PlantTrackingController.waterPlant);
+router.patch('/:id/water', auth(UserRole.Customer, UserRole.Vendor), PlantTrackingController.waterPlant);
 /**
  * @swagger
  * /plant-tracking/{id}/fertilize:
@@ -146,7 +140,7 @@ router.patch('/:id/water', (0, auth_1.default)(common_1.UserRole.Customer, commo
  *       200:
  *         description: Plant fertilized
  */
-router.patch('/:id/fertilize', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), plant_tracking_controller_1.PlantTrackingController.fertilizePlant);
+router.patch('/:id/fertilize', auth(UserRole.Customer, UserRole.Vendor), PlantTrackingController.fertilizePlant);
 /**
  * @swagger
  * /plant-tracking/{id}:
@@ -165,6 +159,6 @@ router.patch('/:id/fertilize', (0, auth_1.default)(common_1.UserRole.Customer, c
  *       200:
  *         description: Plant tracking deleted
  */
-router.delete('/:id', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), plant_tracking_controller_1.PlantTrackingController.deletePlantTracking);
-exports.plantTrackingRoutes = router;
+router.delete('/:id', auth(UserRole.Customer, UserRole.Vendor), PlantTrackingController.deletePlantTracking);
+export const plantTrackingRoutes = router;
 //# sourceMappingURL=plant-tracking.routes.js.map

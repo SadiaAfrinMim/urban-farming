@@ -1,20 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.notificationRoutes = void 0;
-const express_1 = __importDefault(require("express"));
-const notification_controller_1 = require("./notification.controller");
-const auth_1 = __importDefault(require("../../middlewares/auth"));
-const router = express_1.default.Router();
+import express from 'express';
+import { NotificationController } from './notification.controller';
+import auth from '../../middlewares/auth';
+const router = express.Router();
 /**
  * @swagger
  * tags:
  *   name: Notifications
  *   description: Notification management
  */
-router.use((0, auth_1.default)()); // All notification routes require authentication
+router.use(auth()); // All notification routes require authentication
 /**
  * @swagger
  * /notifications:
@@ -38,7 +32,7 @@ router.use((0, auth_1.default)()); // All notification routes require authentica
  *       200:
  *         description: Notifications retrieved successfully
  */
-router.get('/', notification_controller_1.NotificationController.getUserNotifications);
+router.get('/', NotificationController.getUserNotifications);
 /**
  * @swagger
  * /notifications/unread-count:
@@ -51,7 +45,7 @@ router.get('/', notification_controller_1.NotificationController.getUserNotifica
  *       200:
  *         description: Unread count retrieved successfully
  */
-router.get('/unread-count', notification_controller_1.NotificationController.getUnreadCount);
+router.get('/unread-count', NotificationController.getUnreadCount);
 /**
  * @swagger
  * /notifications/mark-all-read:
@@ -64,7 +58,7 @@ router.get('/unread-count', notification_controller_1.NotificationController.get
  *       200:
  *         description: All notifications marked as read
  */
-router.patch('/mark-all-read', notification_controller_1.NotificationController.markAllAsRead);
+router.patch('/mark-all-read', NotificationController.markAllAsRead);
 /**
  * @swagger
  * /notifications/{id}/read:
@@ -83,6 +77,6 @@ router.patch('/mark-all-read', notification_controller_1.NotificationController.
  *       200:
  *         description: Notification marked as read
  */
-router.patch('/:id/read', notification_controller_1.NotificationController.markAsRead);
-exports.notificationRoutes = router;
+router.patch('/:id/read', NotificationController.markAsRead);
+export const notificationRoutes = router;
 //# sourceMappingURL=notification.routes.js.map

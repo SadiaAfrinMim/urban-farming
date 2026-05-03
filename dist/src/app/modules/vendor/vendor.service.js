@@ -1,44 +1,5 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.VendorService = void 0;
-const prisma_js_1 = require("../../shared/prisma.js");
-const ApiError_js_1 = __importDefault(require("../../errors/ApiError.js"));
+import { prisma } from '../../shared/prisma.js';
+import ApiError from '../../errors/ApiError.js';
 const createOrUpdateProfile = async (user, req) => {
     console.log('=== PROFILE SERVICE START ===');
     console.log('Raw body:', req.body);
@@ -61,7 +22,7 @@ const createOrUpdateProfile = async (user, req) => {
                     }
                 }
             }
-            throw new ApiError_js_1.default('Farm name and farm location are required', 400);
+            throw new ApiError('Farm name and farm location are required', 400);
         }
         console.log('✅ Validation passed');
         // Prepare data for upsert
@@ -86,7 +47,7 @@ const createOrUpdateProfile = async (user, req) => {
         }
         if (req.body.certificationUrls && req.body.certificationUrls.length > 0) {
             // Get existing certifications and append new ones
-            const existingProfile = await prisma_js_1.prisma.vendorProfile.findUnique({
+            const existingProfile = await prisma.vendorProfile.findUnique({
                 where: { userId: user.id },
             });
             const existingCerts = existingProfile?.certifications || [];
@@ -97,7 +58,7 @@ const createOrUpdateProfile = async (user, req) => {
         }
         else {
             // If no new certifications, preserve existing ones in update
-            const existingProfile = await prisma_js_1.prisma.vendorProfile.findUnique({
+            const existingProfile = await prisma.vendorProfile.findUnique({
                 where: { userId: user.id },
             });
             if (existingProfile?.certifications) {
@@ -110,7 +71,7 @@ const createOrUpdateProfile = async (user, req) => {
         }
         console.log('Final profileData:', profileData);
         console.log('Final createData:', createData);
-        const result = await prisma_js_1.prisma.vendorProfile.upsert({
+        const result = await prisma.vendorProfile.upsert({
             where: {
                 userId: user.id,
             },
@@ -138,7 +99,7 @@ const createOrUpdateProfile = async (user, req) => {
     }
 };
 const getProfile = async (user) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
@@ -146,7 +107,7 @@ const getProfile = async (user) => {
     return profile;
 };
 const getVendorCard = async (user) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
@@ -198,8 +159,8 @@ const getVendorCard = async (user) => {
         profilePhoto: profile.profilePhoto,
         certifications: profile.certifications,
         certificationStatus: profile.certificationStatus,
-        totalProduces: await prisma_js_1.prisma.produce.count({ where: { vendorId: profile.id } }),
-        totalRentalSpaces: await prisma_js_1.prisma.rentalSpace.count({ where: { vendorId: profile.id } }),
+        totalProduces: await prisma.produce.count({ where: { vendorId: profile.id } }),
+        totalRentalSpaces: await prisma.rentalSpace.count({ where: { vendorId: profile.id } }),
         recentProduces: profile.produces,
         recentRentalSpaces: profile.rentalSpaces,
     };
@@ -221,20 +182,20 @@ const createRentalSpace = async (user, req) => {
     // Validate required fields
     const { location, size, price } = req.body;
     if (!location || !size || !price) {
-        throw new ApiError_js_1.default('Location, size, and price are required', 400);
+        throw new ApiError('Location, size, and price are required', 400);
     }
     // Validate price is a valid number
     const parsedPrice = parseFloat(price);
     if (isNaN(parsedPrice) || parsedPrice <= 0) {
-        throw new ApiError_js_1.default('Price must be a valid positive number', 400);
+        throw new ApiError('Price must be a valid positive number', 400);
     }
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
     // Extract only valid RentalSpace fields from request body
     const rentalSpaceData = {
@@ -255,14 +216,14 @@ const createRentalSpace = async (user, req) => {
         console.log('⚠️ No image URL provided for rental space');
     }
     console.log('Final rental space data:', rentalSpaceData);
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.create({
+    const rentalSpace = await prisma.rentalSpace.create({
         data: rentalSpaceData,
     });
     console.log('✅ Rental space created:', rentalSpace.id);
     return rentalSpace;
 };
 const getRentalSpaces = async (user) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
@@ -270,7 +231,7 @@ const getRentalSpaces = async (user) => {
     if (!profile) {
         return [];
     }
-    const rentalSpaces = await prisma_js_1.prisma.rentalSpace.findMany({
+    const rentalSpaces = await prisma.rentalSpace.findMany({
         where: {
             vendorId: profile.id,
         },
@@ -286,13 +247,13 @@ const updateRentalSpace = async (user, id, req) => {
     console.log('Content-Type:', req.headers?.['content-type']);
     console.log('Body keys:', Object.keys(req.body || {}));
     console.log('Files:', req.file ? 'Has file' : 'No file');
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
     const data = req.body;
     // Parse FormData if it contains 'data' field
@@ -311,7 +272,7 @@ const updateRentalSpace = async (user, id, req) => {
         updateData.price = parseFloat(updateData.price);
     }
     console.log('Final update data:', updateData);
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.update({
+    const rentalSpace = await prisma.rentalSpace.update({
         where: {
             id: parseInt(id),
             vendorId: profile.id,
@@ -322,15 +283,15 @@ const updateRentalSpace = async (user, id, req) => {
     return rentalSpace;
 };
 const deleteRentalSpace = async (user, id) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.delete({
+    const rentalSpace = await prisma.rentalSpace.delete({
         where: {
             id: parseInt(id),
             vendorId: profile.id,
@@ -342,18 +303,18 @@ const createProduce = async (user, req) => {
     console.log('=== PRODUCE SERVICE START ===');
     console.log('Body:', req.body);
     console.log('Image URL from middleware:', req.body.imageUrl);
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
     // Validate category
     const validCategories = ['Vegetables', 'Fruits', 'Grains', 'Dairy'];
     if (!validCategories.includes(req.body.category)) {
-        throw new ApiError_js_1.default(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+        throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
     }
     const produceData = {
         name: req.body.name,
@@ -368,7 +329,7 @@ const createProduce = async (user, req) => {
         vendorId: profile.id,
     };
     console.log('Final produce data:', produceData);
-    const produce = await prisma_js_1.prisma.produce.create({
+    const produce = await prisma.produce.create({
         data: produceData,
         include: {
             vendor: {
@@ -381,8 +342,8 @@ const createProduce = async (user, req) => {
     if (produce.certificationStatus === 'Pending') {
         process.nextTick(async () => {
             try {
-                const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service')))).NotificationService;
-                const admins = await prisma_js_1.prisma.user.findMany({
+                const NotificationService = (await import('../notification/notification.service')).NotificationService;
+                const admins = await prisma.user.findMany({
                     where: { role: 'Admin' },
                 });
                 for (const admin of admins) {
@@ -403,7 +364,7 @@ const createProduce = async (user, req) => {
     return produce;
 };
 const getProduces = async (user) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
@@ -411,7 +372,7 @@ const getProduces = async (user) => {
     if (!profile) {
         return [];
     }
-    const produces = await prisma_js_1.prisma.produce.findMany({
+    const produces = await prisma.produce.findMany({
         where: {
             vendorId: profile.id,
         },
@@ -422,20 +383,20 @@ const getProduces = async (user) => {
     return produces;
 };
 const updateProduce = async (user, id, req) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
     const data = req.body;
     // Validate category if provided
     if (data.category) {
         const validCategories = ['Vegetables', 'Fruits', 'Grains', 'Dairy'];
         if (!validCategories.includes(data.category)) {
-            throw new ApiError_js_1.default(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+            throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
         }
     }
     // Handle image update - check for imageUrl from middleware or direct JSON
@@ -449,7 +410,7 @@ const updateProduce = async (user, id, req) => {
     if (data.imageUrl) {
         updateData.image = data.imageUrl;
     }
-    const produce = await prisma_js_1.prisma.produce.update({
+    const produce = await prisma.produce.update({
         where: {
             id: parseInt(id),
             vendorId: profile.id,
@@ -459,15 +420,15 @@ const updateProduce = async (user, id, req) => {
     return produce;
 };
 const deleteProduce = async (user, id) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
-    const produce = await prisma_js_1.prisma.produce.delete({
+    const produce = await prisma.produce.delete({
         where: {
             id: parseInt(id),
             vendorId: profile.id,
@@ -476,7 +437,7 @@ const deleteProduce = async (user, id) => {
     return produce;
 };
 const updatePlantStatus = async (user, data) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
@@ -487,14 +448,14 @@ const updatePlantStatus = async (user, data) => {
     const { rentalSpaceId, plantStatus, lastWatered } = data;
     const validPlantStatuses = ['Seeding', 'Sprouting', 'Growing', 'Flowering', 'ReadyToHarvest', 'Harvested'];
     if (plantStatus && !validPlantStatuses.includes(plantStatus)) {
-        throw new ApiError_js_1.default(400, 'Invalid plant status');
+        throw new ApiError(400, 'Invalid plant status');
     }
     const updateData = {};
     if (plantStatus)
         updateData.plantStatus = plantStatus;
     if (lastWatered)
         updateData.lastWatered = new Date(lastWatered);
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.update({
+    const rentalSpace = await prisma.rentalSpace.update({
         where: {
             id: parseInt(rentalSpaceId),
             vendorId: profile.id,
@@ -504,28 +465,28 @@ const updatePlantStatus = async (user, data) => {
     return rentalSpace;
 };
 const updateOrderStatus = async (user, orderId, status) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default(404, 'Vendor profile not found');
+        throw new ApiError(404, 'Vendor profile not found');
     }
     const validStatuses = ['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled'];
     if (!validStatuses.includes(status)) {
-        throw new ApiError_js_1.default(400, 'Invalid order status');
+        throw new ApiError(400, 'Invalid order status');
     }
-    const order = await prisma_js_1.prisma.order.findUnique({
+    const order = await prisma.order.findUnique({
         where: {
             id: parseInt(orderId),
         },
     });
     if (!order) {
-        throw new ApiError_js_1.default(404, 'Order not found');
+        throw new ApiError(404, 'Order not found');
     }
     // Allow updating any order for testing
-    const updatedOrder = await prisma_js_1.prisma.order.update({
+    const updatedOrder = await prisma.order.update({
         where: {
             id: parseInt(orderId),
         },
@@ -540,7 +501,7 @@ const updateOrderStatus = async (user, orderId, status) => {
     return updatedOrder;
 };
 const getOrders = async (user) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
@@ -548,7 +509,7 @@ const getOrders = async (user) => {
     if (!profile) {
         return [];
     }
-    const orders = await prisma_js_1.prisma.order.findMany({
+    const orders = await prisma.order.findMany({
         include: {
             produce: true,
             user: true,
@@ -565,18 +526,18 @@ const createVendorPost = async (user, req) => {
     console.log('=== VENDOR POST CREATE SERVICE START ===');
     console.log('Body:', req.body);
     console.log('Image URL from middleware:', req.body.imageUrl);
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
     // Validate category
     const validCategories = ['FarmUpdate', 'ProductShowcase', 'Sustainability', 'Community'];
     if (!validCategories.includes(req.body.category)) {
-        throw new ApiError_js_1.default(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+        throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
     }
     const postData = {
         vendorId: profile.id,
@@ -587,7 +548,7 @@ const createVendorPost = async (user, req) => {
         isApproved: req.body.isApproved || false,
     };
     console.log('Final vendor post data:', postData);
-    const post = await prisma_js_1.prisma.vendorPost.create({
+    const post = await prisma.vendorPost.create({
         data: postData,
         include: {
             vendor: {
@@ -606,7 +567,7 @@ const createVendorPost = async (user, req) => {
     return post;
 };
 const getVendorPosts = async (user) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
@@ -614,7 +575,7 @@ const getVendorPosts = async (user) => {
     if (!profile) {
         return [];
     }
-    const posts = await prisma_js_1.prisma.vendorPost.findMany({
+    const posts = await prisma.vendorPost.findMany({
         where: {
             vendorId: profile.id,
         },
@@ -654,31 +615,31 @@ const getVendorPosts = async (user) => {
     }));
 };
 const updateVendorPost = async (user, id, req) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
-    const post = await prisma_js_1.prisma.vendorPost.findUnique({
+    const post = await prisma.vendorPost.findUnique({
         where: {
             id: parseInt(id),
         },
     });
     if (!post) {
-        throw new ApiError_js_1.default('Vendor post not found', 404);
+        throw new ApiError('Vendor post not found', 404);
     }
     // Check if the post belongs to the user
     if (post.vendorId !== profile.id) {
-        throw new ApiError_js_1.default('You can only update your own posts', 403);
+        throw new ApiError('You can only update your own posts', 403);
     }
     // Validate category if provided
     if (req.body.category) {
         const validCategories = ['FarmUpdate', 'ProductShowcase', 'Sustainability', 'Community'];
         if (!validCategories.includes(req.body.category)) {
-            throw new ApiError_js_1.default(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
+            throw new ApiError(`Invalid category. Valid categories are: ${validCategories.join(', ')}`, 400);
         }
     }
     // Handle image update
@@ -690,7 +651,7 @@ const updateVendorPost = async (user, id, req) => {
     if (req.body.imageUrl) {
         updateData.image = req.body.imageUrl;
     }
-    const updatedPost = await prisma_js_1.prisma.vendorPost.update({
+    const updatedPost = await prisma.vendorPost.update({
         where: {
             id: parseInt(id),
         },
@@ -711,41 +672,41 @@ const updateVendorPost = async (user, id, req) => {
     return updatedPost;
 };
 const deleteVendorPost = async (user, id) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
-    const post = await prisma_js_1.prisma.vendorPost.findUnique({
+    const post = await prisma.vendorPost.findUnique({
         where: {
             id: parseInt(id),
         },
     });
     if (!post) {
-        throw new ApiError_js_1.default('Vendor post not found', 404);
+        throw new ApiError('Vendor post not found', 404);
     }
     // Check if the post belongs to the user
     if (post.vendorId !== profile.id) {
-        throw new ApiError_js_1.default('You can only delete your own posts', 403);
+        throw new ApiError('You can only delete your own posts', 403);
     }
-    await prisma_js_1.prisma.vendorPost.delete({
+    await prisma.vendorPost.delete({
         where: {
             id: parseInt(id),
         },
     });
 };
 const toggleVendorPostLike = async (user, postId) => {
-    const post = await prisma_js_1.prisma.vendorPost.findUnique({
+    const post = await prisma.vendorPost.findUnique({
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError_js_1.default('Vendor post not found', 404);
+        throw new ApiError('Vendor post not found', 404);
     }
     // Check if user already liked the post
-    const existingLike = await prisma_js_1.prisma.vendorPostLike.findUnique({
+    const existingLike = await prisma.vendorPostLike.findUnique({
         where: {
             userId_postId: {
                 userId: user.id,
@@ -755,14 +716,14 @@ const toggleVendorPostLike = async (user, postId) => {
     });
     if (existingLike) {
         // Unlike the post
-        await prisma_js_1.prisma.vendorPostLike.delete({
+        await prisma.vendorPostLike.delete({
             where: { id: existingLike.id },
         });
         return { liked: false };
     }
     else {
         // Like the post
-        await prisma_js_1.prisma.vendorPostLike.create({
+        await prisma.vendorPostLike.create({
             data: {
                 userId: user.id,
                 postId: parseInt(postId),
@@ -772,16 +733,16 @@ const toggleVendorPostLike = async (user, postId) => {
     }
 };
 const addVendorPostComment = async (user, postId, content) => {
-    const post = await prisma_js_1.prisma.vendorPost.findUnique({
+    const post = await prisma.vendorPost.findUnique({
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError_js_1.default('Vendor post not found', 404);
+        throw new ApiError('Vendor post not found', 404);
     }
     if (!content.trim()) {
-        throw new ApiError_js_1.default('Comment content cannot be empty', 400);
+        throw new ApiError('Comment content cannot be empty', 400);
     }
-    const comment = await prisma_js_1.prisma.vendorPostComment.create({
+    const comment = await prisma.vendorPostComment.create({
         data: {
             userId: user.id,
             postId: parseInt(postId),
@@ -799,16 +760,16 @@ const addVendorPostComment = async (user, postId, content) => {
     return comment;
 };
 const getVendorDashboardStats = async (user) => {
-    const profile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const profile = await prisma.vendorProfile.findUnique({
         where: {
             userId: user.id,
         },
     });
     if (!profile) {
-        throw new ApiError_js_1.default('Vendor profile not found', 404);
+        throw new ApiError('Vendor profile not found', 404);
     }
     // Get total sales (sum of all completed orders)
-    const totalSalesResult = await prisma_js_1.prisma.order.aggregate({
+    const totalSalesResult = await prisma.order.aggregate({
         where: {
             status: 'Delivered',
             vendorId: profile.id,
@@ -818,21 +779,21 @@ const getVendorDashboardStats = async (user) => {
         },
     });
     // Get active rentals (rental spaces with availability true)
-    const activeRentals = await prisma_js_1.prisma.rentalSpace.count({
+    const activeRentals = await prisma.rentalSpace.count({
         where: {
             vendorId: profile.id,
             availability: true,
         },
     });
     // Get pending orders
-    const pendingOrders = await prisma_js_1.prisma.order.count({
+    const pendingOrders = await prisma.order.count({
         where: {
             status: 'Pending',
             vendorId: profile.id,
         },
     });
     // Get total products
-    const totalProducts = await prisma_js_1.prisma.produce.count({
+    const totalProducts = await prisma.produce.count({
         where: {
             vendorId: profile.id,
         },
@@ -843,7 +804,7 @@ const getVendorDashboardStats = async (user) => {
     for (let i = 3; i >= 0; i--) {
         const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
         const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() - i + 1, 0, 23, 59, 59);
-        const monthlySales = await prisma_js_1.prisma.order.aggregate({
+        const monthlySales = await prisma.order.aggregate({
             where: {
                 status: 'Delivered',
                 vendorId: profile.id,
@@ -870,7 +831,7 @@ const getVendorDashboardStats = async (user) => {
         monthlyEarnings,
     };
 };
-exports.VendorService = {
+export const VendorService = {
     createOrUpdateProfile,
     getProfile,
     getVendorCard,

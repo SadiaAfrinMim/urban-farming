@@ -1,23 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
-const prisma_1 = require("../../shared/prisma");
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const common_1 = require("../../types/common");
-const fileUploader_1 = require("../../helpers/fileUploader");
-const user_constant_1 = require("./user.constant");
-const paginationHelper_1 = require("../../helpers/paginationHelper");
+import { prisma } from "../../shared/prisma";
+import bcrypt from "bcryptjs";
+import { UserRole, UserStatus } from "../../types/common";
+import { fileUploader } from "../../helpers/fileUploader";
+import { userSearchAbleFields } from "./user.constant";
+import { paginationHelper } from "../../helpers/paginationHelper";
 const createCustomer = async (req) => {
-    const hashPassword = await bcryptjs_1.default.hash(req.body.password, 10);
-    const result = await prisma_1.prisma.user.create({
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+    const result = await prisma.user.create({
         data: {
             name: req.body.name,
             email: req.body.email,
             password: hashPassword,
-            role: common_1.UserRole.Customer
+            role: UserRole.Customer
         },
         select: {
             id: true,
@@ -30,14 +24,14 @@ const createCustomer = async (req) => {
     return result;
 };
 const createAdmin = async (req) => {
-    const hashedPassword = await bcryptjs_1.default.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const userData = {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
-        role: common_1.UserRole.Admin
+        role: UserRole.Admin
     };
-    const result = await prisma_1.prisma.user.create({
+    const result = await prisma.user.create({
         data: userData,
         select: {
             id: true,
@@ -56,18 +50,18 @@ const createVendor = async (req) => {
     try {
         // 1. Upload outside transaction (OK)
         if (file) {
-            uploadedImage = await fileUploader_1.fileUploader.uploadToCloudinary(file);
+            uploadedImage = await fileUploader.uploadToCloudinary(file);
             req.body.vendorProfile.profilePhoto = uploadedImage?.secure_url;
         }
-        const hashedPassword = await bcryptjs_1.default.hash(req.body.password, 10);
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const userData = {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            role: common_1.UserRole.Vendor
+            role: UserRole.Vendor
         };
         // 2. Keep transaction ONLY for DB ops
-        const result = await prisma_1.prisma.$transaction(async (tx) => {
+        const result = await prisma.$transaction(async (tx) => {
             const createdUser = await tx.user.create({
                 data: userData
             });
@@ -85,20 +79,20 @@ const createVendor = async (req) => {
     }
     catch (error) {
         if (uploadedImage) {
-            await fileUploader_1.fileUploader.deleteFromCloudinary(uploadedImage.public_id);
+            await fileUploader.deleteFromCloudinary(uploadedImage.public_id);
         }
         throw error;
     }
 };
 const createVendorPublic = async (req) => {
-    const hashedPassword = await bcryptjs_1.default.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const userData = {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
-        role: common_1.UserRole.Vendor
+        role: UserRole.Vendor
     };
-    const result = await prisma_1.prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx) => {
         const createdUser = await tx.user.create({
             data: userData
         });
@@ -124,12 +118,12 @@ const createVendorPublic = async (req) => {
     return result;
 };
 const getAllFromDB = async (params, options) => {
-    const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
+    const { page, limit, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(options);
     const { searchTerm, ...filterData } = params;
     const andConditions = [];
     if (searchTerm) {
         andConditions.push({
-            OR: user_constant_1.userSearchAbleFields.map(field => ({
+            OR: userSearchAbleFields.map(field => ({
                 [field]: {
                     contains: searchTerm,
                     mode: "insensitive"
@@ -149,7 +143,7 @@ const getAllFromDB = async (params, options) => {
     const whereConditions = andConditions.length > 0 ? {
         AND: andConditions
     } : {};
-    const result = await prisma_1.prisma.user.findMany({
+    const result = await prisma.user.findMany({
         skip,
         take: limit,
         where: whereConditions,
@@ -157,7 +151,7 @@ const getAllFromDB = async (params, options) => {
             [sortBy]: sortOrder
         }
     });
-    const total = await prisma_1.prisma.user.count({
+    const total = await prisma.user.count({
         where: whereConditions
     });
     return {
@@ -170,7 +164,7 @@ const getAllFromDB = async (params, options) => {
     };
 };
 const getMyProfile = async (user) => {
-    const userInfo = await prisma_1.prisma.user.findFirstOrThrow({
+    const userInfo = await prisma.user.findFirstOrThrow({
         where: {
             id: parseInt(user.id),
         },
@@ -184,8 +178,8 @@ const getMyProfile = async (user) => {
         }
     });
     let profileData = null;
-    if (userInfo.role === common_1.UserRole.Vendor) {
-        profileData = await prisma_1.prisma.vendorProfile.findUnique({
+    if (userInfo.role === UserRole.Vendor) {
+        profileData = await prisma.vendorProfile.findUnique({
             where: {
                 userId: userInfo.id
             },
@@ -209,12 +203,12 @@ const changeProfileStatus = async (id, payload) => {
     if (isNaN(userIdNumber)) {
         throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
     }
-    const userData = await prisma_1.prisma.user.findUniqueOrThrow({
+    const userData = await prisma.user.findUniqueOrThrow({
         where: {
             id: userIdNumber
         }
     });
-    const updateUserStatus = await prisma_1.prisma.user.update({
+    const updateUserStatus = await prisma.user.update({
         where: {
             id: userIdNumber
         },
@@ -223,10 +217,10 @@ const changeProfileStatus = async (id, payload) => {
     return updateUserStatus;
 };
 const updateMyProfile = async (user, req) => {
-    const userInfo = await prisma_1.prisma.user.findFirstOrThrow({
+    const userInfo = await prisma.user.findFirstOrThrow({
         where: {
             email: user?.email,
-            status: common_1.UserStatus.Active
+            status: UserStatus.Active
         }
     });
     const file = req.file;
@@ -239,19 +233,19 @@ const updateMyProfile = async (user, req) => {
     try {
         // ✅ Cloudinary আপলোড ট্রানজাকশনের বাইরে করা
         if (file) {
-            uploadedImage = await fileUploader_1.fileUploader.uploadToCloudinary(file);
+            uploadedImage = await fileUploader.uploadToCloudinary(file);
             requestData.profilePhoto = uploadedImage?.secure_url;
         }
         let { farmName, certificationStatus, farmLocation, profilePhoto, ...userUpdateData } = requestData;
         // Handle profile image based on role
-        if (userInfo.role === common_1.UserRole.Customer || userInfo.role === common_1.UserRole.Admin) {
+        if (userInfo.role === UserRole.Customer || userInfo.role === UserRole.Admin) {
             // For customers and admins, store profile image in User table
             userUpdateData.profileImage = profilePhoto;
         }
         // For vendors, profile image should NOT be updated via this endpoint
         // They should use the vendor profile update endpoint
         // ✅ শুধুমাত্র ডাটাবেস অপারেশন ট্রানজাকশনের ভিতর
-        await prisma_1.prisma.$transaction(async (transactionClient) => {
+        await prisma.$transaction(async (transactionClient) => {
             // Update User table for all roles
             if (Object.keys(userUpdateData).length > 0) {
                 await transactionClient.user.update({
@@ -261,7 +255,7 @@ const updateMyProfile = async (user, req) => {
                     data: userUpdateData
                 });
             }
-            if (userInfo.role === common_1.UserRole.Vendor) {
+            if (userInfo.role === UserRole.Vendor) {
                 const vendorUpdateData = {
                     farmName,
                     certificationStatus,
@@ -286,7 +280,7 @@ const updateMyProfile = async (user, req) => {
             timeout: 10000 // ✅ 10 সেকেন্ড টাইমআউট যোগ করা
         });
         // Return updated profile data
-        const updatedUser = await prisma_1.prisma.user.findFirstOrThrow({
+        const updatedUser = await prisma.user.findFirstOrThrow({
             where: {
                 id: userInfo.id
             },
@@ -300,8 +294,8 @@ const updateMyProfile = async (user, req) => {
             }
         });
         let updatedProfileData = null;
-        if (updatedUser.role === common_1.UserRole.Vendor) {
-            updatedProfileData = await prisma_1.prisma.vendorProfile.findUnique({
+        if (updatedUser.role === UserRole.Vendor) {
+            updatedProfileData = await prisma.vendorProfile.findUnique({
                 where: {
                     userId: updatedUser.id
                 },
@@ -324,12 +318,12 @@ const updateMyProfile = async (user, req) => {
     catch (error) {
         // ট্রানজাকশন ফেইল হলে আপলোড করা ইমেজ ডিলিট করা
         if (uploadedImage) {
-            await fileUploader_1.fileUploader.deleteFromCloudinary(uploadedImage.public_id);
+            await fileUploader.deleteFromCloudinary(uploadedImage.public_id);
         }
         throw error;
     }
 };
-exports.UserService = {
+export const UserService = {
     createCustomer,
     createAdmin,
     createVendor,

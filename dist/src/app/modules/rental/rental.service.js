@@ -1,47 +1,8 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RentalService = void 0;
-const prisma_js_1 = require("../../shared/prisma.js");
-const http_status_1 = __importDefault(require("http-status"));
-const ApiError_js_1 = __importDefault(require("../../errors/ApiError.js"));
+import { prisma } from '../../shared/prisma.js';
+import httpStatus from 'http-status';
+import ApiError from '../../errors/ApiError.js';
 const getAllRentalSpaces = async () => {
-    const rentalSpaces = await prisma_js_1.prisma.rentalSpace.findMany({
+    const rentalSpaces = await prisma.rentalSpace.findMany({
         include: {
             vendor: {
                 include: {
@@ -60,7 +21,7 @@ const searchRentalSpaces = async (location) => {
             mode: 'insensitive',
         };
     }
-    const rentalSpaces = await prisma_js_1.prisma.rentalSpace.findMany({
+    const rentalSpaces = await prisma.rentalSpace.findMany({
         where,
         include: {
             vendor: {
@@ -75,9 +36,9 @@ const searchRentalSpaces = async (location) => {
 const getRentalSpaceById = async (id) => {
     const rentalSpaceId = parseInt(id, 10);
     if (isNaN(rentalSpaceId)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid rental space ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
     }
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.findUnique({
+    const rentalSpace = await prisma.rentalSpace.findUnique({
         where: { id: rentalSpaceId },
         include: {
             vendor: {
@@ -88,7 +49,7 @@ const getRentalSpaceById = async (id) => {
         },
     });
     if (!rentalSpace) {
-        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
     }
     return rentalSpace;
 };
@@ -96,15 +57,15 @@ const createRentalSpace = async (vendorId, payload) => {
     // Check if vendor exists and is Vendor role
     const vendorIdNumber = parseInt(vendorId, 10);
     if (isNaN(vendorIdNumber)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid vendor ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
     }
-    const vendorProfile = await prisma_js_1.prisma.vendorProfile.findUnique({
+    const vendorProfile = await prisma.vendorProfile.findUnique({
         where: { userId: vendorIdNumber },
     });
     if (!vendorProfile) {
-        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Vendor profile not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');
     }
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.create({
+    const rentalSpace = await prisma.rentalSpace.create({
         data: {
             vendorId: vendorProfile.id,
             ...payload,
@@ -127,15 +88,15 @@ const createRentalSpace = async (vendorId, payload) => {
 const updateRentalSpace = async (id, payload) => {
     const rentalSpaceId = parseInt(id, 10);
     if (isNaN(rentalSpaceId)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid rental space ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
     }
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.findUnique({
+    const rentalSpace = await prisma.rentalSpace.findUnique({
         where: { id: rentalSpaceId },
     });
     if (!rentalSpace) {
-        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
     }
-    const updated = await prisma_js_1.prisma.rentalSpace.update({
+    const updated = await prisma.rentalSpace.update({
         where: { id: rentalSpaceId },
         data: payload,
         include: {
@@ -156,15 +117,15 @@ const updateRentalSpace = async (id, payload) => {
 const deleteRentalSpace = async (id) => {
     const rentalSpaceId = parseInt(id, 10);
     if (isNaN(rentalSpaceId)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid rental space ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
     }
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.findUnique({
+    const rentalSpace = await prisma.rentalSpace.findUnique({
         where: { id: rentalSpaceId },
     });
     if (!rentalSpace) {
-        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
     }
-    await prisma_js_1.prisma.rentalSpace.delete({
+    await prisma.rentalSpace.delete({
         where: { id: rentalSpaceId },
     });
     // Emit real-time update
@@ -176,9 +137,9 @@ const deleteRentalSpace = async (id) => {
 const toggleAvailability = async (id, availability) => {
     const rentalSpaceId = parseInt(id, 10);
     if (isNaN(rentalSpaceId)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid rental space ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid rental space ID');
     }
-    const updated = await prisma_js_1.prisma.rentalSpace.update({
+    const updated = await prisma.rentalSpace.update({
         where: { id: rentalSpaceId },
         data: { availability },
         include: {
@@ -197,17 +158,17 @@ const toggleAvailability = async (id, availability) => {
     return updated;
 };
 const bookRentalSpace = async (spaceId, customerId) => {
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.findUnique({
+    const rentalSpace = await prisma.rentalSpace.findUnique({
         where: { id: parseInt(spaceId) },
     });
     if (!rentalSpace) {
-        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
     }
     if (!rentalSpace.availability) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Rental space is not available');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Rental space is not available');
     }
     // Update availability to false
-    const updated = await prisma_js_1.prisma.rentalSpace.update({
+    const updated = await prisma.rentalSpace.update({
         where: { id: parseInt(spaceId) },
         data: { availability: false },
         include: {
@@ -226,7 +187,7 @@ const bookRentalSpace = async (spaceId, customerId) => {
     // Create notification for the vendor (async, non-blocking)
     process.nextTick(async () => {
         try {
-            const NotificationService = (await Promise.resolve().then(() => __importStar(require('../notification/notification.service')))).NotificationService;
+            const NotificationService = (await import('../notification/notification.service')).NotificationService;
             await NotificationService.createNotification(updated.vendor.userId, 'RENTAL_SPACE_BOOKED', 'Rental Space Booked', `Your rental space "${updated.location}" has been booked.`, {
                 rentalSpaceId: updated.id,
                 customerId: customerId,
@@ -242,10 +203,10 @@ const bookRentalSpace = async (spaceId, customerId) => {
 const createRentalOrder = async (customerId, spaceId, totalPrice, duration) => {
     const customerIdNumber = parseInt(customerId, 10);
     if (isNaN(customerIdNumber)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid customer ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid customer ID');
     }
     // Check if rental space exists and is available
-    const rentalSpace = await prisma_js_1.prisma.rentalSpace.findUnique({
+    const rentalSpace = await prisma.rentalSpace.findUnique({
         where: { id: spaceId },
         include: {
             vendor: {
@@ -256,13 +217,13 @@ const createRentalOrder = async (customerId, spaceId, totalPrice, duration) => {
         },
     });
     if (!rentalSpace) {
-        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Rental space not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Rental space not found');
     }
     if (!rentalSpace.availability) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Rental space is not available');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Rental space is not available');
     }
     // Create the rental order
-    const order = await prisma_js_1.prisma.order.create({
+    const order = await prisma.order.create({
         data: {
             userId: customerId,
             rentalSpaceId: spaceId,
@@ -288,9 +249,9 @@ const createRentalOrder = async (customerId, spaceId, totalPrice, duration) => {
 const getVendorRentalOrders = async (vendorId) => {
     const vendorIdNumber = parseInt(vendorId, 10);
     if (isNaN(vendorIdNumber)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid vendor ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
     }
-    const orders = await prisma_js_1.prisma.order.findMany({
+    const orders = await prisma.order.findMany({
         where: {
             rentalSpace: {
                 vendorId: vendorIdNumber,
@@ -318,23 +279,23 @@ const getVendorRentalOrders = async (vendorId) => {
 const updateRentalOrderStatus = async (orderId, status, vendorId) => {
     const vendorIdNumber = parseInt(vendorId, 10);
     if (isNaN(vendorIdNumber)) {
-        throw new ApiError_js_1.default(http_status_1.default.BAD_REQUEST, 'Invalid vendor ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
     }
     // First check if the order belongs to this vendor
-    const order = await prisma_js_1.prisma.order.findUnique({
+    const order = await prisma.order.findUnique({
         where: { id: orderId },
         include: {
             rentalSpace: true,
         },
     });
     if (!order) {
-        throw new ApiError_js_1.default(http_status_1.default.NOT_FOUND, 'Order not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
     }
     if (order.rentalSpace?.vendorId !== vendorIdNumber) {
-        throw new ApiError_js_1.default(http_status_1.default.FORBIDDEN, 'You can only update orders for your rental spaces');
+        throw new ApiError(httpStatus.FORBIDDEN, 'You can only update orders for your rental spaces');
     }
     // Update the order status
-    const updatedOrder = await prisma_js_1.prisma.order.update({
+    const updatedOrder = await prisma.order.update({
         where: { id: orderId },
         data: { status },
         include: {
@@ -353,7 +314,7 @@ const updateRentalOrderStatus = async (orderId, status, vendorId) => {
     });
     return updatedOrder;
 };
-exports.RentalService = {
+export const RentalService = {
     getAllRentalSpaces,
     searchRentalSpaces,
     getRentalSpaceById,

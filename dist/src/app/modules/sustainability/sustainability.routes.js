@@ -1,20 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.sustainabilityRoutes = void 0;
-const express_1 = __importDefault(require("express"));
-const sustainability_controller_1 = require("./sustainability.controller");
-const auth_1 = __importDefault(require("../../middlewares/auth"));
-const client_1 = require("@prisma/client");
+import express from 'express';
+import { SustainabilityController } from './sustainability.controller';
+import auth from '../../middlewares/auth';
+import { UserRole } from '@prisma/client';
 /**
  * @swagger
  * tags:
  *   name: Sustainability
  *   description: Sustainability certification management
  */
-const router = express_1.default.Router();
+const router = express.Router();
 /**
  * @swagger
  * /sustainability/certs:
@@ -27,7 +21,7 @@ const router = express_1.default.Router();
  *       200:
  *         description: List of certificates
  */
-router.get('/certs', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Customer), sustainability_controller_1.SustainabilityController.getAllCerts);
+router.get('/certs', auth(UserRole.Admin, UserRole.Customer), SustainabilityController.getAllCerts);
 /**
  * @swagger
  * /sustainability/certs/{id}:
@@ -46,7 +40,7 @@ router.get('/certs', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserR
  *       200:
  *         description: Certificate details
  */
-router.get('/certs/:id', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor), sustainability_controller_1.SustainabilityController.getCertById);
+router.get('/certs/:id', auth(UserRole.Admin, UserRole.Vendor), SustainabilityController.getCertById);
 /**
  * @swagger
  * /sustainability/certs:
@@ -70,7 +64,7 @@ router.get('/certs/:id', (0, auth_1.default)(client_1.UserRole.Admin, client_1.U
  *       201:
  *         description: Certificate created
  */
-router.post('/certs', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor), sustainability_controller_1.SustainabilityController.createCert);
+router.post('/certs', auth(UserRole.Admin, UserRole.Vendor), SustainabilityController.createCert);
 /**
  * @swagger
  * /sustainability/certs/{id}/status:
@@ -99,6 +93,6 @@ router.post('/certs', (0, auth_1.default)(client_1.UserRole.Admin, client_1.User
  *       200:
  *         description: Status updated
  */
-router.patch('/certs/:id/status', (0, auth_1.default)(client_1.UserRole.Admin), sustainability_controller_1.SustainabilityController.updateCertStatus);
-exports.sustainabilityRoutes = router;
+router.patch('/certs/:id/status', auth(UserRole.Admin), SustainabilityController.updateCertStatus);
+export const sustainabilityRoutes = router;
 //# sourceMappingURL=sustainability.routes.js.map

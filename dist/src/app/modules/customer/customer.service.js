@@ -1,14 +1,8 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CustomerService = void 0;
-const prisma_1 = require("../../shared/prisma");
-const ApiError_1 = __importDefault(require("../../errors/ApiError"));
-const http_status_1 = __importDefault(require("http-status"));
+import { prisma } from '../../shared/prisma';
+import ApiError from '../../errors/ApiError';
+import httpStatus from 'http-status';
 const getCustomerPosts = async (userId) => {
-    const posts = await prisma_1.prisma.customerPost.findMany({
+    const posts = await prisma.customerPost.findMany({
         where: {
             userId: parseInt(userId),
         },
@@ -58,14 +52,14 @@ const createCustomerPost = async (userId, payload) => {
     const { title, content, category } = payload;
     // Validate required fields
     if (!title || !content || !category) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Title, content, and category are required');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Title, content, and category are required');
     }
     // Validate category
     const validCategories = ['Question', 'Discussion', 'Review', 'Suggestion'];
     if (!validCategories.includes(category)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
+        throw new ApiError(httpStatus.BAD_REQUEST, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
     }
-    const post = await prisma_1.prisma.customerPost.create({
+    const post = await prisma.customerPost.create({
         data: {
             userId: parseInt(userId),
             title,
@@ -85,26 +79,26 @@ const createCustomerPost = async (userId, payload) => {
     return post;
 };
 const updateCustomerPost = async (postId, userId, payload) => {
-    const post = await prisma_1.prisma.customerPost.findUnique({
+    const post = await prisma.customerPost.findUnique({
         where: {
             id: parseInt(postId),
         },
     });
     if (!post) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Customer post not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Customer post not found');
     }
     // Check if the post belongs to the user
     if (post.userId !== parseInt(userId)) {
-        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'You can only update your own posts');
+        throw new ApiError(httpStatus.FORBIDDEN, 'You can only update your own posts');
     }
     // Validate category if provided
     if (payload.category) {
         const validCategories = ['Question', 'Discussion', 'Review', 'Suggestion'];
         if (!validCategories.includes(payload.category)) {
-            throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
+            throw new ApiError(httpStatus.BAD_REQUEST, `Invalid category. Valid categories are: ${validCategories.join(', ')}`);
         }
     }
-    const updatedPost = await prisma_1.prisma.customerPost.update({
+    const updatedPost = await prisma.customerPost.update({
         where: {
             id: parseInt(postId),
         },
@@ -125,26 +119,26 @@ const updateCustomerPost = async (postId, userId, payload) => {
     return updatedPost;
 };
 const deleteCustomerPost = async (postId, userId) => {
-    const post = await prisma_1.prisma.customerPost.findUnique({
+    const post = await prisma.customerPost.findUnique({
         where: {
             id: parseInt(postId),
         },
     });
     if (!post) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Customer post not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Customer post not found');
     }
     // Check if the post belongs to the user
     if (post.userId !== parseInt(userId)) {
-        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'You can only delete your own posts');
+        throw new ApiError(httpStatus.FORBIDDEN, 'You can only delete your own posts');
     }
-    await prisma_1.prisma.customerPost.delete({
+    await prisma.customerPost.delete({
         where: {
             id: parseInt(postId),
         },
     });
 };
 const getCustomerDashboard = async (userId) => {
-    const user = await prisma_1.prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: { id: parseInt(userId) },
         select: {
             id: true,
@@ -156,14 +150,14 @@ const getCustomerDashboard = async (userId) => {
         },
     });
     if (!user) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
     // Get user's posts count
-    const postsCount = await prisma_1.prisma.customerPost.count({
+    const postsCount = await prisma.customerPost.count({
         where: { userId: parseInt(userId) },
     });
     // Get user's orders count
-    const ordersCount = await prisma_1.prisma.order.count({
+    const ordersCount = await prisma.order.count({
         where: { userId: parseInt(userId) },
     });
     return {
@@ -172,7 +166,7 @@ const getCustomerDashboard = async (userId) => {
             postsCount,
             ordersCount,
         },
-        recentPosts: await prisma_1.prisma.customerPost.findMany({
+        recentPosts: await prisma.customerPost.findMany({
             where: { userId: parseInt(userId) },
             take: 5,
             orderBy: { createdAt: 'desc' },
@@ -187,7 +181,7 @@ const getCustomerDashboard = async (userId) => {
     };
 };
 const getCustomerOrders = async (userId) => {
-    const orders = await prisma_1.prisma.order.findMany({
+    const orders = await prisma.order.findMany({
         where: {
             userId: parseInt(userId),
         },
@@ -228,14 +222,14 @@ const getCustomerOrders = async (userId) => {
     return orders;
 };
 const toggleCustomerPostLike = async (postId, userId) => {
-    const post = await prisma_1.prisma.customerPost.findUnique({
+    const post = await prisma.customerPost.findUnique({
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Customer post not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Customer post not found');
     }
     // Check if user already liked the post
-    const existingLike = await prisma_1.prisma.customerPostLike.findUnique({
+    const existingLike = await prisma.customerPostLike.findUnique({
         where: {
             userId_postId: {
                 userId: parseInt(userId),
@@ -245,14 +239,14 @@ const toggleCustomerPostLike = async (postId, userId) => {
     });
     if (existingLike) {
         // Unlike the post
-        await prisma_1.prisma.customerPostLike.delete({
+        await prisma.customerPostLike.delete({
             where: { id: existingLike.id },
         });
         return { liked: false };
     }
     else {
         // Like the post
-        await prisma_1.prisma.customerPostLike.create({
+        await prisma.customerPostLike.create({
             data: {
                 userId: parseInt(userId),
                 postId: parseInt(postId),
@@ -262,16 +256,16 @@ const toggleCustomerPostLike = async (postId, userId) => {
     }
 };
 const addCustomerPostComment = async (postId, userId, content) => {
-    const post = await prisma_1.prisma.customerPost.findUnique({
+    const post = await prisma.customerPost.findUnique({
         where: { id: parseInt(postId) },
     });
     if (!post) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Customer post not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Customer post not found');
     }
     if (!content.trim()) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Comment content cannot be empty');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Comment content cannot be empty');
     }
-    const comment = await prisma_1.prisma.customerPostComment.create({
+    const comment = await prisma.customerPostComment.create({
         data: {
             userId: parseInt(userId),
             postId: parseInt(postId),
@@ -289,7 +283,7 @@ const addCustomerPostComment = async (postId, userId, content) => {
     return comment;
 };
 const getCustomerPostComments = async (postId) => {
-    const comments = await prisma_1.prisma.customerPostComment.findMany({
+    const comments = await prisma.customerPostComment.findMany({
         where: { postId: parseInt(postId) },
         include: {
             user: {
@@ -306,30 +300,30 @@ const getCustomerPostComments = async (postId) => {
     return comments;
 };
 const deleteCustomerPostComment = async (commentId, userId) => {
-    const comment = await prisma_1.prisma.customerPostComment.findUnique({
+    const comment = await prisma.customerPostComment.findUnique({
         where: { id: parseInt(commentId) },
     });
     if (!comment) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Comment not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
     }
     if (comment.userId !== parseInt(userId)) {
-        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'You can only delete your own comments');
+        throw new ApiError(httpStatus.FORBIDDEN, 'You can only delete your own comments');
     }
-    await prisma_1.prisma.customerPostComment.delete({
+    await prisma.customerPostComment.delete({
         where: { id: parseInt(commentId) },
     });
 };
 const updateRentalOrderStatus = async (orderId, userId, status) => {
     const orderIdNumber = parseInt(orderId, 10);
     if (isNaN(orderIdNumber)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid order ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid order ID');
     }
     const userIdNumber = parseInt(userId, 10);
     if (isNaN(userIdNumber)) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
     }
     // Check if order exists and belongs to the user
-    const order = await prisma_1.prisma.order.findUnique({
+    const order = await prisma.order.findUnique({
         where: { id: orderIdNumber },
         include: {
             rentalSpace: {
@@ -344,13 +338,13 @@ const updateRentalOrderStatus = async (orderId, userId, status) => {
         },
     });
     if (!order) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Order not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
     }
     if (order.userId !== userId) {
-        throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'You can only update your own orders');
+        throw new ApiError(httpStatus.FORBIDDEN, 'You can only update your own orders');
     }
     // Update the order status
-    const updatedOrder = await prisma_1.prisma.order.update({
+    const updatedOrder = await prisma.order.update({
         where: { id: orderIdNumber },
         data: { status },
         include: {
@@ -369,7 +363,7 @@ const updateRentalOrderStatus = async (orderId, userId, status) => {
     });
     return updatedOrder;
 };
-exports.CustomerService = {
+export const CustomerService = {
     getCustomerPosts,
     createCustomerPost,
     updateCustomerPost,

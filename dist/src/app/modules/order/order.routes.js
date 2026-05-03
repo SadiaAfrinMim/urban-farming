@@ -1,20 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.orderRoutes = void 0;
-const express_1 = __importDefault(require("express"));
-const order_controller_js_1 = require("./order.controller.js");
-const auth_js_1 = __importDefault(require("../../middlewares/auth.js"));
-const client_1 = require("@prisma/client");
+import express from 'express';
+import { OrderController } from './order.controller.js';
+import auth from '../../middlewares/auth.js';
+import { UserRole } from '@prisma/client';
 /**
  * @swagger
  * tags:
  *   name: Orders
  *   description: Order management
  */
-const router = express_1.default.Router();
+const router = express.Router();
 /**
  * @swagger
  * /orders:
@@ -27,7 +21,7 @@ const router = express_1.default.Router();
  *       200:
  *         description: List of orders
  */
-router.get('/', (0, auth_js_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), order_controller_js_1.OrderController.getOrders);
+router.get('/', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), OrderController.getOrders);
 /**
  * @swagger
  * /orders/{id}:
@@ -48,7 +42,7 @@ router.get('/', (0, auth_js_1.default)(client_1.UserRole.Admin, client_1.UserRol
  *       404:
  *         description: Order not found
  */
-router.get('/:id', (0, auth_js_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), order_controller_js_1.OrderController.getOrderById);
+router.get('/:id', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), OrderController.getOrderById);
 /**
  * @swagger
  * /orders:
@@ -74,7 +68,7 @@ router.get('/:id', (0, auth_js_1.default)(client_1.UserRole.Admin, client_1.User
  *       201:
  *         description: Order created
  */
-router.post('/', (0, auth_js_1.default)(client_1.UserRole.Customer), order_controller_js_1.OrderController.createOrder);
+router.post('/', auth(UserRole.Customer), OrderController.createOrder);
 /**
  * @swagger
  * /orders/{id}/status:
@@ -103,6 +97,6 @@ router.post('/', (0, auth_js_1.default)(client_1.UserRole.Customer), order_contr
  *       200:
  *         description: Status updated
  */
-router.patch('/:id/status', (0, auth_js_1.default)(client_1.UserRole.Vendor), order_controller_js_1.OrderController.updateOrderStatus);
-exports.orderRoutes = router;
+router.patch('/:id/status', auth(UserRole.Vendor), OrderController.updateOrderStatus);
+export const orderRoutes = router;
 //# sourceMappingURL=order.routes.js.map

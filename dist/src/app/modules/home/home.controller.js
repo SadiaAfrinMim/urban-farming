@@ -1,17 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.HomeController = void 0;
-const http_status_1 = __importDefault(require("http-status"));
-const sendResponse_1 = __importDefault(require("../../shared/sendResponse"));
-const home_service_1 = require("./home.service");
+import httpStatus from 'http-status';
+import sendResponse from '../../shared/sendResponse';
+import { HomeService } from './home.service';
 // Featured Products
 const getFeaturedProducts = async (req, res) => {
-    const result = await home_service_1.HomeService.getFeaturedProducts();
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await HomeService.getFeaturedProducts();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Featured products retrieved successfully',
         data: result,
@@ -19,9 +13,9 @@ const getFeaturedProducts = async (req, res) => {
 };
 // Categories
 const getCategories = async (req, res) => {
-    const result = await home_service_1.HomeService.getCategories();
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await HomeService.getCategories();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Categories retrieved successfully',
         data: result,
@@ -29,9 +23,9 @@ const getCategories = async (req, res) => {
 };
 // Statistics
 const getStatistics = async (req, res) => {
-    const result = await home_service_1.HomeService.getStatistics();
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await HomeService.getStatistics();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Statistics retrieved successfully',
         data: result,
@@ -39,9 +33,9 @@ const getStatistics = async (req, res) => {
 };
 // Testimonials
 const getTestimonials = async (req, res) => {
-    const result = await home_service_1.HomeService.getTestimonials();
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await HomeService.getTestimonials();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Testimonials retrieved successfully',
         data: result,
@@ -50,9 +44,9 @@ const getTestimonials = async (req, res) => {
 // Featured Vendors
 const getFeaturedVendors = async (req, res) => {
     try {
-        const result = await home_service_1.HomeService.getFeaturedVendors();
-        (0, sendResponse_1.default)(res, {
-            statusCode: http_status_1.default.OK,
+        const result = await HomeService.getFeaturedVendors();
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
             success: true,
             message: 'Featured vendors retrieved successfully',
             data: result,
@@ -65,8 +59,8 @@ const getFeaturedVendors = async (req, res) => {
             meta: error.meta,
             stack: error.stack
         });
-        (0, sendResponse_1.default)(res, {
-            statusCode: http_status_1.default.INTERNAL_SERVER_ERROR,
+        sendResponse(res, {
+            statusCode: httpStatus.INTERNAL_SERVER_ERROR,
             success: false,
             message: 'Failed to retrieve featured vendors',
             data: null,
@@ -75,15 +69,15 @@ const getFeaturedVendors = async (req, res) => {
 };
 // Approved Vendors Certificates
 const getApprovedVendorCertificates = async (req, res) => {
-    const result = await home_service_1.HomeService.getApprovedVendorCertificates();
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await HomeService.getApprovedVendorCertificates();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Approved vendors certificates retrieved successfully',
         data: result,
     });
 };
-exports.HomeController = {
+export const HomeController = {
     getFeaturedProducts,
     getCategories,
     getStatistics,

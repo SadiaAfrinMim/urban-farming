@@ -1,20 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.paymentRoutes = void 0;
-const express_1 = __importDefault(require("express"));
-const payment_controller_1 = require("./payment.controller");
-const auth_1 = __importDefault(require("../../middlewares/auth"));
-const common_1 = require("../../types/common");
+import express from 'express';
+import { PaymentController } from './payment.controller';
+import auth from '../../middlewares/auth';
+import { UserRole } from '../../types/common';
 /**
  * @swagger
  * tags:
  *   name: Payments
  *   description: Payment processing and management
  */
-const router = express_1.default.Router();
+const router = express.Router();
 /**
  * @swagger
  * /payments/create-intent:
@@ -38,7 +32,7 @@ const router = express_1.default.Router();
  *       200:
  *         description: Payment intent created
  */
-router.post('/create-intent', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), payment_controller_1.PaymentController.createPaymentIntent);
+router.post('/create-intent', auth(UserRole.Customer, UserRole.Vendor), PaymentController.createPaymentIntent);
 /**
  * @swagger
  * /payments/confirm:
@@ -60,7 +54,7 @@ router.post('/create-intent', (0, auth_1.default)(common_1.UserRole.Customer, co
  *       200:
  *         description: Payment confirmed
  */
-router.post('/confirm', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), payment_controller_1.PaymentController.confirmPayment);
+router.post('/confirm', auth(UserRole.Customer, UserRole.Vendor), PaymentController.confirmPayment);
 /**
  * @swagger
  * /payments/checkout-session:
@@ -84,7 +78,7 @@ router.post('/confirm', (0, auth_1.default)(common_1.UserRole.Customer, common_1
  *       200:
  *         description: Checkout session created
  */
-router.post('/checkout-session', (0, auth_1.default)(common_1.UserRole.Customer, common_1.UserRole.Vendor), payment_controller_1.PaymentController.createCheckoutSession);
+router.post('/checkout-session', auth(UserRole.Customer, UserRole.Vendor), PaymentController.createCheckoutSession);
 /**
  * @swagger
  * /payments/webhook:
@@ -101,6 +95,6 @@ router.post('/checkout-session', (0, auth_1.default)(common_1.UserRole.Customer,
  *       200:
  *         description: Webhook processed
  */
-router.post('/webhook', express_1.default.raw({ type: 'application/json' }), payment_controller_1.PaymentController.handleWebhook);
-exports.paymentRoutes = router;
+router.post('/webhook', express.raw({ type: 'application/json' }), PaymentController.handleWebhook);
+export const paymentRoutes = router;
 //# sourceMappingURL=payment.routes.js.map

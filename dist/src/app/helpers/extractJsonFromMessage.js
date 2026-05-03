@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.extractJsonFromMessage = void 0;
-const extractJsonFromMessage = (message) => {
+export const extractJsonFromMessage = (message) => {
     try {
         const content = message?.content || "";
         // 1. Try to extract JSON code block (```json ... ```)
@@ -27,5 +24,4 @@ const extractJsonFromMessage = (message) => {
         return [];
     }
 };
-exports.extractJsonFromMessage = extractJsonFromMessage;
 //# sourceMappingURL=extractJsonFromMessage.js.map

@@ -1,134 +1,128 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CustomerController = void 0;
-const http_status_1 = __importDefault(require("http-status"));
-const sendResponse_1 = __importDefault(require("../../shared/sendResponse"));
-const customer_service_js_1 = require("./customer.service.js");
-const catchAsync_1 = __importDefault(require("../../shared/catchAsync"));
-const getCustomerPosts = (0, catchAsync_1.default)(async (req, res) => {
+import httpStatus from 'http-status';
+import sendResponse from '../../shared/sendResponse';
+import { CustomerService } from './customer.service.js';
+import catchAsync from '../../shared/catchAsync';
+const getCustomerPosts = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await customer_service_js_1.CustomerService.getCustomerPosts(user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await CustomerService.getCustomerPosts(user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer posts retrieved successfully',
         data: result,
     });
 });
-const createCustomerPost = (0, catchAsync_1.default)(async (req, res) => {
+const createCustomerPost = catchAsync(async (req, res) => {
     const user = req.user;
     const payload = req.body;
-    const result = await customer_service_js_1.CustomerService.createCustomerPost(user.id, payload);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.CREATED,
+    const result = await CustomerService.createCustomerPost(user.id, payload);
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
         success: true,
         message: 'Customer post created successfully',
         data: result,
     });
 });
-const updateCustomerPost = (0, catchAsync_1.default)(async (req, res) => {
+const updateCustomerPost = catchAsync(async (req, res) => {
     const user = req.user;
     const { id } = req.params;
     const payload = req.body;
-    const result = await customer_service_js_1.CustomerService.updateCustomerPost(id, user.id, payload);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await CustomerService.updateCustomerPost(id, user.id, payload);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer post updated successfully',
         data: result,
     });
 });
-const deleteCustomerPost = (0, catchAsync_1.default)(async (req, res) => {
+const deleteCustomerPost = catchAsync(async (req, res) => {
     const user = req.user;
     const { id } = req.params;
-    await customer_service_js_1.CustomerService.deleteCustomerPost(id, user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    await CustomerService.deleteCustomerPost(id, user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer post deleted successfully',
         data: null,
     });
 });
-const getCustomerDashboard = (0, catchAsync_1.default)(async (req, res) => {
+const getCustomerDashboard = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await customer_service_js_1.CustomerService.getCustomerDashboard(user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await CustomerService.getCustomerDashboard(user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer dashboard retrieved successfully',
         data: result,
     });
 });
-const getCustomerOrders = (0, catchAsync_1.default)(async (req, res) => {
+const getCustomerOrders = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await customer_service_js_1.CustomerService.getCustomerOrders(user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await CustomerService.getCustomerOrders(user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer orders retrieved successfully',
         data: result,
     });
 });
-const toggleCustomerPostLike = (0, catchAsync_1.default)(async (req, res) => {
+const toggleCustomerPostLike = catchAsync(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
-    const result = await customer_service_js_1.CustomerService.toggleCustomerPostLike(id, user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await CustomerService.toggleCustomerPostLike(id, user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: result.liked ? 'Post liked successfully' : 'Post unliked successfully',
         data: result,
     });
 });
-const addCustomerPostComment = (0, catchAsync_1.default)(async (req, res) => {
+const addCustomerPostComment = catchAsync(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
     const { content } = req.body;
-    const result = await customer_service_js_1.CustomerService.addCustomerPostComment(id, user.id, content);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.CREATED,
+    const result = await CustomerService.addCustomerPostComment(id, user.id, content);
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
         success: true,
         message: 'Comment added successfully',
         data: result,
     });
 });
-const getCustomerPostComments = (0, catchAsync_1.default)(async (req, res) => {
+const getCustomerPostComments = catchAsync(async (req, res) => {
     const { id } = req.params;
-    const result = await customer_service_js_1.CustomerService.getCustomerPostComments(id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await CustomerService.getCustomerPostComments(id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Comments retrieved successfully',
         data: result,
     });
 });
-const deleteCustomerPostComment = (0, catchAsync_1.default)(async (req, res) => {
+const deleteCustomerPostComment = catchAsync(async (req, res) => {
     const { commentId } = req.params;
     const user = req.user;
-    await customer_service_js_1.CustomerService.deleteCustomerPostComment(commentId, user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    await CustomerService.deleteCustomerPostComment(commentId, user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Comment deleted successfully',
         data: null,
     });
 });
-const updateRentalOrderStatus = (0, catchAsync_1.default)(async (req, res) => {
+const updateRentalOrderStatus = catchAsync(async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
     const user = req.user;
-    const result = await customer_service_js_1.CustomerService.updateRentalOrderStatus(id, user.id, status);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await CustomerService.updateRentalOrderStatus(id, user.id, status);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Rental order status updated successfully',
         data: result,
     });
 });
-exports.CustomerController = {
+export const CustomerController = {
     getCustomerPosts,
     createCustomerPost,
     updateCustomerPost,

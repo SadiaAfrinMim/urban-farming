@@ -1,57 +1,51 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotificationController = void 0;
-const http_status_1 = __importDefault(require("http-status"));
-const catchAsync_1 = __importDefault(require("../../../app/shared/catchAsync"));
-const sendResponse_1 = __importDefault(require("../../../app/shared/sendResponse"));
-const notification_service_1 = require("./notification.service");
-const getUserNotifications = (0, catchAsync_1.default)(async (req, res) => {
+import httpStatus from 'http-status';
+import catchAsync from '../../../app/shared/catchAsync';
+import sendResponse from '../../../app/shared/sendResponse';
+import { NotificationService } from './notification.service';
+const getUserNotifications = catchAsync(async (req, res) => {
     const user = req.user;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
-    const result = await notification_service_1.NotificationService.getUserNotifications(user.id, page, limit);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await NotificationService.getUserNotifications(user.id, page, limit);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Notifications retrieved successfully',
         data: result,
     });
 });
-const markAsRead = (0, catchAsync_1.default)(async (req, res) => {
+const markAsRead = catchAsync(async (req, res) => {
     const user = req.user;
     const { id } = req.params;
-    const result = await notification_service_1.NotificationService.markAsRead(parseInt(id), user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await NotificationService.markAsRead(parseInt(id), user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Notification marked as read',
         data: result,
     });
 });
-const markAllAsRead = (0, catchAsync_1.default)(async (req, res) => {
+const markAllAsRead = catchAsync(async (req, res) => {
     const user = req.user;
-    const result = await notification_service_1.NotificationService.markAllAsRead(user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const result = await NotificationService.markAllAsRead(user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'All notifications marked as read',
         data: result,
     });
 });
-const getUnreadCount = (0, catchAsync_1.default)(async (req, res) => {
+const getUnreadCount = catchAsync(async (req, res) => {
     const user = req.user;
-    const count = await notification_service_1.NotificationService.getUnreadCount(user.id);
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+    const count = await NotificationService.getUnreadCount(user.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Unread count retrieved successfully',
         data: { count },
     });
 });
-exports.NotificationController = {
+export const NotificationController = {
     getUserNotifications,
     markAsRead,
     markAllAsRead,

@@ -1,20 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.communityRoutes = void 0;
-const express_1 = __importDefault(require("express"));
-const community_controller_1 = require("./community.controller");
-const auth_1 = __importDefault(require("../../middlewares/auth"));
-const client_1 = require("@prisma/client");
+import express from 'express';
+import { CommunityController } from './community.controller';
+import auth from '../../middlewares/auth';
+import { UserRole } from '@prisma/client';
 /**
  * @swagger
  * tags:
  *   name: Community
  *   description: Community post management
  */
-const router = express_1.default.Router();
+const router = express.Router();
 /**
  * @swagger
  * /community/posts:
@@ -38,7 +32,7 @@ const router = express_1.default.Router();
  *                   items:
  *                     $ref: '#/components/schemas/CommunityPost'
  */
-router.get('/posts', community_controller_1.CommunityController.getAllPosts);
+router.get('/posts', CommunityController.getAllPosts);
 /**
  * @swagger
  * /community/posts/{id}:
@@ -69,7 +63,7 @@ router.get('/posts', community_controller_1.CommunityController.getAllPosts);
  *       404:
  *         description: Post not found
  */
-router.get('/posts/:id', community_controller_1.CommunityController.getPostById);
+router.get('/posts/:id', CommunityController.getPostById);
 /**
  * @swagger
  * /community/posts:
@@ -107,7 +101,7 @@ router.get('/posts/:id', community_controller_1.CommunityController.getPostById)
  *       401:
  *         description: Unauthorized
  */
-router.post('/posts', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), community_controller_1.CommunityController.createPost);
+router.post('/posts', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.createPost);
 /**
  * @swagger
  * /community/posts/{id}:
@@ -154,7 +148,7 @@ router.post('/posts', (0, auth_1.default)(client_1.UserRole.Admin, client_1.User
  *       404:
  *         description: Post not found
  */
-router.patch('/posts/:id', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), community_controller_1.CommunityController.updatePost);
+router.patch('/posts/:id', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.updatePost);
 /**
  * @swagger
  * /community/posts/{id}:
@@ -187,7 +181,7 @@ router.patch('/posts/:id', (0, auth_1.default)(client_1.UserRole.Admin, client_1
  *       404:
  *         description: Post not found
  */
-router.delete('/posts/:id', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), community_controller_1.CommunityController.deletePost);
+router.delete('/posts/:id', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.deletePost);
 /**
  * @swagger
  * /community/posts/{id}/like:
@@ -207,7 +201,7 @@ router.delete('/posts/:id', (0, auth_1.default)(client_1.UserRole.Admin, client_
  *       200:
  *         description: Like toggled successfully
  */
-router.post('/posts/:id/like', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), community_controller_1.CommunityController.toggleLike);
+router.post('/posts/:id/like', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.toggleLike);
 /**
  * @swagger
  * /community/posts/{id}/comments:
@@ -239,7 +233,7 @@ router.post('/posts/:id/like', (0, auth_1.default)(client_1.UserRole.Admin, clie
  *       201:
  *         description: Comment added successfully
  */
-router.post('/posts/:id/comments', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), community_controller_1.CommunityController.addComment);
+router.post('/posts/:id/comments', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.addComment);
 /**
  * @swagger
  * /community/posts/{id}/comments:
@@ -257,7 +251,7 @@ router.post('/posts/:id/comments', (0, auth_1.default)(client_1.UserRole.Admin, 
  *       200:
  *         description: Comments retrieved successfully
  */
-router.get('/posts/:id/comments', community_controller_1.CommunityController.getPostComments);
+router.get('/posts/:id/comments', CommunityController.getPostComments);
 /**
  * @swagger
  * /community/posts/comments/{commentId}:
@@ -277,8 +271,8 @@ router.get('/posts/:id/comments', community_controller_1.CommunityController.get
  *       200:
  *         description: Comment deleted successfully
  */
-router.delete('/posts/comments/:commentId', (0, auth_1.default)(client_1.UserRole.Admin, client_1.UserRole.Vendor, client_1.UserRole.Customer), community_controller_1.CommunityController.deleteComment);
-exports.communityRoutes = router;
+router.delete('/posts/comments/:commentId', auth(UserRole.Admin, UserRole.Vendor, UserRole.Customer), CommunityController.deleteComment);
+export const communityRoutes = router;
 /**
  * @swagger
  * components:

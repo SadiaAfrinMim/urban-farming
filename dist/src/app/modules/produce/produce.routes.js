@@ -1,20 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.produceRoutes = void 0;
-const express_1 = __importDefault(require("express"));
-const produce_controller_js_1 = require("./produce.controller.js");
-const auth_js_1 = __importDefault(require("../../middlewares/auth.js"));
-const client_1 = require("@prisma/client");
+import express from 'express';
+import { ProduceController } from './produce.controller.js';
+import auth from '../../middlewares/auth.js';
+import { UserRole } from '@prisma/client';
 /**
  * @swagger
  * tags:
  *   name: Produces
  *   description: Produce management
  */
-const router = express_1.default.Router();
+const router = express.Router();
 /**
  * @swagger
  * /produces:
@@ -25,7 +19,7 @@ const router = express_1.default.Router();
  *       200:
  *         description: List of produces
  */
-router.get('/', produce_controller_js_1.ProduceController.getAllProduces);
+router.get('/', ProduceController.getAllProduces);
 /**
  * @swagger
  * /produces/search:
@@ -41,7 +35,7 @@ router.get('/', produce_controller_js_1.ProduceController.getAllProduces);
  *       200:
  *         description: Search results
  */
-router.get('/search', produce_controller_js_1.ProduceController.searchProduces);
+router.get('/search', ProduceController.searchProduces);
 /**
  * @swagger
  * /produces/{id}:
@@ -58,7 +52,7 @@ router.get('/search', produce_controller_js_1.ProduceController.searchProduces);
  *       200:
  *         description: Produce details
  */
-router.get('/:id', produce_controller_js_1.ProduceController.getProduceById);
+router.get('/:id', ProduceController.getProduceById);
 /**
  * @swagger
  * /produces:
@@ -84,7 +78,7 @@ router.get('/:id', produce_controller_js_1.ProduceController.getProduceById);
  *       201:
  *         description: Produce created
  */
-router.post('/', (0, auth_js_1.default)(client_1.UserRole.Vendor), produce_controller_js_1.ProduceController.createProduce);
+router.post('/', auth(UserRole.Vendor), ProduceController.createProduce);
 /**
  * @swagger
  * /produces/{id}:
@@ -114,7 +108,7 @@ router.post('/', (0, auth_js_1.default)(client_1.UserRole.Vendor), produce_contr
  *       200:
  *         description: Produce updated
  */
-router.patch('/:id', (0, auth_js_1.default)(client_1.UserRole.Vendor), produce_controller_js_1.ProduceController.updateProduce);
+router.patch('/:id', auth(UserRole.Vendor), ProduceController.updateProduce);
 /**
  * @swagger
  * /produces/{id}:
@@ -133,6 +127,6 @@ router.patch('/:id', (0, auth_js_1.default)(client_1.UserRole.Vendor), produce_c
  *       200:
  *         description: Produce deleted
  */
-router.delete('/:id', (0, auth_js_1.default)(client_1.UserRole.Vendor), produce_controller_js_1.ProduceController.deleteProduce);
-exports.produceRoutes = router;
+router.delete('/:id', auth(UserRole.Vendor), ProduceController.deleteProduce);
+export const produceRoutes = router;
 //# sourceMappingURL=produce.routes.js.map

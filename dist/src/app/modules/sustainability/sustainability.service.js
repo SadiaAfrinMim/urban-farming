@@ -1,15 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SustainabilityService = void 0;
-const prisma_1 = require("../../shared/prisma");
-const http_status_1 = __importDefault(require("http-status"));
-const ApiError_1 = __importDefault(require("../../errors/ApiError"));
+import { prisma } from '../../shared/prisma';
+import httpStatus from 'http-status';
+import ApiError from '../../errors/ApiError';
 const getAllCerts = async () => {
     try {
-        const certs = await prisma_1.prisma.sustainabilityCert.findMany({
+        const certs = await prisma.sustainabilityCert.findMany({
             include: {
                 vendor: true,
             },
@@ -28,57 +22,57 @@ const getAllCerts = async () => {
 };
 const getCertById = async (id, user) => {
     try {
-        const cert = await prisma_1.prisma.sustainabilityCert.findUnique({
+        const cert = await prisma.sustainabilityCert.findUnique({
             where: { id },
             include: {
                 vendor: true,
             },
         });
         if (!cert) {
-            throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Certificate not found');
+            throw new ApiError(httpStatus.NOT_FOUND, 'Certificate not found');
         }
         if (user.role === 'Vendor') {
             const userIdNumber = parseInt(user.id, 10);
             if (isNaN(userIdNumber)) {
-                throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
+                throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
             }
-            const vendorProfile = await prisma_1.prisma.vendorProfile.findUnique({
+            const vendorProfile = await prisma.vendorProfile.findUnique({
                 where: { userId: userIdNumber },
             });
             if (!vendorProfile || cert.vendorId !== vendorProfile.id) {
-                throw new ApiError_1.default(http_status_1.default.FORBIDDEN, 'Forbidden');
+                throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
             }
         }
         return cert;
     }
     catch (error) {
         console.error('Error fetching sustainability cert by ID:', error);
-        throw new ApiError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, 'Failed to fetch certificate');
+        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to fetch certificate');
     }
 };
 const createCert = async (userId, payload, userRole) => {
     try {
         const userIdNumber = parseInt(userId, 10);
         if (isNaN(userIdNumber)) {
-            throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid user ID');
+            throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user ID');
         }
         // If admin is creating cert for a vendor
         if (userRole === 'Admin' && payload.vendorId) {
             const vendorIdNumber = parseInt(payload.vendorId, 10);
             if (isNaN(vendorIdNumber)) {
-                throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Invalid vendor ID');
+                throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid vendor ID');
             }
-            const vendorProfile = await prisma_1.prisma.vendorProfile.findUnique({
+            const vendorProfile = await prisma.vendorProfile.findUnique({
                 where: { id: vendorIdNumber },
             });
             if (!vendorProfile) {
-                throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Vendor profile not found');
+                throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');
             }
             // Check if vendor is approved
             if (vendorProfile.certificationStatus !== 'Approved') {
-                throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Only approved vendors can be added to sustainability list');
+                throw new ApiError(httpStatus.BAD_REQUEST, 'Only approved vendors can be added to sustainability list');
             }
-            const cert = await prisma_1.prisma.sustainabilityCert.create({
+            const cert = await prisma.sustainabilityCert.create({
                 data: {
                     vendorId: vendorProfile.id,
                     certifyingAgency: payload.certifyingAgency || 'Urban Farming Admin',
@@ -88,13 +82,13 @@ const createCert = async (userId, payload, userRole) => {
             return cert;
         }
         // If vendor is creating their own cert
-        const vendorProfile = await prisma_1.prisma.vendorProfile.findUnique({
+        const vendorProfile = await prisma.vendorProfile.findUnique({
             where: { userId: userIdNumber },
         });
         if (!vendorProfile) {
-            throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Vendor profile not found');
+            throw new ApiError(httpStatus.NOT_FOUND, 'Vendor profile not found');
         }
-        const cert = await prisma_1.prisma.sustainabilityCert.create({
+        const cert = await prisma.sustainabilityCert.create({
             data: {
                 vendorId: vendorProfile.id,
                 certifyingAgency: payload.certifyingAgency,
@@ -105,23 +99,23 @@ const createCert = async (userId, payload, userRole) => {
     }
     catch (error) {
         console.error('Error creating sustainability cert:', error);
-        throw new ApiError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, 'Failed to create certificate');
+        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to create certificate');
     }
 };
 const updateCertStatus = async (id, certificationStatus) => {
     try {
         // Update vendor profile status too?
-        const cert = await prisma_1.prisma.sustainabilityCert.findUnique({
+        const cert = await prisma.sustainabilityCert.findUnique({
             where: { id },
         });
         if (!cert) {
-            throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Certificate not found');
+            throw new ApiError(httpStatus.NOT_FOUND, 'Certificate not found');
         }
-        await prisma_1.prisma.vendorProfile.update({
+        await prisma.vendorProfile.update({
             where: { id: cert.vendorId },
             data: { certificationStatus },
         });
-        const updated = await prisma_1.prisma.sustainabilityCert.update({
+        const updated = await prisma.sustainabilityCert.update({
             where: { id },
             data: {}, // No status on cert, perhaps add
         });
@@ -129,10 +123,10 @@ const updateCertStatus = async (id, certificationStatus) => {
     }
     catch (error) {
         console.error('Error updating sustainability cert status:', error);
-        throw new ApiError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, 'Failed to update certificate status');
+        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to update certificate status');
     }
 };
-exports.SustainabilityService = {
+export const SustainabilityService = {
     getAllCerts,
     getCertById,
     createCert,

@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const pick = (obj, keys) => {
     const finalObject = {};
     for (const key of keys) {
@@ -9,5 +7,5 @@ const pick = (obj, keys) => {
     }
     return finalObject;
 };
-exports.default = pick;
+export default pick;
 //# sourceMappingURL=pick.js.map

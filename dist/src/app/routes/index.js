@@ -1,95 +1,90 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const auth_routes_js_1 = require("../modules/auth/auth.routes.js");
-const rental_routes_js_1 = require("../modules/rental/rental.routes.js");
-const produce_routes_js_1 = require("../modules/produce/produce.routes.js");
-const order_routes_js_1 = require("../modules/order/order.routes.js");
-const community_routes_js_1 = require("../modules/community/community.routes.js");
-const sustainability_routes_js_1 = require("../modules/sustainability/sustainability.routes.js");
-const user_routes_js_1 = require("../modules/user/user.routes.js");
-const vendor_routes_js_1 = require("../modules/vendor/vendor.routes.js");
-const admin_routes_js_1 = require("../modules/admin/admin.routes.js");
-const payment_routes_js_1 = require("../modules/payment/payment.routes.js");
-const customer_routes_js_1 = require("../modules/customer/customer.routes.js");
-const home_routes_js_1 = require("../modules/home/home.routes.js");
-const notification_routes_js_1 = require("../modules/notification/notification.routes.js");
-const chat_routes_js_1 = require("../modules/chat/chat.routes.js");
-const plant_tracking_routes_js_1 = require("../modules/plant-tracking/plant-tracking.routes.js");
-const router = express_1.default.Router();
+import express from 'express';
+import { authRoutes } from '../modules/auth/auth.routes.js';
+import { rentalRoutes } from '../modules/rental/rental.routes.js';
+import { produceRoutes } from '../modules/produce/produce.routes.js';
+import { orderRoutes } from '../modules/order/order.routes.js';
+import { communityRoutes } from '../modules/community/community.routes.js';
+import { sustainabilityRoutes } from '../modules/sustainability/sustainability.routes.js';
+import { userRoutes } from '../modules/user/user.routes.js';
+import { VendorRoutes } from '../modules/vendor/vendor.routes.js';
+import { AdminRoutes } from '../modules/admin/admin.routes.js';
+import { paymentRoutes } from '../modules/payment/payment.routes.js';
+import { customerRoutes } from '../modules/customer/customer.routes.js';
+import { homeRoutes } from '../modules/home/home.routes.js';
+import { notificationRoutes } from '../modules/notification/notification.routes.js';
+import { chatRoutes } from '../modules/chat/chat.routes.js';
+import { plantTrackingRoutes } from '../modules/plant-tracking/plant-tracking.routes.js';
+const router = express.Router();
 const moduleRoutes = [
     {
         path: '/auth',
-        route: auth_routes_js_1.authRoutes
+        route: authRoutes
     },
     {
         path: '/rentals',
-        route: rental_routes_js_1.rentalRoutes
+        route: rentalRoutes
     },
     {
         path: '/marketplace',
-        route: produce_routes_js_1.produceRoutes
+        route: produceRoutes
     },
     {
         path: '/orders',
-        route: order_routes_js_1.orderRoutes
+        route: orderRoutes
     },
     {
         path: '/produces',
-        route: produce_routes_js_1.produceRoutes
+        route: produceRoutes
     },
     {
         path: '/community',
-        route: community_routes_js_1.communityRoutes
+        route: communityRoutes
     },
     {
         path: '/sustainability',
-        route: sustainability_routes_js_1.sustainabilityRoutes
+        route: sustainabilityRoutes
     },
     {
         path: '/user',
-        route: user_routes_js_1.userRoutes
+        route: userRoutes
     },
     {
         path: '/vendor',
-        route: vendor_routes_js_1.VendorRoutes
+        route: VendorRoutes
     },
     {
         path: '/customer',
-        route: customer_routes_js_1.customerRoutes
+        route: customerRoutes
     },
     {
         path: '/spaces',
-        route: rental_routes_js_1.rentalRoutes
+        route: rentalRoutes
     },
     {
         path: '/admin',
-        route: admin_routes_js_1.AdminRoutes
+        route: AdminRoutes
     },
     {
         path: '/payments',
-        route: payment_routes_js_1.paymentRoutes
+        route: paymentRoutes
     },
     {
         path: '/home',
-        route: home_routes_js_1.homeRoutes
+        route: homeRoutes
     },
     {
         path: '/notifications',
-        route: notification_routes_js_1.notificationRoutes
+        route: notificationRoutes
     },
     {
         path: '/chat',
-        route: chat_routes_js_1.chatRoutes
+        route: chatRoutes
     },
     {
         path: '/plant-tracking',
-        route: plant_tracking_routes_js_1.plantTrackingRoutes
+        route: plantTrackingRoutes
     }
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));
-exports.default = router;
+export default router;
 //# sourceMappingURL=index.js.map

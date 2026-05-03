@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotificationService = void 0;
-const prisma_1 = require("../../shared/prisma");
+import { prisma } from '../../shared/prisma';
 const createNotification = async (userId, type, title, message, data) => {
-    const notification = await prisma_1.prisma.notification.create({
+    const notification = await prisma.notification.create({
         data: {
             userId,
             type,
@@ -25,13 +22,13 @@ const createNotification = async (userId, type, title, message, data) => {
 };
 const getUserNotifications = async (userId, page = 1, limit = 20) => {
     const skip = (page - 1) * limit;
-    const notifications = await prisma_1.prisma.notification.findMany({
+    const notifications = await prisma.notification.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
         skip,
         take: limit,
     });
-    const total = await prisma_1.prisma.notification.count({
+    const total = await prisma.notification.count({
         where: { userId },
     });
     return {
@@ -45,29 +42,29 @@ const getUserNotifications = async (userId, page = 1, limit = 20) => {
     };
 };
 const markAsRead = async (notificationId, userId) => {
-    const notification = await prisma_1.prisma.notification.findUnique({
+    const notification = await prisma.notification.findUnique({
         where: { id: notificationId },
     });
     if (!notification || notification.userId !== userId) {
         throw new Error('Notification not found or access denied');
     }
-    return await prisma_1.prisma.notification.update({
+    return await prisma.notification.update({
         where: { id: notificationId },
         data: { isRead: true },
     });
 };
 const markAllAsRead = async (userId) => {
-    return await prisma_1.prisma.notification.updateMany({
+    return await prisma.notification.updateMany({
         where: { userId, isRead: false },
         data: { isRead: true },
     });
 };
 const getUnreadCount = async (userId) => {
-    return await prisma_1.prisma.notification.count({
+    return await prisma.notification.count({
         where: { userId, isRead: false },
     });
 };
-exports.NotificationService = {
+export const NotificationService = {
     createNotification,
     getUserNotifications,
     markAsRead,

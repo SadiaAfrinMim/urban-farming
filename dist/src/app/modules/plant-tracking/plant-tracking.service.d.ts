@@ -119,5 +119,33 @@ export declare const PlantTrackingService: {
         notes: string | null;
     }>;
     deletePlantTracking: (id: string, userId: number) => Promise<null>;
+    uploadPhotos: (id: string, userId: number, photos: string[]) => Promise<{
+        createdAt: Date;
+        updatedAt: Date;
+        id: number;
+        userId: number;
+        rentalSpaceId: number;
+        plantName: string;
+        plantHealth: import("@prisma/client").$Enums.PlantHealth;
+        plantingDate: Date;
+        expectedHarvest: Date | null;
+        notes: string | null;
+    }>;
+    recordGrowth: (id: string, userId: number, growthData: {
+        height?: number;
+        width?: number;
+        notes?: string;
+    }) => Promise<{
+        createdAt: Date;
+        updatedAt: Date;
+        id: number;
+        userId: number;
+        rentalSpaceId: number;
+        plantName: string;
+        plantHealth: import("@prisma/client").$Enums.PlantHealth;
+        plantingDate: Date;
+        expectedHarvest: Date | null;
+        notes: string | null;
+    }>;
 };
 //# sourceMappingURL=plant-tracking.service.d.ts.map

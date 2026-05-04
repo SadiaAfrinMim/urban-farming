@@ -111,8 +111,30 @@ const updateRentalSpace = async (id, payload) => {
     // Emit real-time update
     const io = global.io;
     if (io) {
-        io.emit('rental-space-updated', updated);
+        io.emit('order-status-updated', updated);
     }
+    // Create notifications for both customer and vendor (async, non-blocking)
+    process.nextTick(async () => {
+        try {
+            const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
+            // Notify customer
+            await NotificationService.createNotification(updated.userId, 'ORDER_STATUS_UPDATE', 'Rental Order Status Updated', `Your rental order #${updated.id} status has been updated to ${status}.`, {
+                orderId: updated.id,
+                status: status,
+                rentalSpaceLocation: updated.rentalSpace.location,
+            });
+            // Notify vendor
+            await NotificationService.createNotification(updated.rentalSpace.vendor.userId, 'ORDER_STATUS_UPDATE', 'Rental Order Status Updated', `Rental order #${updated.id} status has been updated to ${status}.`, {
+                orderId: updated.id,
+                status: status,
+                customerName: updated.user.name,
+                rentalSpaceLocation: updated.rentalSpace.location,
+            });
+        }
+        catch (error) {
+            console.error('Failed to create rental order status notifications:', error);
+        }
+    });
     return updated;
 };
 const deleteRentalSpace = async (id) => {
@@ -185,18 +207,30 @@ const bookRentalSpace = async (spaceId, customerId) => {
     if (io) {
         io.emit('rental-space-booked', updated);
     }
-    // Create notification for the vendor (async, non-blocking)
+    // Create notifications for both vendor and customer (async, non-blocking)
     process.nextTick(async () => {
         try {
             const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
+            // Notify vendor
             await NotificationService.createNotification(updated.vendor.userId, 'RENTAL_SPACE_BOOKED', 'Rental Space Booked', `Your rental space "${updated.location}" has been booked.`, {
                 rentalSpaceId: updated.id,
                 customerId: customerId,
                 location: updated.location,
             });
+            // Notify customer
+            const customer = await prisma.user.findUnique({
+                where: { id: parseInt(customerId) },
+            });
+            if (customer) {
+                await NotificationService.createNotification(customer.id, 'RENTAL_SPACE_BOOKED', 'Rental Space Booked Successfully', `You have successfully booked the rental space "${updated.location}".`, {
+                    rentalSpaceId: updated.id,
+                    vendorId: updated.vendor.userId,
+                    location: updated.location,
+                });
+            }
         }
         catch (error) {
-            console.error('Failed to create booking notification:', error);
+            console.error('Failed to create booking notifications:', error);
         }
     });
     return updated;

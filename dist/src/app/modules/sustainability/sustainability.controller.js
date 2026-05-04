@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import catchAsync from '../../../app/shared/catchAsync.js';
-import sendResponse from '../../../app/shared/sendResponse.js';
+import catchAsync from '../../shared/catchAsync.js';
 import { SustainabilityService } from './sustainability.service.js';
+import sendResponse from '../../shared/sendResponse.js';
 const getAllCerts = catchAsync(async (req, res) => {
     const result = await SustainabilityService.getAllCerts();
     sendResponse(res, {

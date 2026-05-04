@@ -1,5 +1,3 @@
-import { CertificationStatus } from '../../types/common.js';
-import { IJWTPayload } from '../../types/common.js';
 export declare const SustainabilityService: {
     getAllCerts: () => Promise<({
         vendor: {
@@ -18,7 +16,7 @@ export declare const SustainabilityService: {
         certifyingAgency: string;
         certificationDate: Date;
     })[]>;
-    getCertById: (id: string, user: IJWTPayload) => Promise<{
+    getCertById: (id: any, user: any) => Promise<{
         vendor: {
             createdAt: Date;
             id: number;
@@ -35,13 +33,13 @@ export declare const SustainabilityService: {
         certifyingAgency: string;
         certificationDate: Date;
     }>;
-    createCert: (userId: string, payload: any, userRole?: string) => Promise<{
+    createCert: (userId: any, payload: any, userRole: any) => Promise<{
         id: number;
         vendorId: number;
         certifyingAgency: string;
         certificationDate: Date;
     }>;
-    updateCertStatus: (id: string, certificationStatus: CertificationStatus) => Promise<{
+    updateCertStatus: (id: any, certificationStatus: any) => Promise<{
         id: number;
         vendorId: number;
         certifyingAgency: string;

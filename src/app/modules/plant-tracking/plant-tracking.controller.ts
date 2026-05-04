@@ -112,6 +112,34 @@ const deletePlantTracking = catchAsync(async (req: Request & { user?: IJWTPayloa
   });
 });
 
+const uploadPhotos = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+  const userId = req.user?.id as number;
+  const id = req.params.id as string;
+  const { photos } = req.body;
+  const result = await PlantTrackingService.uploadPhotos(id, userId, photos);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Photos uploaded successfully',
+    data: result,
+  });
+});
+
+const recordGrowth = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
+  const userId = req.user?.id as number;
+  const id = req.params.id as string;
+  const { height, width, notes } = req.body;
+  const result = await PlantTrackingService.recordGrowth(id, userId, { height, width, notes });
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Growth measurements recorded successfully',
+    data: result,
+  });
+});
+
 export const PlantTrackingController = {
   createPlantTracking,
   getAllPlantTrackings,
@@ -121,4 +149,6 @@ export const PlantTrackingController = {
   waterPlant,
   fertilizePlant,
   deletePlantTracking,
+  uploadPhotos,
+  recordGrowth,
 };

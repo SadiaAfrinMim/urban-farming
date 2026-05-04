@@ -3,14 +3,12 @@ import { SustainabilityController } from './sustainability.controller.js';
 import auth from '../../middlewares/auth.js';
 import { UserRole } from '@prisma/client';
 
-
 /**
  * @swagger
  * tags:
  *   name: Sustainability
  *   description: Sustainability certification management
  */
-
 const router = express.Router();
 
 /**
@@ -25,7 +23,7 @@ const router = express.Router();
  *       200:
  *         description: List of certificates
  */
-router.get('/certs', auth(UserRole.Admin,UserRole.Customer), SustainabilityController.getAllCerts);
+router.get('/certs', auth(UserRole.Admin, UserRole.Customer), SustainabilityController.getAllCerts);
 
 /**
  * @swagger

@@ -189,6 +189,94 @@ const deletePlantTracking = async (id, userId) => {
     });
     return null;
 };
+const uploadPhotos = async (id, userId, photos) => {
+    const plantTrackingId = Number(id);
+    const plantTracking = await prisma.plantTracking.findFirst({
+        where: {
+            id: plantTrackingId,
+            userId,
+        },
+    });
+    if (!plantTracking) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
+    }
+    const result = await prisma.plantTracking.update({
+        where: {
+            id: plantTrackingId,
+        },
+        data: {
+            photos: {
+                push: photos,
+            },
+            lastPhotoUpdate: new Date(),
+        },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+        },
+    });
+    // Emit real-time update
+    if (global.io) {
+        global.io.to(`plant_tracking_${userId}`).emit('plant_photos_updated', {
+            plantTrackingId,
+            photos,
+            lastPhotoUpdate: result.lastPhotoUpdate,
+        });
+    }
+    return result;
+};
+const recordGrowth = async (id, userId, growthData) => {
+    const plantTrackingId = Number(id);
+    const plantTracking = await prisma.plantTracking.findFirst({
+        where: {
+            id: plantTrackingId,
+            userId,
+        },
+    });
+    if (!plantTracking) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'Plant tracking not found');
+    }
+    const growthLog = {
+        timestamp: new Date().toISOString(),
+        height: growthData.height,
+        width: growthData.width,
+        notes: growthData.notes,
+    };
+    const currentGrowthLogs = plantTracking.growthLogs || [];
+    const updatedGrowthLogs = [...currentGrowthLogs, growthLog];
+    const result = await prisma.plantTracking.update({
+        where: {
+            id: plantTrackingId,
+        },
+        data: {
+            height: growthData.height || plantTracking.height,
+            width: growthData.width || plantTracking.width,
+            growthLogs: updatedGrowthLogs,
+        },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+        },
+    });
+    // Emit real-time update
+    if (global.io) {
+        global.io.to(`plant_tracking_${userId}`).emit('plant_growth_updated', {
+            plantTrackingId,
+            growthLog,
+            currentHeight: result.height,
+            currentWidth: result.width,
+        });
+    }
+    return result;
+};
 export const PlantTrackingService = {
     createPlantTracking,
     getAllPlantTrackings,
@@ -198,5 +286,7 @@ export const PlantTrackingService = {
     waterPlant,
     fertilizePlant,
     deletePlantTracking,
+    uploadPhotos,
+    recordGrowth,
 };
 //# sourceMappingURL=plant-tracking.service.js.map

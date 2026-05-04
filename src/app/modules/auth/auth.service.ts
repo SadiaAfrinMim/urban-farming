@@ -111,12 +111,26 @@ const registerUser = async (payload: {
     });
   }
 
-  // Notify admins about new customer registration (async, non-blocking)
+  // Notify customer and admins about new customer registration (async, non-blocking)
   if (roleString === 'Customer') {
     process.nextTick(async () => {
       try {
         console.log('Creating customer registration notification for user:', user.name);
         const NotificationService = (await import('../notification/notification.service.js')).NotificationService;
+
+        // Notify the customer with a welcome message
+        await NotificationService.createNotification(
+          user.id,
+          'SYSTEM' as any,
+          'Welcome to Urban Farming!',
+          `Welcome ${user.name}! Your account has been created successfully. You can now browse products and place orders.`,
+          {
+            userId: user.id,
+            userName: user.name,
+            type: 'customer_registration',
+          }
+        );
+
         const admins = await prisma.user.findMany({
           where: { role: UserRole.Admin },
         });

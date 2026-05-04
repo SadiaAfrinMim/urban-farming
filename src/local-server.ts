@@ -60,6 +60,18 @@ async function bootstrap() {
                 console.log(`User left conversation room: conversation_${conversationId}`);
             });
 
+            // Handle joining plant tracking room
+            socket.on('join_plant_tracking', (userId: number) => {
+                socket.join(`plant_tracking_${userId}`);
+                console.log(`User ${userId} joined plant tracking room: plant_tracking_${userId}`);
+            });
+
+            // Handle leaving plant tracking room
+            socket.on('leave_plant_tracking', (userId: number) => {
+                socket.leave(`plant_tracking_${userId}`);
+                console.log(`User ${userId} left plant tracking room: plant_tracking_${userId}`);
+            });
+
             socket.on('disconnect', () => {
                 console.log('User disconnected:', socket.id);
             });

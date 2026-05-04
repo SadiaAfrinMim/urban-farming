@@ -456,6 +456,11 @@ model PlantTracking {
   plantingDate   DateTime    @default(now())
   expectedHarvest DateTime?
   notes          String?
+  photos         String[]    // Array of photo URLs
+  height         Float?      // Current height in cm
+  width          Float?      // Current width in cm
+  growthLogs     Json?       // Array of growth measurements with timestamps
+  lastPhotoUpdate DateTime?
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 

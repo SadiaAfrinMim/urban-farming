@@ -8,5 +8,7 @@ export declare const PlantTrackingController: {
     waterPlant: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     fertilizePlant: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
     deletePlantTracking: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    uploadPhotos: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    recordGrowth: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
 };
 //# sourceMappingURL=plant-tracking.controller.d.ts.map

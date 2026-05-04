@@ -181,6 +181,78 @@ router.patch(
 
 /**
  * @swagger
+ * /plant-tracking/{id}/photos:
+ *   post:
+ *     summary: Upload plant photos
+ *     tags: [Plant Tracking]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               photos:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Photos uploaded successfully
+ */
+router.post(
+  '/:id/photos',
+  auth(UserRole.Customer, UserRole.Vendor),
+  PlantTrackingController.uploadPhotos
+);
+
+/**
+ * @swagger
+ * /plant-tracking/{id}/growth:
+ *   post:
+ *     summary: Record plant growth measurements
+ *     tags: [Plant Tracking]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               height:
+ *                 type: number
+ *               width:
+ *                 type: number
+ *               notes:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Growth measurements recorded
+ */
+router.post(
+  '/:id/growth',
+  auth(UserRole.Customer, UserRole.Vendor),
+  PlantTrackingController.recordGrowth
+);
+
+/**
+ * @swagger
  * /plant-tracking/{id}:
  *   delete:
  *     summary: Delete plant tracking

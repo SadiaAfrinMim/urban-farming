@@ -180,14 +180,19 @@ const getApprovedVendorCertificates = async () => {
         select: {
           id: true,
           name: true,
-          category: true
+          category: true,
+          price: true,
+          image: true
         }
       },
       rentalSpaces: {
         select: {
           id: true,
           location: true,
-          availability: true
+          size: true,
+          price: true,
+          availability: true,
+          image: true
         }
       }
     },

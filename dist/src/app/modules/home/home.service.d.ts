@@ -54,12 +54,17 @@ export declare const HomeService: {
         produces: {
             id: number;
             name: string;
+            price: number;
+            image: string | null;
             category: import("@prisma/client").$Enums.ProduceCategory;
         }[];
         rentalSpaces: {
             id: number;
             location: string;
+            size: string;
+            price: number;
             availability: boolean;
+            image: string | null;
         }[];
     }[]>;
 };
